@@ -1,0 +1,36 @@
+{
+  "version": "0.3.1",
+  "tiff": {
+    "container": "TIFF",
+    "frames": 9,
+    "dataFrames": 8,
+    "tick": 0,
+    "streamBytes": 1982196,
+    "entries": 31,
+    "sha256": "af3cf16feb21e8cc0315945cca0b646254d4d5e0df60f85c6bcd88da020839c8",
+    "bytes": 2825984,
+    "programBytes": 17440,
+    "stateBytes": 1704
+  },
+  "gif": {
+    "container": "GIF",
+    "frames": 9,
+    "dataFrames": 8,
+    "tick": 0,
+    "streamBytes": 1982196,
+    "entries": 31,
+    "sha256": "96d813f3b316bfa91a96b12dc7c42ccf59cbfe0e8015d3b808add8aeef01f87d",
+    "bytes": 2678940,
+    "programBytes": 17440,
+    "stateBytes": 1704
+  },
+  "sameLogicalArchive": true,
+  "phaseTexture": "reversible integer triangular-wave XOR over each data frame payload/tail",
+  "externalBoundary": [
+    "C# generic evaluator",
+    "BOOT.cmd",
+    "Windows/.NET generic primitives"
+  ],
+  "qualification": "TIFF and GIF are two standard container encodings of the same temporal processable image cartridge; they are not claimed to be one polyglot file.",
+  "evidenceScope": "Historical carrier experiment for version 0.3.1; not validation of the current release. See release-root validation/ for 3.0.5 evidence."
+}
