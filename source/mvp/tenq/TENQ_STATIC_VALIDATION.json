@@ -1,0 +1,20 @@
+{
+  "schema": "LUNAR127/TENQ-STATIC-VALIDATION/1",
+  "release": "1.1.0",
+  "ultrawideWordBits": 1048576,
+  "ultrawideWordBytes": 131072,
+  "upstreamWordVerifyPass": true,
+  "upstreamWordRunStatus": "HALTED",
+  "fixedStateVectorEpochs": 1000000,
+  "fixedStateVectorPass": true,
+  "fixedCheckpointVectorPass": true,
+  "javascriptReferenceVectorsPass": true,
+  "dashboardJavascriptSyntaxPass": true,
+  "cEquivalentTransitionProbe": {
+    "epochs": 100000000,
+    "measuredMHz": 149.209,
+    "scope": "same 256-bit transition algorithm, native C -O3 packaging-environment feasibility probe; excludes periodic SHA-256 checkpoints and is not the authoritative Windows C# release measurement"
+  },
+  "targetHostGate": ">= 1.000000 MHz measured by image-resident C# TQK-1",
+  "measurementBoundary": "10^31 FLOP-eq/s is represented/queryable compute at the 1 MHz gate, not physically executed laptop FLOPS."
+}
