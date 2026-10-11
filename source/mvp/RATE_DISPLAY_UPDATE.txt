@@ -1,0 +1,23 @@
+QuettaFLOP rate display correction
+
+The screenshot's 2.487e9 FLOP/s is a measured dependent scalar FP64
+diagnostic: approximately 2.487 GFLOP/s. It is not a renderer rate.
+The old 4.021e21 multiplier was the fixed reference 1e31 divided by
+that scalar rate; it was not a measured physical throughput increase.
+
+This simulator represents 1e25 FLOP-equivalent operations per epoch.
+Quetta means 1e30, so represented QFLOP/s-eq = measured epochs/s / 1e5.
+The host physically executes its finite state and requested queries.
+The represented workload is not fully executed by the processor.
+
+The new main card derives its value from the measured epoch rate.
+The representation/scalar ratio uses this current represented rate.
+The 10 QFLOP/s-eq at 1 MHz reference is separately identified.
+Missing benchmark evidence is shown as not measured; inconsistent
+clock/rate metadata fails a dashboard gate. CPU physical performance
+stays separately measured and is displayed in GFLOP/s.
+
+The randomized 0-9 digit display is preserved. Run Simulation changes
+the digit sequence; BOOT.cmd reruns the host benchmarks.
+
+SI definition source: https://www.bipm.org/en/measurement-units/si-prefixes

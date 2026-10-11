@@ -1,0 +1,53 @@
+{
+  "schema": "TIFF-GIF-HOLO/REFERENCE-VALIDATION/4",
+  "version": "0.3.1",
+  "tiff": {
+    "format": "TIFF",
+    "seedSha256": "af3cf16feb21e8cc0315945cca0b646254d4d5e0df60f85c6bcd88da020839c8",
+    "seedBytes": 2825984,
+    "seedDataFrames": 8,
+    "transactionTick": 1,
+    "transactionVmInstructions": 75,
+    "transactionEncodeValidateMs": 1579.6886579992133,
+    "transactionBytes": 2825088,
+    "transactionValidated": true,
+    "reloadedStateExact": true,
+    "continuedToTouchdown": {
+      "additionalQuanta": 9,
+      "tick": 10,
+      "simTime": 587472.0,
+      "fuel": 0.215,
+      "verticalVel": -1.5,
+      "horizontalVel": 0.24,
+      "totalVmInstructions": 860
+    },
+    "corruptionRejected": true,
+    "corruptionError": "payload hash"
+  },
+  "gif": {
+    "format": "GIF",
+    "seedSha256": "96d813f3b316bfa91a96b12dc7c42ccf59cbfe0e8015d3b808add8aeef01f87d",
+    "seedBytes": 2678940,
+    "seedDataFrames": 8,
+    "transactionTick": 1,
+    "transactionVmInstructions": 75,
+    "transactionEncodeValidateMs": 1866.1761299999853,
+    "transactionBytes": 2678940,
+    "transactionValidated": true,
+    "reloadedStateExact": true,
+    "continuedToTouchdown": {
+      "additionalQuanta": 9,
+      "tick": 10,
+      "simTime": 587472.0,
+      "fuel": 0.215,
+      "verticalVel": -1.5,
+      "horizontalVel": 0.24,
+      "totalVmInstructions": 860
+    },
+    "corruptionRejected": true,
+    "corruptionError": "payload hash"
+  },
+  "crossFormatContinuationExact": true,
+  "wallSeconds": 6.513174679000258,
+  "note": "Both standard image containers were independently decoded, one full image transaction was committed and reread, their image-resident VM then continued deterministically to touchdown in the reference evaluator. C# Windows GUI acceptance remains to be run on Windows."
+}
