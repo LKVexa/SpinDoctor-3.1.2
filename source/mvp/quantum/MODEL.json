@@ -1,0 +1,161 @@
+{
+  "schema": "SPINDOCTOR/QUANTUM-MODEL/1",
+  "product": "SpinDoctor",
+  "M": "20000000",
+  "L": "25000000",
+  "N": "500000000000000",
+  "equation": "psi(id,t)=G*[cos(t*theta/2),exp(i*t*phi)*sin(t*theta/2)]",
+  "theta": "2*asin(sqrt(((id mod M)+0.5)/M))",
+  "phi": "2*pi*floor(id/M)/L",
+  "familyStateKind": "Procedural independent pure single-qubit states with shared 2x2 unitary descriptor.",
+  "selectedTranche": {
+    "maxQubits": 298,
+    "bitOrder": "little-endian",
+    "firstAddress": "29*trancheIndex",
+    "finalTranche": "min(29,N-firstAddress)",
+    "backend": "coherent tensor-factor blocks; sparse or segmented dense FP64 complex amplitudes",
+    "scope": "One selected coherent register of up to 298 logical qubits. Tensor factors preserve local joint entanglement, with at most 59 qubits in any factor and an enforced memory budget. Procedural family tranches remain groups of at most 29 addresses. Global basis indices are exact BigInteger values; no full 2^298 state array is allocated.",
+    "defaultMemoryBudgetBytes": "536870912",
+    "worstDense29StateBytes": "8589934592",
+    "checkpoint": "Compact binary up to 64MiB automatically; hash-bound state or deterministic journal replay.",
+    "maximumJointFactorQubits": 59
+  },
+  "circuits": {
+    "maxQubits": 298,
+    "program": "Persistent named sequences of supported coherent gates with computational-basis input; Bell/GHZ/QFT presets.",
+    "execution": "Actual native classical FP64 gate arithmetic. Programs of 1..29 qubits retain independent-shot replay and projective measurement. Programs of 30..298 qubits support Z-basis sampling from one prepared coherent state: one joint Born draw per tensor factor preserves correlations within that factor. Preparation, gate execution, sampling work, partial cancellation, and consumed random draws are counted separately. No physical quantum hardware claim.",
+    "maximumJointFactorQubits": 59,
+    "globalIndexEncoding": "BigInteger, little-endian qubit numbering",
+    "gatesAdded": [
+      "mcx7: seven controls and one target"
+    ],
+    "wideMeasurementBasis": "z",
+    "wideSamplingMode": "prepared-factor-Born-Z"
+  },
+  "presets": {
+    "count": 241,
+    "manifest": "SPINDOCTOR_PRESETS.json",
+    "sourceLabelsPreserved": true,
+    "availability": "Installed/conditional/proposed are resolved by validated native capabilities. Selecting inserts commands without execution."
+  },
+  "equations": {
+    "index": "EquationCatalogue.json",
+    "sourceGuide": "SPINDOCTOR_QUANTUM_GUIDE.txt",
+    "article": "Quantum Computation Equations Overview.txt",
+    "scope": "88 guide formulas/examples and 40 article topics indexed. Erased article equations and unimplemented theory/backends are explicitly identified; not all source topics have numerical engines."
+  },
+  "attachments": {
+    "formats": [
+      "UTF-8 circuit/sequence JSON",
+      "supported OpenQASM 2.0 subset",
+      "TXT circuit/quantum-command programs",
+      "CSV numeric measurements, gate lists, parameters or quoted command column",
+      "PDF with one embedded or explicitly tagged program"
+    ],
+    "workflow": "Upload preserves source bytes and SHA-256; preview, explicit import/run. PDF 4 MiB, text 5 MiB, 32 preserved sources, 30 MiB total. Folder inputs are bounded 4 MiB per file, at most 128 files (.json .qasm .qasm2 .txt .circuit .csv .pdf; other files are reported as skipped), nonrecursive, one file at a time; each compiled file may contain at most 128 ordinary commands. The per-file limit is not a whole-folder command cap.",
+    "execution": "Bounded mathematical expression parsers; no arbitrary source-code execution, document-prose execution, OCR guessing or external includes."
+  },
+  "sequences": {
+    "execution": "Ordered native worker with matched asynchronous completion barriers, preflight, cancellation and partial-accounting preservation.",
+    "folder": "q.folder run path=\"D:/folder\" downloads=false purge=true verify=true samples=10240. Automatic q.verify samples runs after each file finishes and before success receipts are published or temporary results are purged. It materializes sampled current procedural-model predictions on the CPU and OpenCL GPU: amplitudes, spin and Born probabilities. A matching completed native comparison with consistent sample counts and unchanged descriptor is required. Failure/cancellation retains outputs and exposes clearly labeled diagnostics. Verification is separate from input-command counts and does not independently certify q.math/circuit answers, unsampled states or physical RAM/XOR. Explicit verify=false receipts are labeled unverified. Requested samples: 1..16384000000 (default10240); native boundary samples may add points and require waiting for the matching asynchronous job. Wide integer requests stream in16384-point batches; the raised request ceiling does not increase batch memory. Individual downloads are optional. Sources/seeds/checkpoints/history are preserved; transient references are released only after verified receipt capture. Actual sample preview is bounded to32 rows; scope, counts, descriptor hash, seed/digest, residuals, native completion and archive/purge times are retained."
+  },
+  "reports": {
+    "formats": [
+      "TXT",
+      "JSON",
+      "CSV",
+      "vector PDF"
+    ],
+    "pdf": [
+      "Selected return",
+      "Retained session returns",
+      "Current complete circuit measurement histogram"
+    ],
+    "scope": "Verified archived native values with state/spin/complex matrix/phase charts, immutable circuit diagrams, complete histogram tables and separate accounting. Accepted commands and final failed/completed job outcomes are distinct. Export never repeats calculation.",
+    "browserPrint": "A labeled selected-report layout replaces dashboard printing; browser snapshots and native archived PDF exports have distinct provenance."
+  },
+  "release": "3.1.2",
+  "measurementBackend": "Exact projective contraction and measured-qubit factor separation. GHZ29 X validated under512MiB; phase and remaining entanglement are preserved. General dense29 requirements remain8GiB plus working overhead. Registers above 29 logical qubits use non-collapsing joint-factor Born sampling in basis Z; no arbitrary 298-qubit dense simulation is claimed.",
+  "verification": {
+    "totalLimit": "Positive decimal requests contain at most 1024 digits. Distinct actual coverage is clamped to the finite model domain; CPU/GPU work streams in bounded batches.",
+    "gpuBatchLimit": 16384,
+    "cancellation": "Partial actual CPU/GPU/comparison work is retained; incomplete jobs are not PASS.",
+    "certification": "Rule checks and sampled native agreement have different coverage."
+  },
+  "seeds": "Mutable persistent seeds and counters are outside immutable carrier payloads; existing family seeds survive upgrade.",
+  "sourceSha256": {
+    "QuantumCore.cs": "ba80a655898fc0b2fc03dd1cfb271204eecd45ff8020a7d81beb428ccd58e9e2",
+    "SpinDoctorTranches.cs": "8a8da64e9e529cff90d875590bbc10fb7ec993724721d8c4fc210cc01b6adf19",
+    "SpinDoctorTrancheTerminal.cs": "a068385bd73b59891a5492ce68efef084dd64c8fb81f0ba8a0c8fb06905b78ad",
+    "SpinDoctorCircuits.cs": "9b754f04dfe3604180f7ab774c46acf5950773df4210d69c13c7063304419c9b",
+    "SpinDoctorInputs.cs": "b0b0fabef1d92d4c9608f4a28a6d99494c9f76dcf56f547cd9c2550b6628d63c",
+    "SpinDoctorReports.cs": "6c5a0f246c9e877466a922434580ae8667d248898032847e998fdf18143a79b0",
+    "SpinDoctorPdfInputs.cs": "be5cbbd76eb1c1a2c2557530bbb6c9ebfd2e1ebfff2125777bef13ddfcf9428d",
+    "SpinDoctorCalculators.cs": "3041a375df8c75a904477fa7bdbc1f5712e77e02101eec0723fbbfd2f5b48140",
+    "SpinDoctorAdvanced.cs": "201cd68a7960227a3d78d7418f2a63994aac9179e2f759586313177e9ab94dd6",
+    "SpinDoctorSyntax.cs": "5b1372ea157f79ff3b26adb16ccb88def28d79d9e8bd06832431673aed9a1718",
+    "SpinDoctorSequences.cs": "907187e8da5b7c4a00d04535fc1387eb3d1d984847401d2db06efb36fe0d338c",
+    "SpinDoctorCommandReports.cs": "e1acb66520942b6a431ac2a03e499e724adc592b65dd87f49c3c425359e853fe",
+    "QuantumTerminal.cs": "48feae485ca282f11408ce2d5b922aa8e822cb394f81d2f38d692948d3b30946",
+    "QUANTUM_TERMINAL.html": "f8c76a594bd7de371eb8c06414189bcc83991c63e239c4baf32bf8dff0614a31",
+    "RUN_QUANTUM_XPU.cmd": "67721ab3a2f89ad054a4ff8627625865cdd36112ce55e51fb78a917e749af208",
+    "RUN_SPINDOCTOR.cmd": "f512a1c51ee1b52db635e86e5415f37bfb0e26fdf447c57f6e0428da1dac6461"
+  },
+  "hostDependencies": "The primary terminal requires Windows PowerShell and .NET Framework. CPU commands work without OpenCL. Actual GPU comparison requires an installed FP64-capable OpenCL GPU driver; unavailable GPU work is reported explicitly.",
+  "sourceHashScope": "SHA-256 of the listed current immutable native/UI/launcher source files. MODEL.json is excluded to avoid circular self-hashing. Historical validation files keep their original recorded versions and source identities.",
+  "presetExecution": {
+    "defaultShots": 1024,
+    "maximumShots": 100000,
+    "defaultBasis": "z",
+    "directCircuitPreset": "Creates and queues native circuit execution by default; run=false defines only. Explicit shots/basis overrides take precedence. Final receipt waits for matching native completion.",
+    "catalogSampling": "1,024 ordinary sampling shots; single collapsing measurement is exactly1; deterministic calculators and resource estimates do not draw shots.",
+    "carrierFiles": [
+      "SpinDoctor-3.1.2.tiff",
+      "SpinDoctor-3.1.2.gif"
+    ]
+  },
+  "csvReports": {
+    "schema": "SPINDOCTOR/CSV-REPORT/1",
+    "format": "UTF-8 RFC4180 long-form native values",
+    "scope": "CSV companions use the same hash-verified archived command/sequence stages and receipt guards as TXT/PDF; no export executes calculations.",
+    "values": "Typed JSON scalars retain numeric strings, null, exact zeros and formula-safe quoted strings. JSON-pointer paths retain nested provenance, results, work counters and verification rows."
+  },
+  "measurementCsvFit": {
+    "command": "q.input fit ID target=temperature features=[humidity,pressure]",
+    "scope": "Explicit empirical ordinary least-squares fit of selected finite numeric CSV columns, including weather, gate and circuit measurements. In-sample diagnostics do not establish physical laws, causality or unseen prediction accuracy. Probability/fidelity bounds and nonlinear gate laws are not inferred.",
+    "preview": "q.input table ID shows source columns without fitting. Original CSV bytes and SHA256 remain preserved.",
+    "reports": "Native equation, coefficients, declared units, source hash, row coverage, residuals and fit statistics; PDF actual observed/fitted and residual figures; complete underlying rows in TXT/JSON/CSV."
+  },
+  "csvGateInput": {
+    "headers": [
+      "gate",
+      "n",
+      "targets",
+      "angles"
+    ],
+    "optionalHeaders": [
+      "name",
+      "initialBasis",
+      "shots",
+      "basis"
+    ],
+    "defaultShots": 1024,
+    "maximumShots": 100000,
+    "defaultBasis": "z",
+    "workflow": "Upload and preview are inert. q.input evaluate/import validates and selects the declared circuit; explicit q.input run executes through native circuit/sequence workers. Conflicting metadata, unsupported gates and invalid operands are rejected.",
+    "scope": "Declared classical circuit simulation is separate from empirical measurement fitting; no gates or physical laws are inferred from measurements."
+  },
+  "equationRepresentations": {
+    "schema": "SPINDOCTOR/REPORT-EQUATIONS/1",
+    "endpoint": "POST /api/reports/equations",
+    "source": "The same guarded, hash-checked native report references and selected archive stages as PDF/CSV.",
+    "forms": "Editable plain equation text and conventional mathematical notation. PDF uses native vector mathematics with coefficients/variable mappings or declared gate operators, bounded local matrices and state/Born/Bloch equations.",
+    "scope": "Report-layer representation of archived results and declared circuits; no inferred physical law, gate discovery, new simulation or huge full-register matrix. Local text edits do not mutate native sources, results or receipts."
+  },
+  "update": {
+    "id": "3.1.2-298-20261010",
+    "release": "3.1.2",
+    "scope": "298-qubit record encoding, native eleven-file folder execution, exact global indices, bounded coherent factors, checkpoint persistence, and clearer gate-index diagnostics.",
+    "compatibility": "Existing small-circuit replay, procedural family seeds, checkpoints, sources, archives, and history are preserved. Running native engines require a restart to load updated source."
+  }
+}

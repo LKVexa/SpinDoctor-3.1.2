@@ -1,0 +1,24 @@
+{
+  "schema": "LUNAR127/VBT-1/1",
+  "name": "Lunar127 Virtual BigTIFF Raster",
+  "width": 25000000000,
+  "height": 40000000000,
+  "pixelCount": "1000000000000000000000",
+  "nominalPixelFormat": "RGBA8",
+  "fullyMaterializedEquivalentBytes": "4000000000000000000000",
+  "fullyMaterializedEquivalentZB": 4.0,
+  "coordinateModel": "paired unsigned 64-bit X/Y coordinates; no flattened 64-bit pixel index required",
+  "materializationTileWidth": 4096,
+  "materializationTileHeight": 4096,
+  "virtualTilesX": 6103516,
+  "virtualTilesY": 9765625,
+  "virtualLevel0TileCount": "59604648437500",
+  "pyramidLevelsToApproximatePixelScaleAt1280x720": 27,
+  "bigtiffBoundary": {
+    "singleFlatBigTIFF": false,
+    "reason": "Raster dimensions exceed common uint32 ImageWidth/ImageLength APIs and fully materialized bytes exceed unsigned 64-bit file-offset space.",
+    "uint64MaxBytes": "18446744073709551615",
+    "rgba8EquivalentVsUint64OffsetSpace": 216.8404344971009,
+    "strategy": "VBT-1 keeps the virtual coordinate space in a manifest/procedural kernel and materializes only requested tiles/viewports as ordinary BigTIFF shards."
+  }
+}
