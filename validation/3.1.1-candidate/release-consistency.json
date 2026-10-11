@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "version": "3.1.1-candidate",
+  "immutableFiles": 289,
+  "modelSourceHashes": 16,
+  "cleanRuntimeWorkspace": true,
+  "externalTerminalShortcutsVerifyCarrier": true,
+  "sourceFiles": 290,
+  "runtimeFiles": 135
+}

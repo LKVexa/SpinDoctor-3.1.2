@@ -1,0 +1,77 @@
+PASS missing count/number/delta values stay unknown; recorded zeros remain zero
+PASS missing rule verdict and blank numeric input cannot become success or zero
+PASS folder launch announces files; ordered sequence announces commands
+PASS folder completion reports file and aggregate command counts, actual errors and report warnings
+PASS cancelled and interrupted jobs stay unsuccessful
+PASS large responses become bounded previews with archive metadata
+PASS recent return retention is bounded and old sequence rows are not repeatedly recreated
+PASS folder ingest uses actual child identity and file totals
+PASS an absent or inactive verification job cannot cancel active folder polling
+PASS folder recovery retries failed downloads without repeating successful metadata retrieval
+PASS downloads=false recovers compact file metadata with no step/file automatic downloads
+PASS automatic native TXT uses streamed archived Blob and never hydrates complete JSON
+PASS visual report preparation sends compact native references without full JSON hydration
+PASS stateless arithmetic reports explain historical counters and keep exact result zero
+PASS visual bars reject missing values but preserve zero-valued numerical bars
+PASS file recovery waits for archived report phase after execution completes
+PASS orchestration failure takes precedence over stale native queued/completed status
+PASS compacted status is labelled as a browser preview even when numeric result is complete
+PASS PDF detail defaults to Detailed independently of Return explorer tabs
+PASS PDF detail preferences accept bounded choices, reject unknown values and tolerate disabled storage
+PASS selected, session, circuit and archive PDF routes all use the chosen native detail view
+PASS automatic PDF captures detail before queuing while TXT stays full and view independent
+PASS failed automatic PDF retry preserves its original detail choice without repeating TXT
+PASS report detail controls preserve individual folder downloads and add no bundle feature
+PASS folder verification defaults on and bounded samples reach exact command
+PASS required pending folder receipt starts no TXT, PDF or CSV download
+PASS folder steps preserve command completion before delayed verified receipt
+PASS failed verifier keeps completed arithmetic as diagnostic without verified receipt
+PASS calculator result summary retains actual zero and nonzero values
+PASS synchronous command uses native observed-completion metadata, not browser UTC
+PASS actual compared state produces sphere and predicted probabilities, with no invented sample rows
+PASS calculator spin sphere uses actual returned up, down and transverse directions
+PASS calculator figure precedes separately labelled model sphere in Summary and Details
+PASS folder aggregate sampling sums recorded file comparisons without filling missing counts
+PASS final inactive parent drains every archived file recovery without active polling
+PASS all241 embedded presets match the exact final catalog bytes and measurement shot schemas
+PASS preset shot editing defaults1024 and accepts10240 and100000 but rejects500000 fractions and blank values before dispatch
+PASS zero local spin north pole and a nonzero view-axis projection have distinct actual-vector labels
+PASS actual circuit zero marginals retain both qubit identities and native premeasurement source
+PASS a500000-shot refusal does not draw an older completed circuit snapshot from status
+PASS resource shots estimate keeps its real epsilon argument editable without measurement-shot fields
+PASS CSV controls are available beside selected/session/circuit/sequence/archive report downloads
+PASS selected/session/circuit/archive CSV uses native POST references and the same stage/view as PDF
+PASS CSV automatic retry preserves its accepted reference and PDF view without repeating TXT or PDF
+PASS file CSV recovery retries only failed CSV while preserving successful TXT and metadata
+PASS automatic completed CSV retains native completed archive instead of mutable live status
+PASS numeric CSV inspection selects no target or inputs and requires explicit fitting even for program-invalid tables
+PASS CSV fitting excludes the target and validates units before any native request
+PASS CSV unit labels preserve commas, quotes and backslashes as one literal native field without command dispatch
+PASS CSV table caches bind attachment identity and hash and never reuse another file choices
+PASS numeric CSV fit preview uses native equation and fit metrics while complete rows stay in the archive
+PASS numeric CSV upload remains inert and exposes its native columns without running a fit or circuit
+PASS changing CSV target/input/unit selections clears an earlier equation preview without executing anything
+PASS explicit CSV fit dispatches only the chosen native command then downloads matched TXT/PDF/CSV receipts
+PASS known manual report stages pin accepted/completed snapshots instead of crossing a later job completion
+PASS manual circuit and archived CSV/TXT downloads use Blob without decoding whole native printouts
+PASS CSV gate-list guidance and download template preserve explicit operands and circuit execution workflow
+PASS CSV gate upload enables deliberate Evaluate/Import/Run without requiring a base or fitting numeric columns
+PASS explicit attached CSV circuit Run dispatches q.input run and never guesses fitting columns or browser shots
+PASS equation editor uses explicit native loading with local edit controls and labeled mathematical source
+PASS equation loading rejects unarchived browser coefficients instead of asking for a native-looking reconstruction
+PASS fit equation loading uses the pinned accepted archive and displays only actual native strings
+PASS equation draft editing copying and resetting never change native archives or mathematical notation
+PASS completed input circuit equation loading retains native source provenance and completed archive stage
+PASS required pending or failed folder verification blocks equation receipt loading before any request
+PASS a stale equation response cannot replace a draft after the selected native return changes
+PASS repeated equation-load clicks share one pending native request instead of duplicate reads
+PASS equation editor renders literal text safely and never reconstructs a missing equation from coefficients or matrices
+PASS native equation text and local edits stay bounded with an explicit complete-report notice
+PASS malformed or rejected native equation loads retain the labeled existing draft and create no calculation requests
+{
+  "checks": 70,
+  "passed": true,
+  "identicalPages": true,
+  "scope": "UI CSV companions, local native equation editor, format retry, folder receipt gating, numeric table fitting controls, retention and report-detail regressions"
+}
+

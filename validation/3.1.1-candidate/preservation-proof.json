@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "preservedFiles": 555,
+  "changed": [],
+  "scope": "The complete prior 3.1.0 candidate and its ZIP retain their original bytes. No user live workspace was modified."
+}
