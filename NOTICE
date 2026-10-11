@@ -1,0 +1,38 @@
+SpinDoctor 3.1.2 - Quantum Virtual Terminal
+Copyright (C) 2026 RUSSELL PHILIP SMITHSON
+
+Author: RUSSELL PHILIP SMITHSON <russellsmithson77@outlook.com>
+License: GNU General Public License v3.0 or later (SPDX: GPL-3.0-or-later).
+The full license text is in the LICENSE file.
+
+This repository contains the source code, build and launch scripts, preset
+catalogue, documentation, examples and validation suite of SpinDoctor 3.1.2,
+including the 298-qubit update (update id 3.1.2-298-20261010).
+
+Notes on this repository copy
+- Every C# source file carries a GPL-3.0-or-later license header. The headers
+  are comments only; no program code was changed. Because of those added
+  header lines, the C# files in this repository do not match the SHA-256
+  values in SHA256SUMS.txt, source/integrity/immutable.json,
+  source/mvp/SHA256SUMS.txt or source/mvp/quantum/MODEL.json. Those manifests
+  describe the byte-exact release package (SpinDoctor-3.1.2.zip, see
+  SpinDoctor-3.1.2.zip.sha256), which remains the authoritative build.
+  Text files are stored with LF line endings in git; .gitattributes restores
+  CRLF for .cmd, .bat and .ps1 files on checkout. Files that used CRLF in the
+  release therefore also differ from those manifests byte-for-byte.
+- Binary files (the TIFF/GIF carriers, the release ZIP, the PDF hand guide,
+  artwork and binary sample payloads), generated sample reports and run-time
+  workspace data are not stored in this repository. See README.md.
+- Local working paths in validation records were replaced with the
+  placeholder <WORK>; they do not affect any program behaviour.
+- The UltraWide Appliance preview material that ships inside the release
+  under source/mvp/ultrawide-appliance/ is distributed under its own Product
+  Preview Tester License, not the GPL, and is therefore not included here.
+  Only its manifest (ULTRAWIDE_APPLIANCE_MANIFEST.json) is present.
+  source/mvp/tenq/ contains small binding and validation records generated
+  with the UltraWide preview tools; they are accompanied by their own license
+  and provenance notices (ULTRAWIDE_LICENSE.txt, ULTRAWIDE_PROVENANCE.md,
+  ULTRAWIDE_THIRD_PARTY_NOTICES.md), which apply to those records.
+
+SpinDoctor is a classical simulator. It runs on a conventional CPU (and an
+OpenCL GPU for verification). It is not a quantum computer.
