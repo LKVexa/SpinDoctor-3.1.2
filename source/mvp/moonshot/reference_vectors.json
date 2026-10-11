@@ -1,0 +1,89 @@
+{
+  "schema": "LUNAR127/17T-AT-1M/1",
+  "release": "0.7.0",
+  "title": "Lunar127 17T@1M MVP",
+  "primaryHypothesis": "The carrier-anchored virtual console can sustain at least 1,000,000 sequential hologram epochs per second while a deterministic compute envelope of exactly 17,000,000 FLOP-equivalent operations per epoch remains selectively reconstructable and reference-verifiable.",
+  "carrier": {
+    "pageBytes": 262144,
+    "headerBytes": 256,
+    "payloadBytes": 261888,
+    "basePageSha256": "b16a45e1b571d318763fb2402aa33d80bcb74398a138681ec599a810261e4910"
+  },
+  "target": {
+    "minimumEpochHz": 1000000,
+    "flopEquivalentPerEpoch": 17000000,
+    "representedTFLOPsEqAt1MHz": 17.0,
+    "representedStateGBpsAt1MHz": 262.144,
+    "vectorCommandsPerEpoch": 2076,
+    "representedVectorCommandsPerSecondAt1MHz": 2076000000
+  },
+  "program": {
+    "schema": "LUNAR127/VCK-2-COMPUTE-PROGRAM/1",
+    "name": "VCK-2 17T@1M deterministic virtual vector program",
+    "fullVectorCommands": 2075,
+    "fullVectorWidth": 4096,
+    "tailVectorCommands": 1,
+    "tailVectorWidth": 800,
+    "vectorCommandsPerEpoch": 2076,
+    "fmaLanesPerEpoch": 8500000,
+    "flopEquivalentPerLane": 2,
+    "flopEquivalentPerEpoch": 17000000,
+    "representedVectorCommandsPerSecondAt1MHz": 2076000000,
+    "representedFlopEquivalentPerSecondAt1MHz": 17000000000000,
+    "representedTFLOPsEqAt1MHz": 17.0,
+    "semantics": "Each lane evaluates one deterministic virtual FP32 multiply then add (two FLOP-equivalent operations). Full 4096-lane commands cover 8,499,200 lanes and one 800-lane tail covers the final 800 lanes.",
+    "floatSemantics": "FP32 after input conversion, FP32 after multiply, FP32 after add; outputs serialized IEEE-754 little-endian float32.",
+    "availabilityBoundary": "The 17 TFLOP/s-eq figure is represented deterministic compute availability at a 1 MHz epoch rate. It is not conventional measured hardware TFLOPS unless every represented operation is physically executed in real time.",
+    "canonicalProgramSha256": "c2a4acf3310e8fcf5acaed4c24f59f90b8dce80940d544d055a04b11a68a87e5"
+  },
+  "reference": {
+    "avkChainAt1000000": {
+      "a": 1638034461,
+      "b": 1439288818,
+      "c": 146854622
+    },
+    "fullStateSha256At1000000": "29bad48adbc1f314281d187aec587b9543252e992e7739bd3611df60310b2012",
+    "computeRangeChallenges": [
+      {
+        "epoch": 472118,
+        "laneStart": 6291456,
+        "laneCount": 4096,
+        "sha256": "d708c7f2f7fd94c673265cdc1387b98daf39297c957cae4130493f3d5bc101f8"
+      },
+      {
+        "epoch": 777777,
+        "laneStart": 131072,
+        "laneCount": 4096,
+        "sha256": "220b80d1a4bdf93802d82726150be01daaa20adaf772e198c606a9296990e0f7"
+      },
+      {
+        "epoch": 999983,
+        "laneStart": 8000000,
+        "laneCount": 4096,
+        "sha256": "00c760c3491ac951d49d6da24b75f586551f71c43f090938d56e949af47c986f"
+      },
+      {
+        "epoch": 1000000,
+        "laneStart": 0,
+        "laneCount": 4096,
+        "sha256": "8373606676f0e2554db43347f64d9b47c0694ee96162496b8f06ce67716fb539"
+      }
+    ],
+    "fullCompute": {
+      "epoch": 1000000,
+      "laneCount": 8500000,
+      "outputBytes": 34000000,
+      "sha256": "2f8ab208f6cd3c734876f9d17b2928029e25fa981205751eaa89b1dfff5232dc"
+    }
+  },
+  "passCriteria": [
+    "Carrier SHA-256 matches the fixed Lunar127 page anchor.",
+    "Measured sequential AVK-1 transition rate is at least 1,000,000 epochs/s.",
+    "AVK-1 chain state at epoch 1,000,000 matches the predetermined reference.",
+    "The VCK-2 program defines exactly 17,000,000 FLOP-equivalent operations per epoch.",
+    "All predetermined selective compute-range SHA-256 challenges match.",
+    "The complete 8,500,000-lane compute output at epoch 1,000,000 matches its predetermined SHA-256.",
+    "The complete 262,144-byte hologram state at epoch 1,000,000 matches its predetermined SHA-256."
+  ],
+  "measurementBoundary": "PASS demonstrates the defined virtual/reconstructable compute-availability model. 17 TFLOP/s-eq is not a claim of 17 trillion physically executed floating-point operations per second on the host."
+}
