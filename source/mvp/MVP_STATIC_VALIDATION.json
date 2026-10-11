@@ -1,0 +1,13 @@
+{
+  "schema": "LUNAR127/17T-AT-1M-STATIC-VALIDATION/1",
+  "release": "0.7.0",
+  "referenceVectorCrossLanguagePass": true,
+  "selectiveComputeChallengesPass": 4,
+  "fullComputeCheckpointPass": true,
+  "fullStateCheckpointPass": true,
+  "avkChainCheckpointPass": true,
+  "javascriptSyntaxPass": true,
+  "workerJavascriptSyntaxPass": true,
+  "browserAutomation": "blocked by packaging environment administrator policy; not used as conformance authority",
+  "measurementBoundary": "Host-specific 1 MHz and physical checkpoint rates are measured only when the user runs the dashboard."
+}
