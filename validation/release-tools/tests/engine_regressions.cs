@@ -61,16 +61,28 @@ public static class EngineRegressions
     private static TrancheRegister Basis(int n,int value){double[][] spinors=new double[n][];for(int q=0;q<n;q++)spinors[q]=(value&(1<<q))==0?new double[]{1,0,0,0}:new double[]{0,0,1,0};return new TrancheRegister(n,spinors);}
     private static Complex A(TrancheRegister r,int id){double[] a=r.Amplitude((ulong)id);return new Complex(a[0],a[1]);}
     private static double[] Params(int n){double[] a=new double[n];for(int k=0;k<n;k++)a[k]=.317+k*.241;return a;}
+    // 3.1.2 update: mcx7 (seven controls + target) has no explicit matrix by design; verify refusal and native basis action on 9 qubits.
+    private static void CheckWideControlledX(string name,int width)
+    {
+        Check(name=="mcx7"&&width==8,"unexpected wide gate "+name+" width "+width);
+        bool refused=false;try{SpinDoctorCalculators.GateMatrix(name,new double[0]);}catch(ArgumentException){refused=true;}Check(refused,"mcx7 explicit matrix is refused");
+        foreach(int[] ops in new int[][]{new int[]{0,1,2,3,4,5,6,7},new int[]{8,6,4,2,0,1,3,5}})
+        {
+            int ctrl=0;for(int k=0;k<7;k++)ctrl|=1<<ops[k];int tgt=1<<ops[7];
+            foreach(int basis in new int[]{0,ctrl,ctrl|tgt,ctrl&~(1<<ops[3]),tgt,(ctrl&~(1<<ops[0]))|tgt,511,255})
+                using(TrancheRegister r=Basis(9,basis)){r.Gate(name,new double[0],ops,false);int want=(basis&ctrl)==ctrl?basis^tgt:basis;for(int id=0;id<512;id++)Near(A(r,id),id==want?Complex.One:Complex.Zero,name+" on "+String.Join(",",ops)+" basis "+basis+" id "+id);}
+        }
+    }
     private static void CheckGates()
     {
         foreach(Dictionary<string,object> spec in TrancheRegister.SupportedGates)
         {
-            string name=(string)spec["name"];int width=(int)spec["targetCount"];double[] a=Params((int)spec["angleCount"]);Complex[,] expected=ReferenceGate(name,a,width),actual=SpinDoctorCalculators.GateMatrix(name,a);for(int x=0;x<expected.GetLength(0);x++)for(int y=0;y<expected.GetLength(0);y++)Near(actual[x,y],expected[x,y],name+" matrix");
+            string name=(string)spec["name"];int width=(int)spec["targetCount"];if(width>3){CheckWideControlledX(name,width);continue;}double[] a=Params((int)spec["angleCount"]);Complex[,] expected=ReferenceGate(name,a,width),actual=SpinDoctorCalculators.GateMatrix(name,a);for(int x=0;x<expected.GetLength(0);x++)for(int y=0;y<expected.GetLength(0);y++)Near(actual[x,y],expected[x,y],name+" matrix");
             foreach(int[] operands in width==1?new int[][]{new int[]{0},new int[]{2}}:width==2?new int[][]{new int[]{0,2},new int[]{2,0}}:new int[][]{new int[]{0,1,2},new int[]{2,0,1}})
                 for(int basis=0;basis<8;basis++)using(TrancheRegister r=Basis(3,basis)){r.Gate(name,a,operands,false);Complex[] initial=new Complex[8];initial[basis]=1;Complex[] output=Apply(initial,expected,operands);for(int id=0;id<8;id++)Near(A(r,id),output[id],name+" on "+String.Join(",",operands)+" column "+basis);}
         }
         using(TrancheRegister r=new TrancheRegister(3))
-        {Complex[] state=new Complex[8];state[0]=1;Random random=new Random(4729);for(int iteration=0;iteration<160;iteration++){Dictionary<string,object>[] specs=TrancheRegister.SupportedGates;Dictionary<string,object> spec=specs[random.Next(specs.Length)];int width=(int)spec["targetCount"];int[] operands=width==1?new int[]{iteration%3}:width==2?new int[]{2,0}:new int[]{1,2,0};double[] a=Params((int)spec["angleCount"]);r.Gate((string)spec["name"],a,operands,false);state=Apply(state,ReferenceGate((string)spec["name"],a,width),operands);for(int id=0;id<8;id++)Near(A(r,id),state[id],"composed reference gate "+iteration);}}
+        {Complex[] state=new Complex[8];state[0]=1;Random random=new Random(4729);for(int iteration=0;iteration<160;iteration++){Dictionary<string,object>[] specs=Array.FindAll(TrancheRegister.SupportedGates,g=>(int)g["targetCount"]<=3);Dictionary<string,object> spec=specs[random.Next(specs.Length)];int width=(int)spec["targetCount"];int[] operands=width==1?new int[]{iteration%3}:width==2?new int[]{2,0}:new int[]{1,2,0};double[] a=Params((int)spec["angleCount"]);r.Gate((string)spec["name"],a,operands,false);state=Apply(state,ReferenceGate((string)spec["name"],a,width),operands);for(int id=0;id<8;id++)Near(A(r,id),state[id],"composed reference gate "+iteration);}}
     }
     private static string Checkpoint(string directory,string filename,int n,bool dense,int support)
     {
