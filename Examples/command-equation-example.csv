@@ -1,0 +1,9 @@
+command
+"q.math norm amplitudes=[5,12]"
+"q.math normalize amplitudes=[3,4]"
+"q.math probabilities amplitudes=[1/sqrt(2),1/sqrt(2)]"
+"q.math bloch amplitudes=[1,0]"
+"q.math bloch amplitudes=[0,1]"
+"q.math bloch amplitudes=[1/sqrt(2),1/sqrt(2)]"
+"q.math bloch amplitudes=[1/sqrt(2),i/sqrt(2)]"
+"q.math entropy rho=[[0.5,0],[0,0.5]] base=2"
