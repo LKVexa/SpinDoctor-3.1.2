@@ -1,0 +1,211 @@
+{
+  "compute_lane_vectors": [
+    {
+      "a": -90,
+      "b": 810,
+      "c": -317,
+      "epoch": 1,
+      "h": [
+        76120998,
+        2439530282,
+        3980800707
+      ],
+      "lane": "0",
+      "result": -73217
+    },
+    {
+      "a": 903,
+      "b": 267,
+      "c": 279,
+      "epoch": 742821,
+      "h": [
+        2893391751,
+        3721843979,
+        1059998999
+      ],
+      "lane": "3725118772987611029448291",
+      "result": 241380
+    },
+    {
+      "a": 270,
+      "b": 218,
+      "c": -313,
+      "epoch": 1000000,
+      "h": [
+        4204979470,
+        2537241818,
+        2537927367
+      ],
+      "lane": "4999999999999999999999999",
+      "result": 58547
+    },
+    {
+      "a": -698,
+      "b": 408,
+      "c": -88,
+      "epoch": 65536,
+      "h": [
+        2334468422,
+        1877695896,
+        3749489576
+      ],
+      "lane": "1234567890123456789012345",
+      "result": -284872
+    }
+  ],
+  "hot_state": {
+    "0": {
+      "checkpoint_count": 0,
+      "checkpoint_root_sha256": null,
+      "state_sha256": "c74c2ba370f7e3192b16366076d62ba36e6c609a766b67b5e2483ce0f8d9dd31",
+      "state_u64_hex": [
+        "272858f3a95e2a51",
+        "6f63a08c4c8495fd",
+        "5f18eb5e04355860",
+        "8bb5ae29028c9a89"
+      ]
+    },
+    "1": {
+      "checkpoint_count": 1,
+      "checkpoint_root_sha256": "6e7ef4240d6059f3e263d3c6e22f99c8aca1edb347b02ac0c1d45444e9da15df",
+      "state_sha256": "c2cce7fabc465c51a725599851b7e602a5ab3509fb3d63031150389e0ed33031",
+      "state_u64_hex": [
+        "26bcc56f0c603ffb",
+        "f9d8e20ada239381",
+        "edb001414cc376d8",
+        "4bd8d4bbcc67fe17"
+      ]
+    },
+    "1000": {
+      "checkpoint_count": 1,
+      "checkpoint_root_sha256": "036a7df88344c60bae6f7fb9f1ab22348c366ad103dc1ac131cf2e9e2d76e466",
+      "state_sha256": "9acf5080f212caa22fd08b22d956c1d977972490c64e1ac1f3a3fc09534213b0",
+      "state_u64_hex": [
+        "5cf268b8642d86b0",
+        "3d164f9897a28ce8",
+        "87ac8375319a7235",
+        "ca9a64eacbe8f78e"
+      ]
+    },
+    "1000000": {
+      "checkpoint_count": 16,
+      "checkpoint_root_sha256": "d5e39c0c673bbd9b3b5c54f68473cf8ddd052b2de545f73c5c9dfb671b477e13",
+      "state_sha256": "a892898c757cafed371062eba01616a5d69447a622fd6142395d24bc51265713",
+      "state_u64_hex": [
+        "ff4f5a697b04bc34",
+        "6d48f6e56bad53dc",
+        "6b890e8d29c0e0b6",
+        "2edff90b213bb0a8"
+      ]
+    },
+    "2": {
+      "checkpoint_count": 1,
+      "checkpoint_root_sha256": "71e09a9544e4464a08884a6723e43356117e9a9b533858e9814c72707e899b07",
+      "state_sha256": "266d7f47ab39d3b6a82ed0a5f46a67affd169df897a6d58e007a28bce9ec57cc",
+      "state_u64_hex": [
+        "b50d75304443e564",
+        "ed287677fdd86b74",
+        "8da2c7d963fe3178",
+        "1c8064980b483ed9"
+      ]
+    },
+    "3": {
+      "checkpoint_count": 1,
+      "checkpoint_root_sha256": "9c394ec09da337bf5d3a515d0c4f099c43ce7626678c62e72eca3cc04271f96d",
+      "state_sha256": "9b5d3f77c345142c455db0407d23fac5914015bf0938db442476be482cc13ef5",
+      "state_u64_hex": [
+        "96abd025999c4d23",
+        "413b74444a39bce6",
+        "254cbe64d5943c49",
+        "a364c16e49e94afb"
+      ]
+    },
+    "65536": {
+      "checkpoint_count": 1,
+      "checkpoint_root_sha256": "c550340520f6be5708c7c85053397f2979bea85650b6067ed418972939de129d",
+      "state_sha256": "773d2131a2b07c0c7f585ade5a91e0c7a5a67e6e70a89c966376ebc74027dd40",
+      "state_u64_hex": [
+        "c1affa94cf4bc7ef",
+        "8765c836a8212dd8",
+        "f8e0bcd30d7a05be",
+        "0ebe3fadcf44196a"
+      ]
+    }
+  },
+  "resident_word_sha256": "8222fd2c7b321703b9e6f44fa22a7a7cb069aa2d7cd311fb00f6c2eeb1549b83",
+  "schema": "LUNAR127/TENQ-REFERENCE-VECTORS/1",
+  "voxel_vectors": [
+    {
+      "code": [
+        932051537,
+        827569278,
+        505770549,
+        2944339040
+      ],
+      "epoch": 1,
+      "rgba": [
+        60,
+        37,
+        76,
+        119
+      ],
+      "x": "0",
+      "y": "0",
+      "z": "0"
+    },
+    {
+      "code": [
+        2476927525,
+        1877004038,
+        1314837269,
+        38775485
+      ],
+      "epoch": 1000000,
+      "rgba": [
+        36,
+        166,
+        60,
+        211
+      ],
+      "x": "24999999999999",
+      "y": "39999999999999",
+      "z": "9999999999999"
+    },
+    {
+      "code": [
+        3808926361,
+        1076054905,
+        1131751106,
+        3834222519
+      ],
+      "epoch": 742821,
+      "rgba": [
+        55,
+        41,
+        182,
+        227
+      ],
+      "x": "12500000000000",
+      "y": "20000000000000",
+      "z": "5000000000000"
+    },
+    {
+      "code": [
+        3109191473,
+        951159111,
+        2938384245,
+        2333030588
+      ],
+      "epoch": 65536,
+      "rgba": [
+        37,
+        50,
+        60,
+        249
+      ],
+      "x": "12345678901234",
+      "y": "23456789012345",
+      "z": "3456789012345"
+    }
+  ]
+}

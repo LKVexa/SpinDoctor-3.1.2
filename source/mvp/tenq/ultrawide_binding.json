@@ -1,0 +1,23 @@
+{
+  "authentication": "Integrity binding only; no signer authentication claimed.",
+  "binding_source_sha256": "628a7478998b8a69d0b50d3f0a14da20e97295baef997fc9f3a149a844004f06",
+  "brim_image_sha256": "8fc96d210e41b47c324a8c2165359005dc18638a19a4574537416f261d78b23e",
+  "brir_sha256": "ff36e49fc5190c33cbd8b138d4a121e89a4a0b69763ea0be932110552ec769ad",
+  "brw_format": "BRWWORD/1",
+  "chain_id": "c57a0593b9aab232c0188f2c64f6b0e17e55710d4666789db75d125232e32bfc",
+  "chain_sha256": "8222fd2c7b321703b9e6f44fa22a7a7cb069aa2d7cd311fb00f6c2eeb1549b83",
+  "core_sha256": "12c8ff0c84018a2365b73b54d6449249fd8d5bde6733ac264203db7c852cd9bb",
+  "descriptor_digest_chunks_u64_le": [
+    "2560861004778948626",
+    "5301375398695384933",
+    "2786658790640684541",
+    "13535899106875736898"
+  ],
+  "resident_word_sha256": "8222fd2c7b321703b9e6f44fa22a7a7cb069aa2d7cd311fb00f6c2eeb1549b83",
+  "run_register_state_sha256": "4dd1f0cd0a1f00132b7287bcf687d02131d64e982144ec97d76dcef7ea4ff9d3",
+  "run_status": "HALTED",
+  "schema": "LUNAR127/TENQ-ULTRAWIDE-BINDING/1",
+  "word_bits": 1048576,
+  "word_bytes": 131072,
+  "word_verifier": "UltraWide Appliance 0.2.0 Python verifier used at package-build time"
+}

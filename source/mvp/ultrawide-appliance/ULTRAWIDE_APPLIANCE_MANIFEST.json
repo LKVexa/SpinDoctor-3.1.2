@@ -1,0 +1,379 @@
+{
+  "schema": "LUNAR127/ULTRAWIDE-APPLIANCE-MANIFEST/1",
+  "release": "1.1.2",
+  "applianceName": "UltraWide-Appliance-main",
+  "repositoryRoot": "UltraWide-Appliance-main",
+  "sourceZipName": "UltraWide-Appliance-main.zip",
+  "sourceZipBytes": 348857,
+  "sourceZipSha256": "a2fb210325b75ba832de467040179ad651f4cf0058dfe484c5cc22d92af97b24",
+  "fileCount": 73,
+  "totalFileBytes": 1522808,
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 154,
+      "sha256": "81f11615ae90d18f65100ddb50e9ebc09f2044a7fe1684cd5b2af70d2fe87060"
+    },
+    {
+      "path": ".github/workflows/preview-checks.yml",
+      "bytes": 1537,
+      "sha256": "da7a255a4f98ad8fb5b0131406c79607e001365673a728b09b4c0d37fac7f42e"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 311,
+      "sha256": "f4f4441166c584feece04d3270149187395770a1bf333ecacc45d62796137e2b"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "bytes": 970,
+      "sha256": "553281531f01e5f5566806acc5ef3d743d5fdac4baccbe158ef7994292a6f55c"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 5118,
+      "sha256": "b636f609555cb7ab44497f36738e9c7cea0e5db42a83abc095a4f823dd45e44e"
+    },
+    {
+      "path": "README.md",
+      "bytes": 9027,
+      "sha256": "ca0c691d0e20ec1e4e7f494d881d23189cc3b343ade0f76d55f2d52247902679"
+    },
+    {
+      "path": "THIRD-PARTY-NOTICES.md",
+      "bytes": 2833,
+      "sha256": "4ce2c5a447a936bacce3cae7d32bd48601f85e40409f3f1f66a4fda10b0b1af1"
+    },
+    {
+      "path": "appliance/application.start.example",
+      "bytes": 328,
+      "sha256": "4b94f81dfb3d579d5238d881c047830891230cefe9e06f45935d945669608ed8"
+    },
+    {
+      "path": "appliance/boot.start",
+      "bytes": 1700,
+      "sha256": "06d2ec4cbe8c2208d5391ff82aac9d560a1b7007b7b0e4c1f4b05d6cdeb8f51c"
+    },
+    {
+      "path": "appliance/console-login",
+      "bytes": 137,
+      "sha256": "abc33fe30562d1407699c65d69292414ca969bbfb83cd1d49bc0e03b2f2bb0af"
+    },
+    {
+      "path": "appliance/ultrawide",
+      "bytes": 131,
+      "sha256": "f4815c065a3867115156d3e947bbe505554e43962397b90535616b3f9423b8c4"
+    },
+    {
+      "path": "config/alpine-lock.json",
+      "bytes": 9788,
+      "sha256": "82893df8ffa05106cd66f5fb8469bab36c25b33c8cc3346d350f2510d3abee39"
+    },
+    {
+      "path": "docs/BRIM.md",
+      "bytes": 10007,
+      "sha256": "e5ac9f8b1a4016ef81f27d3e9939c843cdeb5a4f0d7d411f93c9d8f2b815e132"
+    },
+    {
+      "path": "docs/BUILD.md",
+      "bytes": 7990,
+      "sha256": "ac24e164f59b976030fe66b4a683746822475dbdb4eeb70a86bf082a5d321a26"
+    },
+    {
+      "path": "docs/FORMAT.md",
+      "bytes": 5689,
+      "sha256": "96f125d10f230e75d053e0612fc0e50e22fa65064b471c99a886027a1a9ae157"
+    },
+    {
+      "path": "docs/REPOSITORY.md",
+      "bytes": 3564,
+      "sha256": "aa54311371620c78d38bad20516a26caf39e09b85e7bbb89bcd8c01f4b0f6d8f"
+    },
+    {
+      "path": "docs/SHS-AUDIT.md",
+      "bytes": 20743,
+      "sha256": "be3ba9ebf45c99c0b9e9dd3129eb37fd731bbdbb2f858d04611f2f4f49e9404e"
+    },
+    {
+      "path": "docs/SHS-FORMAT.md",
+      "bytes": 8068,
+      "sha256": "f05c14d5a6f18b5f47df156f759ce25dc9b89751151680359bed7eb539624fab"
+    },
+    {
+      "path": "docs/VERIFICATION.md",
+      "bytes": 4850,
+      "sha256": "f5d92ee9ab124173d0ac9fb2ebed293bfc63a144366c2c9760e372ea06629203"
+    },
+    {
+      "path": "docs/WORD-CHAIN.md",
+      "bytes": 6369,
+      "sha256": "90642901a3e442658192ce935a60ad65087e9c4a15add2ee2a0825b2e02f9efa"
+    },
+    {
+      "path": "docs/evidence/boot-bios-0.2.json",
+      "bytes": 2780,
+      "sha256": "e646173fcfc7b54033ec5ccc252f8c509c3ed259c568414d88576d86f1382988"
+    },
+    {
+      "path": "docs/evidence/boot-bios.json",
+      "bytes": 2741,
+      "sha256": "2721c8ba4e2a5f54d7b259f3661aefa28e21a63bf5dc1a265aaecf5d407176d1"
+    },
+    {
+      "path": "docs/evidence/boot-uefi-0.2.json",
+      "bytes": 2874,
+      "sha256": "1b7fc971090404dd672354cea608c89a7a8b08fff7647dc769e034263d9d2d37"
+    },
+    {
+      "path": "docs/evidence/boot-uefi.json",
+      "bytes": 1079,
+      "sha256": "49b87453b692e0c9c77cea7afeef8412eb301222f82ba2b4fc6332b3cb864754"
+    },
+    {
+      "path": "docs/evidence/runtime-0.2.json",
+      "bytes": 10038,
+      "sha256": "e7fde6ce49addd89af50c6139f17ec5ae6972dd27284255aecccdbe699cebfb8"
+    },
+    {
+      "path": "docs/evidence/source-overlay-0.2.json",
+      "bytes": 7308,
+      "sha256": "d43a6b1df59aad62fdc7dacb69edbbee27abaf8c16814c8d47a21e61e17a2220"
+    },
+    {
+      "path": "docs/images/brim-word.png",
+      "bytes": 201094,
+      "sha256": "19be2e84756a72bc5a74813962415fec9570025b9019827fe2bbb352c53976b1"
+    },
+    {
+      "path": "docs/licenses/SUPPLIED-PREVIEW-NOTICE.md",
+      "bytes": 3391,
+      "sha256": "7d8c7cf01576bac0835de3c6ea792fff6687f9e0250386f7c5e3f7b1bf36af63"
+    },
+    {
+      "path": "examples/brim-one-word.brw",
+      "bytes": 131072,
+      "sha256": "024cb0c01b22a0bfb26def4d864fd47c05d33d0e753bbfd08a458ef555bdcf7e"
+    },
+    {
+      "path": "examples/brim-top-bit.brimg",
+      "bytes": 224,
+      "sha256": "70ea91ca48b9909db790838e14bb5e1c0b2805c358c0d951fb11882ddc7721f0"
+    },
+    {
+      "path": "examples/brim-top-bit.brir",
+      "bytes": 347,
+      "sha256": "f51b170aee00e7aef24973d8e77673651ea0de08700722ef7f9b0e7c922eed85"
+    },
+    {
+      "path": "examples/brim-top-bit.lctlb",
+      "bytes": 214,
+      "sha256": "c1aebc59aef9f41e091aafa807f064da0449a9ecfc7578cfc90532417f00d3bc"
+    },
+    {
+      "path": "examples/brim-word-chain.brw",
+      "bytes": 262144,
+      "sha256": "e7ac6963c00ee769ca65ef5899196bd8a914ac5ffb51607087ecdc008aa7ac6b"
+    },
+    {
+      "path": "examples/brim-wrap-next.brimg",
+      "bytes": 208,
+      "sha256": "b4404c5e984a2641d17b055defa7a240a520d94f1d53bc491a7078fe613171af"
+    },
+    {
+      "path": "examples/brim-wrap-next.brir",
+      "bytes": 271,
+      "sha256": "9feeb7f0e8db8d5059d69367d87a763d34c8e9f84087e06a218f68a8e79cc685"
+    },
+    {
+      "path": "examples/brim-wrap-next.lctlb",
+      "bytes": 153,
+      "sha256": "73724b4b4b16c3bd2833b3a872ce38c5384f62caa065079580e7347c14fa0f8a"
+    },
+    {
+      "path": "examples/high-bit.uwa",
+      "bytes": 441,
+      "sha256": "8fdfb297b43428e3bf90d88f5572eca494dd80aa13341ab8ac5d6bb3c004dba3"
+    },
+    {
+      "path": "examples/shs-binding.brimg",
+      "bytes": 553,
+      "sha256": "c30936e870a95c4e26053fb3884b58fc3e4e55c004024c63e62e0a934e90d03a"
+    },
+    {
+      "path": "examples/shs-binding.brir",
+      "bytes": 214,
+      "sha256": "8694f489ec52c7d16891a752db86e603a272bb2f37fa39c12ff8e1b38dbc3eff"
+    },
+    {
+      "path": "examples/shs-brim-bundle-demo.lctlw",
+      "bytes": 263221,
+      "sha256": "c4f9972eb8e046e6be4ffc572cccd8104a6a6dd637271fcbd042ec0322179f9d"
+    },
+    {
+      "path": "examples/shs-control-memory-stack.b1048576asm",
+      "bytes": 306,
+      "sha256": "c408a8041d5af93972b7fc250fc54a613b84361cddd0d9c8090d25f0078161f9"
+    },
+    {
+      "path": "examples/shs-control-memory-stack.lctlw",
+      "bytes": 1505,
+      "sha256": "f36469e74ceaf4836bb69490ed8e231e436943402008be7af34cd46471e97d20"
+    },
+    {
+      "path": "examples/shs-demo.uwabundle",
+      "bytes": 3736,
+      "sha256": "4812a43c83d83a5f21dfb6fba92f1a1616692481a166b47cc60d6f81e27bc3e9"
+    },
+    {
+      "path": "examples/shs-high-bit.lctlw",
+      "bytes": 263221,
+      "sha256": "c4f9972eb8e046e6be4ffc572cccd8104a6a6dd637271fcbd042ec0322179f9d"
+    },
+    {
+      "path": "pyproject.toml",
+      "bytes": 770,
+      "sha256": "35cbf11e38b1d404f01058fa263e7be9a870874dfefa9e3df85825cf1f764863"
+    },
+    {
+      "path": "scripts/build_iso.py",
+      "bytes": 12609,
+      "sha256": "540535efbca19106596b6f478adb34da03606efa64b77f6b4381b7f88d24e6ed"
+    },
+    {
+      "path": "scripts/fetch_inputs.py",
+      "bytes": 5387,
+      "sha256": "2b7c727c2ec518cc185f5d4d9a60bdd121cc6a41b5533f1c5904d216eb9f412a"
+    },
+    {
+      "path": "scripts/qualify_boot.py",
+      "bytes": 8105,
+      "sha256": "0bea64141752ceb0c2234a23b5486e45b8aeb69ce7fa2b47d25f1b1b41336862"
+    },
+    {
+      "path": "scripts/render_word_image.py",
+      "bytes": 7793,
+      "sha256": "6ca632feb66248ea5f379c3fdb4c76f748a8005a627a0c2aa65587c0480c0db4"
+    },
+    {
+      "path": "scripts/requirements-build.txt",
+      "bytes": 223,
+      "sha256": "1686944b11de0330ce12b16a95646dddc87256a5432f8e6e0aea2c99075ec1c3"
+    },
+    {
+      "path": "scripts/run_qemu.py",
+      "bytes": 2532,
+      "sha256": "ead0fd3142e8924f8907c618f501924beaa1c728cbdc44d7e2173b44d94e9f26"
+    },
+    {
+      "path": "src/ultrawide/__init__.py",
+      "bytes": 400,
+      "sha256": "68b13dd7be573cceb2a9aec854c4ceb7fd4bb74d36f0815e311d32e06106b7d9"
+    },
+    {
+      "path": "src/ultrawide/__main__.py",
+      "bytes": 12729,
+      "sha256": "0964cfffabdeaef194426c2a8d89f5faa15abab4c247295818fae719d993e9b4"
+    },
+    {
+      "path": "src/ultrawide/brim.py",
+      "bytes": 31470,
+      "sha256": "291099e7a39697899df644bef5e6fd13f813e0dfc6aa8bd58e14a72e2b4a6c0a"
+    },
+    {
+      "path": "src/ultrawide/brim_wide.py",
+      "bytes": 15229,
+      "sha256": "decf3f0397f81bf7515d99f6d9cadd9d027c36beaba5cd09cb2ec7b302193d13"
+    },
+    {
+      "path": "src/ultrawide/program.py",
+      "bytes": 12360,
+      "sha256": "c994ad61ea6b42a011ea399cbda2d4a26d27b8a95b230ccba3e609253716deda"
+    },
+    {
+      "path": "src/ultrawide/repository.py",
+      "bytes": 7649,
+      "sha256": "5b2a48e444f1cf3ef12f00cb49a4576a052123ce5bc25f6072940b8815a08f37"
+    },
+    {
+      "path": "src/ultrawide/shs/PROVENANCE.json",
+      "bytes": 2127,
+      "sha256": "a775428f2486c7f57164a6a45b8bedf415ff122678cccbc87eebcf57436b62e7"
+    },
+    {
+      "path": "src/ultrawide/shs/__init__.py",
+      "bytes": 952,
+      "sha256": "342077187698bcadd224512b4dbc14496fee1a12b079e646ad709d3c753ee69f"
+    },
+    {
+      "path": "src/ultrawide/shs/assembly.py",
+      "bytes": 3876,
+      "sha256": "e88d9027b4e91550ee173867300686265186085688bcdaab5291b0aee5c4da80"
+    },
+    {
+      "path": "src/ultrawide/shs/engine.py",
+      "bytes": 23121,
+      "sha256": "11b5f9983a0a2357fd207fe6e7be47bfe14f22e105063658f086b6eafcc092a7"
+    },
+    {
+      "path": "src/ultrawide/shs/reference.py",
+      "bytes": 13815,
+      "sha256": "f7af5b056131fa3227da090670f547189f19c905d66c038e1cd54e59d7de4b0b"
+    },
+    {
+      "path": "src/ultrawide/word.py",
+      "bytes": 2957,
+      "sha256": "561f79ef51b4be440904eae6cb8cce66b22d25d60b9da7fb007a4af4972b0f22"
+    },
+    {
+      "path": "tests/test_brim.py",
+      "bytes": 13944,
+      "sha256": "16fee9120a1db1743563eda7042fa741fc705bb74bd57eca8f94e10c7260fab4"
+    },
+    {
+      "path": "tests/test_brim_wide.py",
+      "bytes": 8086,
+      "sha256": "4e845f7e67f8ee614cc5c19b02fb16becddd724f93cd92dd014d01f5b4bca619"
+    },
+    {
+      "path": "tests/test_build.py",
+      "bytes": 8548,
+      "sha256": "22bcd134e1e0dc25895d7190dbf999e9663b9fadde569f5f8932bc54e6d91a11"
+    },
+    {
+      "path": "tests/test_cli.py",
+      "bytes": 8063,
+      "sha256": "a48c0b2d087dda6fbf06a31834562b10cacdc523c9ebb9407dfe2bdda8037e93"
+    },
+    {
+      "path": "tests/test_program.py",
+      "bytes": 9563,
+      "sha256": "8d2874ac5c3a175eb51b970eb983c7ed53e169653fb58a684df2e196af878b9e"
+    },
+    {
+      "path": "tests/test_repository.py",
+      "bytes": 6962,
+      "sha256": "40145822fb2e2de1a871fd64fef101761f651f562fc1ac42f0a363442a2392cd"
+    },
+    {
+      "path": "tests/test_shs_hardening.py",
+      "bytes": 11289,
+      "sha256": "16272d6112c5577d1508198b65b00025f65dde9886d902171a3c783ea14c4ae7"
+    },
+    {
+      "path": "tests/test_shs_isa_vectors.py",
+      "bytes": 17283,
+      "sha256": "dc7a767554c463cd4b93b669e79338d102b287e338e50c014ca560856af202b6"
+    },
+    {
+      "path": "tests/test_shs_vectors.py",
+      "bytes": 12839,
+      "sha256": "84881f0f7d047d39b37298985d34aeda481e502d89ac33b730fbd31e94e7019b"
+    },
+    {
+      "path": "tests/test_word.py",
+      "bytes": 3678,
+      "sha256": "fb9b46b4fb6bfbaefcaccee4d34d33801ab1d44e85ed262403882779671e800c"
+    }
+  ],
+  "containmentBoundary": "The complete UltraWide repository tree and the original source ZIP are embedded inside the TIFF/GIF logical archive. External bootstrap copies are launch-only duplicates."
+}
