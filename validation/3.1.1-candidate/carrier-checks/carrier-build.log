@@ -1,0 +1,25 @@
+{"entries":290,"dataPages":44,"tiffFrames":45,"gifFrames":45,"streamSha256":"07ce3551fce6eb6f7fe3a83c5f2b7fc238b5f5b4ab6d47cf07e55f2bd19ff1d3","baselineStreamSha256":"2146c327a8d8f07f1a2be85d731555dd03767e19817aae42e8b6053e016ad26f","tiffSha256":"693485d351c533e5416a28cc1ab3d3ec77a7b59cc9722f95722025e6d0e8c726","gifSha256":"512f930f4def9104088dfbc309faef178101c5f1bcf6a8484ea0315bcc1dc8e4","immutableSha256":"c8a46a8d2eff99bd3704e3b18abd8fd10233963c33f89ba521dbe58f3e874ad8","bothCarriersVerifiedWithHardenedReader":true,"allPayloadBytesRoundTripIdentically":true,"immutablePayloadBankVerified":true,"checkpointHeaderUnchanged":true,"unchangedPayloadEntries":268,"overlaidPayloadEntries":20,"addedPayloadEntries":2,"tiffCoverDecodedPixelsUnchanged":true,"gifCoverDecodedPixelsUnchanged":true,"tiffCoverPixelSha256":"9f0afdb1b87296459569ed45cf9d59470591fb36442d3d89d1847db7ff695873","gifCoverPixelSha256":"9f0afdb1b87296459569ed45cf9d59470591fb36442d3d89d1847db7ff695873","gifCoverPrefixBytes":298371,"gifCoverPrefixBytesUnchanged":true}
+overlay	SYSTEM_INTEGRITY	34747	integrity/immutable.json
+overlay	MVP_DOCS	4034	mvp/QUANTUM-NOTES.txt
+overlay	MVP_DOCS	667587	mvp/QUANTUM_TERMINAL.html
+overlay	MVP_DOCS	15530	mvp/README.md
+overlay	MVP_DOCS	31999	mvp/SHA256SUMS.txt
+overlay	MVP_DOCS	20626	mvp/SPINDOCTOR-NOTES.txt
+overlay	MVP_DOCS	164560	mvp/SPINDOCTOR_COMMAND_CATALOGUE.txt
+overlay	MVP_DATA	214726	mvp/SPINDOCTOR_PRESETS.json
+overlay	MVP_DOCS	23114	mvp/SPINDOCTOR_QUANTUM_GUIDE.txt
+overlay	MVP_DOCS	20626	mvp/START_HERE.txt
+added	MVP_DOCS	10827	mvp/SpinDoctor-3.1.1-CSV-Input-Guide.txt
+added	MVP_DOCS	5228	mvp/SpinDoctor-3.1.1-Release-Notes.txt
+overlay	MVP_DOCS	667587	mvp/SpinDoctor.html
+overlay	MVP_DOCS	16	mvp/VERSION.txt
+overlay	MVP_BOOTSTRAP_COPY	4218	mvp/bootstrap/BOOT.cmd
+overlay	MVP_META	1764	mvp/meta/ENTRYPOINT.json
+overlay	MVP_DATA	11369	mvp/quantum/MODEL.json
+overlay	MVP_DOCS	151804	mvp/quantum/QuantumTerminal.cs
+overlay	MVP_DOCS	22679	mvp/quantum/SpinDoctorCommandReports.cs
+overlay	MVP_DOCS	97811	mvp/quantum/SpinDoctorInputs.cs
+overlay	MVP_DOCS	216042	mvp/quantum/SpinDoctorReports.cs
+overlay	MVP_DOCS	144601	mvp/quantum/SpinDoctorSequences.cs
+
+
