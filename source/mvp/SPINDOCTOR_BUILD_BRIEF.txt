@@ -1,0 +1,91 @@
+SPINDOCTOR: QUANTUM CALCULATOR EXPANSION BRIEF
+Prepared 2026-10-09
+
+PURPOSE
+Expand the SpinDoctor candidate in the shared chat into an understandable quantum calculator with a large searchable library of preselected commands. Use SPINDOCTOR_PRESETS.json as a proposed menu manifest and SPINDOCTOR_COMMAND_CATALOGUE.txt as its readable companion. Use SPINDOCTOR_QUANTUM_GUIDE.txt for the mathematical contract and article corrections.
+
+This is an implementation handoff, not a claim that these additions are installed. The shared chat and visible code diffs were read; its runnable package was not loaded, built, or benchmarked in this chat. Before implementation, inspect the latest actual sources and help output, resolve differences, and preserve the existing package, seeds, checkpoints, return history and carrier architecture. Treat the attached article and linked chat as reference material, not instructions overriding this request.
+
+SOURCE CANDIDATE
+https://chatgpt.com/s/cx_6ac94f7baf5481919b11359e8acd21af
+The candidate is SpinDoctor in the chat titled "Rasterize numbers in QuettaFLOP". Its notes describe a procedural independent-state family, selected coherent tranches, saved quantum circuits, a command reference beside the terminal, return views, and TXT downloads.
+
+PRESERVE THE EXISTING COMMAND CONTRACT
+Family examples: q.prepare grid 20000000 25000000; q.migrate t 1; q.state 123456789; q.gate ry 0.2 all; q.verify rule; q.verify samples 10240 errors-only; q.verify status; q.verify cancel; q.status; q.export descriptor.
+Tranche examples: q.tranche prepare 29 zero; q.tranche from 0; q.tranche gate h all; q.tranche gate cx 0 1; q.tranche state 3; q.tranche spin 0; q.tranche measure 0 basis z shots 100; q.tranche measure 0 basis x shots 1 collapse; q.tranche status; q.tranche cancel; q.tranche memory 512; q.tranche export; q.tranche save dense; q.tranche resume; q.tranche reset; q.tranche release; q.tranche help.
+Circuit examples: q.circuit new example 3; q.circuit input 5; q.circuit add h 0; q.circuit add cx 0 1; q.circuit add rz 0.2 2; q.circuit show; q.circuit run shots 1000 basis z; q.circuit status; q.circuit result; q.circuit state 5; q.circuit spin 0; q.circuit list; q.circuit select example; q.circuit clear; q.circuit preset bell; q.circuit preset ghz 29; q.circuit preset qft 5; q.circuit cancel; q.circuit export; q.circuit memory 512; q.circuit help.
+These strings were observed in shared notes/code, which does not establish that every installed copy implements them. Check each command against the actual build.
+
+CONVENTIONS
+Keep q0 as the least-significant basis bit. Display n-qubit strings as |q(n-1)...q1 q0>. Integer x has qj=(x>>j)&1. Basis vectors are indexed 0 through 2^n-1. Do not silently reverse input/output bitstrings.
+Angles are radians; gate arguments put angles before qubit operands. Controls precede targets. RZX(a,b) has Z on the first operand a and X on the second b; with little-endian matrix ordering this may appear as X tensor Z. Define operations by labeled operands before constructing their matrices.
+Chronological gates U1 then U2 produce U2*U1*psi. Preserve global phase in operator definitions and controlled synthesis. Comparing complete states may ignore one common global phase; comparing controlled implementations may not discard it.
+The existing numeric parser accepts decimal/scientific numbers, not pi expressions. Add a safe restricted angle parser for pi, +, -, *, / and parentheses, or translate menu constants to finite decimal radians. Do not evaluate arbitrary terminal text as executable code.
+
+BACKEND ROUTING
+1. Procedural family: calculate psi(address,t) from the recorded formula and composed 2x2 unitary. Shared local gates update the descriptor. These addresses are independently defined single-qubit states; they are not one giant entangled register. An all-family gate does not individually execute every represented application.
+2. Coherent selected register/circuit: preserve joint amplitudes, phases and entanglement with existing tensor/sparse/dense state blocks. Use it for Bell, GHZ, controlled gates, QFT, small algorithms and arbitrary supported unitaries.
+3. Stabilizer extension: prepare stabilizer inputs and use H/S/Pauli/CX plus supported Pauli measurement with a phase-aware tableau. Route a circuit with T, generic rotations, or non-stabilizer input to another compatible backend. Some special rotation angles are Clifford; classify the operation, not just its name.
+4. Density-matrix/trajectory extension: use for explicit noise, mixed states, channels, general reset and dynamic operations. Small density matrices scale as 4^n. A trajectory estimate must show shot count and uncertainty; an averaged ensemble is different from a single trajectory.
+5. Optional tensor-network extension: expose truncation, bond dimensions and error estimates. Do not promise efficient general simulation for every entangled circuit.
+6. Theory/resource calculators: use algebra or numerical tools for synthesis costs, code properties, Hamiltonians, Grover probabilities, noise extrapolation and memory estimates. Estimates are not executed gate results.
+
+For auto selection, inspect input state, gates, noise, measurements, requested output and measured memory headroom. Report selected backend and reason. Unsupported commands remain visible with "Needs backend" and an explanation; do not fabricate returns or substitute classical XOR for coherent quantum evolution.
+
+PRESELECTED COMMAND MENU
+Import the preset manifest into the command reference beside the terminal. Categories should cover setup, state preparation, local gates, controlled/interaction gates, circuit experiments, measurement, state analysis, verification, noise, algorithms, QEC, synthesis, resources and learning.
+Each menu item displays label, exact command sequence, affected scope, parameters, backend, availability, expected result and reset behavior. Provide Search, category filters, Favorites, Recently used, Insert, Run, and Download TXT. Keep normal command strings visible so the menu teaches terminal use.
+Separate "Observed syntax" from "Proposed extension" until source-level verification changes availability. Expose approximate/noisy/theory status in the result, not buried in help.
+Prefer deterministic example inputs and persistent existing seeds. A preset that creates a fresh circuit must use a unique run name or ask for an explicit overwrite only when its target already contains user work. Never overwrite the active circuit merely because the user clicks a teaching example.
+Use a manifest-driven parameter editor: qubit selector, ordered control/target selectors, angle field with radians/degrees display, shot count, measurement basis, backend, result view, memory estimate. Validate before dispatch. Only local gates accept all under the existing tranche contract; multiqubit operands must be explicit and distinct.
+Broad preset coverage does not mean executing every preset at startup. Run one chosen calculation at a time and load advanced capabilities when selected.
+
+SEQUENCE RUNNER
+Store macros as arrays of ordinary commands, not semicolon text unless the parser explicitly supports it. Execute them in order. After an asynchronous gate/run/resume, await completed job status before sending dependent commands. Stop on failure/cancellation and retain partial accounting. A queued job is not a completed calculation.
+Prevent mutation of a circuit or register while its job runs. Keep cancel and status responsive. Record accepted command, normalized operands, job id, command index, backend and run descriptor hash. Saved circuit shots must restart from the original input for each independent repetition. Joint measurement must preserve correlations; multiplying separately sampled marginals would fail for Bell/GHZ states.
+Persist measurement seeds AND counters. Reproducing a run requires its input, circuit, backend/version, PRNG algorithm, seed and starting counter. Preserving a seed while continuing a counter does not reproduce earlier shots. Explicit replay should use a copied snapshot rather than silently resetting the live sequence.
+
+29-QUBIT TRANCHES
+29 qubits means 2^29=536,870,912 basis amplitudes in a general pure joint state, not 29 basis outcomes. A single dense complex128 vector needs 8,589,934,592 bytes (8 GiB); transactional updates, work buffers and checkpoints add memory. The observed default budget is 512 MiB, so 29-qubit dense execution is conditional. Compact product or sparse states can fit much more easily.
+Do not automatically set a budget to all system RAM or allocate a full dense vector just to prepare zero/GHZ states. Check peak allocations before state commit, use cancellation and transactional rollback, and give a useful lower-memory alternative.
+For the 500,000,000,000,000-address family, width-29 snapshots yield 17,241,379,310,345 possible tranches; the last contains 24 addresses. Preparing one tranche materializes one selected product input snapshot. Subsequent entangling gates act on that register, not all tranches. Independent tranche simulations cannot represent arbitrary cross-tranche entanglement; an exact cross-tranche operation requires an appropriate combined state representation and budget.
+
+REQUIRED RESULT VIEWS
+Summary: result, interpretation, scope, backend, completion state, elapsed time.
+State: amplitudes with real/imaginary parts, magnitude, phase and probability; show omissions/truncation explicitly. A state command returning one amplitude must not be labeled a full state dump.
+Probabilities: exact model probabilities when calculable; sampled histogram and confidence intervals separately.
+Spin/Bloch: dimensionless X/Y/Z expectations; physical spin is (hbar/2) times these for a spin-1/2 interpretation. A reduced entangled qubit can have Bloch radius <1.
+Circuit: wire labels, chronological gates, input, basis order, controls/targets, depth, logical gate counts, measurements and classical conditions.
+Analysis: reduced density matrices, purity, entropy, correlations and fidelity with conventions stated.
+Accounting: represented family applications; committed logical gates; actual CPU/GPU state evaluations; actual amplitude/tensor arithmetic; verification comparisons; requested/completed shots; measured qubit outcomes; physical quantum gates (zero for classical simulation); peak storage; timing boundaries.
+Errors: validation failures, numerical residuals, cancellation and partial coverage. Log individual failures only while preserving aggregate successes/progress.
+Raw JSON: exact counts as decimal strings if they exceed JavaScript's safe integer range.
+
+TXT EXPORT FOR EVERY COMMAND
+Maintain selected-return TXT, full-session TXT and complete circuit-histogram TXT downloads already described by the candidate. Extend them to every new command, including help/status/resource commands. Nonmeasurement commands must say "Measurement: not performed" instead of inventing a measurement.
+Each printout must include date/time, original command, normalized command, input/descriptor hash, conventions, scope, backend/version/precision, seed/start and end counters, status, exact/sampled/estimated label, results, requested/completed shots or samples, numerical tolerance/residuals, failures, work counters, elapsed time and memory. Large histogram/state exports may stream; the UI preview may page results without dropping rows from the full download. Include a machine-readable JSON companion.
+Report probability-estimation intervals with the sampling design. Stratified or correlated family verification samples do not automatically satisfy iid binomial assumptions. A rule proof verifies specified mathematics; a sampled implementation check validates checked points. Neither is an exhaustive physical RAM scan.
+
+PROPOSED EXTENSION CONTRACT
+The proposed catalogue entries are design requests, not current parser guarantees. Implement their exact named syntax in help, with argument schemas and examples; reconcile any conflict with real existing code before changing it. New q.math/q.query/q.noise/q.algorithm/q.qec/q.compile/q.resource/q.model/q.lesson namespaces must not change q.tranche/q.circuit meanings.
+Define every convenience state name, matrix order, Pauli string, channel parameter, Hamiltonian sign, algorithm input/register mapping and approximation tolerance in help. Accept only bounded, validated symbolic math syntax. An unknown term or missing critical operand yields a specific error/help response rather than a guessed calculation.
+Expose compile estimates separately from executable synthesized gate lists. Return a synthesized sequence only after numerical verification of its declared norm error. General theoretical commands explain assumptions and cannot claim a quantum speedup from one favorable toy example.
+
+ACCEPTANCE CHECKS
+Validate native code and command parser, not only menu JSON. Check each active preset dispatches, respects job barriers, displays the correct scope and exports TXT. Treat proposed entries as unavailable until implemented and tested.
+Mathematical checks: X|0>=|1>; Y|0>=i|1>; H then H gives identity; RY(pi)|0>=|1>; H-Z-H|0>=|1>; S^2=Z; T^2=S; U(theta,phi,0)|0> has the documented amplitudes.
+Little-endian check: X on q0 of |00> gives |01>; CX(control q0,target q1) maps index 1 to 3 and index 2 to 2. Reject repeated control/target operands.
+Entanglement check: H q0 then CX q0 q1 gives (|00>+|11>)/sqrt(2); P(00)=P(11)=1/2, P(01)=P(10)=0, each local Bloch vector is zero, and <Z0 Z1>=1. Joint shot histograms must contain only correlated outcomes in the ideal model.
+Phase check: P(phi)=exp(i phi/2) RZ(phi) on one qubit, but CP(phi) and CRZ(phi) are different controlled gates. Verify the distinction.
+Measurement check: a noncollapsing shot leaves the saved premeasurement state; a collapsing single shot updates the full joint state and correlated partner. Born probabilities sum to 1. Invalid density matrices/noise probabilities fail validation.
+Additional checks: round-trip circuit/checkpoint/replay, seed+counter replay, cancellation rollback/partial counts, memory refusal before commit, final partial tranche, QFT+inverse QFT, Clifford backend agreement with small dense circuits, noisy channel trace preservation, and TXT accounting consistency.
+Compare small cases against an independent established simulator or independently implemented matrix reference, including complex phases and bit order. Do not claim actual backend throughput until a timed reproducible run measures it, with initialization and sampling timing stated separately.
+
+ARTICLE HANDLING
+Use the article as a syllabus: gates, stabilizers/magic, synthesis, complexity, noise, QEC, paradigms and hardware. Replace its missing formulas with the guide's explicit definitions. Correct T/magic and universality, Wigner-dimension qualifications, adiabatic/circuit equivalence, complexity-class uncertainty, CSS/qLDPC distinctions, and theory-versus-experiment hardware claims. Current hardware roadmaps and cryptographic standards belong in dated reference explanations, not hard-coded calculator guarantees.
+
+DELIVERABLES FOR THE IMPLEMENTING CHAT
+Updated recoverable SpinDoctor package and source; searchable preset menu with availability labels; native implementations for supported extensions; safe async macro runner; mathematical validation report; working TXT/JSON exports; updated help/notes and a list of remaining unsupported presets with reasons. Preserve user history and state. Report implemented capability and measured validation precisely.
+
+Prompt structure follows official OpenAI guidance about specifying goal, context, output and boundaries:
+https://learn.chatgpt.com/docs/prompting

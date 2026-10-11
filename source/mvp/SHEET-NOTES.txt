@@ -1,0 +1,134 @@
+XOR XPU: finite 2-adic probability-sheet experiment
+
+Every computed XOR bit remains binary: black XOR black = black; black XOR
+white = white; white XOR black = white; white XOR white = black. Spin labels
+are classical simulated values, s = 1 - 2*bit, so 0 maps to +1 and 1 to -1.
+
+The model samples a finite batch whose coordinates are (committed epoch,
+worker address). Each committed epoch is a shared descriptor transition over
+the same initialized RAM base bits. One virtual XOR per stored worker address
+is represented at each transition. CPU and GPU explicitly calculate selected
+pairs. The represented rate is domain size * committed transitions / actual
+pipeline wall seconds. It is separate from reconstruction sample throughput.
+
+Sampling is spread over numerical address regions and contiguous epoch
+regions, then separated into worker-address residue classes modulo 2^depth.
+The residue classes form a finite 2-adic hierarchy because closer 2-adic
+addresses share more low-order bits. Ordinary adjacent numerical addresses
+need not be neighbors in that metric. Counts use exact finite populations,
+including uneven edge regions and domains that are not powers of two.
+
+Uniform ordered sampling without replacement selects training and disjoint
+holdout coordinates in each terminal cell. The field seed remains fixed and
+recorded. A separate independently generated sampling seed is recorded and
+preserved so a sample design can be replayed. Confidence statements assume
+the reproducible PRNG behaves as the ideal uniform sampling design; they do
+not require independent field bits or assert quantum randomness.
+
+For K terminal cells, alpha = 1 - requested confidence and n training samples,
+half the failure budget is assigned to all leaves and hierarchy parents and
+half to the separate global mean interval: alpha_leaf = alpha_global = alpha/2.
+Each cell uses epsilon = sqrt(log(2*K/alpha_leaf)/(2*n)). The estimated fraction of
+white XOR outcomes has interval [max(0,p-epsilon), min(1,p+epsilon)]. A fully
+enumerated cell has an exact mean interval. Spin mean = 1 - 2*p, with interval
+[1 - 2*upperProbability, 1 - 2*lowerProbability]. Hoeffding's finite-population
+bound and a union bound give simultaneous coverage under the stated sampling
+assumption. Exact population weights propagate intervals to hierarchy parents
+and the global mean. These conservative aggregate intervals can be broad.
+The global mean also receives a tighter independently derived stratified bound:
+epsilon_global = sqrt(log(2/alpha_global)*sum_nonexhaustive((N_h/N)^2/n_h)/2).
+Exhaustively trained strata contribute zero uncertainty. This global bound
+uses ideal independence of sampling designs across the disjoint strata. The
+leaf and global failure budgets sum to alpha, so the combined guarantee is at
+least the requested confidence. Both the propagated leaf interval and the
+tighter global interval are exported; neither is an exact binary output.
+
+Holdout results do not enter fitted probabilities or intervals. Their Brier
+scores compare probability predictions with actual disjoint binary outcomes.
+A constant 0.5 predictor has Brier score 0.25. These are observed validation
+scores, not proof of all unseen outputs. Exhaustively trained cells may have
+no remaining holdouts; no holdout result is fabricated for those cells.
+
+There are three different returns:
+  1. Actual selected CPU/GPU XOR bits and simulated spin labels.
+  2. A complete queryable piecewise probability-sheet table with intervals.
+  3. An exact known-equation descriptor containing field seed, initial base
+     pattern, worker domain and committed epoch range. It computes any
+     requested individual output from the supplied generator equation.
+
+The exact descriptor is a compact formula, not statistically recovered
+unseen bits. A dense full batch return still requires generating and writing
+each output. For an arbitrary N-bit field, m observed coordinates leave
+2^(N-m) assignments compatible with those observations. The current seeded
+hash field has no assumed p-adic smoothness or sparse basis representation;
+its probability fit can perform no better than an unstructured random field.
+
+The term 2-adic here denotes the explicit low-bit multiresolution model. This
+experiment does not implement a p-adic bulk action, a conformal field theory,
+a Bruhat-Tits holographic tensor network, or physical spin measurements. XOR
+spin correlations alone do not specify complex quantum amplitudes, unitary
+circuits, measurement bases or entanglement. The simulator reports its
+classical measurements, mathematical model and represented counts separately.
+
+Primary mathematical background:
+  Kozyrev, Wavelet analysis as a p-adic spectral analysis:
+  https://arxiv.org/abs/math-ph/0012019
+  Khrennikov, Shelkovich and Skopina, p-Adic refinable functions and MRA-based
+  wavelets: https://arxiv.org/abs/0711.2820
+  Candes and Romberg, Sparsity and Incoherence in Compressive Sampling:
+  https://arxiv.org/abs/math/0611957
+  Bardenet and Maillard, Concentration inequalities for sampling without
+  replacement: https://arxiv.org/abs/1309.4029 (Lemma 1.1, Proposition 1.2
+  and Lemma 1.3 provide the finite-population reduction and moment bound).
+  Gubser et al., p-adic AdS/CFT: https://arxiv.org/abs/1605.01061
+
+The independent audit enumerates bounded small domains, checks the exact
+population partition and sample uniqueness, independently calculates the
+confidence intervals and weighted hierarchy, proves fitting has no holdout
+leakage, and compares the query descriptor with a separately transcribed
+scalar oracle. Its live test allocates only 4 MiB and checks actual CPU/GPU
+sampling, zero added epoch credit, seed preservation, replay and release.
+It also pauses immediately after a genuinely completed CPU/GPU query chunk,
+verifies that completed work stays counted while later chunks stop, verifies
+pre-signaled pause and reserve-floor checks prevent additional reads, and
+confirms a resumed query reconstructs the same seed, coordinates and outcomes.
+
+Recorded full-reservoir experiment (2026-10-09)
+
+The actual root experiment initialized 12,769,820,672 bytes once, providing
+102,158,565,376 stored bit addresses. It individually committed 5,644 shared
+epoch transitions in 2.000181099996553 measured pipeline wall seconds. That
+represents 576,582,942,982,144 virtual XOR points in the batch, or approximately
+288.265 trillion represented XOR transformations per actual wall second.
+The rate can vary with available RAM, process activity and sample timing; the
+earlier approximately 345.7 trillion figure was from a different recorded run.
+
+The epoch window explicitly calculated 361,216 primary sampled XOR pairs:
+180,608 on CPU and 180,608 on GPU. Subsequent reconstruction explicitly
+calculated 10,240 additional selected pairs, of which 4,788 were CPU and 5,452
+GPU. The sheet used 128 terminal cells, each with 64 training and 16 disjoint
+holdout samples: 8,192 training and 2,048 holdout points in total. Reconstruction
+took 1.6824037999977008 seconds including design, real RAM reads, CPU/GPU query
+completion, statistics and sheet formatting, and earned zero new virtual
+epoch credit. No full-reservoir writes occurred during these epochs or queries.
+
+Estimated global white probability was 0.4969482421875. Its jointly allocated
+confidence interval was [0.4805941087546647, 0.5133023756203353]. The estimated
+global simulated spin mean was 0.006103515625, with interval
+[-0.026604751240670632, 0.03881178249067063]. These describe the estimated
+finite-population mean under the documented design assumptions.
+
+Held-out bit prediction accuracy was 48.876953125%. Held-out Brier score was
+0.2541980743408203, compared with 0.25 for a constant half-probability model
+(smaller is better). This batch therefore did not demonstrate improved
+individual-bit prediction over the unstructured half-probability baseline.
+The sheet provides probability estimates and a complete known-generator query
+descriptor; its sparse samples did not recover the unseen binary field.
+
+Independent full-report parsing checked all 10,240 actual outputs against a
+separately transcribed scalar XOR generator, replayed every preserved sampling
+coordinate, recomputed leaf and global confidence intervals and weighted
+holdout metrics, checked exact native source hashes, and verified operation
+counts, fixed field and sampling seed records and full native RAM release.
+Its 34 checks passed. The separate live small-memory integration audit passed
+29 checks including replay, cancellation, reserve-floor behavior and release.
