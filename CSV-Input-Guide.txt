@@ -1,0 +1,187 @@
+SpinDoctor 3.1.1 - CSV measurements, fitted equations and command inputs
+
+Measurement CSV to an equation report
+
+Upload a CSV with one header row, for example:
+date,humidity,pressure,temperature
+2026-10-01,45,1002,35.2
+2026-10-02,55,998,33.8
+...
+
+Uploading and previewing store the exact source bytes and SHA256; they never fit
+or execute a model automatically. Use the CSV measurement controls, or:
+q.input table ATTACHMENT_ID
+q.input fit ATTACHMENT_ID target=temperature features=[humidity,pressure] target-unit=degC feature-units=[percent,hPa]
+
+Choose the dependent variable (target) and the independent input columns
+(features) explicitly. The terminal computes an ordinary least-squares linear
+equation using the actual complete numeric rows. It returns its intercept,
+coefficients, source hash, used/excluded row counts, all exclusion reasons,
+observed and fitted values, residuals, ranges, R-squared, RMSE and MAE.
+PDF, TXT and CSV exports use that preserved native result without fitting again.
+The PDF includes the fitted equation and observed-versus-fitted and residual
+graphs. CSV records retain the actual numeric rows and native metadata.
+
+This is an empirical linear fit to the supplied rows. It does not discover a
+physical law, establish causality or validate future weather forecasts. All
+diagnostics are calculated on the same rows used for fitting; no independent
+holdout validation is performed. A nonlinear relationship may fit poorly.
+There is no quantum operation or measurement-shot credit for CSV regression.
+
+Headers can be selected by name or zero-based column index. For names containing
+spaces, commas or ambiguous numeric labels, use indexes, for example:
+q.input fit ATTACHMENT_ID target=3 features=[1,2]
+
+Unit labels are optional, supplied by you and never inferred. Without them,
+units are reported as unknown. Labels with spaces can be quoted:
+target-unit="degrees C" feature-units=["relative percent","hPa"]
+Quoted unit labels can contain commas. Feature unit order must match feature order.
+
+Equation text and conventional mathematical representations
+
+Completed CSV-derived fits and declared CSV gate/circuit programs expose both
+editable equation text and conventional mathematical notation. An empirical
+fit displays y_hat = intercept + sum(coefficient_j * feature_j), using its
+actual selected columns, native coefficients and supplied units. It remains
+an empirical fit to the recorded rows, not an inferred physical law.
+
+A declared gate or circuit displays its actual ordered operators and initial
+basis state: |psi_out> = U_m ... U_2 U_1 |initialBasis>. The first CSV gate acts
+first; qubit 0 is the least significant/rightmost basis bit and controlled
+gate operands stay control-first. The associated Born and Bloch expressions
+describe how that declared state is measured or represented; they do not claim
+that unexecuted gates, shots or a full 29-qubit matrix were calculated. Actual
+native simulation results retain their separate execution/completion evidence.
+
+In the shared report hub, select the recorded return, open Equation text and
+mathematical form, and press Load selected native equations. This explicitly
+loads a local editable text field beside read-only native LaTeX notation; the
+PDF presents its conventional typeset mathematical form. The editor displays
+up to 32768 characters and labels truncation; the full native equation text
+remains in the PDF/TXT/CSV reports. Copy equation text copies your
+local working text; Reset native text restores the returned equation. Editing
+or copying this field never submits a command, refits data, executes a circuit,
+changes preserved CSV bytes, or changes native coefficients, figures or archive
+receipts. Its source/revision label continues to identify the native return.
+Uploading, fitting, polling or changing the selected return does not refill
+the editor. The draft retains its labelled source until an explicit load or
+reset; loading a different native return deliberately replaces working text.
+
+To change the calculation, edit the source CSV/gate input and explicitly Fit,
+Import or Run it again. A copied equation draft is not executable CSV input.
+The PDF/TXT/CSV receipts use the preserved native equation and provenance;
+local text edits do not become authenticated native calculation results.
+
+Bounds and missing data
+
+Data tables support 1..64 unique headers, up to 4096 data rows and 1..16 chosen
+predictors. Header labels are 1..128 characters without line breaks or controls.
+Selected cells must contain finite decimal/scientific numbers using a decimal
+point, with absolute magnitude at most 1e150. Blank values, NA, NaN, Infinity,
+dates, expressions and other nonnumeric selected cells are excluded with their
+original zero-based data-row index and reason. Nonnumeric columns that were not
+selected do not exclude otherwise usable rows. Date strings remain data; no
+time axis, date conversion or missing value is guessed.
+
+The fit requires more complete rows than parameters (an intercept plus the
+chosen predictors). Constant or collinear predictors are rejected because they
+do not identify a unique equation. A constant target is allowed; its R-squared
+is undefined and returned as null rather than an invented score. The native
+calculation uses centered/scaled, column-pivoted Householder QR to avoid forming
+the less stable normal equations. Both ordinary and centered equations are
+retained; fitted values use centered/scaled coordinates to reduce cancellation.
+
+CSV parsing accepts UTF-8 with or without a BOM, LF/CRLF records, quoted commas,
+literal quotes doubled inside quoted cells, and multiline quoted text data.
+Every row must match the header width. The attachment limit is 5 MiB; individual
+table cells are bounded to 4096 characters. An attachment can be valid as a data
+table even when it is not a valid executable circuit/program attachment. Empty
+single-cell records are ignored; row indices refer to parsed nonempty data
+records, excluding the header.
+
+Synthetic demonstration
+
+The accompanying weather-example.csv is generated demonstration data, not
+observed weather. Its date column is inert. It contains 24 complete numeric
+rows and two deliberately missing/nonnumeric selected rows, so the example
+equation uses 24 rows and reports two exclusions. Use your own measurements
+to fit an equation about your own data.
+
+Gate and circuit measurement data
+
+Numeric fitting is domain-independent. For an empirical gate calibration table:
+q.input fit GATE_MEASUREMENTS_ID target=success_probability features=[control_amplitude,pulse_ns] target-unit=probability feature-units=[relative,ns]
+For an empirical circuit measurement table:
+q.input fit CIRCUIT_MEASUREMENTS_ID target=success_probability features=[depth,two_qubit_gates] target-unit=probability feature-units=[count,count]
+
+The accompanying gate-measurements.csv and circuit-measurements.csv contain
+synthetic demonstration measurements, not observed device data. The fitted
+relations have the same empirical/holdout limitations as the weather example.
+A linear fit may predict probabilities outside [0,1]; it is not a physical
+probability law and no extrapolation is validated. It does not simulate gates.
+
+CSV gate lists: a different explicit circuit format
+
+To define and simulate gates themselves, use these reserved headers:
+gate,n,targets,angles,name,initialBasis,shots,basis
+h,2,0,,csv_bell,0,1024,z
+cx,,"0,1",,,,,
+
+Required columns are gate,n,targets,angles. Declare n (1..29 qubits) in the first
+gate row. Optional name, initialBasis, shots and basis describe the whole
+circuit. Metadata can be left blank in later rows or repeated consistently;
+conflicting declarations are refused. Defaults for this CSV gate format are
+initialBasis=0, shots=1024, basis=z, with the existing maximum of 100000 shots.
+Only the complete set of four reserved headers selects this gate-program
+format. Existing parameter sweeps named gate or gate,n keep their earlier
+meaning and require an explicit circuit base; incomplete headers are not
+guessed into an executable gate list.
+
+Each row is one supported native gate in chronological order. targets uses
+zero-based qubit operands in native control-first order, e.g. "0,1" for CX.
+Angles are radians and use supported safe expressions, e.g. pi/2. Target and
+angle lists may be bracketed, e.g. "[0,1]" and "[pi/2,0,pi]". Lists containing
+commas must be CSV-quoted. Use an empty angles cell for an angle-free gate.
+The all target applies only to supported local gates. Native checks reject
+wrong arity, duplicate or out-of-range targets, unsupported gates and code.
+
+Upload and import never run the gates. Use explicit actions:
+q.input import GATE_CSV_ID
+q.circuit run shots 1024 basis z
+or q.input run GATE_CSV_ID to execute using the file's shot/basis hints.
+Folder mode also executes a validated CSV gate program with native barriers and
+its existing verification receipt policy. Circuit lists expanding to over 128
+sequence commands must be imported and run directly rather than queued through
+q.input run or folder mode. CSV source parsing supports up to 4096 gate rows.
+
+gate-rotated-qubit.csv contains RY(pi/2) on |0>, producing a +X Bloch direction.
+gate-bell.csv contains H(0), CX(0,1), producing an entangled Bell pair. Each
+Bell qubit's reduced Bloch vector is zero with purity 1/2; its center marker
+correctly represents a mixed local state rather than a missing calculation.
+CSV circuit results are classical coherent simulation and sampled bitstrings,
+not physical quantum hardware data. The source CSV hash, completed shot counts,
+histogram and native coherent-state figures remain in the reports.
+
+Existing command CSV and parameter sweep support
+
+A different CSV format has exactly one header named command. Each row is one
+documented terminal command, quoted when it contains commas. For example:
+command
+"q.math norm amplitudes=[5,12]"
+"q.math bloch amplitudes=[0,1]"
+
+Run it explicitly with q.input run ATTACHMENT_ID, or through folder chugging.
+It performs the requested calculations in order and archives each result.
+It does not reinterpret a measurement table as host code or shell commands.
+Command CSV permits 1..128 commands, each bounded to 4096 characters, and refuses
+multiline command cells, nested folder/input commands and state deletion/reset.
+
+Parameter CSVs remain a third distinct format. Their headers are declared
+parameters of a separately attached circuit, with safe expression cells bounded
+to 1024 characters. Select one explicit base circuit and zero-based row:
+q.input evaluate CSV_ID row 0 base BASE_CIRCUIT_ID
+q.input import CSV_ID row 0 base BASE_CIRCUIT_ID
+q.circuit run shots 1024 basis z
+
+A parameter CSV needs its base circuit; it is not automatically fitted or run
+as a measurement table, and folder mode cannot guess that missing base.
