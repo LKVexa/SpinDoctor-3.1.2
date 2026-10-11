@@ -1,0 +1,79 @@
+SPINDOCTOR 3.0.6 - AUTOMATIC MODEL SAMPLING BEFORE FOLDER RECEIPTS
+Prepared 2026-10-10. Separate release; previous applications and live workspaces
+are preserved. Start BOOT.cmd in this release's SpinDoctor folder.
+
+PURPOSE OF q.verify
+The current procedural equation, migration and applied shared gates define a
+virtual state at each address. q.verify materializes selected addresses on the
+CPU and a genuine FP64 OpenCL GPU. It returns sampled amplitudes, spin X/Y/Z,
+normalization and Born probability one, and checks agreement at tolerance 2e-9.
+Equation plus gates -> state amplitudes -> predicted probabilities and spin.
+Probability alone cannot recover phase or establish an arbitrary full state.
+These values describe what the captured virtual model predicts. They are not
+physical measurements or experimental validation of the model's assumptions.
+
+AUTOMATIC FILE WORKFLOW
+1. Execute every command in the selected file and await matching native jobs.
+2. Automatically run q.verify samples 10240 errors-only on the resulting model.
+3. Await the matching verification job, including asynchronous boundary cases.
+4. Require completed comparison, consistent real sample counts, zero mismatches
+   and a descriptor hash unchanged across the check.
+5. Archive the verified file receipt, make success downloads available, then
+   release temporary calculation references when purge=true.
+
+Example:
+  q.folder run path="D:/inputs" downloads=false purge=true verify=true samples=10240
+
+verify=true is the default. Requested samples may be 1..16384. Native distinct
+boundary points can add comparisons; small domains may be checked exhaustively.
+Input-command totals exclude the extra verification steps. Individual downloads
+are optional; the complete run report retains each file's verification evidence.
+Explicit verify=false produces clearly labeled unverified receipts.
+
+Missing GPU, mismatches, cancellation, stale descriptor or incomplete coverage
+hold success receipts and preserve temporary outputs for diagnosis. Diagnostic
+reports state the failure; successful command execution is still distinguished
+from successful model verification. No CPU substitution fabricates GPU credit.
+
+REPORT DETAIL
+Command completion is separate from the archive stage and verification verdict.
+Reports display received/completed UTC, model identity and preparation/migration
+context, requested/planned/compared counts, selection seed/address digests,
+tolerance, discrepancies, measured timing and up to 32 actual CPU/GPU sample rows.
+PDFs include coverage/error figures and sampled-state interpretation. A bounded
+preview does not omit aggregate counts or invent undisplayed state values.
+The recorded source hash binds each file to its verification evidence; separate
+native completion, archive and purge times make the receipt ordering auditable.
+
+SCOPE
+q.verify samples the saved procedural product-state descriptor. It does not
+independently recompute unrelated q.math operands, q.model/q.resource outputs,
+coherent q.circuit registers, tranche results or physical-RAM XOR reservoirs.
+Their raw numerical results and execution stamps remain available separately.
+Unprepared or migration-zero models can give trivial predictions; this is stated
+in receipts rather than silently changing the model. Formula-only input files
+do not prepare or migrate that descriptor. Use the explicit Model-Sampling
+test inputs to exercise a nontrivial model in a separate test session.
+Repeated checks of an unchanged descriptor may select the same addresses.
+Summed comparisons are actual operations, not union coverage of unique states.
+A finite passing sample does not establish every unsampled address in a large
+domain, and implementation agreement is not a correctness proof of assumptions.
+
+LATEST USER RECORDS
+The selected 24 TXT records from 3.0.5 show the folder completed 12/12 files and
+23/23 commands at 2026-10-10T12:00:39.6069426Z. Numerical results were present.
+The selected folder contained the 12 odd-numbered fixtures; the other12 were in
+the adjacent run2 folder. Scanning is nonrecursive. Sixteen distinct selected
+calculator returns supplied 34 expected-field comparisons, all passing in the
+offline audit. That audit does not imply all 23 answers were independently checked.
+No q.verify was run there. The procedural model was unprepared, migration zero,
+so its CPU/GPU/verification counters were legitimately zero. The UI hid useful
+values behind a generic calculator label, and PDF resolution dropped some
+synchronous completion timestamps. Both presentation problems are fixed here.
+
+PRESERVATION AND VALIDATION
+Old downloaded records are evidence and are not rewritten. Old jobs without the
+new verification evidence are treated as legacy/unverified, never upgraded to
+PASS. Corrupt evidence or checkpoint fields are refused with files preserved.
+See the release's Audit and validation folders for actual test results and scope.
+The earlier3.0.5 release notes are retained as historical documentation.
