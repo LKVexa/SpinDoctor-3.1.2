@@ -1,0 +1,30 @@
+PASS existing carrier verification
+PASS MVP smoke validates entrypoint and native sources
+PASS MVP smoke rejects missing entrypoint
+PASS MVP smoke rejects nonlaunchable entrypoint
+PASS unsafe path mvp/../escape
+PASS unsafe path mvp/.. 
+PASS unsafe path mvp/CON.txt
+PASS unsafe path mvp/COM1.txt
+PASS unsafe path mvp/NUL .txt
+PASS unsafe path mvp/file:secret
+PASS unsafe path mvp/a\b
+PASS unsafe path mvp/a.
+PASS unsafe path /absolute
+PASS unsafe path mvp//x
+PASS unsafe path mvp/_bad
+PASS legitimate spaced path
+PASS truncated archive count
+PASS unknown archive flags
+PASS Windows case collision
+PASS inflate cannot exceed declared size
+PASS nonempty inflate with zero declaration
+PASS valid bounded inflate
+PASS invalid mount preflight
+PASS failed mount writes nothing
+PASS verified atomic replacement roundtrip
+PASS temporary writeback cleanup
+PASS hostile stream length rejected before allocation
+PASS overlapping or shifted page range rejected
+Carrier audit checks=28
+
