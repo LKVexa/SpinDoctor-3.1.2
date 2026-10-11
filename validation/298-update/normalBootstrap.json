@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "clone_directory": "<WORK>\\2026-10-10\\can-you-build-a-quantum-equation-2\\work\\boot-compatibility\\f0bd5dcd54eb4990b4cb95a05fa64966\\SpinDoctor 3.1.2",
+  "space_containing_folder_name": "SpinDoctor 3.1.2",
+  "runtime_clone_static_files": 138,
+  "command_runs": [
+    {
+      "command": "BOOT.cmd verify",
+      "chunk_id": "25a95c",
+      "wall_time_seconds": 8.4618414,
+      "exit_code": 0,
+      "original_token_count": 504,
+      "output": "================================================================\r\n SPINDOCTOR - CARRIER-CONTAINED QUANTUM VIRTUAL TERMINAL\r\n================================================================\r\n External bootstrap: BOOT.cmd + generic C# harness source only\r\n Authoritative MVP: TIFF-GIF-HOLO/4 image-resident filesystem\r\n Model domain:      500 trillion procedural single-qubit state addresses\r\n Quantum program:   FP64 C# CPU and actual OpenCL GPU kernels in carrier\r\n Selected register: 1-298 logical qubits; joint coherent factors up to 59\r\n Verification:      mathematical rule checks and independent sampled calculations\r\n Accounting:        represented gates and actual state calculations reported separately\r\n Carrier:           <WORK>\\2026-10-10\\can-you-build-a-quantum-equation-2\\work\\boot-compatibility\\f0bd5dcd54eb4990b4cb95a05fa64966\\SpinDoctor 3.1.2\\cartridge\\SpinDoctor-3.1.2.tiff\r\n Harness mode:      in-process Windows PowerShell Add-Type\r\n================================================================\r\n\r\n[1/3] Loading generic carrier harness in-process...\r\n[TIFF-GIF-HOLO] Process start: \"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\"  -NoLogo -NoProfile -STA -ExecutionPolicy Bypass -Command \"$ErrorActionPreference='Stop'; try { $src=[IO.File]::ReadAllText($env:HARNESSSRC); Add-Type -TypeDefinition $src -Language CSharp -ReferencedAssemblies 'System.dll','System.Core.dll','System.Drawing.dll','System.Windows.Forms.dll','System.Web.Extensions.dll' -ErrorAction Stop; $a=[string[]]@($env:PSMODE,$env:CARRIER); $rc=[TIFFHolo.HarnessEntry]::Run($a); exit [int]$rc } catch { $m=($_ | Out-String); [IO.File]::WriteAllText($env:BUILDLOG,$m); [Console]::Error.WriteLine($m); exit 97 }\"\r\nPASS TIFF-GIF-HOLO/4\r\npages=44\r\nentries=293\r\nsha256=b7f21b583841b15e1063da2e7cb8db565fedaac0dd76abe682652849b45312fb\r\nstream=3a6157dfd9c73aad30884ed51e8c7a1b2ca897778126bf94bacaa6cea908961a\r\n[2/3] Processable hologram and immutable MVP bank verified.\r\nPress any key to close this bootstrap window.\r\n"
+    },
+    {
+      "command": "BOOT.cmd gif verify",
+      "chunk_id": "c250cd",
+      "wall_time_seconds": 7.9928298,
+      "exit_code": 0,
+      "original_token_count": 504,
+      "output": "================================================================\r\n SPINDOCTOR - CARRIER-CONTAINED QUANTUM VIRTUAL TERMINAL\r\n================================================================\r\n External bootstrap: BOOT.cmd + generic C# harness source only\r\n Authoritative MVP: TIFF-GIF-HOLO/4 image-resident filesystem\r\n Model domain:      500 trillion procedural single-qubit state addresses\r\n Quantum program:   FP64 C# CPU and actual OpenCL GPU kernels in carrier\r\n Selected register: 1-298 logical qubits; joint coherent factors up to 59\r\n Verification:      mathematical rule checks and independent sampled calculations\r\n Accounting:        represented gates and actual state calculations reported separately\r\n Carrier:           <WORK>\\2026-10-10\\can-you-build-a-quantum-equation-2\\work\\boot-compatibility\\f0bd5dcd54eb4990b4cb95a05fa64966\\SpinDoctor 3.1.2\\cartridge\\SpinDoctor-3.1.2.gif\r\n Harness mode:      in-process Windows PowerShell Add-Type\r\n================================================================\r\n\r\n[1/3] Loading generic carrier harness in-process...\r\n[TIFF-GIF-HOLO] Process start: \"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\"  -NoLogo -NoProfile -STA -ExecutionPolicy Bypass -Command \"$ErrorActionPreference='Stop'; try { $src=[IO.File]::ReadAllText($env:HARNESSSRC); Add-Type -TypeDefinition $src -Language CSharp -ReferencedAssemblies 'System.dll','System.Core.dll','System.Drawing.dll','System.Windows.Forms.dll','System.Web.Extensions.dll' -ErrorAction Stop; $a=[string[]]@($env:PSMODE,$env:CARRIER); $rc=[TIFFHolo.HarnessEntry]::Run($a); exit [int]$rc } catch { $m=($_ | Out-String); [IO.File]::WriteAllText($env:BUILDLOG,$m); [Console]::Error.WriteLine($m); exit 97 }\"\r\nPASS TIFF-GIF-HOLO/4\r\npages=44\r\nentries=293\r\nsha256=2c0ecd0d9768c514eae6e5c02de3d52d57552dd92a56216c823289e9b9a3cff2\r\nstream=3a6157dfd9c73aad30884ed51e8c7a1b2ca897778126bf94bacaa6cea908961a\r\n[2/3] Processable hologram and immutable MVP bank verified.\r\nPress any key to close this bootstrap window.\r\n"
+    }
+  ],
+  "gui_or_service_requested": false,
+  "normal_done_flow_returned": true,
+  "stdin_for_final_pause": "EOF via NUL",
+  "installed_app_touched": false,
+  "all_copied_static_files_unchanged": true,
+  "assembled_release_static_files_unchanged": true,
+  "verified_static_file_count": 138,
+  "projection_not_materialized": true,
+  "assembled_release_workspace_absent": true,
+  "bootstrap_diagnostic_error_log_absent": true,
+  "verified_carrier_pages_each": 44,
+  "verified_immutable_entries_each": 293,
+  "gui_or_service_launch_branch_not_entered": true
+}

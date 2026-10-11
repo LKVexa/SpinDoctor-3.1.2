@@ -1,0 +1,88 @@
+{
+  "passed": true,
+  "version": "3.1.2",
+  "source_files_compiled": 13,
+  "source_snapshot_matches_final_stage": true,
+  "source_sha256": {
+    "QuantumCore.cs": "ba80a655898fc0b2fc03dd1cfb271204eecd45ff8020a7d81beb428ccd58e9e2",
+    "QuantumTerminal.cs": "48feae485ca282f11408ce2d5b922aa8e822cb394f81d2f38d692948d3b30946",
+    "SpinDoctorAdvanced.cs": "201cd68a7960227a3d78d7418f2a63994aac9179e2f759586313177e9ab94dd6",
+    "SpinDoctorCalculators.cs": "3041a375df8c75a904477fa7bdbc1f5712e77e02101eec0723fbbfd2f5b48140",
+    "SpinDoctorCircuits.cs": "9b754f04dfe3604180f7ab774c46acf5950773df4210d69c13c7063304419c9b",
+    "SpinDoctorCommandReports.cs": "e1acb66520942b6a431ac2a03e499e724adc592b65dd87f49c3c425359e853fe",
+    "SpinDoctorInputs.cs": "b0b0fabef1d92d4c9608f4a28a6d99494c9f76dcf56f547cd9c2550b6628d63c",
+    "SpinDoctorPdfInputs.cs": "be5cbbd76eb1c1a2c2557530bbb6c9ebfd2e1ebfff2125777bef13ddfcf9428d",
+    "SpinDoctorReports.cs": "6c5a0f246c9e877466a922434580ae8667d248898032847e998fdf18143a79b0",
+    "SpinDoctorSequences.cs": "907187e8da5b7c4a00d04535fc1387eb3d1d984847401d2db06efb36fe0d338c",
+    "SpinDoctorSyntax.cs": "5b1372ea157f79ff3b26adb16ccb88def28d79d9e8bd06832431673aed9a1718",
+    "SpinDoctorTranches.cs": "8a8da64e9e529cff90d875590bbc10fb7ec993724721d8c4fc210cc01b6adf19",
+    "SpinDoctorTrancheTerminal.cs": "a068385bd73b59891a5492ce68efef084dd64c8fb81f0ba8a0c8fb06905b78ad"
+  },
+  "tests": [
+    {
+      "suite": "original engine regressions with documented legacy-gate filter",
+      "groups": 13,
+      "assertions": 38766,
+      "passed": true
+    },
+    {
+      "suite": "original focused folder/archive/purge/checkpoint regressions with documented harness adaptations",
+      "groups": 7,
+      "assertions": 46,
+      "passed": true
+    },
+    {
+      "suite": "original untouched catalog compiler/default-shot regressions",
+      "catalog_entries": 241,
+      "assertions": 3929,
+      "passed": true
+    },
+    {
+      "suite": "original untouched receipt-transition regressions",
+      "assertions": 43,
+      "actual_small_circuit_shots": 5,
+      "passed": true
+    },
+    {
+      "suite": "new independent wide-factor plus original29 native execution regressions",
+      "groups": 6,
+      "assertions": 661,
+      "actual_wide298_shots": 32,
+      "actual_legacy29_shots": 17,
+      "passed": true
+    },
+    {
+      "suite": "actual original saved-session/history compatibility in isolated copy",
+      "passed": true,
+      "proof": {
+        "passed": true,
+        "version": "3.1.2",
+        "savedFamilyLoaded": true,
+        "savedFamilyPrepared": false,
+        "savedSequenceHistoryLoaded": true,
+        "savedSequencePhase": "failed",
+        "savedSequenceCompletedFiles": 0,
+        "savedSequenceCompletedCommands": 0,
+        "savedCircuitProgramCount": 0,
+        "savedTrancheQubits": 0,
+        "nativeCommandsExecuted": 0,
+        "userOriginalWritten": false,
+        "seedValuesDisclosed": false,
+        "originalMutableFilesUnchanged": 26,
+        "copiedArchiveFilesPreserved": 24,
+        "savedFamilyFieldsPreserved": 27
+      }
+    }
+  ],
+  "assertions_total_excluding_saved_session": 43445,
+  "all_user_original_mutable_files_unchanged": true,
+  "seed_values_disclosed": false,
+  "production_sources_edited_by_auditor": false,
+  "physical_quantum_hardware_execution_claimed": false,
+  "skipped_workloads": [
+    "exhaustive native preset execution",
+    "synthetic folder archives exceeding32MiB"
+  ],
+  "execution_evidence": "<WORK>\\2026-10-10\\can-you-build-a-quantum-equation-2\\work\\native-298-regressions\\execution-evidence.json",
+  "harness_adaptations": "<WORK>\\2026-10-10\\can-you-build-a-quantum-equation-2\\work\\native-298-regressions\\harness-adaptations.json"
+}
