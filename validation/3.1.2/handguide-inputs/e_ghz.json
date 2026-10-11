@@ -1,0 +1,1 @@
+{"name": "jsonghz", "qubits": 3, "gates": [{"name": "h", "qubits": [0]}, {"name": "cx", "qubits": [0, 1]}], "shots": 256, "basis": "z"}
