@@ -1,0 +1,4 @@
+qubits 2
+shots 512
+h 0
+cx 0 1

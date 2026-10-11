@@ -1,0 +1,3 @@
+command
+"q.math normalize amplitudes=[1,i]"
+"q.math bloch amplitudes=[1/sqrt(2),i/sqrt(2)]"
