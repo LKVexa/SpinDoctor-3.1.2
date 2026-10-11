@@ -1,0 +1,41 @@
+{
+  "schema": "LUNAR127/RUN-SESSION-BINDING/1",
+  "release": "1.1.4",
+  "carrierProgramBindingSha256": "4ef0a6992dfdbe039a7cb6aa4b67b5de98bd3798f1fb4563ca0e6342c32e86b6",
+  "parentCarrierStreamSha256": "ba4b20a186c1d2525dc2c996630993cd670455feb8ebfe516b404b5691c1938b",
+  "cartridgeId": "41144af4449e1642779ed7ed00889627",
+  "derivation": "SHA256(launchSeed || carrierProgramBinding || BRWWORD_SHA256)",
+  "bindingInputs": [
+    {
+      "name": "mvp/meta/ENTRYPOINT.json",
+      "bytes": 804,
+      "sha256": "21262aca771a2005435089185169d1d76ca403729d5be3b95843d9b7462bc714"
+    },
+    {
+      "name": "mvp/runtime/TenQKernel.cs",
+      "bytes": 35812,
+      "sha256": "00ee9ecdd7a67baa00347e28504002ce00d139bf358160b6502b3ac384d0a044"
+    },
+    {
+      "name": "mvp/tenq/TENQ_MACROPROGRAM_CORE.json",
+      "bytes": 2114,
+      "sha256": "12c8ff0c84018a2365b73b54d6449249fd8d5bde6733ac264203db7c852cd9bb"
+    },
+    {
+      "name": "mvp/tenq/reference_vectors.json",
+      "bytes": 4884,
+      "sha256": "69cebf90163cbdc9e1e830e5dd13212a9bfa9773dac6c6c9c3a0b2d41342fda7"
+    },
+    {
+      "name": "mvp/tenq/resident_macroprogram.brw",
+      "bytes": 131072,
+      "sha256": "8222fd2c7b321703b9e6f44fa22a7a7cb069aa2d7cd311fb00f6c2eeb1549b83"
+    },
+    {
+      "name": "mvp/ultrawide-appliance/ULTRAWIDE_APPLIANCE_MANIFEST.json",
+      "bytes": 12241,
+      "sha256": "1189930a3f9a1305cc3d16e8b586a68a57cfea78ae03b517dc64b2ee5f6751f3"
+    }
+  ],
+  "note": "The outer TIFF-GIF-HOLO/4 stream hash is verified before materialization. The run-session binding uses a non-self-referential digest over run-critical image-resident payloads because a container cannot embed its own final file hash without self-reference."
+}
