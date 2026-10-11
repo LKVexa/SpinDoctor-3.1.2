@@ -1,0 +1,43 @@
+SpinDoctor 3.1.2 — 298-qubit update applied to the normal carrier launcher.
+Read UPDATE-298.txt for restart, capabilities, limits and the eleven-file run.
+The older HANDGUIDE.pdf and audit PDFs describe their original builds.
+
+SpinDoctor 3.1.2
+
+New here? Read HANDGUIDE.pdf (or HANDGUIDE.md) first: a plain-language guide
+with quick start, command reference, folder runs, limits and troubleshooting.
+What changed: CHANGELOG.md and Release-Notes.txt. Audit: AUDIT_3.1.2.md.
+
+Launch SpinDoctor\BOOT.cmd from this folder. BOOT verifies and materializes
+the selected versioned TIFF/GIF carrier before opening the terminal.
+
+Measurement CSV: upload, inspect columns, then explicitly choose a numeric
+target and predictor columns in Fit measured data. The returned equation,
+coefficients, fit statistics and residuals are empirical and use the supplied
+measurements. They do not establish a physical law or unseen prediction accuracy.
+
+Gate-list CSV: upload, inspect, then choose Run attached circuit. The declared
+gates are simulated through the native engine with the file's shots/basis hints.
+CSV gate programs default to 1,024 shots in Z unless specified otherwise.
+
+CSV companions are available for command, sequence, file and PDF report exports.
+Report CSVs contain typed nested native values; input CSV tables have their own
+schemas. Exporting reports does not repeat calculation or verification.
+Equation reports contain editable plain text and conventional mathematical
+notation, with coefficient mappings or declared circuit operators/local matrices.
+The local equation editor supports copying/resetting a draft; edits do not change
+the native result or its receipt. Explicitly Fit/Import/Run changed source data
+to obtain a new native result.
+
+See CSV-Input-Guide.txt and Examples for templates. Reports contains a combined
+PDF with native equation graphs, circuit diagrams, histograms and Bloch spheres,
+plus matching TXT/CSV reports. Measurement examples are synthetic demonstration
+data. Reports\Inputs contains the exact bytes used for the saved report;
+the rotated example explicitly declares eight shots, while Bell uses 1,024.
+
+The 3.1.1 candidate and its history remain preserved (this is a separate release).
+3.1.2 checks: the full runnable source test suite (18/18), all 241 presets
+(identical outcomes to 3.1.1), the folder chug series (103/103 expected rows)
+and every hand-guide example. The 128-file x 120-command stress folder and
+maximum verification ceilings were not run.
+Reports (3.1.1 examples) are unchanged.
