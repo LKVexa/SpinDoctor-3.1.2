@@ -1,0 +1,52 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "materialize-tiff",
+      "passed": true,
+      "exitCode": 0,
+      "seconds": 30.2,
+      "log": "materialize-tiff.log",
+      "logSha256": "b7ab4d58a629161876deb08f4868d383dcc01625d35355067b508247413fabaa"
+    },
+    {
+      "name": "carrier-security-tiff",
+      "passed": true,
+      "exitCode": 0,
+      "seconds": 30.92,
+      "log": "carrier-security-tiff.log",
+      "logSha256": "c18fcaabdf77595496666826ee20da98c2ccceada7f38f7fbeee4fb2162a82e1"
+    },
+    {
+      "name": "materialize-gif",
+      "passed": true,
+      "exitCode": 0,
+      "seconds": 28.53,
+      "log": "materialize-gif.log",
+      "logSha256": "2b504cc82b7ca2911140a6a8707efa07fa9ae1214ad8e4201e6377d004244a0b"
+    },
+    {
+      "name": "carrier-security-gif",
+      "passed": true,
+      "exitCode": 0,
+      "seconds": 19.05,
+      "log": "carrier-security-gif.log",
+      "logSha256": "c18fcaabdf77595496666826ee20da98c2ccceada7f38f7fbeee4fb2162a82e1"
+    },
+    {
+      "name": "carrier-smoke",
+      "passed": true,
+      "exitCode": 0,
+      "seconds": 10.01,
+      "log": "carrier-smoke.log",
+      "logSha256": "b537dc4a22a9b8c8e95fc48c3fe1333cc56708f53649e098cbc0c6efafa5b3c9"
+    }
+  ],
+  "version": "3.1.1",
+  "carrierBasename": "SpinDoctor-3.1.1",
+  "finalCarriers": "SpinDoctor/cartridge",
+  "validationDirectory": "validation/carrier-checks",
+  "sourceImmutableSha256": "c8a46a8d2eff99bd3704e3b18abd8fd10233963c33f89ba521dbe58f3e874ad8",
+  "buildProofSha256": "163e8f72ff2aaf210bae9478997309a523a192d2b98f5b9c6a54c6dca3d25a1d",
+  "artworkProofSha256": "e4fdc561587d5fa212f0cd86438eb2adf851b905f6cd85a0774fe0724fe5962c"
+}
