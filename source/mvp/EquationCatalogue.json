@@ -1,0 +1,2490 @@
+{
+  "schema": "SPINDOCTOR-EQUATION-CATALOGUE/1",
+  "createdDate": "2026-10-09",
+  "sources": [
+    {
+      "file": "SPINDOCTOR_QUANTUM_GUIDE.txt",
+      "sha256": "be9c2604e4c27fdfc05baa1526e190e9539cea0eabfa8840606002c17c9ffc23"
+    },
+    {
+      "file": "Quantum Computation Equations Overview.txt",
+      "sha256": "598b528cdb179777db0d178f54d6f343a3751da91b8907d7aaa824df90a2c359"
+    }
+  ],
+  "interpretation": "Supplied documents are reference data. Runtime availability is independently checked; original proposed labels remain provenance. Formula gaps are explicit and are not guessed.",
+  "conventions": {
+    "bitOrder": "q0 least significant; display |q(n-1)...q0>",
+    "gateOrder": "chronological U1,U2 means U2 U1 |psi>",
+    "complex": "[real,imaginary]",
+    "controlledPhase": "retained",
+    "resultKinds": [
+      "numerical",
+      "analysis",
+      "resource-estimate",
+      "theory"
+    ],
+    "physicalQuantumOperations": 0
+  },
+  "guideFormulaAndExampleEntries": [
+    {
+      "id": "guide-001",
+      "section": 1,
+      "sourceLine": 11,
+      "sourceText": "|psi> = alpha|0> + beta|1> = [alpha,beta]^T",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math norm",
+        "q.math tensor",
+        "q.math unitary",
+        "q.circuit add",
+        "q.circuit run"
+      ],
+      "scope": "Vectors up to4096; matrices up to16x16; selected coherent registers1..29 with actual memory budget. Circuit gates compose chronologically."
+    },
+    {
+      "id": "guide-002",
+      "section": 1,
+      "sourceLine": 12,
+      "sourceText": "|alpha|^2 + |beta|^2 = 1.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math norm",
+        "q.math tensor",
+        "q.math unitary",
+        "q.circuit add",
+        "q.circuit run"
+      ],
+      "scope": "Vectors up to4096; matrices up to16x16; selected coherent registers1..29 with actual memory budget. Circuit gates compose chronologically."
+    },
+    {
+      "id": "guide-003",
+      "section": 1,
+      "sourceLine": 14,
+      "sourceText": "|+> = (|0>+|1>)/sqrt(2)",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math norm",
+        "q.math tensor",
+        "q.math unitary",
+        "q.circuit add",
+        "q.circuit run"
+      ],
+      "scope": "Vectors up to4096; matrices up to16x16; selected coherent registers1..29 with actual memory budget. Circuit gates compose chronologically."
+    },
+    {
+      "id": "guide-004",
+      "section": 1,
+      "sourceLine": 15,
+      "sourceText": "|-> = (|0>-|1>)/sqrt(2)",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math norm",
+        "q.math tensor",
+        "q.math unitary",
+        "q.circuit add",
+        "q.circuit run"
+      ],
+      "scope": "Vectors up to4096; matrices up to16x16; selected coherent registers1..29 with actual memory budget. Circuit gates compose chronologically."
+    },
+    {
+      "id": "guide-005",
+      "section": 1,
+      "sourceLine": 19,
+      "sourceText": "|psi> = sum_(x=0)^(2^n-1) a_x |x>, sum_x |a_x|^2 = 1.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math norm",
+        "q.math tensor",
+        "q.math unitary",
+        "q.circuit add",
+        "q.circuit run"
+      ],
+      "scope": "Vectors up to4096; matrices up to16x16; selected coherent registers1..29 with actual memory budget. Circuit gates compose chronologically."
+    },
+    {
+      "id": "guide-006",
+      "section": 1,
+      "sourceLine": 22,
+      "sourceText": "|psi> = |psi_(n-1)> tensor ... tensor |psi_0>.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math norm",
+        "q.math tensor",
+        "q.math unitary",
+        "q.circuit add",
+        "q.circuit run"
+      ],
+      "scope": "Vectors up to4096; matrices up to16x16; selected coherent registers1..29 with actual memory budget. Circuit gates compose chronologically."
+    },
+    {
+      "id": "guide-007",
+      "section": 1,
+      "sourceLine": 25,
+      "sourceText": "A circuit specifies input, ordered gates, optional noise/reset/measurements and output queries. A unitary gate satisfies U^dagger U=I and acts as |psi'>=U|psi>. If the user enters U1, U2, U3 chronologically, the final vector is U3 U2 U1 |psi>. A gate-count report should distinguish logical gates from work done by the classical simulator.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math norm",
+        "q.math tensor",
+        "q.math unitary",
+        "q.circuit add",
+        "q.circuit run"
+      ],
+      "scope": "Vectors up to4096; matrices up to16x16; selected coherent registers1..29 with actual memory budget. Circuit gates compose chronologically."
+    },
+    {
+      "id": "guide-008",
+      "section": 2,
+      "sourceLine": 29,
+      "sourceText": "Matrix rows and columns below use |0>,|1>; i=sqrt(-1).",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.math compare-gates",
+        "q.circuit add"
+      ],
+      "scope": "All32 supported gate matrices; angles radians; retain controlled/global phase. Full gate unitary at most8x8."
+    },
+    {
+      "id": "guide-009",
+      "section": 2,
+      "sourceLine": 30,
+      "sourceText": "I = [[1,0],[0,1]]",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.math compare-gates",
+        "q.circuit add"
+      ],
+      "scope": "All32 supported gate matrices; angles radians; retain controlled/global phase. Full gate unitary at most8x8."
+    },
+    {
+      "id": "guide-010",
+      "section": 2,
+      "sourceLine": 31,
+      "sourceText": "X = [[0,1],[1,0]]                 bit flip",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.math compare-gates",
+        "q.circuit add"
+      ],
+      "scope": "All32 supported gate matrices; angles radians; retain controlled/global phase. Full gate unitary at most8x8."
+    },
+    {
+      "id": "guide-011",
+      "section": 2,
+      "sourceLine": 32,
+      "sourceText": "Y = [[0,-i],[i,0]]                bit flip with phase",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.math compare-gates",
+        "q.circuit add"
+      ],
+      "scope": "All32 supported gate matrices; angles radians; retain controlled/global phase. Full gate unitary at most8x8."
+    },
+    {
+      "id": "guide-012",
+      "section": 2,
+      "sourceLine": 33,
+      "sourceText": "Z = [[1,0],[0,-1]]                phase flip",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.math compare-gates",
+        "q.circuit add"
+      ],
+      "scope": "All32 supported gate matrices; angles radians; retain controlled/global phase. Full gate unitary at most8x8."
+    },
+    {
+      "id": "guide-013",
+      "section": 2,
+      "sourceLine": 34,
+      "sourceText": "H = (1/sqrt(2))*[[1,1],[1,-1]]    changes Z and X bases",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.math compare-gates",
+        "q.circuit add"
+      ],
+      "scope": "All32 supported gate matrices; angles radians; retain controlled/global phase. Full gate unitary at most8x8."
+    },
+    {
+      "id": "guide-014",
+      "section": 2,
+      "sourceLine": 35,
+      "sourceText": "P(phi) = [[1,0],[0,exp(i*phi)]]    relative phase",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.math compare-gates",
+        "q.circuit add"
+      ],
+      "scope": "All32 supported gate matrices; angles radians; retain controlled/global phase. Full gate unitary at most8x8."
+    },
+    {
+      "id": "guide-015",
+      "section": 2,
+      "sourceLine": 36,
+      "sourceText": "S = P(pi/2); SDG = S^dagger",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.math compare-gates",
+        "q.circuit add"
+      ],
+      "scope": "All32 supported gate matrices; angles radians; retain controlled/global phase. Full gate unitary at most8x8."
+    },
+    {
+      "id": "guide-016",
+      "section": 2,
+      "sourceLine": 37,
+      "sourceText": "T = P(pi/4); TDG = T^dagger",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.math compare-gates",
+        "q.circuit add"
+      ],
+      "scope": "All32 supported gate matrices; angles radians; retain controlled/global phase. Full gate unitary at most8x8."
+    },
+    {
+      "id": "guide-017",
+      "section": 2,
+      "sourceLine": 38,
+      "sourceText": "SX = (1/2)*[[1+i,1-i],[1-i,1+i]]; SXDG = SX^dagger",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.math compare-gates",
+        "q.circuit add"
+      ],
+      "scope": "All32 supported gate matrices; angles radians; retain controlled/global phase. Full gate unitary at most8x8."
+    },
+    {
+      "id": "guide-018",
+      "section": 2,
+      "sourceLine": 40,
+      "sourceText": "Using c=cos(theta/2), s=sin(theta/2):",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.math compare-gates",
+        "q.circuit add"
+      ],
+      "scope": "All32 supported gate matrices; angles radians; retain controlled/global phase. Full gate unitary at most8x8."
+    },
+    {
+      "id": "guide-019",
+      "section": 2,
+      "sourceLine": 41,
+      "sourceText": "RX(theta) = [[c,-i*s],[-i*s,c]]",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.math compare-gates",
+        "q.circuit add"
+      ],
+      "scope": "All32 supported gate matrices; angles radians; retain controlled/global phase. Full gate unitary at most8x8."
+    },
+    {
+      "id": "guide-020",
+      "section": 2,
+      "sourceLine": 42,
+      "sourceText": "RY(theta) = [[c,-s],[s,c]]",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.math compare-gates",
+        "q.circuit add"
+      ],
+      "scope": "All32 supported gate matrices; angles radians; retain controlled/global phase. Full gate unitary at most8x8."
+    },
+    {
+      "id": "guide-021",
+      "section": 2,
+      "sourceLine": 43,
+      "sourceText": "RZ(theta) = diag(exp(-i*theta/2),exp(i*theta/2))",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.math compare-gates",
+        "q.circuit add"
+      ],
+      "scope": "All32 supported gate matrices; angles radians; retain controlled/global phase. Full gate unitary at most8x8."
+    },
+    {
+      "id": "guide-022",
+      "section": 2,
+      "sourceLine": 44,
+      "sourceText": "Equivalently R_a(theta)=exp(-i*theta*sigma_a/2).",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.math compare-gates",
+        "q.circuit add"
+      ],
+      "scope": "All32 supported gate matrices; angles radians; retain controlled/global phase. Full gate unitary at most8x8."
+    },
+    {
+      "id": "guide-023",
+      "section": 2,
+      "sourceLine": 47,
+      "sourceText": "U(theta,phi,lambda) =",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.math compare-gates",
+        "q.circuit add"
+      ],
+      "scope": "All32 supported gate matrices; angles radians; retain controlled/global phase. Full gate unitary at most8x8."
+    },
+    {
+      "id": "guide-024",
+      "section": 2,
+      "sourceLine": 48,
+      "sourceText": "[[c,-exp(i*lambda)*s],",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.math compare-gates",
+        "q.circuit add"
+      ],
+      "scope": "All32 supported gate matrices; angles radians; retain controlled/global phase. Full gate unitary at most8x8."
+    },
+    {
+      "id": "guide-025",
+      "section": 2,
+      "sourceLine": 50,
+      "sourceText": "U(theta,phi,0)|0> = c|0> + exp(i*phi)*s|1>.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.math compare-gates",
+        "q.circuit add"
+      ],
+      "scope": "All32 supported gate matrices; angles radians; retain controlled/global phase. Full gate unitary at most8x8."
+    },
+    {
+      "id": "guide-026",
+      "section": 2,
+      "sourceLine": 51,
+      "sourceText": "For one unconditioned qubit, P(phi)=exp(i*phi/2)*RZ(phi). The common phase does not affect measurements of that complete state. However, replacing an operation by a global-phase-equivalent one inside a controlled gate can change relative phase between control branches. CP and CRZ therefore differ.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.math compare-gates",
+        "q.circuit add"
+      ],
+      "scope": "All32 supported gate matrices; angles radians; retain controlled/global phase. Full gate unitary at most8x8."
+    },
+    {
+      "id": "guide-027",
+      "section": 2,
+      "sourceLine": 54,
+      "sourceText": "pi = 3.141592653589793",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.math compare-gates",
+        "q.circuit add"
+      ],
+      "scope": "All32 supported gate matrices; angles radians; retain controlled/global phase. Full gate unitary at most8x8."
+    },
+    {
+      "id": "guide-028",
+      "section": 2,
+      "sourceLine": 55,
+      "sourceText": "pi/2 = 1.5707963267948966",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.math compare-gates",
+        "q.circuit add"
+      ],
+      "scope": "All32 supported gate matrices; angles radians; retain controlled/global phase. Full gate unitary at most8x8."
+    },
+    {
+      "id": "guide-029",
+      "section": 2,
+      "sourceLine": 56,
+      "sourceText": "pi/4 = 0.7853981633974483",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.math compare-gates",
+        "q.circuit add"
+      ],
+      "scope": "All32 supported gate matrices; angles radians; retain controlled/global phase. Full gate unitary at most8x8."
+    },
+    {
+      "id": "guide-030",
+      "section": 3,
+      "sourceLine": 62,
+      "sourceText": "|c,t> -> |c,t XOR c>.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.circuit add"
+      ],
+      "scope": "q0 least significant; operands controls first; RZX first operand Z, second X; selected coherent register only."
+    },
+    {
+      "id": "guide-031",
+      "section": 3,
+      "sourceLine": 64,
+      "sourceText": "[[1,0,0,0],[0,0,0,1],[0,0,1,0],[0,1,0,0]].",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.circuit add"
+      ],
+      "scope": "q0 least significant; operands controls first; RZX first operand Z, second X; selected coherent register only."
+    },
+    {
+      "id": "guide-032",
+      "section": 3,
+      "sourceLine": 67,
+      "sourceText": "Controlled-U applies I if control=0 and U if control=1. CY, CZ and CH control Y, Z and H. CP/CRX/CRY/CRZ control the named phase/rotation. The candidate's CU(theta,phi,lambda,gamma) controls exp(i*gamma)*U(theta,phi,lambda), including the controlled phase parameter.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.circuit add"
+      ],
+      "scope": "q0 least significant; operands controls first; RZX first operand Z, second X; selected coherent register only."
+    },
+    {
+      "id": "guide-033",
+      "section": 3,
+      "sourceLine": 71,
+      "sourceText": "RXX(theta;a,b) = exp(-i*theta*X_a X_b/2)",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.circuit add"
+      ],
+      "scope": "q0 least significant; operands controls first; RZX first operand Z, second X; selected coherent register only."
+    },
+    {
+      "id": "guide-034",
+      "section": 3,
+      "sourceLine": 72,
+      "sourceText": "RYY(theta;a,b) = exp(-i*theta*Y_a Y_b/2)",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.circuit add"
+      ],
+      "scope": "q0 least significant; operands controls first; RZX first operand Z, second X; selected coherent register only."
+    },
+    {
+      "id": "guide-035",
+      "section": 3,
+      "sourceLine": 73,
+      "sourceText": "RZZ(theta;a,b) = exp(-i*theta*Z_a Z_b/2)",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.circuit add"
+      ],
+      "scope": "q0 least significant; operands controls first; RZX first operand Z, second X; selected coherent register only."
+    },
+    {
+      "id": "guide-036",
+      "section": 3,
+      "sourceLine": 74,
+      "sourceText": "RZX(theta;a,b) = exp(-i*theta*Z_a X_b/2).",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.circuit add"
+      ],
+      "scope": "q0 least significant; operands controls first; RZX first operand Z, second X; selected coherent register only."
+    },
+    {
+      "id": "guide-037",
+      "section": 3,
+      "sourceLine": 75,
+      "sourceText": "The first RZX operand carries Z, the second X. For a=q0,b=q1, the little-endian tensor matrix uses X tensor Z. Always define the labeled Pauli action before constructing the tensor matrix.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.circuit add"
+      ],
+      "scope": "q0 least significant; operands controls first; RZX first operand Z, second X; selected coherent register only."
+    },
+    {
+      "id": "guide-038",
+      "section": 4,
+      "sourceLine": 80,
+      "sourceText": "|psi> = cos(theta/2)|0> + exp(i*phi)*sin(theta/2)|1>.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math bloch",
+        "q.math from-bloch",
+        "q.math probabilities",
+        "q.query marginal",
+        "q.circuit run",
+        "q.tranche measure"
+      ],
+      "scope": "Analytic probabilities versus sampled counts separate. Measurement commands support X/Y/Z; general Kraus measurement is not installed."
+    },
+    {
+      "id": "guide-039",
+      "section": 4,
+      "sourceLine": 82,
+      "sourceText": "x = 2 Re(conj(alpha)*beta) = sin(theta)*cos(phi)",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math bloch",
+        "q.math from-bloch",
+        "q.math probabilities",
+        "q.query marginal",
+        "q.circuit run",
+        "q.tranche measure"
+      ],
+      "scope": "Analytic probabilities versus sampled counts separate. Measurement commands support X/Y/Z; general Kraus measurement is not installed."
+    },
+    {
+      "id": "guide-040",
+      "section": 4,
+      "sourceLine": 83,
+      "sourceText": "y = 2 Im(conj(alpha)*beta) = sin(theta)*sin(phi)",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math bloch",
+        "q.math from-bloch",
+        "q.math probabilities",
+        "q.query marginal",
+        "q.circuit run",
+        "q.tranche measure"
+      ],
+      "scope": "Analytic probabilities versus sampled counts separate. Measurement commands support X/Y/Z; general Kraus measurement is not installed."
+    },
+    {
+      "id": "guide-041",
+      "section": 4,
+      "sourceLine": 84,
+      "sourceText": "z = |alpha|^2-|beta|^2 = cos(theta).",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math bloch",
+        "q.math from-bloch",
+        "q.math probabilities",
+        "q.query marginal",
+        "q.circuit run",
+        "q.tranche measure"
+      ],
+      "scope": "Analytic probabilities versus sampled counts separate. Measurement commands support X/Y/Z; general Kraus measurement is not installed."
+    },
+    {
+      "id": "guide-042",
+      "section": 4,
+      "sourceLine": 85,
+      "sourceText": "These are dimensionless Pauli expectations <X>,<Y>,<Z>. If interpreted as a physical spin-1/2, <S_a>=(hbar/2)*<sigma_a>. A qubit may instead be implemented in another two-level physical system; \"spin\" is then a mathematical representation.",
+      "availability": "Reference definition",
+      "nativeCommands": [
+        "q.math bloch",
+        "q.query marginal"
+      ],
+      "scope": "Physical spin scaling requires supplied hbar/units. Arbitrary-axis measurement is reference math; current marginal commands use X/Y/Z."
+    },
+    {
+      "id": "guide-043",
+      "section": 4,
+      "sourceLine": 87,
+      "sourceText": "p(plus)=(1+n dot r)/2; p(minus)=(1-n dot r)/2.",
+      "availability": "Reference definition",
+      "nativeCommands": [
+        "q.math bloch",
+        "q.query marginal"
+      ],
+      "scope": "Physical spin scaling requires supplied hbar/units. Arbitrary-axis measurement is reference math; current marginal commands use X/Y/Z."
+    },
+    {
+      "id": "guide-044",
+      "section": 4,
+      "sourceLine": 88,
+      "sourceText": "State |+> gives deterministic +X but 50/50 Z. State |+i>=(|0>+i|1>)/sqrt(2) gives deterministic +Y.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math bloch",
+        "q.math from-bloch",
+        "q.math probabilities",
+        "q.query marginal",
+        "q.circuit run",
+        "q.tranche measure"
+      ],
+      "scope": "Analytic probabilities versus sampled counts separate. Measurement commands support X/Y/Z; general Kraus measurement is not installed."
+    },
+    {
+      "id": "guide-045",
+      "section": 4,
+      "sourceLine": 91,
+      "sourceText": "p(m)=Tr(M_m rho M_m^dagger)",
+      "availability": "Reference / needs general measurement backend",
+      "nativeCommands": [],
+      "scope": "General user-supplied Kraus measurement operators are not implemented; native measurement is projective X/Y/Z."
+    },
+    {
+      "id": "guide-046",
+      "section": 4,
+      "sourceLine": 92,
+      "sourceText": "rho_m=M_m rho M_m^dagger / p(m), if p(m)>0.",
+      "availability": "Reference / needs general measurement backend",
+      "nativeCommands": [],
+      "scope": "General user-supplied Kraus measurement operators are not implemented; native measurement is projective X/Y/Z."
+    },
+    {
+      "id": "guide-047",
+      "section": 4,
+      "sourceLine": 93,
+      "sourceText": "For a pure computational-basis measurement: p(x)=|a_x|^2.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math bloch",
+        "q.math from-bloch",
+        "q.math probabilities",
+        "q.query marginal",
+        "q.circuit run",
+        "q.tranche measure"
+      ],
+      "scope": "Analytic probabilities versus sampled counts separate. Measurement commands support X/Y/Z; general Kraus measurement is not installed."
+    },
+    {
+      "id": "guide-048",
+      "section": 5,
+      "sourceLine": 99,
+      "sourceText": "A pure state has rho=|psi><psi|. A mixture is rho=sum_k p_k |psi_k><psi_k|. Valid rho is Hermitian, positive semidefinite and has trace 1.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math density",
+        "q.math validate-density",
+        "q.math purity",
+        "q.math entropy",
+        "q.math fidelity",
+        "q.query reduced-density",
+        "q.query expectation",
+        "q.query concurrence",
+        "q.query negativity"
+      ],
+      "scope": "Matrices <=16d; full selected-state reductions <=16qubits, <=4 retained; single-qubit reduced state via nativeSpin up to29. Concurrence pure whole2q only; negativity uses globally pure Schmidt identity."
+    },
+    {
+      "id": "guide-049",
+      "section": 5,
+      "sourceLine": 100,
+      "sourceText": "Unitary evolution: rho'=U rho U^dagger.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math density",
+        "q.math validate-density",
+        "q.math purity",
+        "q.math entropy",
+        "q.math fidelity",
+        "q.query reduced-density",
+        "q.query expectation",
+        "q.query concurrence",
+        "q.query negativity"
+      ],
+      "scope": "Matrices <=16d; full selected-state reductions <=16qubits, <=4 retained; single-qubit reduced state via nativeSpin up to29. Concurrence pure whole2q only; negativity uses globally pure Schmidt identity."
+    },
+    {
+      "id": "guide-050",
+      "section": 5,
+      "sourceLine": 101,
+      "sourceText": "Subsystem state: rho_A=Tr_B(rho_AB).",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math density",
+        "q.math validate-density",
+        "q.math purity",
+        "q.math entropy",
+        "q.math fidelity",
+        "q.query reduced-density",
+        "q.query expectation",
+        "q.query concurrence",
+        "q.query negativity"
+      ],
+      "scope": "Matrices <=16d; full selected-state reductions <=16qubits, <=4 retained; single-qubit reduced state via nativeSpin up to29. Concurrence pure whole2q only; negativity uses globally pure Schmidt identity."
+    },
+    {
+      "id": "guide-051",
+      "section": 5,
+      "sourceLine": 102,
+      "sourceText": "Observable expectation: <A>=Tr(rho A).",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math density",
+        "q.math validate-density",
+        "q.math purity",
+        "q.math entropy",
+        "q.math fidelity",
+        "q.query reduced-density",
+        "q.query expectation",
+        "q.query concurrence",
+        "q.query negativity"
+      ],
+      "scope": "Matrices <=16d; full selected-state reductions <=16qubits, <=4 retained; single-qubit reduced state via nativeSpin up to29. Concurrence pure whole2q only; negativity uses globally pure Schmidt identity."
+    },
+    {
+      "id": "guide-052",
+      "section": 5,
+      "sourceLine": 103,
+      "sourceText": "Purity: Tr(rho^2); it equals 1 for a pure state and 1/d for a maximally mixed d-dimensional state.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math density",
+        "q.math validate-density",
+        "q.math purity",
+        "q.math entropy",
+        "q.math fidelity",
+        "q.query reduced-density",
+        "q.query expectation",
+        "q.query concurrence",
+        "q.query negativity"
+      ],
+      "scope": "Matrices <=16d; full selected-state reductions <=16qubits, <=4 retained; single-qubit reduced state via nativeSpin up to29. Concurrence pure whole2q only; negativity uses globally pure Schmidt identity."
+    },
+    {
+      "id": "guide-053",
+      "section": 5,
+      "sourceLine": 104,
+      "sourceText": "Von Neumann entropy in bits: S(rho)=-sum_k lambda_k log2(lambda_k), with 0 log 0=0.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math density",
+        "q.math validate-density",
+        "q.math purity",
+        "q.math entropy",
+        "q.math fidelity",
+        "q.query reduced-density",
+        "q.query expectation",
+        "q.query concurrence",
+        "q.query negativity"
+      ],
+      "scope": "Matrices <=16d; full selected-state reductions <=16qubits, <=4 retained; single-qubit reduced state via nativeSpin up to29. Concurrence pure whole2q only; negativity uses globally pure Schmidt identity."
+    },
+    {
+      "id": "guide-054",
+      "section": 5,
+      "sourceLine": 105,
+      "sourceText": "Squared fidelity convention:",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math density",
+        "q.math validate-density",
+        "q.math purity",
+        "q.math entropy",
+        "q.math fidelity",
+        "q.query reduced-density",
+        "q.query expectation",
+        "q.query concurrence",
+        "q.query negativity"
+      ],
+      "scope": "Matrices <=16d; full selected-state reductions <=16qubits, <=4 retained; single-qubit reduced state via nativeSpin up to29. Concurrence pure whole2q only; negativity uses globally pure Schmidt identity."
+    },
+    {
+      "id": "guide-055",
+      "section": 5,
+      "sourceLine": 106,
+      "sourceText": "F(rho,sigma)=(Tr sqrt(sqrt(rho)*sigma*sqrt(rho)))^2.",
+      "availability": "Reference / needs mixed-state fidelity backend",
+      "nativeCommands": [
+        "q.math fidelity"
+      ],
+      "scope": "Installed fidelity is squared pure-vector overlap only. The general Uhlmann matrix square-root formula is documented but not dispatched."
+    },
+    {
+      "id": "guide-056",
+      "section": 5,
+      "sourceLine": 107,
+      "sourceText": "For pure vectors, F=|<psi|phi>|^2. State-vector norm error and operator-norm synthesis error are different quantities.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math density",
+        "q.math validate-density",
+        "q.math purity",
+        "q.math entropy",
+        "q.math fidelity",
+        "q.query reduced-density",
+        "q.query expectation",
+        "q.query concurrence",
+        "q.query negativity"
+      ],
+      "scope": "Matrices <=16d; full selected-state reductions <=16qubits, <=4 retained; single-qubit reduced state via nativeSpin up to29. Concurrence pure whole2q only; negativity uses globally pure Schmidt identity."
+    },
+    {
+      "id": "guide-057",
+      "section": 5,
+      "sourceLine": 109,
+      "sourceText": "A local reduced qubit has rho=(I+xX+yY+zZ)/2 and |r|<=1. Bell's reduced state is I/2, with r=(0,0,0), purity 1/2 and entropy 1 bit, even though the whole Bell state is pure. The eigenvalues of a pure qubit state and a mixed reduced state must not be confused.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.math density",
+        "q.math validate-density",
+        "q.math purity",
+        "q.math entropy",
+        "q.math fidelity",
+        "q.query reduced-density",
+        "q.query expectation",
+        "q.query concurrence",
+        "q.query negativity"
+      ],
+      "scope": "Matrices <=16d; full selected-state reductions <=16qubits, <=4 retained; single-qubit reduced state via nativeSpin up to29. Concurrence pure whole2q only; negativity uses globally pure Schmidt identity."
+    },
+    {
+      "id": "guide-058",
+      "section": 6,
+      "sourceLine": 116,
+      "sourceText": "Start |0>; H -> |+>; Z -> |->; H -> |1>.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.circuit add",
+        "q.circuit run",
+        "q.query expectation",
+        "q.query reduced-density",
+        "q.math bloch"
+      ],
+      "scope": "Actual selected coherent Bell/interference/magic examples; probability/counter-dependent shot counts separate."
+    },
+    {
+      "id": "guide-059",
+      "section": 6,
+      "sourceLine": 120,
+      "sourceText": "Start |00>; H on q0; CX q0 q1.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.circuit add",
+        "q.circuit run",
+        "q.query expectation",
+        "q.query reduced-density",
+        "q.math bloch"
+      ],
+      "scope": "Actual selected coherent Bell/interference/magic examples; probability/counter-dependent shot counts separate."
+    },
+    {
+      "id": "guide-060",
+      "section": 6,
+      "sourceLine": 121,
+      "sourceText": "Final vector [1/sqrt(2),0,0,1/sqrt(2)].",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.circuit add",
+        "q.circuit run",
+        "q.query expectation",
+        "q.query reduced-density",
+        "q.math bloch"
+      ],
+      "scope": "Actual selected coherent Bell/interference/magic examples; probability/counter-dependent shot counts separate."
+    },
+    {
+      "id": "guide-061",
+      "section": 6,
+      "sourceLine": 122,
+      "sourceText": "p(00)=p(11)=1/2; p(01)=p(10)=0.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.circuit add",
+        "q.circuit run",
+        "q.query expectation",
+        "q.query reduced-density",
+        "q.math bloch"
+      ],
+      "scope": "Actual selected coherent Bell/interference/magic examples; probability/counter-dependent shot counts separate."
+    },
+    {
+      "id": "guide-062",
+      "section": 6,
+      "sourceLine": 123,
+      "sourceText": "<Z0>=<Z1>=0; <Z0 Z1>=1.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.circuit add",
+        "q.circuit run",
+        "q.query expectation",
+        "q.query reduced-density",
+        "q.math bloch"
+      ],
+      "scope": "Actual selected coherent Bell/interference/magic examples; probability/counter-dependent shot counts separate."
+    },
+    {
+      "id": "guide-063",
+      "section": 6,
+      "sourceLine": 124,
+      "sourceText": "A simulated Z shot produces 00 or 11. Exact probabilities are fixed; counts depend on seed/counter.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.circuit add",
+        "q.circuit run",
+        "q.query expectation",
+        "q.query reduced-density",
+        "q.math bloch"
+      ],
+      "scope": "Actual selected coherent Bell/interference/magic examples; probability/counter-dependent shot counts separate."
+    },
+    {
+      "id": "guide-064",
+      "section": 6,
+      "sourceLine": 127,
+      "sourceText": "Start |0>; H; T.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.circuit add",
+        "q.circuit run",
+        "q.query expectation",
+        "q.query reduced-density",
+        "q.math bloch"
+      ],
+      "scope": "Actual selected coherent Bell/interference/magic examples; probability/counter-dependent shot counts separate."
+    },
+    {
+      "id": "guide-065",
+      "section": 6,
+      "sourceLine": 128,
+      "sourceText": "Final (|0>+exp(i*pi/4)|1>)/sqrt(2).",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.circuit add",
+        "q.circuit run",
+        "q.query expectation",
+        "q.query reduced-density",
+        "q.math bloch"
+      ],
+      "scope": "Actual selected coherent Bell/interference/magic examples; probability/counter-dependent shot counts separate."
+    },
+    {
+      "id": "guide-066",
+      "section": 6,
+      "sourceLine": 129,
+      "sourceText": "Bloch vector (1/sqrt(2),1/sqrt(2),0).",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.circuit add",
+        "q.circuit run",
+        "q.query expectation",
+        "q.query reduced-density",
+        "q.math bloch"
+      ],
+      "scope": "Actual selected coherent Bell/interference/magic examples; probability/counter-dependent shot counts separate."
+    },
+    {
+      "id": "guide-067",
+      "section": 6,
+      "sourceLine": 130,
+      "sourceText": "T on |0> alone does nothing to the state. The ability to repeat a universal gate set is different from one particular circuit containing T.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.circuit add",
+        "q.circuit run",
+        "q.query expectation",
+        "q.query reduced-density",
+        "q.math bloch"
+      ],
+      "scope": "Actual selected coherent Bell/interference/magic examples; probability/counter-dependent shot counts separate."
+    },
+    {
+      "id": "guide-068",
+      "section": 7,
+      "sourceLine": 135,
+      "sourceText": "N=M*L; k=id mod M; ell=floor(id/M)",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.prepare",
+        "q.migrate",
+        "q.state",
+        "q.gate",
+        "q.verify rule",
+        "q.verify samples",
+        "q.tranche from"
+      ],
+      "scope": "Procedural product-family descriptor. Queries/samples are executed individually; descriptor updates do not enumerate500trillion states.29address slices, final24."
+    },
+    {
+      "id": "guide-069",
+      "section": 7,
+      "sourceLine": 136,
+      "sourceText": "theta=2*asin(sqrt((k+0.5)/M)); phi=2*pi*ell/L",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.prepare",
+        "q.migrate",
+        "q.state",
+        "q.gate",
+        "q.verify rule",
+        "q.verify samples",
+        "q.tranche from"
+      ],
+      "scope": "Procedural product-family descriptor. Queries/samples are executed individually; descriptor updates do not enumerate500trillion states.29address slices, final24."
+    },
+    {
+      "id": "guide-070",
+      "section": 7,
+      "sourceLine": 137,
+      "sourceText": "psi(id,t)=G*[cos(t*theta/2),exp(i*t*phi)*sin(t*theta/2)]^T.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.prepare",
+        "q.migrate",
+        "q.state",
+        "q.gate",
+        "q.verify rule",
+        "q.verify samples",
+        "q.tranche from"
+      ],
+      "scope": "Procedural product-family descriptor. Queries/samples are executed individually; descriptor updates do not enumerate500trillion states.29address slices, final24."
+    },
+    {
+      "id": "guide-071",
+      "section": 7,
+      "sourceLine": 138,
+      "sourceText": "G is a composed 2x2 unitary. At M=20,000,000 and L=25,000,000, there are 500,000,000,000,000 addresses. With the midpoint theta grid at t=1, the base grid avoids the poles and supplies distinct rays before shared unitary evolution. At t=0 all addresses start at |0> before G; other parameter choices can produce degeneracies. Address count and distinct-state count are different properties.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.prepare",
+        "q.migrate",
+        "q.state",
+        "q.gate",
+        "q.verify rule",
+        "q.verify samples",
+        "q.tranche from"
+      ],
+      "scope": "Procedural product-family descriptor. Queries/samples are executed individually; descriptor updates do not enumerate500trillion states.29address slices, final24."
+    },
+    {
+      "id": "guide-072",
+      "section": 8,
+      "sourceLine": 146,
+      "sourceText": "Dense pure state: 16*2^n bytes.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.resource memory",
+        "q.resource max-n",
+        "q.resource factor-memory",
+        "q.resource headroom"
+      ],
+      "scope": "Exact integer raw byte formulas; OS headroom snapshot with reserve/overhead/transaction factor. Estimates allocate no state. Arbitrary29dense needs8GiB payload and additional peak memory."
+    },
+    {
+      "id": "guide-073",
+      "section": 8,
+      "sourceLine": 147,
+      "sourceText": "Dense density matrix or full unitary matrix: 16*4^n bytes.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.resource memory",
+        "q.resource max-n",
+        "q.resource factor-memory",
+        "q.resource headroom"
+      ],
+      "scope": "Exact integer raw byte formulas; OS headroom snapshot with reserve/overhead/transaction factor. Estimates allocate no state. Arbitrary29dense needs8GiB payload and additional peak memory."
+    },
+    {
+      "id": "guide-074",
+      "section": 8,
+      "sourceLine": 148,
+      "sourceText": "n=29 pure state: 8 GiB; n=30: 16 GiB.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.resource memory",
+        "q.resource max-n",
+        "q.resource factor-memory",
+        "q.resource headroom"
+      ],
+      "scope": "Exact integer raw byte formulas; OS headroom snapshot with reserve/overhead/transaction factor. Estimates allocate no state. Arbitrary29dense needs8GiB payload and additional peak memory."
+    },
+    {
+      "id": "guide-075",
+      "section": 8,
+      "sourceLine": 149,
+      "sourceText": "n=29 density matrix: 4 EiB, before buffers.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.resource memory",
+        "q.resource max-n",
+        "q.resource factor-memory",
+        "q.resource headroom"
+      ],
+      "scope": "Exact integer raw byte formulas; OS headroom snapshot with reserve/overhead/transaction factor. Estimates allocate no state. Arbitrary29dense needs8GiB payload and additional peak memory."
+    },
+    {
+      "id": "guide-076",
+      "section": 9,
+      "sourceLine": 155,
+      "sourceText": "An explicit channel is rho'=sum_k E_k rho E_k^dagger with sum_k E_k^dagger E_k=I.",
+      "availability": "Reference with named-channel native subset",
+      "nativeCommands": [
+        "q.noise apply",
+        "q.noise circuit",
+        "q.noise t1",
+        "q.noise t2",
+        "q.noise zne",
+        "q.qec correction-budget",
+        "q.qec parameters"
+      ],
+      "scope": "Native bit/phase flip, replacement depolarizing, amplitude damping and dephasing use explicit formulas. Arbitrary Kraus-channel upload is not installed."
+    },
+    {
+      "id": "guide-077",
+      "section": 9,
+      "sourceLine": 157,
+      "sourceText": "rho'=(1-p)*rho+p*X rho X.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.noise apply",
+        "q.noise circuit",
+        "q.noise t1",
+        "q.noise t2",
+        "q.noise zne",
+        "q.qec correction-budget",
+        "q.qec parameters"
+      ],
+      "scope": "Fixed named channel models and small explicit calculations; theorem/resource quantities do not execute a fault-tolerant machine."
+    },
+    {
+      "id": "guide-078",
+      "section": 9,
+      "sourceLine": 159,
+      "sourceText": "rho'=(1-p)*rho+p*Z rho Z.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.noise apply",
+        "q.noise circuit",
+        "q.noise t1",
+        "q.noise t2",
+        "q.noise zne",
+        "q.qec correction-budget",
+        "q.qec parameters"
+      ],
+      "scope": "Fixed named channel models and small explicit calculations; theorem/resource quantities do not execute a fault-tolerant machine."
+    },
+    {
+      "id": "guide-079",
+      "section": 9,
+      "sourceLine": 161,
+      "sourceText": "rho'=(1-p)*rho+p*I/2, 0<=p<=1.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.noise apply",
+        "q.noise circuit",
+        "q.noise t1",
+        "q.noise t2",
+        "q.noise zne",
+        "q.qec correction-budget",
+        "q.qec parameters"
+      ],
+      "scope": "Fixed named channel models and small explicit calculations; theorem/resource quantities do not execute a fault-tolerant machine."
+    },
+    {
+      "id": "guide-080",
+      "section": 9,
+      "sourceLine": 163,
+      "sourceText": "rho_AB'=(1-p)*rho_AB+p*(I_A/2 tensor Tr_A(rho_AB)),",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.noise apply",
+        "q.noise circuit",
+        "q.noise t1",
+        "q.noise t2",
+        "q.noise zne",
+        "q.qec correction-budget",
+        "q.qec parameters"
+      ],
+      "scope": "Fixed named channel models and small explicit calculations; theorem/resource quantities do not execute a fault-tolerant machine."
+    },
+    {
+      "id": "guide-081",
+      "section": 9,
+      "sourceLine": 167,
+      "sourceText": "E0=[[1,0],[0,sqrt(1-gamma)]]; E1=[[0,sqrt(gamma)],[0,0]].",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.noise apply",
+        "q.noise circuit",
+        "q.noise t1",
+        "q.noise t2",
+        "q.noise zne",
+        "q.qec correction-budget",
+        "q.qec parameters"
+      ],
+      "scope": "Fixed named channel models and small explicit calculations; theorem/resource quantities do not execute a fault-tolerant machine."
+    },
+    {
+      "id": "guide-082",
+      "section": 9,
+      "sourceLine": 168,
+      "sourceText": "T1/T2 models require units and assumptions. A standard relaxation model obeys 1/T2=1/(2*T1)+1/Tphi, with nonnegative rates. Report any discarded leakage or non-Markovian effects.",
+      "availability": "Native bounded calculator",
+      "nativeCommands": [
+        "q.noise apply",
+        "q.noise circuit",
+        "q.noise t1",
+        "q.noise t2",
+        "q.noise zne",
+        "q.qec correction-budget",
+        "q.qec parameters"
+      ],
+      "scope": "Fixed named channel models and small explicit calculations; theorem/resource quantities do not execute a fault-tolerant machine."
+    },
+    {
+      "id": "guide-083",
+      "section": 9,
+      "sourceLine": 170,
+      "sourceText": "Zero-noise extrapolation estimates an ideal observable from noisy experiments. Ideal folding U -> U(U^dagger U)^k leaves U unchanged; proportional physical noise scaling does not follow automatically. Richardson weights satisfy sum_j c_j=1 and sum_j c_j lambda_j^r=0 for canceled orders r. For scales 1,2 with values 0.8,0.6, linear extrapolation gives 1.0. This is a model-dependent estimate and can amplify variance or exceed physical bounds.",
+      "availability": "Reference definition / bounded teaching calculators",
+      "nativeCommands": [
+        "q.noise zne",
+        "q.qec validate",
+        "q.qec correction-budget"
+      ],
+      "scope": "Linear extrapolation native. General Richardson orders, CSS check-matrix import and complete surface-code layout simulation are not installed."
+    },
+    {
+      "id": "guide-084",
+      "section": 9,
+      "sourceLine": 173,
+      "sourceText": "A code [[n,k,d]] encodes k logical qubits in n physical data qubits and corrects at most floor((d-1)/2) arbitrary unknown-location errors in the ideal coding sense. Fault-tolerant circuits, syndrome ancillas, decoding and noise assumptions add requirements. CSS checks obey H_X H_Z^T=0 over GF(2); this formula is not the definition of every non-CSS qLDPC code. Surface codes are themselves qLDPC.",
+      "availability": "Reference definition / bounded teaching calculators",
+      "nativeCommands": [
+        "q.noise zne",
+        "q.qec validate",
+        "q.qec correction-budget"
+      ],
+      "scope": "Linear extrapolation native. General Richardson orders, CSS check-matrix import and complete surface-code layout simulation are not installed."
+    },
+    {
+      "id": "guide-085",
+      "section": 9,
+      "sourceLine": 174,
+      "sourceText": "For one common rotated planar surface-code layout, data+measurement qubits=2*d^2-1, so d=11 gives 241. It is a layout convention, not total machine overhead. No single threshold or physical/logical ratio applies to all architectures.",
+      "availability": "Reference definition / bounded teaching calculators",
+      "nativeCommands": [
+        "q.noise zne",
+        "q.qec validate",
+        "q.qec correction-budget"
+      ],
+      "scope": "Linear extrapolation native. General Richardson orders, CSS check-matrix import and complete surface-code layout simulation are not installed."
+    },
+    {
+      "id": "guide-086",
+      "section": 10,
+      "sourceLine": 178,
+      "sourceText": "Grover with N items and M marked items: sin^2(theta)=M/N, and ideal success after r iterations is sin^2((2r+1)*theta). The oracle, marked set, initial uniform state and iteration count must be explicit. Increasing r indefinitely does not monotonically improve success. Query complexity scales as Theta(sqrt(N/M)) under the search model.",
+      "availability": "Reference with explicit native subsets",
+      "nativeCommands": [
+        "q.resource grover",
+        "q.algorithm phase-estimation",
+        "q.circuit preset qft",
+        "q.compile identity",
+        "q.compile depth",
+        "q.compile classify",
+        "q.lesson complexity"
+      ],
+      "scope": "QFT and phase-estimation toy circuits execute. General VQE/QAOA optimizer, Shor modular arithmetic, multibit modular adder, and Clifford+T synthesis are not installed."
+    },
+    {
+      "id": "guide-087",
+      "section": 10,
+      "sourceLine": 183,
+      "sourceText": "Use P subseteq BPP subseteq BQP subseteq PP subseteq PSPACE subseteq EXPTIME. Do not claim these inclusions are all strict. Whether NP is contained in BQP remains open; quantum parallelism does not provide every candidate answer in one measurement. Reference [14] gives the relevant black-box lower-bound context.",
+      "availability": "Reference with explicit native subsets",
+      "nativeCommands": [
+        "q.resource grover",
+        "q.algorithm phase-estimation",
+        "q.circuit preset qft",
+        "q.compile identity",
+        "q.compile depth",
+        "q.compile classify",
+        "q.lesson complexity"
+      ],
+      "scope": "QFT and phase-estimation toy circuits execute. General VQE/QAOA optimizer, Shor modular arithmetic, multibit modular adder, and Clifford+T synthesis are not installed."
+    },
+    {
+      "id": "guide-088",
+      "section": 11,
+      "sourceLine": 194,
+      "sourceText": "2026 qLDPC report: the [[1152,580,<=12]] result is a code/decoder performance study under a circuit-level noise model, not a demonstrated machine with 580 logical qubits. The paper gives approximately 2.9e-11 per logical qubit per round at p=0.1%; approximately 1.3e-13 belongs to [[2304,1156,<=14]]. Distances shown are upper bounds. The near-2:1 data-qubit encoding ratio excludes additional hardware overhead. [19]",
+      "availability": "Reference correction",
+      "nativeCommands": [
+        "q.lesson magic",
+        "q.lesson stabilizer",
+        "q.lesson complexity",
+        "q.model compare",
+        "q.model compare-codes"
+      ],
+      "scope": "The supplied guide provides corrections; commercial/2026-study claims are not simulator performance or independently authenticated hardware evidence."
+    }
+  ],
+  "articleSections": [
+    {
+      "sourceLine": 2,
+      "heading": "Mathematical Representation of Quantum States and Geometries",
+      "articleTopicIds": [],
+      "coverage": "Structural parent heading; subsequent subsection topics carry the formula audit"
+    },
+    {
+      "sourceLine": 4,
+      "heading": "The Bloch Sphere, Density Matrices, and Spin-j Extensions",
+      "articleTopicIds": [
+        "article-001",
+        "article-002",
+        "article-003",
+        "article-004",
+        "article-005"
+      ],
+      "coverage": "Indexed formula-topic audit"
+    },
+    {
+      "sourceLine": 8,
+      "heading": "High-Dimensional Qudits and the Generalized Gell-Mann Formalism",
+      "articleTopicIds": [
+        "article-006"
+      ],
+      "coverage": "Indexed formula-topic audit"
+    },
+    {
+      "sourceLine": 37,
+      "heading": "Continuous-Variable Quantum Systems and Gaussian States",
+      "articleTopicIds": [
+        "article-007",
+        "article-008",
+        "article-009",
+        "article-010",
+        "article-011"
+      ],
+      "coverage": "Indexed formula-topic audit"
+    },
+    {
+      "sourceLine": 42,
+      "heading": "Fundamental Quantum Circuit Transformations",
+      "articleTopicIds": [],
+      "coverage": "Structural parent heading; subsequent subsection topics carry the formula audit"
+    },
+    {
+      "sourceLine": 44,
+      "heading": "The Quantum Fourier Transform and Matrix Factorization",
+      "articleTopicIds": [
+        "article-012",
+        "article-013",
+        "article-014"
+      ],
+      "coverage": "Indexed formula-topic audit"
+    },
+    {
+      "sourceLine": 49,
+      "heading": "Quantum Walks and Decoherence Dynamics",
+      "articleTopicIds": [
+        "article-015",
+        "article-016",
+        "article-017"
+      ],
+      "coverage": "Indexed formula-topic audit"
+    },
+    {
+      "sourceLine": 52,
+      "heading": "Physical Hardware Hamiltonians and Gate Implementations",
+      "articleTopicIds": [],
+      "coverage": "Structural parent heading; subsequent subsection topics carry the formula audit"
+    },
+    {
+      "sourceLine": 54,
+      "heading": "Superconducting Transmons and the Cross-Resonance Gate",
+      "articleTopicIds": [
+        "article-018",
+        "article-019",
+        "article-020",
+        "article-021",
+        "article-022",
+        "article-023",
+        "article-024"
+      ],
+      "coverage": "Indexed formula-topic audit"
+    },
+    {
+      "sourceLine": 59,
+      "heading": "Trapped Ion Dynamics and the Mølmer-Sørensen Gate",
+      "articleTopicIds": [
+        "article-025",
+        "article-026",
+        "article-027",
+        "article-028"
+      ],
+      "coverage": "Indexed formula-topic audit"
+    },
+    {
+      "sourceLine": 64,
+      "heading": "Quantum Compilation, Error Correction, and Graph State Paradigms",
+      "articleTopicIds": [],
+      "coverage": "Structural parent heading; subsequent subsection topics carry the formula audit"
+    },
+    {
+      "sourceLine": 66,
+      "heading": "The Solovay-Kitaev Theorem and Parameter Shift Rules",
+      "articleTopicIds": [
+        "article-029",
+        "article-030",
+        "article-031",
+        "article-032"
+      ],
+      "coverage": "Indexed formula-topic audit"
+    },
+    {
+      "sourceLine": 69,
+      "heading": "Quantum Error Correction: The Knill-Laflamme Conditions",
+      "articleTopicIds": [
+        "article-033",
+        "article-034",
+        "article-035",
+        "article-036"
+      ],
+      "coverage": "Indexed formula-topic audit"
+    },
+    {
+      "sourceLine": 89,
+      "heading": "Measurement-Based Quantum Computing and Graph States",
+      "articleTopicIds": [
+        "article-037",
+        "article-038",
+        "article-039",
+        "article-040"
+      ],
+      "coverage": "Indexed formula-topic audit"
+    }
+  ],
+  "articleTopics": [
+    {
+      "id": "article-001",
+      "topic": "Pure-qubit Bloch angles and Bloch density matrix",
+      "sourceLines": [
+        4,
+        5
+      ],
+      "formulaTextPresent": false,
+      "availability": "Native bounded math restored from explicit guide",
+      "nativeCommands": [
+        "q.math from-bloch",
+        "q.math bloch",
+        "q.math density",
+        "q.math validate-density"
+      ],
+      "reason": "Article formulas disappeared; equivalent foundational equations are explicit in guide sections1/4/5.",
+      "primaryReferenceCandidates": [
+        "https://quantum.cloud.ibm.com/docs/en/api/qiskit/quantum_info"
+      ],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-002",
+      "topic": "Ghidan capacity conservation / Pythagorean identity / Tsirelson derivation",
+      "sourceLines": [
+        5
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs explicit equation and primary reference",
+      "nativeCommands": [],
+      "reason": "The supplied symbols and claimed derivation are blank; no validated model equation or dimensional assumptions were supplied. No guessed equation or advantage claim.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-003",
+      "topic": "n-qubit tensor products and Pauli expansion",
+      "sourceLines": [
+        6
+      ],
+      "formulaTextPresent": false,
+      "availability": "Native bounded tensor / selected coherent register",
+      "nativeCommands": [
+        "q.math tensor",
+        "q.math density",
+        "q.query expectation"
+      ],
+      "reason": "Tensor products and explicit Pauli operators supported at finite dimensions; arbitrary full density matrix may exceed memory.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-004",
+      "topic": "Spin-j Weinberg covariant matrices and generalized Bloch hyper-ball",
+      "sourceLines": [
+        7
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs backend/reference",
+      "nativeCommands": [],
+      "reason": "Article generator definitions, positivity constraints and spin dimensions are blank; no spin-j covariant engine installed.",
+      "primaryReferenceCandidates": [
+        "https://arxiv.org/abs/1409.1106"
+      ],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-005",
+      "topic": "Spin-3/2 quadrupoles, Zeeman-Dirac mapping, gamma matrices and monopole orbits",
+      "sourceLines": [
+        7
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs explicit model and backend",
+      "nativeCommands": [],
+      "reason": "No gamma-matrix convention, physical Hamiltonian or coordinate mapping supplied.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-006",
+      "topic": "Qudits / SU(d) / generalized Gell-Mann generators and structure constants",
+      "sourceLines": [
+        8,
+        9,
+        10
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs algebraic backend; generic finite density validation available",
+      "nativeCommands": [
+        "q.math validate-density",
+        "q.math purity"
+      ],
+      "reason": "General matrices<=16d can be validated, but generator normalizations, Gell-Mann coordinates, f/d structure constants and qudit gate grammar are absent.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-007",
+      "topic": "CV canonical commutation, symplectic form and Weyl/BCH algebra",
+      "sourceLines": [
+        38
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs CV backend and quadrature convention",
+      "nativeCommands": [],
+      "reason": "Article equations blank; finite qubit matrices cannot exactly realize unbounded canonical commutation.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-008",
+      "topic": "Gaussian first moments, covariance and quantum uncertainty relation",
+      "sourceLines": [
+        39
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs Gaussian state backend",
+      "nativeCommands": [],
+      "reason": "No hbar convention, covariance normalization, dimensions or uncertainty formula survived.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-009",
+      "topic": "Williamson diagonalization, symplectic eigenvalues and Gaussian purity",
+      "sourceLines": [
+        40
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs Gaussian backend",
+      "nativeCommands": [],
+      "reason": "No specialized symplectic eigensolver or covariance-state conventions installed.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-010",
+      "topic": "Loop Hafnian photon-number probabilities and loop Torontonian threshold detection",
+      "sourceLines": [
+        41
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs photonic probability backend",
+      "nativeCommands": [],
+      "reason": "Specific Husimi submatrix and displacement conventions absent; generic qubit matrix algebra does not calculate these functions.",
+      "primaryReferenceCandidates": [
+        "https://the-walrus.readthedocs.io/en/latest/gbs.html"
+      ],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-011",
+      "topic": "Gaussian quantum Fisher information",
+      "sourceLines": [
+        41
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs explicit QFI formula and Gaussian backend",
+      "nativeCommands": [],
+      "reason": "The structural matrix/eigenvalue expression is blank; no metrological estimator is inferred.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-012",
+      "topic": "QFT Fourier coefficients, roots of unity and gate factorization",
+      "sourceLines": [
+        45,
+        46
+      ],
+      "formulaTextPresent": false,
+      "availability": "Native selected-circuit QFT plus bounded phase queries",
+      "nativeCommands": [
+        "q.circuit preset qft",
+        "q.circuit input",
+        "q.query amplitudes",
+        "q.algorithm phase-estimation"
+      ],
+      "reason": "Uses declared little-endian positive-exponent QFT/final swaps, independently tested basis input and phases; full dense unitary not automatically allocated.",
+      "primaryReferenceCandidates": [
+        "https://arxiv.org/abs/2003.03011"
+      ],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-013",
+      "topic": "Continuous-variable Fourier neural operators / PDE solver",
+      "sourceLines": [
+        47
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs explicit model and backend",
+      "nativeCommands": [],
+      "reason": "Filtered Fourier operator, coordinates, boundary conditions, training and output formula absent. QFT support alone is not a PDE solver.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-014",
+      "topic": "QFT operator-Schmidt decomposition / MPO truncation and bond dimension",
+      "sourceLines": [
+        48
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs tensor-network approximation backend",
+      "nativeCommands": [
+        "q.resource factor-memory"
+      ],
+      "reason": "Current exact independent factors are not MPO truncation; no bond cutoff or truncation error is silently introduced.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-015",
+      "topic": "Discrete-time coin/position walk and conditional shifts",
+      "sourceLines": [
+        50
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs graph/position/oracle model",
+      "nativeCommands": [],
+      "reason": "Coin/position widths, boundary topology, shift mapping and initial state not specified. Existing gates can build a separately supplied bounded circuit.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-016",
+      "topic": "Decoherent walk trace-preserving map",
+      "sourceLines": [
+        51
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs walk dynamics backend; fixed noise-channel subset available",
+      "nativeCommands": [
+        "q.noise apply",
+        "q.noise circuit"
+      ],
+      "reason": "The walk-specific measurement map and branch equation are blank; fixed named noise channels do not establish the omitted walk.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-017",
+      "topic": "Continuous-time graph-adjacency quantum walk",
+      "sourceLines": [
+        51
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs graph Hamiltonian and bounded dynamics backend",
+      "nativeCommands": [
+        "q.model evolve",
+        "q.model spectrum"
+      ],
+      "reason": "Only small declared Pauli Hamiltonian spectra and one-qubit evolution are native; arbitrary graph-adjacency evolution is absent.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-018",
+      "topic": "Josephson inductance and flux-quantum relation",
+      "sourceLines": [
+        55
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs physical-model equation and units",
+      "nativeCommands": [],
+      "reason": "Article formula and calibrated junction parameters absent; abstract qubit gates do not calculate circuit inductance.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-019",
+      "topic": "RCSJ mass, tilted washboard potential and Josephson energy",
+      "sourceLines": [
+        55
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs ODE/device model",
+      "nativeCommands": [],
+      "reason": "Capacitance/resistance/current units, initial conditions and formula absent.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-020",
+      "topic": "Transmon EJ/EC hierarchy and Duffing Hamiltonian",
+      "sourceLines": [
+        55
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs multilevel device backend",
+      "nativeCommands": [],
+      "reason": "No level truncation, frequency/anharmonicity units or explicit Hamiltonian supplied.",
+      "primaryReferenceCandidates": [
+        "https://arxiv.org/abs/2606.03815"
+      ],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-021",
+      "topic": "Jaynes-Cummings Hamiltonian and rotating-wave approximation",
+      "sourceLines": [
+        56
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs oscillator/qubit dynamics backend",
+      "nativeCommands": [],
+      "reason": "Resonator Fock truncation, coupling, detuning and initial state not supplied.",
+      "primaryReferenceCandidates": [
+        "https://nvidia.github.io/cuda-quantum/latest/examples/python/dynamics/dynamics_intro_1.html"
+      ],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-022",
+      "topic": "Dispersive shift, readout fidelity and leakage-aware infidelity",
+      "sourceLines": [
+        56
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs multilevel model and measured data",
+      "nativeCommands": [
+        "q.noise readout"
+      ],
+      "reason": "Readout confusion forward model is native, but dispersive device dynamics/leakage cannot be inferred from an abstract two-level ideal gate.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-023",
+      "topic": "Cross-resonance effective ZX Hamiltonian",
+      "sourceLines": [
+        57
+      ],
+      "formulaTextPresent": false,
+      "availability": "Native abstract RZX; physical effective model needs parameters",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.circuit add rzx"
+      ],
+      "reason": "RZX(theta) has a checked abstract definition. A driven-transmon effective interaction is not inferred from an angle alone.",
+      "primaryReferenceCandidates": [
+        "https://quantum.cloud.ibm.com/docs/en/api/qiskit/qiskit.circuit.library.RZXGate"
+      ],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-024",
+      "topic": "CR spectator correction ansatz, integrated loss and gradient ODE",
+      "sourceLines": [
+        58
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs control optimizer/backend",
+      "nativeCommands": [],
+      "reason": "Loss, correction matrix, training data, derivative ODE and spectator Hamiltonian are blank; no hardware-control optimization claimed.",
+      "primaryReferenceCandidates": [
+        "https://arxiv.org/abs/2505.02679"
+      ],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-025",
+      "topic": "Trapped-ion Coulomb normal modes / Lamb-Dicke spin-phonon force",
+      "sourceLines": [
+        61
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs ion/phonon Hamiltonian backend",
+      "nativeCommands": [],
+      "reason": "Ion masses, trap modes, detunings, Lamb-Dicke parameters, and explicit Hamiltonian omitted.",
+      "primaryReferenceCandidates": [
+        "https://arxiv.org/abs/2207.04583",
+        "https://arxiv.org/abs/2501.02387"
+      ],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-026",
+      "topic": "Mølmer-Sørensen unitary, Ising phase, displacement loop closure",
+      "sourceLines": [
+        62
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs spin-motion backend; abstract RXX native",
+      "nativeCommands": [
+        "q.math gate-matrix",
+        "q.circuit add rxx"
+      ],
+      "reason": "An ideal RXX gate does not validate physical motional loop closure or pulse error.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-027",
+      "topic": "MS phase modulation, BCH cancellation, Bessel carrier correction",
+      "sourceLines": [
+        63
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs pulse sequence and physical backend",
+      "nativeCommands": [],
+      "reason": "Protocol segments, modulation phases, Bessel arguments and corrected Rabi formula missing.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-028",
+      "topic": "Fractional CNOT / fractional Pauli root",
+      "sourceLines": [
+        63
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs explicit fractional-gate convention",
+      "nativeCommands": [
+        "q.math gate-matrix"
+      ],
+      "reason": "No chosen matrix branch or fractional-root equation supplied. Existing controlled rotations are not relabeled as the missing gate.",
+      "primaryReferenceCandidates": [
+        "https://arxiv.org/abs/2207.08691"
+      ],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-029",
+      "topic": "Solovay-Kitaev finite-set approximation",
+      "sourceLines": [
+        67
+      ],
+      "formulaTextPresent": false,
+      "availability": "Reference / synthesis backend proposed",
+      "nativeCommands": [
+        "q.compile universality",
+        "q.compile identity"
+      ],
+      "reason": "Exact matrix identity checks and gate-set theory are native. Arbitrary Clifford+T synthesis requires an actual compiler and checked error; proposed synthesize remains disabled.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-030",
+      "topic": "Lindbladian Trotter/commutator scaling",
+      "sourceLines": [
+        67
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs explicit assumptions and backend",
+      "nativeCommands": [],
+      "reason": "The article combines missing error/norm/order formulas; no polylog or nonexponential gate guarantee is inferred.",
+      "primaryReferenceCandidates": [
+        "https://arxiv.org/abs/2603.28602"
+      ],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-031",
+      "topic": "VQE expectation cost and parameter-shift gradient",
+      "sourceLines": [
+        68
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs variational optimizer / gradient backend",
+      "nativeCommands": [
+        "q.math expectation",
+        "q.query expectation"
+      ],
+      "reason": "Expectations and specifically constructed bounded parameter-shift examples can be calculated with existing circuits. No general parameter-shift derivative dispatcher, VQE optimizer, or Hamiltonian/ansatz search is installed; generator assumptions matter.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-032",
+      "topic": "Natural quantum gradients, Hessians and quantum Fisher metric",
+      "sourceLines": [
+        68
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs metric/optimizer backend",
+      "nativeCommands": [],
+      "reason": "A parameter-shift identity alone does not automatically compute a natural gradient or Hessian.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-033",
+      "topic": "Knill-Laflamme projector and code-basis conditions",
+      "sourceLines": [
+        71
+      ],
+      "formulaTextPresent": false,
+      "availability": "Reference with bounded repetition-code demonstration",
+      "nativeCommands": [
+        "q.qec repetition3",
+        "q.qec phase-repetition3",
+        "q.qec validate"
+      ],
+      "reason": "Known condition P E_a^dagger E_b P = c_ab P requires supplied code/projector/error set. General condition solver is not installed.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-034",
+      "topic": "QEC off-diagonal information protection and diagonal equality",
+      "sourceLines": [
+        72
+      ],
+      "formulaTextPresent": false,
+      "availability": "Reference correction",
+      "nativeCommands": [
+        "q.qec compare"
+      ],
+      "reason": "Distinct logical codewords must remain distinguishable under errors, but degeneracy permits overlapping error subspaces. Do not assert every distinct error produces an orthogonal syndrome.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-035",
+      "topic": "Degenerate codes and rank of error correlation matrix",
+      "sourceLines": [
+        73
+      ],
+      "formulaTextPresent": false,
+      "availability": "Reference",
+      "nativeCommands": [
+        "q.qec compare"
+      ],
+      "reason": "Physical errors may share syndrome/recovery; repetition demonstrations do not certify arbitrary degenerate codes.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-036",
+      "topic": "Bosonic cat-code continuous correction / holonomic leakage generator",
+      "sourceLines": [
+        73
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs bosonic backend and explicit equations",
+      "nativeCommands": [],
+      "reason": "Large-amplitude limit, codewords, generator, leakage block and correction equations blank. Finite qubit gates do not emulate the omitted oscillator.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-037",
+      "topic": "Graph states / CZ edges / vertex stabilizers",
+      "sourceLines": [
+        91
+      ],
+      "formulaTextPresent": false,
+      "availability": "Native bounded gate construction and candidate stabilizer queries",
+      "nativeCommands": [
+        "q.circuit add h",
+        "q.circuit add cz",
+        "q.query stabilizers"
+      ],
+      "reason": "Supplied graph can be built explicitly at1..29qubits. The missing graph is not automatically reconstructed.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-038",
+      "topic": "Measurement-based one-bit teleportation and feed-forward byproducts",
+      "sourceLines": [
+        92
+      ],
+      "formulaTextPresent": false,
+      "availability": "Native exact analytic branch example",
+      "nativeCommands": [
+        "q.model mbqc"
+      ],
+      "reason": "The documented one-plus-ancilla/CZ/X-measurement case returns both branches X^m H|psi>, with probability1/2; no sampled count is credited.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-039",
+      "topic": "Local complementations via graph-state operators",
+      "sourceLines": [
+        92
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs graph-rewrite backend",
+      "nativeCommands": [],
+      "reason": "No graph adjacency rewrite or sqrt-stabilizer convention supplied; no inferred compilation.",
+      "primaryReferenceCandidates": [],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    },
+    {
+      "id": "article-040",
+      "topic": "Hypercluster CCZ, SPT Hamiltonian, edge degeneracy and fractional logic",
+      "sourceLines": [
+        93
+      ],
+      "formulaTextPresent": false,
+      "availability": "Needs explicit model and backend",
+      "nativeCommands": [],
+      "reason": "Hamiltonian, boundary conditions, symmetry group and degenerate-state equations missing; no topological protection assertion made.",
+      "primaryReferenceCandidates": [
+        "https://arxiv.org/abs/2602.20612"
+      ],
+      "referenceAudit": "Supplied citation candidates; source-specific advanced formulas have not been reconstructed or certified."
+    }
+  ],
+  "articleBibliography": [
+    {
+      "number": 1,
+      "title": "Qubit: the quantum of information | Random physics",
+      "url": "https://www.cpt.univ-mrs.fr/~verga/pages/AQ-qubit.html",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 2,
+      "title": "A Tutorial for Characterizing Transmon Qubits - arXiv",
+      "url": "https://arxiv.org/html/2606.03815v1",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 3,
+      "title": "Bloch sphere - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Bloch_sphere",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 4,
+      "title": "χ² + L = 1 The Complete Route Architecture | by Florin Ghidan",
+      "url": "https://medium.com/@fghidan/%CF%87%C2%B2-l-1-a-complete-route-architecture-ba88b0326d74",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 5,
+      "title": "Quantum simulation of Pauli channels and dynamical maps - PMC",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11006176/",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 6,
+      "title": "arXiv:1409.1106v2 [quant-ph] 26 Feb 2015",
+      "url": "https://arxiv.org/pdf/1409.1106",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 7,
+      "title": "Perfectly spherical Bloch hyper-spheres from quantum matrix",
+      "url": "https://scoap3-prod-backend.s3.cern.ch/media/files/86695/10.1016/j.nuclphysb.2024.116595.pdf",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 8,
+      "title": "Bloch–Gell–Mann Representation in Qudit Systems - Emergent Mind",
+      "url": "https://www.emergentmind.com/topics/bloch-gell-mann-representation",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 9,
+      "title": "Gaussian States - Indico",
+      "url": "https://indico.ictp.it/event/9021/session/10/contribution/41/material/slides/0.pdf",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 10,
+      "title": "Gaussian States in the Fock basis - The Walrus",
+      "url": "https://the-walrus.readthedocs.io/en/latest/gbs.html",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 11,
+      "title": "Gaussian quantum states can be disentangled using symplectic",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8550114/",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 12,
+      "title": "Computing the QFI for a general Gaussian state",
+      "url": "https://quantumcomputing.stackexchange.com/questions/40134/computing-the-qfi-for-a-general-gaussian-state",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 13,
+      "title": "It's all about groups: From Fast Fourier Transforms to QFTs",
+      "url": "https://pennylane.ai/demos/tutorial_qft_and_groups",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 14,
+      "title": "Scaling and efficient classical simulation of the quantum Fourier",
+      "url": "https://www.rintonpress.com/xxqic17/qic-17-12/0001-0014.pdf",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 15,
+      "title": "Quantum Fourier Transform Revisited - arXiv",
+      "url": "https://arxiv.org/pdf/2003.03011",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 16,
+      "title": "Quantum Fourier transform revisited - eScholarship.org",
+      "url": "https://escholarship.org/uc/item/9jf6s82b",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 17,
+      "title": "Continuous-Variable Quantum Fourier Neural Operator for Solving",
+      "url": "https://www.mdpi.com/1099-4300/28/7/737",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 18,
+      "title": "Quantum walk - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Quantum_walk",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 19,
+      "title": "Why is Grover's Algorithm considered to be a Quantum Walk?",
+      "url": "https://quantumcomputing.stackexchange.com/questions/32851/why-is-grovers-algorithm-considered-to-be-a-quantum-walk",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 20,
+      "title": "Quantum Walks Algorithm(1D) | Qniverse",
+      "url": "https://qniverse.in/docs/quantum-walks-algorithm1d/",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 21,
+      "title": "What Is Quantum Walk? DTQW & Applications - QuEra",
+      "url": "https://www.quera.com/glossary/quantum-walk",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 22,
+      "title": "How to simulate a quantum walk with decoherence?",
+      "url": "https://quantumcomputing.stackexchange.com/questions/22223/how-to-simulate-a-quantum-walk-with-decoherence",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 23,
+      "title": "A 4 Superconducting Qubits - Engineering Quantum Systems Group",
+      "url": "https://equs.mit.edu/wp-content/uploads/2016/11/SC_qubits_Oliver_IFF_Spring_School_20140330.pdf",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 24,
+      "title": "Measuring a Transmon Qubit in Circuit QED",
+      "url": "https://digitalcommons.chapman.edu/cgi/viewcontent.cgi?article=1352&context=scs_articles",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 25,
+      "title": "Introduction to CUDA-Q Dynamics (Jaynes-Cummings Model)",
+      "url": "https://nvidia.github.io/cuda-quantum/latest/examples/python/dynamics/dynamics_intro_1.html",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 26,
+      "title": "Data-driven Hamiltonian correction for qubits for design of gates",
+      "url": "https://arxiv.org/html/2505.02679v1",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 27,
+      "title": "Operation and Intrinsic Error Budget of Two-Qubit Cross-Resonance",
+      "url": "https://escholarship.org/content/qt2gj3m8g2/qt2gj3m8g2_noSplash_31ce0646fc249f05f6669dcf2b3bc77c.pdf",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 28,
+      "title": "Machine Learning Fine-Tunes the Quantum Math Behind Real",
+      "url": "https://bioengineer.org/machine-learning-fine-tunes-the-quantum-math-behind-real-transmon-qubits/",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 29,
+      "title": "Shaped Pulses Boost Quantum Computing's Accuracy And Reliability",
+      "url": "https://quantumzeitgeist.com/quantum-pulse-shaping-qubits/",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 30,
+      "title": "Mølmer-Sørensen gate. We simultaneously apply detuned red and",
+      "url": "https://www.researchgate.net/figure/Molmer-Sorensen-gate-We-simultaneously-apply-detuned-red-and-blue-sideband-MSgate-beams_fig3_221707697",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 31,
+      "title": "arXiv:2207.04583v1 [quant-ph] 11 Jul 2022",
+      "url": "https://arxiv.org/pdf/2207.04583",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 32,
+      "title": "Fast Mølmer-Sørensen gates in trapped-ion quantum processors",
+      "url": "https://arxiv.org/html/2501.02387v1",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 33,
+      "title": "arXiv:2207.08691v2 [quant-ph] 1 Dec 2022",
+      "url": "https://arxiv.org/pdf/2207.08691",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 34,
+      "title": "Challenges for Reinforcement Learning in Quantum Circuit Design",
+      "url": "https://openreview.net/pdf?id=oUmM7AyHYh",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 35,
+      "title": "OPTIMIZING QUANTUM CIRCUIT LAYOUTS - UPCommons",
+      "url": "https://upcommons.upc.edu/bitstreams/cbe6b351-ba02-4fc9-9ba8-7b1a5bf06668/download",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 36,
+      "title": "Quantum Computing for Mathematicians, Explained",
+      "url": "https://postquantum.com/quantum-computing/quantum-computing-mathematicians/",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 37,
+      "title": "The Computational Complexity of Linear Optics - Scott Aaronson",
+      "url": "https://www.scottaaronson.com/papers/optics.pdf",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 38,
+      "title": "Lindbladian Simulation with Commutator Bounds - arXiv",
+      "url": "https://arxiv.org/html/2603.28602v2",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 39,
+      "title": "Filtering Variational Quantum Algorithms for Combinatorial ... - AWS",
+      "url": "https://cqwbkpro.s3.eu-west-2.amazonaws.com/wp-content/uploads/2021/10/27144213/210618_CQ_Filtering-Variational-Quantum-Algorithms-for-Combinatorial-Optimization.pdf",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 40,
+      "title": "EPSR: Extended Parameter Shift Rule - Emergent Mind",
+      "url": "https://www.emergentmind.com/topics/extended-parameter-shift-rule-epsr",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 41,
+      "title": "qiskit - Implementing stochastic gradient descent on hybrid quantum",
+      "url": "https://quantumcomputing.stackexchange.com/questions/38769/implementing-stochastic-gradient-descent-on-hybrid-quantum-classical-optimizatio",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 42,
+      "title": "Parameter-shift rules - PennyLane.ai",
+      "url": "https://pennylane.ai/glossary/parameter_shift",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 43,
+      "title": "Adaptive Directional Gradients for Parameterised Quantum Circuits",
+      "url": "https://www.snehalraj.com/blog/2026/adaptive-directional-gradients/",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 44,
+      "title": "Optimizing quantum computations with the quantum natural gradient",
+      "url": "https://www.xanadu.ai/blog/optimizing-quantum-computations-with-the-quantum-natural-gradient",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 45,
+      "title": "error correction - Intuition about Knill-Laflamme QEC conditions",
+      "url": "https://quantumcomputing.stackexchange.com/questions/6935/intuition-about-knill-laflamme-qec-conditions",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 46,
+      "title": "Knill-Laflamme Theorem and Quantum Error Correction - grasp.study",
+      "url": "https://paths.grasp.study/modules/f016cc63-1a70-4466-a310-ae6ab55b3f26/lessons/ef05e132-bf6e-4172-a940-d056de87917f",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 47,
+      "title": "Finite-dimensional quantum error-correcting code",
+      "url": "https://errorcorrectionzoo.org/c/qecc_finite",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 48,
+      "title": "Obtaining hermitian matrix using Knill and Laflamme condition?",
+      "url": "https://quantumcomputing.stackexchange.com/questions/13739/obtaining-hermitian-matrix-using-knill-and-laflamme-condition",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 49,
+      "title": "Generalized Knill–Laflamme theorem for families of isoclinic",
+      "url": "https://www.cambridge.org/core/journals/canadian-mathematical-bulletin/article/generalized-knilllaflamme-theorem-for-families-of-isoclinic-subspaces/C972B9072CF2BCCFEF183F05F07439FA",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 50,
+      "title": "Holonomic quantum gates via continuous measurement in bosonic",
+      "url": "https://assets-eu.researchsquare.com/files/rs-10693919/v1_covered_7113cccf-926b-4af7-ad44-c6c907dd5e4e.pdf",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 51,
+      "title": "(PDF) Compilation of algorithm-speciﬁc graph states for quantum",
+      "url": "https://www.researchgate.net/publication/377453608_Compilation_of_algorithm-specific_graph_states_for_quantum_circuits",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 52,
+      "title": "An introduction to graph states | Peter Rohde",
+      "url": "https://peterrohde.org/an-introduction-to-graph-states/",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 53,
+      "title": "Cluster-state code | Error Correction Zoo",
+      "url": "https://errorcorrectionzoo.org/c/cluster_state",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 54,
+      "title": "Problem Sheet 11 Measurement based quantum computing",
+      "url": "https://www.physik.fu-berlin.de/en/einrichtungen/ag/ag-eisert/teaching/ws22-23/problem11.pdf",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 55,
+      "title": "Compilation of algorithm-specific graph states for quantum circuits",
+      "url": "https://aaltodoc.aalto.fi/bitstreams/0f6bbea6-6342-47f2-9aac-835c6d579fdb/download",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    },
+    {
+      "number": 56,
+      "title": "Non-Clifford symmetry protected topological hyper-cluster states and",
+      "url": "https://arxiv.org/html/2602.20612v2",
+      "availability": "User-supplied reference candidate",
+      "audited": false
+    }
+  ],
+  "coverage": {
+    "guideEntries": 88,
+    "articleSections": 14,
+    "articleTopics": 40,
+    "articleReferenceCandidates": 56,
+    "inlineBlankMathOrSymbolSpans": 170,
+    "missingEquationCount": null,
+    "blankSpanMethod": "Whitespace gaps >=2 spaces between nonwhitespace characters in article lines1..93. These are missing symbols/equation fragments, not a reliable count of distinct equations; full equation loss cannot be uniquely counted from erased text.",
+    "articleFormulaLoss": "Advanced displayed equations and symbols are absent from the supplied text. Known foundational guide equations may be implemented; specialized omitted equations remain unavailable.",
+    "guideCapture": "Every indented formula/example line plus equation-bearing prose and named entropy/purity/containment lines before PRIMARY SOURCES."
+  },
+  "primarySourcesActuallyChecked": [
+    "https://quantum.cloud.ibm.com/docs/en/api/qiskit/quantum_info",
+    "https://csrc.nist.gov/pubs/fips/203/final",
+    "https://csrc.nist.gov/pubs/fips/204/final",
+    "https://csrc.nist.gov/pubs/fips/205/final"
+  ],
+  "referenceCorrections": [
+    "General pure-qubit Bloch geometry does not establish a specific missing Ghidan/Tsirelson derivation.",
+    "QFT phase output is not all-output measurement; exact tensor factorization is not MPO approximation.",
+    "Controlled global phases remain relative phases between control branches.",
+    "General density fidelity is not implemented by pure-state overlap.",
+    "General Kraus instruments and CV/bosonic/device models require separate backends.",
+    "Knill-Laflamme does not require all distinct error subspaces to be orthogonal; degeneracy is allowed.",
+    "Parameter-shift assumptions do not automatically provide natural gradients or Hessians.",
+    "Closed adiabatic/circuit equivalence does not establish open-system annealer equivalence.",
+    "Odd-dimensional Wigner nonnegativity theorems do not transfer unqualified to qubit representations.",
+    "Specific2026qLDPC and commercial hardware claims remain dated source claims, not calculator benchmarks."
+  ],
+  "validation": {
+    "calculatorReport": "calculator-validation.json",
+    "calculatorChecks": 1013,
+    "maximumAbsoluteError": 2.220446049250313E-16,
+    "moduleSHA256": "b9c3abd416552fc2abe62c1e7555e5464a7b019378b9da3f984a910af12b4dcd",
+    "generalArticleCertification": false
+  }
+}
