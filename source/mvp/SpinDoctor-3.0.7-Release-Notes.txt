@@ -1,0 +1,45 @@
+SPINDOCTOR 3.0.7 CANDIDATE
+Parent: SpinDoctor 3.0.6-hardened
+
+This candidate addresses the successful folder run whose parent identity is
+f4824cc0d5cf4d81bf802dfde4113604. Only the 31 selected TXT records were audited.
+The saved parent completed 12 files and 23 input commands. Its 12 automatic
+checks each compared 16,396 addresses (16,384 requested plus 12 boundaries),
+giving 196,752 CPU/GPU comparisons. This is repeated comparison work, not
+196,752 different model addresses or a proof of the complete state domain.
+
+The supplied run folder contains stateless q.math calculator commands. They
+do not prepare, migrate or apply gates to the saved procedural model. The
+sampled model was unprepared with migration t=0, so its state was [1,0] and its
+Bloch spin was [0,0,1]. Its verification arrows correctly pointed up. The
+calculator's separate input [0,1] has a downward Bloch vector; equal positive
+amplitudes have a +X vector. Figure labels distinguish these two sources.
+
+Numerical preview correction
+Large repeated status/catalog snapshots could force the sequence preview to
+discard a small calculator answer. Bounded numerical results are now retained
+independently of large status snapshots. Large results remain clearly labeled
+as previews with access to their complete native archives.
+
+Report correction
+Completion times already present in native run results are displayed as such.
+Folder summaries use saved per-file verification evidence rather than treating
+the intentionally empty parent verification map as missing all sampling data.
+Preparation, time-zero behavior and preview-only variation are stated at their
+actual scope. Legacy or unrequested verification is distinct from explicit
+disablement. Calculator-state figures and sampled-model figures are labeled.
+
+Expanded verification ceiling
+Folder requested samples now accept 1 through 16,384,000,000 per file: exactly
+one million times the previous 16,384 ceiling. The default remains 10,240.
+Requests and saved counts use wide integer handling; actual domain size may
+clamp the plan, and unique boundary addresses may add points to sampled plans.
+The CPU/GPU batch limit remains 16,384. The large ceiling does not allocate a
+16-billion-row array. Native progress and cancellation remain available, and
+successful receipts/purge wait for the matching final comparison.
+
+This is a separate candidate; the prior app and user checkpoint are preserved.
+The full large stress test is skipped at the user's request. Candidate checks
+exercise numeric previews, reporting, large-count planning and bounded genuine
+CPU/OpenCL GPU comparisons. See validation/Validation-Summary.json for exactly
+which checks were completed. No full 16-billion-sample run is claimed.
