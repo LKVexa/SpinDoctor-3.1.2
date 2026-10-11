@@ -1,0 +1,10 @@
+BRIR/1.1
+unit=ultrawide.image|language=LCTL-BRIM/1|isa=4.1|abi=1.0|features=0x38|image=1|max_steps=32|declared=0x03|derived=0x03
+0|A001|MOVI|WRAP|R0|R0|R0|C0|2560861004778948626|need=0x01|succ=1|line=3|stack=0|call=0
+1|A002|MOVI|WRAP|R1|R0|R0|C0|5301375398695384933|need=0x01|succ=2|line=4|stack=0|call=0
+2|A003|MOVI|WRAP|R2|R0|R0|C0|2786658790640684541|need=0x01|succ=3|line=5|stack=0|call=0
+3|A004|MOVI|WRAP|R3|R0|R0|C0|13535899106875736898|need=0x01|succ=4|line=6|stack=0|call=0
+4|A005|XOR|WRAP|R4|R0|R1|C0|0|need=0x02|succ=5|line=7|stack=0|call=0
+5|A006|XOR|WRAP|R5|R2|R3|C0|0|need=0x02|succ=6|line=8|stack=0|call=0
+6|A007|XOR|WRAP|R6|R4|R5|C0|0|need=0x02|succ=7|line=9|stack=0|call=0
+7|A008|HALT|WRAP|R0|R0|R0|C0|0|need=0x01|succ=HALT|line=10|stack=0|call=0
