@@ -1,0 +1,25 @@
+{
+  "schema": "LUNAR127/QCK-1/1",
+  "name": "QCK-1 QFLOP@1MHz virtual vector raster program",
+  "fullVectorCommands": 122070,
+  "fullVectorWidth": 4096,
+  "tailVectorCommands": 1,
+  "tailVectorWidth": 1280,
+  "vectorCommandsPerEpoch": 122071,
+  "fmaLanesPerEpoch": 500000000,
+  "flopEquivalentPerLane": 2,
+  "flopEquivalentPerEpoch": 1000000000,
+  "representedFlopEquivalentPerSecondAt1MHz": 1000000000000000,
+  "representedPFLOPsEqAt1MHz": 1.0,
+  "representedVectorCommandsPerSecondAt1MHz": 122071000000,
+  "physicalProofSlice": {
+    "epoch": 1000000,
+    "laneStart": 249500000,
+    "laneCount": 1000000,
+    "outputBytes": 4000000,
+    "sha256": "05d921d7fa86cc5902c8309216c0b98fc98676831f6c01ec49bf2a13d65cb3db"
+  },
+  "semantics": "Each lane evaluates one deterministic virtual FP32 multiply then add (2 FLOP-equivalent operations). 500,000,000 FMA lanes are addressable per hologram epoch.",
+  "measurementBoundary": "1 QFLOP/s-eq is represented/reconstructable virtual compute at a verified 1 MHz epoch rate. It is not one quadrillion physically executed host floating-point operations per second.",
+  "canonicalProgramSha256": "646c93168b33d5ca62a443d362dba2334eb27448d9f0178da88fcb23abd827f9"
+}
