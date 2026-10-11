@@ -1,0 +1,262 @@
+SpinDoctor 3.1.2
+See SpinDoctor-3.1.2-Release-Notes.txt for the 3.1.2 audit fixes: folder runs list skipped files, accept .qasm2/.circuit, explain empty or prose .txt inputs, and keep q.folder/q.sequence status polling reports compact.
+See HANDGUIDE.md (or HANDGUIDE.pdf in the release folder) for a plain-language user guide.
+See SpinDoctor-3.1.1-Release-Notes.txt for CSV report companions, measurement fitting and CSV gate-list simulation.
+See SpinDoctor-3.1.1-CSV-Input-Guide.txt for selecting measurement columns, fitting equations and importing CSV circuits.
+Earlier version notes below are preserved as history.
+
+SPINDOCTOR 3.1.0 PRESET EXECUTION UPDATE
+Direct built-in circuit presets now create and run 1,024 shots by default.
+Examples: q.circuit preset bell; q.circuit preset qft 5 shots 2048 basis x.
+Explicit shots and basis override defaults; run=false defines without running.
+The existing maximum of 100,000 is retained. Catalog sampling presets default
+to1,024; a collapsing measurement still requires one shot. Deterministic
+mathematical calculations and resource estimates do not execute shots.
+Earlier guide/source descriptions below describe the original source record;
+the current native registry and actual queued/completed returns are authoritative.
+
+SPINDOCTOR QUANTUM CALCULATOR: MATHEMATICS AND INTERPRETATION
+Prepared 2026-10-09 from the supplied article and the shared SpinDoctor candidate.
+
+READ THIS FIRST
+A useful quantum calculator has to retain complex amplitudes, relative phase, joint-state correlations and the measurement rule. A large family of independently specified single-qubit states is valuable for parameter sweeps. It does not by itself supply an arbitrary entangled state of all those addresses. SpinDoctor's selected coherent tranches and saved circuits are the place to calculate genuine circuit-model entanglement on a classical simulator.
+
+These notes define the proposed calculator's mathematics. They do not certify its installed implementation or repeat historical benchmarks as newly measured results. Commands in SPINDOCTOR_COMMAND_CATALOGUE.txt are labeled by their design availability.
+
+1. A QUBIT, A REGISTER, AND A CIRCUIT
+A pure qubit is a complex column vector:
+  |psi> = alpha|0> + beta|1> = [alpha,beta]^T
+  |alpha|^2 + |beta|^2 = 1.
+The amplitudes alpha and beta are not probabilities. Their squared magnitudes are probabilities for a Z-basis measurement. Relative phase changes interference even when those probabilities remain unchanged.
+  |+> = (|0>+|1>)/sqrt(2)
+  |-> = (|0>-|1>)/sqrt(2)
+Both have 50/50 Z outcomes; H maps |+> to |0> and |-> to |1>. This is why recording only binary samples or probabilities loses quantum information.
+
+For n qubits:
+  |psi> = sum_(x=0)^(2^n-1) a_x |x>, sum_x |a_x|^2 = 1.
+SpinDoctor's observed convention is little-endian: q0 is the least-significant bit. Display |q(n-1)...q0>. For two qubits, the vector order is |00>,|01>,|10>,|11>; X on q0 takes |00> to |01>.
+For an independent product input:
+  |psi> = |psi_(n-1)> tensor ... tensor |psi_0>.
+An entangled state generally cannot be stored as one spinor per qubit. The Bell state (|00>+|11>)/sqrt(2) requires a joint description. Each local qubit has a 50/50 marginal, yet the joint Z outcomes are perfectly correlated.
+
+A circuit specifies input, ordered gates, optional noise/reset/measurements and output queries. A unitary gate satisfies U^dagger U=I and acts as |psi'>=U|psi>. If the user enters U1, U2, U3 chronologically, the final vector is U3 U2 U1 |psi>. A gate-count report should distinguish logical gates from work done by the classical simulator.
+Reference [1] explains amplitudes and quantum state vectors; [2] defines a general single-qubit gate.
+
+2. SINGLE-QUBIT GATES
+Matrix rows and columns below use |0>,|1>; i=sqrt(-1).
+  I = [[1,0],[0,1]]
+  X = [[0,1],[1,0]]                 bit flip
+  Y = [[0,-i],[i,0]]                bit flip with phase
+  Z = [[1,0],[0,-1]]                phase flip
+  H = (1/sqrt(2))*[[1,1],[1,-1]]    changes Z and X bases
+  P(phi) = [[1,0],[0,exp(i*phi)]]    relative phase
+  S = P(pi/2); SDG = S^dagger
+  T = P(pi/4); TDG = T^dagger
+  SX = (1/2)*[[1+i,1-i],[1-i,1+i]]; SXDG = SX^dagger
+
+Using c=cos(theta/2), s=sin(theta/2):
+  RX(theta) = [[c,-i*s],[-i*s,c]]
+  RY(theta) = [[c,-s],[s,c]]
+  RZ(theta) = diag(exp(-i*theta/2),exp(i*theta/2))
+Equivalently R_a(theta)=exp(-i*theta*sigma_a/2).
+
+The IBM U convention used by the candidate is:
+  U(theta,phi,lambda) =
+  [[c,-exp(i*lambda)*s],
+   [exp(i*phi)*s,exp(i*(phi+lambda))*c]].
+U(theta,phi,0)|0> = c|0> + exp(i*phi)*s|1>.
+For one unconditioned qubit, P(phi)=exp(i*phi/2)*RZ(phi). The common phase does not affect measurements of that complete state. However, replacing an operation by a global-phase-equivalent one inside a controlled gate can change relative phase between control branches. CP and CRZ therefore differ.
+
+All angles are radians. For reference:
+  pi = 3.141592653589793
+  pi/2 = 1.5707963267948966
+  pi/4 = 0.7853981633974483
+The observed numeric parser requires numbers; pi expressions are a proposed convenience extension.
+References [2], [3], [4] fix U, P and RZ conventions.
+
+3. CONTROLLED, SWAP, AND INTERACTION GATES
+CNOT/CX keeps its control and XORs it into the target:
+  |c,t> -> |c,t XOR c>.
+This equation labels logical operands; it does not choose a printed bit order. In SpinDoctor's two-qubit |q1 q0> order, CX(control q0,target q1) maps indices 0->0, 1->3, 2->2, 3->1. Its matrix is:
+  [[1,0,0,0],[0,0,0,1],[0,0,1,0],[0,1,0,0]].
+On superpositions CX acts linearly on all joint amplitudes. An XOR truth table alone is not the full simulator.
+
+Controlled-U applies I if control=0 and U if control=1. CY, CZ and CH control Y, Z and H. CP/CRX/CRY/CRZ control the named phase/rotation. The candidate's CU(theta,phi,lambda,gamma) controls exp(i*gamma)*U(theta,phi,lambda), including the controlled phase parameter.
+SWAP exchanges the states of two labeled qubits. CCX/Toffoli flips the target when both controls are 1. CSWAP/Fredkin swaps its two targets when the control is 1. All control and target operands must be distinct under the observed parser contract.
+
+Interaction gates on operands a,b:
+  RXX(theta;a,b) = exp(-i*theta*X_a X_b/2)
+  RYY(theta;a,b) = exp(-i*theta*Y_a Y_b/2)
+  RZZ(theta;a,b) = exp(-i*theta*Z_a Z_b/2)
+  RZX(theta;a,b) = exp(-i*theta*Z_a X_b/2).
+The first RZX operand carries Z, the second X. For a=q0,b=q1, the little-endian tensor matrix uses X tensor Z. Always define the labeled Pauli action before constructing the tensor matrix.
+References [5], [6] establish CX and RZX conventions.
+
+4. BLOCH COORDINATES, MEASUREMENT, AND SPIN
+Up to a common global phase, a pure qubit can be written:
+  |psi> = cos(theta/2)|0> + exp(i*phi)*sin(theta/2)|1>.
+Its Bloch coordinates are:
+  x = 2 Re(conj(alpha)*beta) = sin(theta)*cos(phi)
+  y = 2 Im(conj(alpha)*beta) = sin(theta)*sin(phi)
+  z = |alpha|^2-|beta|^2 = cos(theta).
+These are dimensionless Pauli expectations <X>,<Y>,<Z>. If interpreted as a physical spin-1/2, <S_a>=(hbar/2)*<sigma_a>. A qubit may instead be implemented in another two-level physical system; "spin" is then a mathematical representation.
+For an axis with unit vector n:
+  p(plus)=(1+n dot r)/2; p(minus)=(1-n dot r)/2.
+State |+> gives deterministic +X but 50/50 Z. State |+i>=(|0>+i|1>)/sqrt(2) gives deterministic +Y.
+
+General measurement with Kraus operators M_m:
+  p(m)=Tr(M_m rho M_m^dagger)
+  rho_m=M_m rho M_m^dagger / p(m), if p(m)>0.
+For a pure computational-basis measurement: p(x)=|a_x|^2.
+Shot samples simulate repetitions of a prepared experiment. Counts fluctuate; exact model probabilities are not measured counts. Noncollapsing shots in the observed terminal mean independent copies of the same state. A single collapsing shot projects the actual saved joint state; later results depend on that outcome.
+For Bell/GHZ examples, joint shots must come from the joint state, not independent marginal draws. Persistent seeds provide reproducibility only together with starting counters, PRNG definition, circuit, input and backend.
+Reference [7] covers density matrices, quantum channels and analysis tools.
+
+5. DENSITY MATRICES AND STATE ANALYSIS
+A pure state has rho=|psi><psi|. A mixture is rho=sum_k p_k |psi_k><psi_k|. Valid rho is Hermitian, positive semidefinite and has trace 1.
+Unitary evolution: rho'=U rho U^dagger.
+Subsystem state: rho_A=Tr_B(rho_AB).
+Observable expectation: <A>=Tr(rho A).
+Purity: Tr(rho^2); it equals 1 for a pure state and 1/d for a maximally mixed d-dimensional state.
+Von Neumann entropy in bits: S(rho)=-sum_k lambda_k log2(lambda_k), with 0 log 0=0.
+Squared fidelity convention:
+  F(rho,sigma)=(Tr sqrt(sqrt(rho)*sigma*sqrt(rho)))^2.
+For pure vectors, F=|<psi|phi>|^2. State-vector norm error and operator-norm synthesis error are different quantities.
+
+A local reduced qubit has rho=(I+xX+yY+zZ)/2 and |r|<=1. Bell's reduced state is I/2, with r=(0,0,0), purity 1/2 and entropy 1 bit, even though the whole Bell state is pure. The eigenvalues of a pure qubit state and a mixed reduced state must not be confused.
+For a bipartite pure state, the entropy of a reduced state measures entanglement. A local entropy of a mixed joint state is not by itself an entanglement measure. For a pure two-qubit vector [a00,a01,a10,a11], concurrence is 2*|a00*a11-a01*a10|. Negativity for a chosen partition A is (||rho^(T_A)||_1-1)/2, where T_A is partial transpose and ||.||_1 is trace norm; the Bell value is 1/2.
+Pauli strings must explicitly name operands or state their order. An input such as Z0 Z1 means Z on each listed qubit; a compact string should follow the displayed |q(n-1)...q0> order.
+Reference [7] provides the density-matrix framework.
+
+6. THREE EXAMPLES WITH CHECKABLE RETURNS
+Superposition and interference:
+  Start |0>; H -> |+>; Z -> |->; H -> |1>.
+The Z probability stayed 1/2 before the last H, but the relative phase selected the final deterministic outcome.
+
+Bell circuit:
+  Start |00>; H on q0; CX q0 q1.
+  Final vector [1/sqrt(2),0,0,1/sqrt(2)].
+  p(00)=p(11)=1/2; p(01)=p(10)=0.
+  <Z0>=<Z1>=0; <Z0 Z1>=1.
+  A simulated Z shot produces 00 or 11. Exact probabilities are fixed; counts depend on seed/counter.
+
+Magic-state example:
+  Start |0>; H; T.
+  Final (|0>+exp(i*pi/4)|1>)/sqrt(2).
+  Bloch vector (1/sqrt(2),1/sqrt(2),0).
+  T on |0> alone does nothing to the state. The ability to repeat a universal gate set is different from one particular circuit containing T.
+References [8], [9] explain stabilizer simulation and magic-state resources.
+
+7. HOW THE CANDIDATE'S PROCEDURAL FAMILY FITS
+The shared notes specify:
+  N=M*L; k=id mod M; ell=floor(id/M)
+  theta=2*asin(sqrt((k+0.5)/M)); phi=2*pi*ell/L
+  psi(id,t)=G*[cos(t*theta/2),exp(i*t*phi)*sin(t*theta/2)]^T.
+G is a composed 2x2 unitary. At M=20,000,000 and L=25,000,000, there are 500,000,000,000,000 addresses. With the midpoint theta grid at t=1, the base grid avoids the poles and supplies distinct rays before shared unitary evolution. At t=0 all addresses start at |0> before G; other parameter choices can produce degeneracies. Address count and distinct-state count are different properties.
+A local family-wide gate V updates G<-V G. This is a compact definition of many applications. A query evaluates one requested state, and a verification sample evaluates selected states. Neither operation individually enumerates every address.
+
+q.tranche from J materializes consecutive family addresses 29*J through min(29*J+28,N-1) as one product input snapshot. Its subsequent gates can create entanglement within that selected register. Selected-circuit/tranche work must not receive family-wide operation credit.
+Sampling a probability sheet estimates distributions under its sampling design. It does not recover every unseen amplitude, phase or bit. A 2-adic indexing hierarchy may organize samples; it does not replace coherent circuit evolution or quantum-state tomography. Rule proofs and sampled implementation agreement answer different questions.
+
+8. MEMORY AND EXECUTION MODELS
+For complex128 values (16 bytes each):
+  Dense pure state: 16*2^n bytes.
+  Dense density matrix or full unitary matrix: 16*4^n bytes.
+  n=29 pure state: 8 GiB; n=30: 16 GiB.
+  n=29 density matrix: 4 EiB, before buffers.
+These are single-array sizes, not peak process budgets. Sparse/product/tensor/stabilizer representations can exploit structure; an arbitrary circuit need not retain that structure. Compression and approximation must be disclosed.
+The inspected notes describe a 512 MiB default selected-state/work budget with transactional gates needing additional memory. Selecting 29 qubits does not guarantee every 29-qubit dense circuit fits. Do not allocate a dense full unitary to execute a sequence of local gates; update state blocks directly.
+Reference [10] describes classical simulation methods, including statevector, density matrix, stabilizer and matrix product state. Backend support varies with gates and noise.
+
+9. NOISE, MITIGATION, AND ERROR CORRECTION
+An explicit channel is rho'=sum_k E_k rho E_k^dagger with sum_k E_k^dagger E_k=I.
+Use declared parameter conventions. Example bit-flip probability p:
+  rho'=(1-p)*rho+p*X rho X.
+Example Z phase-flip probability p:
+  rho'=(1-p)*rho+p*Z rho Z.
+Example replacement-style depolarizing strength p for one qubit:
+  rho'=(1-p)*rho+p*I/2, 0<=p<=1.
+For a local channel on qubit A of an entangled register AB, use
+  rho_AB'=(1-p)*rho_AB+p*(I_A/2 tensor Tr_A(rho_AB)),
+with tensor factors placed in the declared register order. Do not replace the entire joint register by a one-qubit I/2.
+This is not the same p as "total nonidentity Pauli error probability"; name the convention.
+Amplitude damping with gamma:
+  E0=[[1,0],[0,sqrt(1-gamma)]]; E1=[[0,sqrt(gamma)],[0,0]].
+T1/T2 models require units and assumptions. A standard relaxation model obeys 1/T2=1/(2*T1)+1/Tphi, with nonnegative rates. Report any discarded leakage or non-Markovian effects.
+
+Zero-noise extrapolation estimates an ideal observable from noisy experiments. Ideal folding U -> U(U^dagger U)^k leaves U unchanged; proportional physical noise scaling does not follow automatically. Richardson weights satisfy sum_j c_j=1 and sum_j c_j lambda_j^r=0 for canceled orders r. For scales 1,2 with values 0.8,0.6, linear extrapolation gives 1.0. This is a model-dependent estimate and can amplify variance or exceed physical bounds.
+Dynamical decoupling suppresses certain noise during evolution; ZNE mitigates bias in inferred results. Neither is a general replacement for fault tolerance. Reference [11] discusses extrapolation.
+
+A code [[n,k,d]] encodes k logical qubits in n physical data qubits and corrects at most floor((d-1)/2) arbitrary unknown-location errors in the ideal coding sense. Fault-tolerant circuits, syndrome ancillas, decoding and noise assumptions add requirements. CSS checks obey H_X H_Z^T=0 over GF(2); this formula is not the definition of every non-CSS qLDPC code. Surface codes are themselves qLDPC.
+For one common rotated planar surface-code layout, data+measurement qubits=2*d^2-1, so d=11 gives 241. It is a layout convention, not total machine overhead. No single threshold or physical/logical ratio applies to all architectures.
+References [12], [13] support fault-tolerance conditions and asymptotically good qLDPC constructions.
+
+10. ALGORITHMS, SYNTHESIS, AND THEORETICAL BOUNDARIES
+Grover with N items and M marked items: sin^2(theta)=M/N, and ideal success after r iterations is sin^2((2r+1)*theta). The oracle, marked set, initial uniform state and iteration count must be explicit. Increasing r indefinitely does not monotonically improve success. Query complexity scales as Theta(sqrt(N/M)) under the search model.
+QFT changes a basis state's amplitudes into phases; direct Z probabilities can be uniform for multiple different inputs. Test inverse QFT to recover the input, and specify swaps/sign/bit order. A phase-estimation preset must declare its unitary, eigenstate and readout precision.
+VQE and QAOA return variational estimates under a specified Hamiltonian, ansatz, objective and classical optimizer. A toy circuit does not guarantee a global optimum. Shor demonstrations require arithmetic/oracle circuits or an explicitly described classical-assisted teaching reduction; do not label classical factorization as executed Shor.
+Reversible arithmetic requires registers, ancillas and uncomputation. CX performs binary XOR on a target while preserving the control; it is not a general multibit adder. A modular adder must specify width, modulus, carry handling, input/output mapping and ancilla cleanup.
+Gate synthesis must name target unitary, native gate set, error metric and tolerance. Solovay-Kitaev supplies approximation bounds under its assumptions, not an instant compiler for every physical architecture. A returned compiled sequence requires a checked matrix error.
+Use P subseteq BPP subseteq BQP subseteq PP subseteq PSPACE subseteq EXPTIME. Do not claim these inclusions are all strict. Whether NP is contained in BQP remains open; quantum parallelism does not provide every candidate answer in one measurement. Reference [14] gives the relevant black-box lower-bound context.
+
+11. CORRECTIONS TO APPLY TO THE ARTICLE
+Several formulas disappeared in the supplied text. Restore them from explicit definitions above; do not infer blank mathematical expressions from nearby citation numbers.
+Adiabatic computation: general adiabatic QC is polynomially equivalent to circuit QC under the theorem's model. A restricted annealing device does not automatically inherit it. QAOA is not the theorem establishing this equivalence. [15]
+Clifford simulation: efficient stabilizer simulation depends on permitted preparation, gates and measurements. Arbitrary non-stabilizer inputs cannot be added to the claim. A phase-aware tableau is required, not raw XOR alone. [8]
+T and magic: T does not create magic from every stabilizer input. {H,T,CNOT} with repetitions is an approximately universal gate set; one T in a particular circuit is not universal computation or demonstrated advantage. [9]
+Wigner functions: the pure-state nonnegative/stabilizer equivalence requires the representation and dimension assumptions, notably odd-dimensional systems in Gross's theorem; do not assert it universally for qubits. [16]
+Transversal T: some codes support a transversal non-Clifford gate. Eastin-Knill rules out a universal transversal unitary gate set under its assumptions; it does not prohibit every transversal T. Distillation is an important route, not the only possibility. [17]
+Entanglement: model-specific necessity results for exponential pure-state speedup are not universal claims about all computational advantages. [18]
+Threshold: increasing code distance only yields the advertised asymptotic protection with appropriate noise assumptions and fault-tolerant operations. [12]
+2026 qLDPC report: the [[1152,580,<=12]] result is a code/decoder performance study under a circuit-level noise model, not a demonstrated machine with 580 logical qubits. The paper gives approximately 2.9e-11 per logical qubit per round at p=0.1%; approximately 1.3e-13 belongs to [[2304,1156,<=14]]. Distances shown are upper bounds. The near-2:1 data-qubit encoding ratio excludes additional hardware overhead. [19]
+Topological hardware: use dated attributed primary announcements and papers. Microsoft's current Majorana 2 announcement changes materials from the article's combined InAs-Al description. Parity-lifetime measurements should not be promoted to general proof of utility-scale fault tolerance. Hardware roadmap claims are not calculator performance guarantees. [20], [21]
+The audit focuses on calculator-relevant claims; it is not a verification of every historical, commercial or cryptographic statement in the article.
+
+12. WHAT EVERY RETURN SHOULD SAY
+Choose a result type: exact analytic derivation; numerical classical simulation; sampled classical simulation; approximate simulation; resource estimate; dated reference explanation; or authenticated hardware result when actual hardware is used.
+Include input, bit order, phase convention, backend, precision/tolerance, seed+counter where relevant, completion status, probability versus count distinction, elapsed time and exact work units. A resource formula or compiled program is not a measurement. Label a nonmeasurement command explicitly in its downloadable TXT.
+An instruction prompt can guide explanation and small analytic calculations. Dependable numerical execution still needs a working simulator/math engine, validation and reproducible exports. Never fabricate executed shots, timing or a completed job when only a proposed command was written.
+
+PRIMARY SOURCES
+[1] IBM, quantum information and state vectors:
+https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/single-systems/quantum-information
+[2] IBM, UGate:
+https://quantum.cloud.ibm.com/docs/en/api/qiskit/qiskit.circuit.library.UGate
+[3] IBM, PhaseGate:
+https://quantum.cloud.ibm.com/docs/en/api/qiskit/qiskit.circuit.library.PhaseGate
+[4] IBM, RZGate:
+https://quantum.cloud.ibm.com/docs/en/api/qiskit/qiskit.circuit.library.RZGate
+[5] IBM, CXGate:
+https://quantum.cloud.ibm.com/docs/en/api/qiskit/qiskit.circuit.library.CXGate
+[6] IBM, RZXGate:
+https://quantum.cloud.ibm.com/docs/en/api/qiskit/qiskit.circuit.library.RZXGate
+[7] IBM, quantum information states, channels and measures:
+https://quantum.cloud.ibm.com/docs/en/api/qiskit/quantum_info
+[8] Aaronson and Gottesman, Improved Simulation of Stabilizer Circuits:
+https://arxiv.org/abs/quant-ph/0406196
+[9] Bravyi and Kitaev, Universal Quantum Computation with ideal Clifford gates and noisy ancillas:
+https://arxiv.org/abs/quant-ph/0403025
+[10] Qiskit Aer, AerSimulator:
+https://qiskit.github.io/qiskit-aer/stubs/qiskit_aer.AerSimulator.html
+[11] Giurgica-Tiron et al., Digital zero noise extrapolation:
+https://arxiv.org/abs/2005.10921
+[12] Aharonov and Ben-Or, Fault-Tolerant Quantum Computation With Constant Error:
+https://arxiv.org/abs/quant-ph/9611025
+[13] Panteleev and Kalachev, Asymptotically good Quantum and locally testable classical LDPC codes:
+https://arxiv.org/abs/2111.03654
+[14] Bennett, Bernstein, Brassard and Vazirani, Strengths and Weaknesses of Quantum Computing:
+https://arxiv.org/abs/quant-ph/9701001
+[15] Aharonov et al., Adiabatic Quantum Computation is Equivalent to Standard Quantum Computation:
+https://arxiv.org/abs/quant-ph/0405098
+[16] Gross, Hudson's Theorem for finite-dimensional quantum systems:
+https://arxiv.org/abs/quant-ph/0602001
+[17] Eastin and Knill, Restrictions on Transversal Encoded Quantum Gate Sets:
+https://arxiv.org/abs/0811.4262
+[18] Jozsa and Linden, On the role of entanglement in quantum-computational speed-up:
+https://arxiv.org/abs/quant-ph/0201143
+[19] Zhao et al., high-rate qLDPC performance study (2026):
+https://arxiv.org/abs/2604.16209
+[20] Microsoft, Majorana 2 announcement (company source):
+https://quantum.microsoft.com/en-us/insights/blogs/majorana-2-scalable-quantum-processor
+[21] Aghaee et al., tetron X/Z loop measurement lifetimes:
+https://arxiv.org/abs/2507.08795
