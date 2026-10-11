@@ -1,0 +1,59 @@
+SpinDoctor 3.1.2 — 298-qubit update
+Update identity: 3.1.2-298-20261010
+
+Restart activation
+Stop the existing SpinDoctor server gracefully with Ctrl+C in its launcher
+console, then launch SpinDoctor\BOOT.cmd. Use the new browser tab opened by
+that launcher. A browser refresh cannot replace an already compiled engine.
+Do not delete quantum-session.lock: its file may remain after the handle closes.
+
+Use q.status to check coherentRegisterCapabilities:
+  updateId: 3.1.2-298-20261010
+  maximumLogicalQubits: 298
+  maximumJointFactorQubits: 59
+  globalIndexEncoding: BigInteger
+
+Run the complete record in eleven ordered command files
+The existing D: command folder remains valid:
+q.folder run path="<WORK>/2026-10-10/can-you-build-a-quantum-equation-2/outputs/native-298-run" downloads=true purge=true verify=true samples=10240
+
+A copy is included in the updated application distribution:
+q.folder run path="<SpinDoctor-3.1.2-folder>/Examples/298-native-run" downloads=true purge=true verify=true samples=10240
+
+Each folder contains only eleven executable sequence TXT files. They append
+one coherent 298-qubit program; the final file samples 10,240 joint outcomes.
+Manifests, explanatory notes and audit JSON are outside the command folder.
+
+Direct circuit commands
+q.circuit new wide_demo 298
+q.circuit add h 297
+q.circuit add cx 297 0
+q.circuit run shots 10240 basis z
+
+Gate operands belong to the selected circuit. q.migrate changes the procedural
+family descriptor and does not enlarge that circuit. Invalid operands now report
+the circuit name, valid range, offending indices and required minimum width.
+
+Execution scope
+298 is the logical register width. One joint coherent tensor factor supports
+at most 59 qubits, subject to the memory budget; a merge exceeding that limit is
+rejected. This record uses a 42-qubit correlated factor and 256 fixed hash bits.
+Global indices and result strings preserve all 298 bits without integer wrapping.
+Circuits of 1..29 qubits retain shot replay and their original measurement modes.
+Wider circuits prepare once and sample joint factors in Z. This is a classical
+FP64 simulation; a full arbitrary dense 2^298 state vector is not allocated.
+Auxiliary analysis commands retain their own bounded limits.
+
+Verification and records
+verify=true checks sampled procedural predictions on the CPU and actual OpenCL
+GPU after each file. It is separate from the exact native record-amplitude audit
+and from circuit sampling; it does not establish quantum-hardware execution.
+purge=true releases temporary coherent outputs after native archive capture.
+Full histogram records, saved programs, source files, seeds and history remain.
+
+The normal launcher verifies and decodes the updated TIFF/GIF carrier. The static
+installation update excludes SpinDoctor\workspace. On restart BOOT refreshes
+carrier-listed code and demonstration files; unlisted mutable session, checkpoint,
+input and archive files survive. Pre-update static and workspace backup ZIPs are
+saved in the Codex chat outputs folder. Historical PDFs and audits retain the
+limits and identities of the builds they originally documented.
