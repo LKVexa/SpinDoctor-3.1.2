@@ -1,0 +1,5 @@
+# Bell pair
+q.circuit new filebell 2
+q.circuit add h 0
+q.circuit add cx 0 1
+q.circuit run shots 256 basis z
