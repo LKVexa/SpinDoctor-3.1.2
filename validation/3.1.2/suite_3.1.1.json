@@ -1,0 +1,155 @@
+{
+    "rerunWithFreshOutputDirs":  [
+                                     {
+                                         "value":  [
+                                                       {
+                                                           "test":  "direct_preset_regressions",
+                                                           "exit":  0,
+                                                           "seconds":  2.2,
+                                                           "tail":  "PASS 153 direct-preset dispatch/receipt/preflight assertions; 1029 actual tiny-register shots,2060 draws; no29-qubit execution or live user session changes."
+                                                       },
+                                                       {
+                                                           "test":  "circuit_receipt_transition_regressions",
+                                                           "exit":  0,
+                                                           "seconds":  1.5,
+                                                           "tail":  "PASS 43 controlled circuit receipt-transition assertions; legacy race reproduced; atomic old-completion capture and archive-failure preservation verified; only5 actual two-qubit shots."
+                                                       },
+                                                       {
+                                                           "test":  "csv_workflow_example",
+                                                           "exit":  0,
+                                                           "seconds":  2.9,
+                                                           "tail":  "PASS 58 combined native CSV workflow/example/export assertions. <WORK>\\spindoctor312\\suite311b\\csv_workflow_example\\run"
+                                                       },
+                                                       {
+                                                           "test":  "native_verification_preview_regressions",
+                                                           "exit":  1,
+                                                           "seconds":  1.5,
+                                                           "tail":  "  | Candidate\\validation\\release-tools\\tests\\native_verification_preview_regressions.ps1 : Exception calling \"Run\" with  | \"2\" argument(s): \"FAIL: client forged verification metadata replaced by native receipt evidence\" |     + CategoryInfo          : NotSpecified: (:) [native_verifica...regressions.ps1], MethodInvocationException |     + FullyQualifiedErrorId : Exception,native_verification_preview_regressions.ps1 |  "
+                                                       },
+                                                       {
+                                                           "test":  "native_spin_preview_regressions",
+                                                           "exit":  0,
+                                                           "seconds":  2.6,
+                                                           "tail":  "PASS 277 native spin-preview assertions; five 1/2-qubit runs,20 actual shots,24 draws; 44 separate actual GPU/model comparisons. <WORK>\\spindoctor312\\suite311b\\native_spin_preview_regressions\\run"
+                                                       },
+                                                       {
+                                                           "test":  "native_report_example",
+                                                           "exit":  0,
+                                                           "seconds":  1.5,
+                                                           "tail":  "PASS native archive-resolved PDF example; GPU Intel(R) Graphics;140 real compared addresses;32 preview rows; actual calculator +Z/-Z/+X; no measurement shots. <WORK>\\spindoctor312\\suite311b\\native_report_example\\run"
+                                                       }
+                                                   ],
+                                         "Count":  6
+                                     }
+                                 ],
+    "firstPass":  [
+                      {
+                          "value":  [
+                                        {
+                                            "test":  "engine_regressions",
+                                            "exit":  0,
+                                            "seconds":  3.4,
+                                            "tail":  "PASS tiny/huge FP64 normalization, eigenvalues, resource formulas and integer errors | PASS coherent circuit lifecycle, Bell shots, ownership, callback bounds and restart | PASS sequence preflight preserves presets and uses tranche indices | PASS sequence queue checkpoint failure leaves a recoverable inactive job | PASS reset default domain, independent snapshots and circuit ownership | PASS 13 test groups; 38766 assertions; all 13 production C# sources compiled under Windows PowerShell 5.1."
+                                        },
+                                        {
+                                            "test":  "command_receipt_regressions",
+                                            "exit":  0,
+                                            "seconds":  1,
+                                            "tail":  "PASS 29 command receipt completion/identity/restart assertions."
+                                        },
+                                        {
+                                            "test":  "preset_shot_regressions",
+                                            "exit":  0,
+                                            "seconds":  2.7,
+                                            "tail":  "PASS 3929 assertions; all 241 catalog entries structurally compiled; 132 sampling defaults 1024; ordinary ceiling 100000; collapse 1; no full native preset run or stress workload."
+                                        },
+                                        {
+                                            "test":  "direct_preset_regressions",
+                                            "exit":  1,
+                                            "seconds":  1,
+                                            "tail":  "    + FullyQualifiedErrorId : NativeCommandError |   | Exception calling \"Run\" with \"2\" argument(s): \"Use a fresh direct-preset test output directory.\" |     + CategoryInfo          : NotSpecified: (:) [direct_preset_regressions.ps1], MethodInvocationException |     + FullyQualifiedErrorId : Exception,direct_preset_regressions.ps1 |  "
+                                        },
+                                        {
+                                            "test":  "circuit_receipt_transition_regressions",
+                                            "exit":  1,
+                                            "seconds":  1,
+                                            "tail":  "  | Candidate\\validation\\release-tools\\tests\\circuit_receipt_transition_regressions.ps1 : Exception calling \"Run\" with \"2\"  | argument(s): \"Use a fresh transition-regression directory.\" |     + CategoryInfo          : NotSpecified: (:) [circuit_receipt...regressions.ps1], MethodInvocationException |     + FullyQualifiedErrorId : Exception,circuit_receipt_transition_regressions.ps1 |  "
+                                        },
+                                        {
+                                            "test":  "manual_receipt_guard_regressions",
+                                            "exit":  0,
+                                            "seconds":  1.9,
+                                            "tail":  "PASS terminal manual receipt barrier/regression assertions: 50"
+                                        },
+                                        {
+                                            "test":  "csv_report_regressions",
+                                            "exit":  0,
+                                            "seconds":  2.2,
+                                            "tail":  "PASS 35928 CSV schema, exact value, escaping, stage, provenance, receipt and bounded export assertions. One one-qubit CSV input circuit ran 4 explicit shots; no stress workloads or maximum verification were run."
+                                        },
+                                        {
+                                            "test":  "csv_gate_regressions",
+                                            "exit":  0,
+                                            "seconds":  2.3,
+                                            "tail":  "PASS 49 CSV gate-list parse/import/run/provenance/native Bloch assertions. <WORK>\\spindoctor312\\suite311\\csv_gate_regressions\\cc79d48bfea34f76b9df1808fd19dcf2"
+                                        },
+                                        {
+                                            "test":  "csv_input_regressions",
+                                            "exit":  0,
+                                            "seconds":  1.5,
+                                            "tail":  "PASS 124 CSV input/table/empirical-fit/native archive assertions. <WORK>\\spindoctor312\\suite311\\csv_input_regressions\\fd9d40631a5944fd9874a8e9d8a28c95"
+                                        },
+                                        {
+                                            "test":  "csv_workflow_example",
+                                            "exit":  1,
+                                            "seconds":  1,
+                                            "tail":  "char:7 | + try { [CsvWorkflowExample]::Run($SourceRoot,$OutputRoot,$FixturesRoot ... | +       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |     + CategoryInfo          : NotSpecified: (:) [], ParentContainsErrorRecordException |     + FullyQualifiedErrorId : ArgumentException |  "
+                                        },
+                                        {
+                                            "test":  "csv_http_offline",
+                                            "exit":  0,
+                                            "seconds":  1.6,
+                                            "tail":  "PASS: small equation fixture circuit created with native name bound | PASS: H equation fixture instruction stored without execution | PASS: CX equation fixture instruction stored without execution | PASS: native circuit definition retained without simulation shots | PASS: equation POST preserves actual circuit gate order operands and symbolic operators without shots | PASS 59 CSV/equation offline HTTP protocol checks."
+                                        },
+                                        {
+                                            "test":  "detailed_report_regressions",
+                                            "exit":  0,
+                                            "seconds":  1.6,
+                                            "tail":  "PASS readable detail/native archive regression checks: 43 assertions; all production native sources compiled. | PASS PDF detail/figure/budget regression checks; cumulative assertions: 66. | PASS completion/verification receipt regression checks; cumulative assertions: 93 | PASS selected3.0.6 run presentation regressions; cumulative assertions: 120 | PASS automatic Detailed answer-first and23-command folder presentation; cumulative assertions: 170 | PASS actual-source/mixed/north/projection Bloch presentation; cumulative assertions: 194"
+                                        },
+                                        {
+                                            "test":  "newfolder_verification",
+                                            "exit":  0,
+                                            "seconds":  8.5,
+                                            "tail":  "PASS new folder verification gate: 119 assertions; mock native responses, no real GPU measurement claimed. Large counts are mocked, not an executed billion-sample workload."
+                                        },
+                                        {
+                                            "test":  "native_verification_preview_regressions",
+                                            "exit":  1,
+                                            "seconds":  1.5,
+                                            "tail":  "  | Candidate\\validation\\release-tools\\tests\\native_verification_preview_regressions.ps1 : Exception calling \"Run\" with  | \"2\" argument(s): \"FAIL: client forged verification metadata replaced by native receipt evidence\" |     + CategoryInfo          : NotSpecified: (:) [native_verifica...regressions.ps1], MethodInvocationException |     + FullyQualifiedErrorId : Exception,native_verification_preview_regressions.ps1 |  "
+                                        },
+                                        {
+                                            "test":  "native_spin_preview_regressions",
+                                            "exit":  1,
+                                            "seconds":  0.9,
+                                            "tail":  "  | Candidate\\validation\\release-tools\\tests\\native_spin_preview_regressions.ps1 : Exception calling \"Run\" with \"2\"  | argument(s): \"Use a fresh native spin validation directory.\" |     + CategoryInfo          : NotSpecified: (:) [native_spin_preview_regressions.ps1], MethodInvocationException |     + FullyQualifiedErrorId : Exception,native_spin_preview_regressions.ps1 |  "
+                                        },
+                                        {
+                                            "test":  "native_report_example",
+                                            "exit":  1,
+                                            "seconds":  0.9,
+                                            "tail":  "    + FullyQualifiedErrorId : NativeCommandError |   | Exception calling \"Run\" with \"2\" argument(s): \"Use a fresh PDF output directory.\" |     + CategoryInfo          : NotSpecified: (:) [native_report_example.ps1], MethodInvocationException |     + FullyQualifiedErrorId : InvalidOperationException,native_report_example.ps1 |  "
+                                        },
+                                        {
+                                            "test":  "transport_tests",
+                                            "exit":  0,
+                                            "seconds":  1.8,
+                                            "tail":  "PASS: session remains usable after persistence recovers | PASS: case-insensitive noise channel preflight matches backend | PASS: calculator count preflight enforces digit bound [ArgumentException] | PASS: PDF histogram integers bounded before parsing [ArgumentException] | Passed 36 transport/archive/parser assertions. | 36"
+                                        }
+                                    ],
+                          "Count":  17
+                      }
+                  ],
+    "note":  "First pass: 5 harnesses needed a non-existent output directory (runner issue, fixed in the rerun). Rerun: only native_verification_preview_regressions fails (stale assertion, AUDIT finding F)."
+}
