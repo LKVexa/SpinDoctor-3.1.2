@@ -1,0 +1,78 @@
+{
+  "passed": true,
+  "checks": 48458,
+  "sourceHashes": {
+    "QuantumCore.cs": "ba80a655898fc0b2fc03dd1cfb271204eecd45ff8020a7d81beb428ccd58e9e2",
+    "QuantumTerminal.cs": "18a801c50c0d87325f15ef4c4dcd1eb897d2b1fca8ec9c66ab6afcdff577a6d4",
+    "SpinDoctorAdvanced.cs": "201cd68a7960227a3d78d7418f2a63994aac9179e2f759586313177e9ab94dd6",
+    "SpinDoctorCalculators.cs": "819e517580fea6141a2c4338389cf0d4c46c67cf21d02ad503bcd3e68ff83a62",
+    "SpinDoctorCircuits.cs": "1f8e0342de07fd195192b8c3be539c13ea86b15d87f82c73c2ea4074237787e2",
+    "SpinDoctorCommandReports.cs": "e1acb66520942b6a431ac2a03e499e724adc592b65dd87f49c3c425359e853fe",
+    "SpinDoctorInputs.cs": "f2f0c78f9d1c3d27ef6130d11603d07e1cf36d842f38ef94399aa0847b20c075",
+    "SpinDoctorPdfInputs.cs": "be5cbbd76eb1c1a2c2557530bbb6c9ebfd2e1ebfff2125777bef13ddfcf9428d",
+    "SpinDoctorReports.cs": "770d7dda4077e7ced1a9a3126c6780beb09909bdff1876ebc7b2a92a3badabd6",
+    "SpinDoctorSequences.cs": "25cc31637af07ed54100078694f144f292657068debb4feb9f0f20e594d58e23",
+    "SpinDoctorSyntax.cs": "df3827419226d62eca4e23f2fca0f1149a4f1d90e17e68feb06400abbd49be39",
+    "SpinDoctorTranches.cs": "825a9c649a1d6fab6899f221c35503ff7eb9677234b7ae4cf8a08d1d6d8dd77d",
+    "SpinDoctorTrancheTerminal.cs": "546b2230a6bd36c4a8cba51d1a8e165a9d6bd7725ed93ae658e15fcc9a11b572"
+  },
+  "pdfSha256": "aad38dc94a9987f9b52af1a78311aa2e6e2fb1cdfbefb4809b38c0eff789b9ee",
+  "pdfPages": 40,
+  "txtSha256": "56ae7c0722fdebd45ac975147e180bf7f79128741e433004a39cf8cd98ffb523",
+  "csvSha256": "45db705c819372753c851b62554371cbc9e77e6f863bc27bfee2aebeaffbbb0a",
+  "inputSourceHashes": [
+    "7a64610e0a077d880955b264aec5c3616b348ab6a664368fe5a5b7d247c8905e",
+    "cc603b81de12170ab62a520e74fa70d4068c43b3fe764a60d6004661c544144a",
+    "dd554387c0375775801cdcf1be23eb6950b689fba3b456a8aa35cc6427f3b8cb",
+    "8938d908c311e756f7a8094149c8ca03b8fbf4cd9a5cd3f9a5f455cd909314dd",
+    "97ba88a3466d1fcdc787f12012b6e202a6450391418573209729d76cf8d0c03a"
+  ],
+  "independentFits": [
+    {
+      "input": "weather-example.csv",
+      "sourceSha256": "7a64610e0a077d880955b264aec5c3616b348ab6a664368fe5a5b7d247c8905e",
+      "intercept": 13.70503464388501,
+      "slopes": [
+        -0.08328089121519322,
+        0.02547729346529086
+      ],
+      "metrics": {
+        "rSquared": 0.9495563472056887,
+        "rmse": 0.23477579585085137,
+        "mae": 0.20749631501368793,
+        "residualSumSquares": 1.3228721836176152
+      }
+    },
+    {
+      "input": "gate-measurements.csv",
+      "sourceSha256": "cc603b81de12170ab62a520e74fa70d4068c43b3fe764a60d6004661c544144a",
+      "intercept": 0.9099999999999999,
+      "slopes": [
+        0.02000000000000004,
+        -0.003999999999999999
+      ],
+      "metrics": {
+        "rSquared": 0.9963943545894715,
+        "rmse": 0.0021602468994692888,
+        "mae": 0.0020000000000000018,
+        "residualSumSquares": 0.0001120000000000002
+      }
+    },
+    {
+      "input": "circuit-measurements.csv",
+      "sourceSha256": "dd554387c0375775801cdcf1be23eb6950b689fba3b456a8aa35cc6427f3b8cb",
+      "intercept": 0.9857950819672132,
+      "slopes": [
+        -0.011991803278688533,
+        -0.008191256830601094
+      ],
+      "metrics": {
+        "rSquared": 0.9979014958567995,
+        "rmse": 0.0021155164466544695,
+        "mae": 0.0019125683060109099,
+        "residualSumSquares": 0.00010740983606557329
+      }
+    }
+  ],
+  "scope": "Read-only independent NumPy/LAPACK SVD least-squares checks against actual uploaded synthetic example rows; analytic one-qubit/Bell expectations; every exported native response field/container compared against preserved immutable archives; matching PDF/TXT/CSV equation, metrics, completion UTC and source/archive hashes; native equation text/LaTeX coefficient mappings, chronology/control order and symbolic RY/H/CX matrices. No new native fit, simulation, stress or GPU work."
+}
