@@ -1,0 +1,590 @@
+{
+    "productVersion":  "3.1.2",
+    "ranUtc":  "2026-10-10T20:13:34.2999509Z",
+    "total":  81,
+    "ok":  81,
+    "results":  [
+                    {
+                        "command":  "q.circuit new bell 2",
+                        "executed":  "q.circuit new bell 2",
+                        "ok":  true,
+                        "reportId":  "7efd24ffc15446c8915af969c1610cc4",
+                        "seconds":  1.61
+                    },
+                    {
+                        "command":  "q.circuit add h 0",
+                        "executed":  "q.circuit add h 0",
+                        "ok":  true,
+                        "reportId":  "478a18a04611449480fcefd2a1c1e631",
+                        "seconds":  0.04
+                    },
+                    {
+                        "command":  "q.circuit add cx 0 1",
+                        "executed":  "q.circuit add cx 0 1",
+                        "ok":  true,
+                        "reportId":  "649a8ea2563d4d7f82016dc5cbe60c67",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.circuit run shots 1000 basis z",
+                        "executed":  "q.circuit run shots 1000 basis z",
+                        "ok":  true,
+                        "reportId":  "cfb88cc974ca4da0af8b2cecbf3dc3e3",
+                        "seconds":  0.49
+                    },
+                    {
+                        "command":  "q.folder run path=\"C:/Users/me/Desktop/inputs\" downloads=false verify=false",
+                        "executed":  "q.folder run path=\"<WORK>/spindoctor312/guide/inputs\" downloads=false verify=false",
+                        "ok":  true,
+                        "reportId":  "b2aa03d8b8dd4fd681406880aa165b3f",
+                        "folderPhase":  "completed",
+                        "folderError":  "",
+                        "folderFiles":  [
+                                            "a_cmds.txt:completed",
+                                            "b_text.circuit:completed",
+                                            "c_cmds.csv:completed",
+                                            "d_cmds.json:completed",
+                                            "e_ghz.json:completed",
+                                            "f_prog.qasm:completed",
+                                            "g_prog.qasm2:completed",
+                                            "h_tagged.pdf:completed"
+                                        ],
+                        "skippedFiles":  [
+                                             "notes.md"
+                                         ],
+                        "seconds":  7.15
+                    },
+                    {
+                        "command":  "q.folder status",
+                        "executed":  "q.folder status",
+                        "ok":  true,
+                        "reportId":  "d55c74f83c6443579a4787c2e090421a",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.folder cancel",
+                        "executed":  "q.folder cancel",
+                        "ok":  true,
+                        "reportId":  "71347ed14e5b4912b3c86109337df2af",
+                        "seconds":  0.03
+                    },
+                    {
+                        "command":  "q.circuit new demo 2",
+                        "executed":  "q.circuit new demo 2",
+                        "ok":  true,
+                        "reportId":  "328667c3b6b44a4c8f545728f5b58b66",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.circuit add h 1",
+                        "executed":  "q.circuit add h 1",
+                        "ok":  true,
+                        "reportId":  "f6e62b6fe7c74846a9dea0267f74f7ed",
+                        "seconds":  0.03
+                    },
+                    {
+                        "command":  "q.circuit input 0",
+                        "executed":  "q.circuit input 0",
+                        "ok":  true,
+                        "reportId":  "fee3108c49ae4df3816448563f0e756b",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.circuit show",
+                        "executed":  "q.circuit show",
+                        "ok":  true,
+                        "reportId":  "a8f44f138e4840278138652f03222784",
+                        "seconds":  0.03
+                    },
+                    {
+                        "command":  "q.circuit run shots 500 basis z",
+                        "executed":  "q.circuit run shots 500 basis z",
+                        "ok":  true,
+                        "reportId":  "a85487c104774abf9e4e34ce8762e684",
+                        "seconds":  0.28
+                    },
+                    {
+                        "command":  "q.circuit result",
+                        "executed":  "q.circuit result",
+                        "ok":  true,
+                        "reportId":  "a827d32ed7514dee8c9534e816885cdb",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.circuit state 3",
+                        "executed":  "q.circuit state 3",
+                        "ok":  true,
+                        "reportId":  "b69a408d44a84e0ba16f13543ebe14b6",
+                        "seconds":  0.04
+                    },
+                    {
+                        "command":  "q.circuit spin 0",
+                        "executed":  "q.circuit spin 0",
+                        "ok":  true,
+                        "reportId":  "fb351d7bfef945f18629a3417962138a",
+                        "seconds":  0.03
+                    },
+                    {
+                        "command":  "q.circuit export",
+                        "executed":  "q.circuit export",
+                        "ok":  true,
+                        "reportId":  "f4b3996b78ea4e2bb09433336f81692c",
+                        "seconds":  0.03
+                    },
+                    {
+                        "command":  "q.circuit list",
+                        "executed":  "q.circuit list",
+                        "ok":  true,
+                        "reportId":  "3f26e6de857a43daabaae86583f4e844",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.circuit select demo",
+                        "executed":  "q.circuit select demo",
+                        "ok":  true,
+                        "reportId":  "feff158bb3754529a25f49b4dd5c4b44",
+                        "seconds":  0.03
+                    },
+                    {
+                        "command":  "q.circuit preset bell 2 as demo_bell",
+                        "executed":  "q.circuit preset bell 2 as demo_bell",
+                        "ok":  true,
+                        "reportId":  "57fa43ef967a425992f8ee8d57b1ea2f",
+                        "seconds":  0.27
+                    },
+                    {
+                        "command":  "q.circuit status",
+                        "executed":  "q.circuit status",
+                        "ok":  true,
+                        "reportId":  "bd9f3b572d1c422689a3a758b281364d",
+                        "seconds":  0.03
+                    },
+                    {
+                        "command":  "q.circuit capacity",
+                        "executed":  "q.circuit capacity",
+                        "ok":  true,
+                        "reportId":  "04e2ecccc14d48aea8e5f24443d1b883",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.circuit help",
+                        "executed":  "q.circuit help",
+                        "ok":  true,
+                        "reportId":  "5c6200e3cb3e4916b05862409b7fcf86",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.query amplitudes max=16",
+                        "executed":  "q.query amplitudes max=16",
+                        "ok":  true,
+                        "reportId":  "64b05d0fa6124a4788e4b695e75116db",
+                        "seconds":  0.07
+                    },
+                    {
+                        "command":  "q.query probabilities max=16",
+                        "executed":  "q.query probabilities max=16",
+                        "ok":  true,
+                        "reportId":  "222551ce55874c978d3b50322d9bb38c",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.query marginal qubits=[0] basis=z",
+                        "executed":  "q.query marginal qubits=[0] basis=z",
+                        "ok":  true,
+                        "reportId":  "893adf79896e4055994916c57dc06fb4",
+                        "seconds":  0.03
+                    },
+                    {
+                        "command":  "q.query reduced-density qubits=[0]",
+                        "executed":  "q.query reduced-density qubits=[0]",
+                        "ok":  true,
+                        "reportId":  "3c21fd0b468649c78322b204c6e02aea",
+                        "seconds":  0.03
+                    },
+                    {
+                        "command":  "q.query purity qubits=[0]",
+                        "executed":  "q.query purity qubits=[0]",
+                        "ok":  true,
+                        "reportId":  "1fbbb72e23bf451bb3b9842403906bfb",
+                        "seconds":  0.03
+                    },
+                    {
+                        "command":  "q.query entropy qubits=[0] base=2",
+                        "executed":  "q.query entropy qubits=[0] base=2",
+                        "ok":  true,
+                        "reportId":  "b667669c33e545e0a21a898cd68ee4b3",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.query expectation pauli=\"Z0 Z1\"",
+                        "executed":  "q.query expectation pauli=\"Z0 Z1\"",
+                        "ok":  true,
+                        "reportId":  "71faa4223300433d9debb272cd801978",
+                        "seconds":  0.03
+                    },
+                    {
+                        "command":  "q.query concurrence qubits=[0,1]",
+                        "executed":  "q.query concurrence qubits=[0,1]",
+                        "ok":  true,
+                        "reportId":  "fe6b5c166faa4723801857c279e5130f",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.query fidelity state=[1/sqrt(2),0,0,1/sqrt(2)] convention=squared",
+                        "executed":  "q.query fidelity state=[1/sqrt(2),0,0,1/sqrt(2)] convention=squared",
+                        "ok":  true,
+                        "reportId":  "b018a725db434fd8a405b69c19aa43e5",
+                        "seconds":  0.03
+                    },
+                    {
+                        "command":  "q.tranche prepare 4 zero",
+                        "executed":  "q.tranche prepare 4 zero",
+                        "ok":  true,
+                        "reportId":  "7200155232ab48eaaef76dd248015f01",
+                        "seconds":  0.06
+                    },
+                    {
+                        "command":  "q.tranche gate h 0",
+                        "executed":  "q.tranche gate h 0",
+                        "ok":  true,
+                        "reportId":  "9872f3159ce649439704223cf063d73d",
+                        "seconds":  0.05
+                    },
+                    {
+                        "command":  "q.tranche state 0",
+                        "executed":  "q.tranche state 0",
+                        "ok":  true,
+                        "reportId":  "9c18ef51708a423e9343f9fd81ac3dcb",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.tranche spin 0",
+                        "executed":  "q.tranche spin 0",
+                        "ok":  true,
+                        "reportId":  "7d852bcdb14641689ef61a32a53d3674",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.tranche measure 0 basis z shots 100",
+                        "executed":  "q.tranche measure 0 basis z shots 100",
+                        "ok":  true,
+                        "reportId":  "9ffca960ef874ddcbe1269128cbd2c51",
+                        "seconds":  0.03
+                    },
+                    {
+                        "command":  "q.tranche status",
+                        "executed":  "q.tranche status",
+                        "ok":  true,
+                        "reportId":  "afab83bd0c0e46228656066b8d888d82",
+                        "seconds":  0.01
+                    },
+                    {
+                        "command":  "q.tranche export",
+                        "executed":  "q.tranche export",
+                        "ok":  true,
+                        "reportId":  "0e333622e3214513a44ce7dc8d067224",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.prepare grid 1000 1000",
+                        "executed":  "q.prepare grid 1000 1000",
+                        "ok":  true,
+                        "reportId":  "91f48c3affa946ee8ad5c4e7d7ec8cc0",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.migrate t 1",
+                        "executed":  "q.migrate t 1",
+                        "ok":  true,
+                        "reportId":  "4525a37c7ad149e8bd1f269901ae9c21",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.gate h all",
+                        "executed":  "q.gate h all",
+                        "ok":  true,
+                        "reportId":  "6f4ca1aa09b84bd2af65f6f196fa828b",
+                        "seconds":  0.03
+                    },
+                    {
+                        "command":  "q.state 12345",
+                        "executed":  "q.state 12345",
+                        "ok":  true,
+                        "reportId":  "bab28a4824a445568278e5bd53020d7a",
+                        "seconds":  0.03
+                    },
+                    {
+                        "command":  "q.measure 12345 basis z shots 100",
+                        "executed":  "q.measure 12345 basis z shots 100",
+                        "ok":  true,
+                        "reportId":  "bc33528f5bc946d69d37f731f211c130",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.verify rule",
+                        "executed":  "q.verify rule",
+                        "ok":  true,
+                        "reportId":  "ba1a2e689dbd41fba47f241cc0c6ae7e",
+                        "seconds":  0.03
+                    },
+                    {
+                        "command":  "q.export descriptor",
+                        "executed":  "q.export descriptor",
+                        "ok":  true,
+                        "reportId":  "b691376ddb47401ab3992423501f705e",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.status",
+                        "executed":  "q.status",
+                        "ok":  true,
+                        "reportId":  "760adb1d92cd41bc9065680738730af3",
+                        "seconds":  0.03
+                    },
+                    {
+                        "command":  "q.resource memory n=29 representation=statevector dtype=complex128 units=binary",
+                        "executed":  "q.resource memory n=29 representation=statevector dtype=complex128 units=binary",
+                        "ok":  true,
+                        "reportId":  "f22ba0a9e1fb4303b6f91106d0fb7299",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.resource max-n memory-mib=512 representation=statevector dtype=complex128 overhead-mib=0",
+                        "executed":  "q.resource max-n memory-mib=512 representation=statevector dtype=complex128 overhead-mib=0",
+                        "ok":  true,
+                        "reportId":  "ace562e32bba4bb39e779caafacd281d",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.resource shots epsilon=0.01 delta=0.05 bound=hoeffding-two-sided",
+                        "executed":  "q.resource shots epsilon=0.01 delta=0.05 bound=hoeffding-two-sided",
+                        "ok":  true,
+                        "reportId":  "007fa43141e547b287e932ab60ab4510",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.resource sampling probability=0.5 shots=1024 metric=standard-error",
+                        "executed":  "q.resource sampling probability=0.5 shots=1024 metric=standard-error",
+                        "ok":  true,
+                        "reportId":  "71e4978c03434661861ce7f6e3ff3923",
+                        "seconds":  0.01
+                    },
+                    {
+                        "command":  "q.resource headroom",
+                        "executed":  "q.resource headroom",
+                        "ok":  true,
+                        "reportId":  "6d320ce43aec4983b34e2432dd6ceb1c",
+                        "seconds":  0.05
+                    },
+                    {
+                        "command":  "q.math normalize amplitudes=[1,i]",
+                        "executed":  "q.math normalize amplitudes=[1,i]",
+                        "ok":  true,
+                        "reportId":  "2941fee44b0d4e998342fa1ccca32bd5",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.math probabilities amplitudes=[sqrt(3)/2,i/2]",
+                        "executed":  "q.math probabilities amplitudes=[sqrt(3)/2,i/2]",
+                        "ok":  true,
+                        "reportId":  "5dc4091addb94c1582e29b0bc5181a53",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.math bloch amplitudes=[1/sqrt(2),i/sqrt(2)]",
+                        "executed":  "q.math bloch amplitudes=[1/sqrt(2),i/sqrt(2)]",
+                        "ok":  true,
+                        "reportId":  "4e9dbcfc39174dab8b193eb12f6dab85",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.math density amplitudes=[1/sqrt(2),i/sqrt(2)]",
+                        "executed":  "q.math density amplitudes=[1/sqrt(2),i/sqrt(2)]",
+                        "ok":  true,
+                        "reportId":  "f5b0c36305f04e4089e1f2ed7f0015a2",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.math fidelity a=[1/sqrt(2),1/sqrt(2)] b=[1/sqrt(2),-1/sqrt(2)] convention=squared",
+                        "executed":  "q.math fidelity a=[1/sqrt(2),1/sqrt(2)] b=[1/sqrt(2),-1/sqrt(2)] convention=squared",
+                        "ok":  true,
+                        "reportId":  "09ffb340599f4ee3822318ca053cf065",
+                        "seconds":  0.03
+                    },
+                    {
+                        "command":  "q.math gate-matrix gate=h",
+                        "executed":  "q.math gate-matrix gate=h",
+                        "ok":  true,
+                        "reportId":  "a974276d4b4c4bc4bcaf486182be2b93",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.math tensor left=H right=I2",
+                        "executed":  "q.math tensor left=H right=I2",
+                        "ok":  true,
+                        "reportId":  "36191c1c3e98490483b4341ebb7714d5",
+                        "seconds":  0.01
+                    },
+                    {
+                        "command":  "q.math eigen operator=X",
+                        "executed":  "q.math eigen operator=X",
+                        "ok":  true,
+                        "reportId":  "0b0b218ff99644c791291c731a9a5c8e",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.math expectation state=[sqrt(3)/2,1/2] operator=Z",
+                        "executed":  "q.math expectation state=[sqrt(3)/2,1/2] operator=Z",
+                        "ok":  true,
+                        "reportId":  "8dba0bd828c94a458e2f773f72dad5d0",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.model spectrum hamiltonian=\"-1*Z0\" n=1",
+                        "executed":  "q.model spectrum hamiltonian=\"-1*Z0\" n=1",
+                        "ok":  true,
+                        "reportId":  "3a5b4312a8144fffa2145feca98b306e",
+                        "seconds":  0.1
+                    },
+                    {
+                        "command":  "q.model evolve n=1 initial=[1/sqrt(2),1/sqrt(2)] hamiltonian=\"0.5*Z0\" time=pi/2 hbar=1",
+                        "executed":  "q.model evolve n=1 initial=[1/sqrt(2),1/sqrt(2)] hamiltonian=\"0.5*Z0\" time=pi/2 hbar=1",
+                        "ok":  true,
+                        "reportId":  "9da40439ca5740ff808c11a824ca30a3",
+                        "seconds":  1.37
+                    },
+                    {
+                        "command":  "q.lesson amplitude-vs-probability example=[1/sqrt(2),i/sqrt(2)]",
+                        "executed":  "q.lesson amplitude-vs-probability example=[1/sqrt(2),i/sqrt(2)]",
+                        "ok":  true,
+                        "reportId":  "8acb3e73cd65497ca60b79ee03f6f237",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.noise apply state=[1,0] channel=bit-flip p=0.1",
+                        "executed":  "q.noise apply state=[1,0] channel=bit-flip p=0.1",
+                        "ok":  true,
+                        "reportId":  "c5ecd0c83a1043d8a2fcc8c6b4296460",
+                        "seconds":  0.1
+                    },
+                    {
+                        "command":  "q.noise zne scales=[1,2,3] expectations=[0.8,0.7,0.6] model=linear",
+                        "executed":  "q.noise zne scales=[1,2,3] expectations=[0.8,0.7,0.6] model=linear",
+                        "ok":  true,
+                        "reportId":  "80eaa276bd3540029f91bd967056e692",
+                        "seconds":  0.05
+                    },
+                    {
+                        "command":  "q.qec repetition3 encode state=[1/sqrt(2),1/sqrt(2)]",
+                        "executed":  "q.qec repetition3 encode state=[1/sqrt(2),1/sqrt(2)]",
+                        "ok":  true,
+                        "reportId":  "7789fdaa89c045769f3e5c9f4b10a093",
+                        "seconds":  0.05
+                    },
+                    {
+                        "command":  "q.qec parameters n=7 independent-stabilizers=6",
+                        "executed":  "q.qec parameters n=7 independent-stabilizers=6",
+                        "ok":  true,
+                        "reportId":  "5662b3cf76c64cdcb978d7cb4138fffa",
+                        "seconds":  0.04
+                    },
+                    {
+                        "command":  "q.compile identity left=\"h 0;x 0;h 0\" right=\"z 0\" n=1 equivalence=exact",
+                        "executed":  "q.compile identity left=\"h 0;x 0;h 0\" right=\"z 0\" n=1 equivalence=exact",
+                        "ok":  true,
+                        "reportId":  "1b4867d7208a42eca00f1f2cf34540ee",
+                        "seconds":  0.05
+                    },
+                    {
+                        "command":  "q.compile count n=2 gates=\"h 0;t 0;cx 0 1;tdg 1\" counting=logical",
+                        "executed":  "q.compile count n=2 gates=\"h 0;t 0;cx 0 1;tdg 1\" counting=logical",
+                        "ok":  true,
+                        "reportId":  "0aaaf9f59500493f8e7758cd777b445c",
+                        "seconds":  0.04
+                    },
+                    {
+                        "command":  "q.algorithm phase-estimation counting-qubits=3 unitary=\"p 2.356194490192345 3\" eigenstate=[0,1] power-map=\"qj-controls-U^(2^j)\" inverse-qft=include-final-swaps",
+                        "executed":  "q.algorithm phase-estimation counting-qubits=3 unitary=\"p 2.356194490192345 3\" eigenstate=[0,1] power-map=\"qj-controls-U^(2^j)\" inverse-qft=include-final-swaps",
+                        "ok":  true,
+                        "reportId":  "023f3aa258d5424092bde8153ae52492",
+                        "seconds":  0.09
+                    },
+                    {
+                        "command":  "q.preset list",
+                        "executed":  "q.preset list",
+                        "ok":  true,
+                        "reportId":  "e85342c4e5c14d4b8740755ae74ab5b9",
+                        "seconds":  0.2
+                    },
+                    {
+                        "command":  "q.preset show qc-097",
+                        "executed":  "q.preset show qc-097",
+                        "ok":  true,
+                        "reportId":  "75052a7befd249d39b58d0ad72436dc7",
+                        "seconds":  0.26
+                    },
+                    {
+                        "command":  "q.preset run qc-097",
+                        "executed":  "q.preset run qc-097",
+                        "ok":  true,
+                        "reportId":  "ada46682e8c34c5dbe4928933f28dd7b",
+                        "seconds":  1.94
+                    },
+                    {
+                        "command":  "q.sequence status",
+                        "executed":  "q.sequence status",
+                        "ok":  true,
+                        "reportId":  "23dcfea6963148b9a2267c14c00d5a42",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.folder help",
+                        "executed":  "q.folder help",
+                        "ok":  true,
+                        "reportId":  "4a9bee2c4b4b48c5903639037d5734db",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.history list",
+                        "executed":  "q.history list",
+                        "ok":  true,
+                        "reportId":  "ae4f7ee4919848e6ba946bbe08d3f22a",
+                        "seconds":  0.04
+                    },
+                    {
+                        "command":  "q.help",
+                        "executed":  "q.help",
+                        "ok":  true,
+                        "reportId":  "a28fa08729bd4e198a4f358c4ccd4bd8",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.circuit prune presets",
+                        "executed":  "q.circuit prune presets",
+                        "ok":  true,
+                        "reportId":  "c27bad2afeec430d97f824e5203192a9",
+                        "seconds":  0.15
+                    },
+                    {
+                        "command":  "q.reset",
+                        "executed":  "q.reset",
+                        "ok":  true,
+                        "reportId":  "a95083f1ce25492ebc2da4d0bb405450",
+                        "seconds":  0.09
+                    },
+                    {
+                        "command":  "q.sequence cancel",
+                        "executed":  "q.sequence cancel",
+                        "ok":  true,
+                        "reportId":  "b37efe392d0e421d8002392c0bdf0fd8",
+                        "seconds":  0.02
+                    },
+                    {
+                        "command":  "q.circuit delete demo",
+                        "executed":  "q.circuit delete demo",
+                        "ok":  true,
+                        "reportId":  "d244e417d1ea4c44a206ec620a6c6bdc",
+                        "seconds":  0.03
+                    }
+                ]
+}
