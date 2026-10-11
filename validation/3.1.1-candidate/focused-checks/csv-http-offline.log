@@ -1,0 +1,61 @@
+PASS: small arithmetic native record available without shots
+PASS: command CSV GET has UTF-8 CSV type and private response headers
+PASS: command CSV GET dispatches actual native norm
+PASS: CSV GET rejects missing bearer secret
+PASS: CSV GET rejects wrong bearer secret
+PASS: CSV GET rejects cross-origin read
+PASS: command CSV resource is GET only
+PASS: CSV GET rejects duplicate stage field
+PASS: CSV GET rejects unknown report stage
+PASS: CSV GET rejects preview query on CSV
+PASS: selected PDF-companion CSV POST resolves the same explicit accepted archive
+PASS: CSV POST requires same Origin
+PASS: CSV POST rejects missing bearer secret
+PASS: CSV report request accepts JSON only
+PASS: CSV POST rejects JSON-prefix media type confusion
+PASS: CSV POST rejects non-UTF8 charset
+PASS: CSV POST rejects malformed UTF-8
+PASS: CSV POST rejects invalid report shape
+PASS: CSV report generator is POST only
+PASS: large CSV POST rejects unauthenticated body before reading
+PASS: large CSV POST consumes headers only before rejection
+PASS: CSV POST retains exact 32 MiB request bound
+PASS: CSV POST rejects ambiguous chunked framing
+PASS: session CSV POST supports UI kind contract
+PASS: circuit CSV POST supports UI kind contract
+PASS: one-step arithmetic-only sequence completed without shots
+PASS: whole-file CSV route streams the actual saved command values
+PASS: sequence-step CSV GET accepts UI index/stage grammar
+PASS: CSV command index128 rejected before report lookup
+PASS: whole-file CSV GET rejects JSON-only preview query
+PASS: whole-file CSV stream is GET only
+PASS: automatic sequence command CSV POST resolves indexed accepted archive
+PASS: tiny numeric source stored inertly for native equation protocol fixture
+PASS: tiny five-row native fit produced an archived equation without quantum shots
+PASS: equation POST matches authenticated UTF-8 private JSON route contract
+PASS: equation POST returns native representation schema and count
+PASS: equation POST hydrates actual fitted equation and ignores browser forged coefficients
+PASS: equation POST preserves native source SHA archive SHA and explicit accepted stage
+PASS: equation POST requires same-origin Origin
+PASS: equation POST rejects missing bearer secret
+PASS: equation POST accepts JSON request only
+PASS: equation POST rejects JSON-prefix type confusion
+PASS: equation POST rejects malformed UTF-8
+PASS: equation POST rejects invalid report shape
+PASS: native equation endpoint is POST only
+PASS: large equation request authenticates before reading or allocating body
+PASS: equation POST retains exact32MiB report-request bound
+PASS: equation POST rejects ambiguous chunked framing
+PASS: equation POST rejects unknown archived stage without latest substitution
+PASS: equation export and rejection do not change native actualCpuStates
+PASS: equation export and rejection do not change native actualGpuStates
+PASS: equation export and rejection do not change native measurementShots
+PASS: equation export and rejection do not change native verifiedSamples
+PASS: equation export and rejection do not change native descriptorHash
+PASS: small equation fixture circuit created with native name bound
+PASS: H equation fixture instruction stored without execution
+PASS: CX equation fixture instruction stored without execution
+PASS: native circuit definition retained without simulation shots
+PASS: equation POST preserves actual circuit gate order operands and symbolic operators without shots
+PASS 59 CSV/equation offline HTTP protocol checks.
+
