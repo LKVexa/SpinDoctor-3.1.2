@@ -1,0 +1,2 @@
+PASS new folder verification gate: 119 assertions; mock native responses, no real GPU measurement claimed. Large counts are mocked, not an executed billion-sample workload.
+
