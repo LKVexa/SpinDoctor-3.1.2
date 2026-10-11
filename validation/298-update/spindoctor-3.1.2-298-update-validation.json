@@ -1,0 +1,495 @@
+{
+  "schema": "SPINDOCTOR/3.1.2-298-UPDATE-VALIDATION/1",
+  "passed": true,
+  "version": "3.1.2",
+  "updateId": "3.1.2-298-20261010",
+  "completedUtc": "2026-10-10T22:39:50.976557+00:00",
+  "maximumLogicalQubits": 298,
+  "maximumJointFactorQubits": 59,
+  "wideMeasurementBasis": "z",
+  "sealedSourceFiles": 292,
+  "immutableSha256": "8d047e1e7717cd6ea220cf124cb42422aa09273575f1c0df9c427c697b765422",
+  "sourceSha256": {
+    "QuantumCore.cs": "ba80a655898fc0b2fc03dd1cfb271204eecd45ff8020a7d81beb428ccd58e9e2",
+    "QuantumTerminal.cs": "48feae485ca282f11408ce2d5b922aa8e822cb394f81d2f38d692948d3b30946",
+    "SpinDoctorAdvanced.cs": "201cd68a7960227a3d78d7418f2a63994aac9179e2f759586313177e9ab94dd6",
+    "SpinDoctorCalculators.cs": "3041a375df8c75a904477fa7bdbc1f5712e77e02101eec0723fbbfd2f5b48140",
+    "SpinDoctorCircuits.cs": "9b754f04dfe3604180f7ab774c46acf5950773df4210d69c13c7063304419c9b",
+    "SpinDoctorCommandReports.cs": "e1acb66520942b6a431ac2a03e499e724adc592b65dd87f49c3c425359e853fe",
+    "SpinDoctorInputs.cs": "b0b0fabef1d92d4c9608f4a28a6d99494c9f76dcf56f547cd9c2550b6628d63c",
+    "SpinDoctorPdfInputs.cs": "be5cbbd76eb1c1a2c2557530bbb6c9ebfd2e1ebfff2125777bef13ddfcf9428d",
+    "SpinDoctorReports.cs": "6c5a0f246c9e877466a922434580ae8667d248898032847e998fdf18143a79b0",
+    "SpinDoctorSequences.cs": "907187e8da5b7c4a00d04535fc1387eb3d1d984847401d2db06efb36fe0d338c",
+    "SpinDoctorSyntax.cs": "5b1372ea157f79ff3b26adb16ccb88def28d79d9e8bd06832431673aed9a1718",
+    "SpinDoctorTranches.cs": "8a8da64e9e529cff90d875590bbc10fb7ec993724721d8c4fc210cc01b6adf19",
+    "SpinDoctorTrancheTerminal.cs": "a068385bd73b59891a5492ce68efef084dd64c8fb81f0ba8a0c8fb06905b78ad"
+  },
+  "carrierBuild": {
+    "entries": 293,
+    "dataPages": 44,
+    "tiffFrames": 45,
+    "gifFrames": 45,
+    "streamSha256": "3a6157dfd9c73aad30884ed51e8c7a1b2ca897778126bf94bacaa6cea908961a",
+    "baselineStreamSha256": "d089083c9e9bb5908bed39917fecb3a96a3c4aeb324f4465196a039d2f7ee508",
+    "tiffSha256": "b7f21b583841b15e1063da2e7cb8db565fedaac0dd76abe682652849b45312fb",
+    "gifSha256": "2c0ecd0d9768c514eae6e5c02de3d52d57552dd92a56216c823289e9b9a3cff2",
+    "immutableSha256": "8d047e1e7717cd6ea220cf124cb42422aa09273575f1c0df9c427c697b765422",
+    "bothCarriersVerifiedWithHardenedReader": true,
+    "allPayloadBytesRoundTripIdentically": true,
+    "immutablePayloadBankVerified": true,
+    "checkpointHeaderUnchanged": true,
+    "unchangedPayloadEntries": 270,
+    "overlaidPayloadEntries": 22,
+    "addedPayloadEntries": 1,
+    "tiffCoverDecodedPixelsUnchanged": true,
+    "gifCoverDecodedPixelsUnchanged": true,
+    "tiffCoverPixelSha256": "e4ace92baa5772e79805ec00dfc405b7fe17548df0bad80bd11911e8aa1a107a",
+    "gifCoverPixelSha256": "e4ace92baa5772e79805ec00dfc405b7fe17548df0bad80bd11911e8aa1a107a",
+    "gifCoverPrefixBytes": 298371,
+    "gifCoverPrefixBytesUnchanged": true
+  },
+  "materialization": {
+    "passed": true,
+    "all292SourceHashesMatched": true,
+    "repeatPreservedBothMutableSentinels": true
+  },
+  "nativeExact": {
+    "passed": true,
+    "checks": 23559,
+    "recordStatesAudited": 73,
+    "completedCommandFiles": 11,
+    "nativeGates": 1190,
+    "jointShots": 10240,
+    "bitsPerOutcome": 298,
+    "maximumAmplitudeError": 4.996003610813204e-16,
+    "savedResultsReloaded": true
+  },
+  "nativeVerifiedElevenFiles": {
+    "passed": true,
+    "downloads": true,
+    "purge": true,
+    "verify": true,
+    "checks": 142,
+    "files": [
+      {
+        "file": "01-full-record-298.txt",
+        "cpuStates": "10252",
+        "gpuStates": "10252",
+        "maximumError": 0,
+        "passed": true
+      },
+      {
+        "file": "02-full-record-298.txt",
+        "cpuStates": "10252",
+        "gpuStates": "10252",
+        "maximumError": 0,
+        "passed": true
+      },
+      {
+        "file": "03-full-record-298.txt",
+        "cpuStates": "10252",
+        "gpuStates": "10252",
+        "maximumError": 0,
+        "passed": true
+      },
+      {
+        "file": "04-full-record-298.txt",
+        "cpuStates": "10252",
+        "gpuStates": "10252",
+        "maximumError": 0,
+        "passed": true
+      },
+      {
+        "file": "05-full-record-298.txt",
+        "cpuStates": "10252",
+        "gpuStates": "10252",
+        "maximumError": 0,
+        "passed": true
+      },
+      {
+        "file": "06-full-record-298.txt",
+        "cpuStates": "10252",
+        "gpuStates": "10252",
+        "maximumError": 0,
+        "passed": true
+      },
+      {
+        "file": "07-full-record-298.txt",
+        "cpuStates": "10252",
+        "gpuStates": "10252",
+        "maximumError": 0,
+        "passed": true
+      },
+      {
+        "file": "08-full-record-298.txt",
+        "cpuStates": "10252",
+        "gpuStates": "10252",
+        "maximumError": 0,
+        "passed": true
+      },
+      {
+        "file": "09-full-record-298.txt",
+        "cpuStates": "10252",
+        "gpuStates": "10252",
+        "maximumError": 0,
+        "passed": true
+      },
+      {
+        "file": "10-full-record-298.txt",
+        "cpuStates": "10252",
+        "gpuStates": "10252",
+        "maximumError": 0,
+        "passed": true
+      },
+      {
+        "file": "11-full-record-298.txt",
+        "cpuStates": "10252",
+        "gpuStates": "10252",
+        "maximumError": 0,
+        "passed": true
+      }
+    ],
+    "gpuDevice": "Intel(R) Graphics",
+    "fullHistogramPreservedAfterPurgeAndReload": true
+  },
+  "regressions": {
+    "passed": true,
+    "version": "3.1.2",
+    "source_files_compiled": 13,
+    "source_snapshot_matches_final_stage": true,
+    "source_sha256": {
+      "QuantumCore.cs": "ba80a655898fc0b2fc03dd1cfb271204eecd45ff8020a7d81beb428ccd58e9e2",
+      "QuantumTerminal.cs": "48feae485ca282f11408ce2d5b922aa8e822cb394f81d2f38d692948d3b30946",
+      "SpinDoctorAdvanced.cs": "201cd68a7960227a3d78d7418f2a63994aac9179e2f759586313177e9ab94dd6",
+      "SpinDoctorCalculators.cs": "3041a375df8c75a904477fa7bdbc1f5712e77e02101eec0723fbbfd2f5b48140",
+      "SpinDoctorCircuits.cs": "9b754f04dfe3604180f7ab774c46acf5950773df4210d69c13c7063304419c9b",
+      "SpinDoctorCommandReports.cs": "e1acb66520942b6a431ac2a03e499e724adc592b65dd87f49c3c425359e853fe",
+      "SpinDoctorInputs.cs": "b0b0fabef1d92d4c9608f4a28a6d99494c9f76dcf56f547cd9c2550b6628d63c",
+      "SpinDoctorPdfInputs.cs": "be5cbbd76eb1c1a2c2557530bbb6c9ebfd2e1ebfff2125777bef13ddfcf9428d",
+      "SpinDoctorReports.cs": "6c5a0f246c9e877466a922434580ae8667d248898032847e998fdf18143a79b0",
+      "SpinDoctorSequences.cs": "907187e8da5b7c4a00d04535fc1387eb3d1d984847401d2db06efb36fe0d338c",
+      "SpinDoctorSyntax.cs": "5b1372ea157f79ff3b26adb16ccb88def28d79d9e8bd06832431673aed9a1718",
+      "SpinDoctorTranches.cs": "8a8da64e9e529cff90d875590bbc10fb7ec993724721d8c4fc210cc01b6adf19",
+      "SpinDoctorTrancheTerminal.cs": "a068385bd73b59891a5492ce68efef084dd64c8fb81f0ba8a0c8fb06905b78ad"
+    },
+    "tests": [
+      {
+        "suite": "original engine regressions with documented legacy-gate filter",
+        "groups": 13,
+        "assertions": 38766,
+        "passed": true
+      },
+      {
+        "suite": "original focused folder/archive/purge/checkpoint regressions with documented harness adaptations",
+        "groups": 7,
+        "assertions": 46,
+        "passed": true
+      },
+      {
+        "suite": "original untouched catalog compiler/default-shot regressions",
+        "catalog_entries": 241,
+        "assertions": 3929,
+        "passed": true
+      },
+      {
+        "suite": "original untouched receipt-transition regressions",
+        "assertions": 43,
+        "actual_small_circuit_shots": 5,
+        "passed": true
+      },
+      {
+        "suite": "new independent wide-factor plus original29 native execution regressions",
+        "groups": 6,
+        "assertions": 661,
+        "actual_wide298_shots": 32,
+        "actual_legacy29_shots": 17,
+        "passed": true
+      },
+      {
+        "suite": "actual original saved-session/history compatibility in isolated copy",
+        "passed": true,
+        "proof": {
+          "passed": true,
+          "version": "3.1.2",
+          "savedFamilyLoaded": true,
+          "savedFamilyPrepared": false,
+          "savedSequenceHistoryLoaded": true,
+          "savedSequencePhase": "failed",
+          "savedSequenceCompletedFiles": 0,
+          "savedSequenceCompletedCommands": 0,
+          "savedCircuitProgramCount": 0,
+          "savedTrancheQubits": 0,
+          "nativeCommandsExecuted": 0,
+          "userOriginalWritten": false,
+          "seedValuesDisclosed": false,
+          "originalMutableFilesUnchanged": 26,
+          "copiedArchiveFilesPreserved": 24,
+          "savedFamilyFieldsPreserved": 27
+        }
+      }
+    ],
+    "assertions_total_excluding_saved_session": 43445,
+    "all_user_original_mutable_files_unchanged": true,
+    "seed_values_disclosed": false,
+    "production_sources_edited_by_auditor": false,
+    "physical_quantum_hardware_execution_claimed": false,
+    "skipped_workloads": [
+      "exhaustive native preset execution",
+      "synthetic folder archives exceeding32MiB"
+    ],
+    "execution_evidence": "<WORK>\\2026-10-10\\can-you-build-a-quantum-equation-2\\work\\native-298-regressions\\execution-evidence.json",
+    "harness_adaptations": "<WORK>\\2026-10-10\\can-you-build-a-quantum-equation-2\\work\\native-298-regressions\\harness-adaptations.json"
+  },
+  "interfaceAndImmutableSource": {
+    "schema": "SPINDOCTOR/298-UPDATE-UI-SOURCE-AUDIT/1",
+    "completedUtc": "2026-10-10T22:27:25.826813+00:00",
+    "passed": true,
+    "version": "3.1.2",
+    "target": "<WORK>\\2026-10-10\\can-you-build-a-quantum-equation-2\\outputs\\SpinDoctor-3.1.2-298-update\\source",
+    "productionFilesModifiedByThisAudit": false,
+    "ui": {
+      "passed": true,
+      "checks": 70,
+      "identicalTerminalPages": true,
+      "verification": "Deterministic DOM/network harness; not a live graphical browser test",
+      "report": "ui-regressions.json",
+      "originalTestSha256": "410f64e84068fe74751c277c6fef17f77a7ae2a0b3a37942f26990451cf5078f",
+      "adaptedTestSha256": "ea9e9c21e9adcd3edce3d1f8ba2cc090e7c7777ff4406e34a47ef45272e49d76",
+      "adaptations": [
+        {
+          "before": "Version 3\\.1\\.1-candidate",
+          "after": "Version 3\\.1\\.2",
+          "occurrences": 1
+        },
+        {
+          "before": "Declare n \\(1\u201329\\)",
+          "after": "Declare n \\(1\u2013298\\)",
+          "occurrences": 2
+        }
+      ],
+      "allOtherAssertionsRetained": true
+    },
+    "carrierBrowser": {
+      "passed": true,
+      "checks": 7,
+      "runtimeAndInlineScriptsCompiled": 34,
+      "adaptations": [],
+      "log": "carrier-browser.log"
+    },
+    "syntax": {
+      "javascriptPassed": 35,
+      "javascriptFailed": 0,
+      "jsonValid": 41,
+      "jsonMalformed": 0,
+      "jsonNonfinite": 0,
+      "terminalUnresolvedLiteralIds": [],
+      "terminalDomResolvedAndUnique": true,
+      "sourcePdfDownloadCasesPassed": 3,
+      "report": "source-syntax.json"
+    },
+    "catalog": {
+      "sha256": "b155d16a30d888d69a2f86e8ecbd62304e9d38d71e88d9658f14d28ccf471d14",
+      "embeddedNativeCatalogParityCoveredByUiHarness": true,
+      "presetCount": 241,
+      "executionVerifier": "verify_presets.py requires a fresh native all-preset run_log.jsonl and associated TXT/PDF reports. No historical execution data were used to claim current native preset execution."
+    },
+    "immutable": {
+      "stageAndAssembledManifestsByteIdentical": true,
+      "sources": [
+        {
+          "source": "<WORK>\\2026-10-10\\can-you-build-a-quantum-equation-2\\work\\spindoctor-3.1.2-298-update\\source",
+          "manifestSha256": "8d047e1e7717cd6ea220cf124cb42422aa09273575f1c0df9c427c697b765422",
+          "immutableEntryCount": 292,
+          "sourceFileCount": 292,
+          "missingEntries": [],
+          "unlistedSourceFiles": [],
+          "malformedPaths": [],
+          "hashMismatches": [],
+          "mutableEntries": []
+        },
+        {
+          "source": "<WORK>\\2026-10-10\\can-you-build-a-quantum-equation-2\\outputs\\SpinDoctor-3.1.2-298-update\\source",
+          "manifestSha256": "8d047e1e7717cd6ea220cf124cb42422aa09273575f1c0df9c427c697b765422",
+          "immutableEntryCount": 292,
+          "sourceFileCount": 292,
+          "missingEntries": [],
+          "unlistedSourceFiles": [],
+          "malformedPaths": [],
+          "hashMismatches": [],
+          "mutableEntries": []
+        }
+      ],
+      "mutableFileNamesChecked": [
+        "quantum-session-state.json",
+        "quantum-errors.jsonl",
+        "quantum-session.lock",
+        "spindoctor-circuits.json",
+        "spindoctor-circuit-errors.log",
+        "spindoctor-sequences.json",
+        "spindoctor-tranche.json",
+        "spindoctor-tranche-state.bin",
+        "_HOLOGRAM_MOUNT_PROVENANCE.txt"
+      ],
+      "mutableDirectoryNamesChecked": [
+        "inputs",
+        "quantum-command-reports",
+        "sequence-jobs",
+        "sequence-reports",
+        "workspace",
+        "checkpoints",
+        "history"
+      ],
+      "reviewedStaticSessionNamedFiles": [
+        "mvp/meta/RUN_SESSION_BINDING.json",
+        "mvp/TENQ_RUN_SESSION_SPEC.md",
+        "mvp/TENQ_RUN_SESSION_VALIDATION.json"
+      ],
+      "scope": "Source manifests and complete source inventories only; no live workspace state was opened or modified."
+    }
+  },
+  "contextualParserChecks": 105,
+  "normalBootstrap": {
+    "tiff": true,
+    "gif": true,
+    "spaceContainingPath": true,
+    "noGuiOrServiceLaunched": true
+  },
+  "installer": {
+    "passed": true,
+    "installer": "<WORK>\\2026-10-10\\can-you-build-a-quantum-equation-2\\work\\install-official-312-update.py",
+    "fixtureRoot": "<WORK>\\2026-10-10\\can-you-build-a-quantum-equation-2\\work\\installer-hermetic-audit-5cef9ad0089c4dd18477f61de8d8d88f",
+    "originalAppTouched": false,
+    "actualOutputBackupsTouched": false,
+    "scenarios": [
+      {
+        "scenario": "successful static apply, verified backups, historical/workspace preservation",
+        "passed": true
+      },
+      {
+        "scenario": "changed-source",
+        "passed": true,
+        "message": "Reviewed installation input changed: SpinDoctor/BOOT.cmd"
+      },
+      {
+        "scenario": "changed-original",
+        "passed": true,
+        "message": "Reviewed installation input changed: SpinDoctor/BOOT.cmd"
+      },
+      {
+        "scenario": "traversal, absolute, backslash, case-insensitive mutable path rejection",
+        "passed": true
+      },
+      {
+        "scenario": "rollback restores original hashes and removes added files after partial apply",
+        "passed": true,
+        "message": "Injected fourth static-copy failure"
+      }
+    ],
+    "flaws": [],
+    "checks": 85,
+    "installerSha256": "5a74e447191240e57f7bb06452f795d847532fb0439a3d96bc020b0f110b10c2"
+  },
+  "proofFiles": {
+    "nativeExact": {
+      "path": "<WORK>\\2026-10-10\\can-you-build-a-quantum-equation-2\\outputs\\spindoctor-3.1.2-298-native-validation.json",
+      "sha256": "b66e4bb62f67fb246b65d559c474cd3ad0d3d861fe9714cd4e9765dd17439ce8"
+    },
+    "nativeVerifiedElevenFiles": {
+      "path": "<WORK>\\2026-10-10\\can-you-build-a-quantum-equation-2\\outputs\\spindoctor-3.1.2-298-verified-validation.json",
+      "sha256": "0fc87957baf5e3a1ed7f023d94ef6c8b5c7762621e36d3b6551d703ed0bff811"
+    },
+    "regressions": {
+      "path": "<WORK>\\2026-10-10\\can-you-build-a-quantum-equation-2\\work\\native-298-regressions\\regression-proof.json",
+      "sha256": "71f1fde568a92327e1beab233684819e138cdedd0d991074cd1ef9e560670a24"
+    },
+    "parserAndHighIndexQueries": {
+      "path": "<WORK>\\2026-10-10\\can-you-build-a-quantum-equation-2\\work\\staged-parser-audit-28976fc5c39c47f38bc1b1688e4945fa\\proof.json",
+      "sha256": "3b2a414c9426c0aeb20913037d1920f646f97280d79c53e6dd88a9b2ca305f53"
+    },
+    "interfaceAndImmutableSource": {
+      "path": "<WORK>\\2026-10-10\\can-you-build-a-quantum-equation-2\\work\\official-298-ui-audit\\summary.json",
+      "sha256": "e8d2e426b67dcaa249125cde1363ffe4ae28aec2b80cd3b66e0f6056af59ea51"
+    },
+    "normalBootstrap": {
+      "path": "<WORK>\\2026-10-10\\can-you-build-a-quantum-equation-2\\work\\boot-compatibility-proof.json",
+      "sha256": "7b2b9ae455386eab0c5384de8512355a430c350898c8e5c1c54dbdb9981d86be"
+    },
+    "installer": {
+      "path": "<WORK>\\2026-10-10\\can-you-build-a-quantum-equation-2\\work\\installer-hermetic-audit-5cef9ad0089c4dd18477f61de8d8d88f\\proof.json",
+      "sha256": "60f0f492ade634ac1654e12edea7ad691cc6d1169bef4e1b66ca791adbd30872"
+    }
+  },
+  "scope": "Native classical FP64 circuit simulation; exact record amplitudes and joint sampling are separate from procedural CPU/OpenCL verification. No physical quantum hardware claim.",
+  "skippedWorkloads": [
+    "Exhaustive execution of every preset; all 241 definitions and compiler expectations were checked.",
+    "Huge stress folders and maximum procedural verification ceilings."
+  ],
+  "testWindow": "The earlier five-minute verified-test harness bound was extended to twenty minutes for the complete eleven-file run. Final proof reflects the completed fresh run.",
+  "nativeReportLayout": {
+    "schema": "SPINDOCTOR/3.1.2-298-NATIVE-PDF-REVIEW/1",
+    "pdf": "<WORK>\\2026-10-10\\can-you-build-a-quantum-equation-2\\outputs\\spindoctor-3.1.2-298-run-report.pdf",
+    "sha256": "e0704e6251d031cab2ba75c3820ac4d50967ec0310f0da6f395e3c6cdb244800",
+    "sourceProof": "<WORK>\\2026-10-10\\can-you-build-a-quantum-equation-2\\outputs\\spindoctor-3.1.2-298-verified-validation.json",
+    "sourceVersion": "3.1.2",
+    "pages": 79,
+    "outOfPageCharacters": [],
+    "exactHistogram": {
+      "passed": true,
+      "rows": 73,
+      "bitsPerRow": 298,
+      "totalShots": 10240,
+      "allStringsAndCountsMatchNativeResult": true,
+      "tablePages": [
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75
+      ]
+    },
+    "wideSamplingAccountingWordingPresent": true,
+    "rendererVersionLabelPresent": true,
+    "renderEngine": "Poppler pdftoppm",
+    "selectedPages": [
+      1,
+      4,
+      60,
+      62,
+      68,
+      75,
+      79
+    ],
+    "contactSheets": 5,
+    "automatedChecksPassed": true,
+    "visualReview": {
+      "passed": true,
+      "allContactSheetsInspected": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "pagesCoveredByContactSheets": 79,
+      "fullPagePngsInspected": [
+        1,
+        4,
+        60,
+        62,
+        68,
+        75,
+        79
+      ],
+      "clippedTextObserved": false,
+      "overlapOrBrokenTablesObserved": false,
+      "unreadableGlyphsObserved": false,
+      "headersFootersAndPageNumbersConsistent": true,
+      "notes": "Complete 298-bit labels wrap within exact histogram table cells; chart labels are explicitly abbreviated. Wide input ket wraps below its symbolic equation. Detailed gate tables and colored figures fit page margins."
+    },
+    "productionOrPdfEdits": false,
+    "passed": true
+  }
+}
