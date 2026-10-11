@@ -1,0 +1,241 @@
+{
+    "sealedTreeRerun":  [
+                            {
+                                "test":  "preset_shot_regressions",
+                                "exit":  0,
+                                "seconds":  3.8,
+                                "tail":  "PASS 3929 assertions; all 241 catalog entries structurally compiled; 132 sampling defaults 1024; ordinary ceiling 100000; collapse 1; no full native preset run or stress workload."
+                            }
+                        ],
+    "preSeal":  [
+                    {
+                        "value":  [
+                                      {
+                                          "test":  "engine_regressions",
+                                          "exit":  0,
+                                          "seconds":  5.4,
+                                          "tail":  "PASS tiny/huge FP64 normalization, eigenvalues, resource formulas and integer errors | PASS coherent circuit lifecycle, Bell shots, ownership, callback bounds and restart | PASS sequence preflight preserves presets and uses tranche indices | PASS sequence queue checkpoint failure leaves a recoverable inactive job | PASS reset default domain, independent snapshots and circuit ownership | PASS 13 test groups; 38766 assertions; all 13 production C# sources compiled under Windows PowerShell 5.1."
+                                      },
+                                      {
+                                          "test":  "command_receipt_regressions",
+                                          "exit":  0,
+                                          "seconds":  1.1,
+                                          "tail":  "PASS 29 command receipt completion/identity/restart assertions."
+                                      },
+                                      {
+                                          "test":  "preset_shot_regressions",
+                                          "exit":  0,
+                                          "seconds":  3.8,
+                                          "tail":  "PASS 3929 assertions; all 241 catalog entries structurally compiled; 132 sampling defaults 1024; ordinary ceiling 100000; collapse 1; no full native preset run or stress workload."
+                                      },
+                                      {
+                                          "test":  "direct_preset_regressions",
+                                          "exit":  0,
+                                          "seconds":  5.9,
+                                          "tail":  "PASS 158 direct-preset dispatch/receipt/preflight assertions; 1029 actual tiny-register shots,2060 draws; no29-qubit execution or live user session changes."
+                                      },
+                                      {
+                                          "test":  "circuit_receipt_transition_regressions",
+                                          "exit":  0,
+                                          "seconds":  1.6,
+                                          "tail":  "PASS 43 controlled circuit receipt-transition assertions; legacy race reproduced; atomic old-completion capture and archive-failure preservation verified; only5 actual two-qubit shots."
+                                      },
+                                      {
+                                          "test":  "manual_receipt_guard_regressions",
+                                          "exit":  0,
+                                          "seconds":  2.2,
+                                          "tail":  "PASS terminal manual receipt barrier/regression assertions: 50"
+                                      },
+                                      {
+                                          "test":  "csv_report_regressions",
+                                          "exit":  0,
+                                          "seconds":  2.6,
+                                          "tail":  "PASS 35928 CSV schema, exact value, escaping, stage, provenance, receipt and bounded export assertions. One one-qubit CSV input circuit ran 4 explicit shots; no stress workloads or maximum verification were run."
+                                      },
+                                      {
+                                          "test":  "csv_gate_regressions",
+                                          "exit":  0,
+                                          "seconds":  3.6,
+                                          "tail":  "PASS 49 CSV gate-list parse/import/run/provenance/native Bloch assertions. <WORK>\\spindoctor312\\suite312\\csv_gate_regressions\\run\\a9a745ff15d7466498338e07ba2ac939"
+                                      },
+                                      {
+                                          "test":  "csv_input_regressions",
+                                          "exit":  0,
+                                          "seconds":  1.7,
+                                          "tail":  "PASS 124 CSV input/table/empirical-fit/native archive assertions. <WORK>\\spindoctor312\\suite312\\csv_input_regressions\\run\\5bac89d33e15459d80414e83bff6e2a7"
+                                      },
+                                      {
+                                          "test":  "csv_workflow_example",
+                                          "exit":  0,
+                                          "seconds":  3.3,
+                                          "tail":  "PASS 58 combined native CSV workflow/example/export assertions. <WORK>\\spindoctor312\\suite312\\csv_workflow_example\\run"
+                                      },
+                                      {
+                                          "test":  "csv_http_offline",
+                                          "exit":  0,
+                                          "seconds":  1.9,
+                                          "tail":  "PASS: small equation fixture circuit created with native name bound | PASS: H equation fixture instruction stored without execution | PASS: CX equation fixture instruction stored without execution | PASS: native circuit definition retained without simulation shots | PASS: equation POST preserves actual circuit gate order operands and symbolic operators without shots | PASS 59 CSV/equation offline HTTP protocol checks."
+                                      },
+                                      {
+                                          "test":  "detailed_report_regressions",
+                                          "exit":  0,
+                                          "seconds":  1.6,
+                                          "tail":  "PASS readable detail/native archive regression checks: 43 assertions; all production native sources compiled. | PASS PDF detail/figure/budget regression checks; cumulative assertions: 66. | PASS completion/verification receipt regression checks; cumulative assertions: 93 | PASS selected3.0.6 run presentation regressions; cumulative assertions: 120 | PASS automatic Detailed answer-first and23-command folder presentation; cumulative assertions: 170 | PASS actual-source/mixed/north/projection Bloch presentation; cumulative assertions: 194"
+                                      },
+                                      {
+                                          "test":  "newfolder_verification",
+                                          "exit":  0,
+                                          "seconds":  7.4,
+                                          "tail":  "PASS new folder verification gate: 119 assertions; mock native responses, no real GPU measurement claimed. Large counts are mocked, not an executed billion-sample workload."
+                                      },
+                                      {
+                                          "test":  "native_verification_preview_regressions",
+                                          "exit":  0,
+                                          "seconds":  1.7,
+                                          "tail":  "PASS native verification preview/regression assertions: 23; real GPU requested=False"
+                                      },
+                                      {
+                                          "test":  "native_spin_preview_regressions",
+                                          "exit":  0,
+                                          "seconds":  2.4,
+                                          "tail":  "PASS 277 native spin-preview assertions; five 1/2-qubit runs,20 actual shots,24 draws; 44 separate actual GPU/model comparisons. <WORK>\\spindoctor312\\suite312\\native_spin_preview_regressions\\run"
+                                      },
+                                      {
+                                          "test":  "native_report_example",
+                                          "exit":  0,
+                                          "seconds":  1.9,
+                                          "tail":  "PASS native archive-resolved PDF example; GPU Intel(R) Graphics;140 real compared addresses;32 preview rows; actual calculator +Z/-Z/+X; no measurement shots. <WORK>\\spindoctor312\\suite312\\native_report_example\\run"
+                                      },
+                                      {
+                                          "test":  "transport_tests",
+                                          "exit":  0,
+                                          "seconds":  1.6,
+                                          "tail":  "PASS: session remains usable after persistence recovers | PASS: case-insensitive noise channel preflight matches backend | PASS: calculator count preflight enforces digit bound [ArgumentException] | PASS: PDF histogram integers bounded before parsing [ArgumentException] | Passed 36 transport/archive/parser assertions. | 36"
+                                      },
+                                      {
+                                          "test":  "v312_regressions",
+                                          "exit":  0,
+                                          "seconds":  44.1,
+                                          "tail":  "PASS 128-command file completes:  | PASS q.folder status response still carries the full live status | PASS archived q.folder status report uses the compact status form | PASS compact q.folder status archive is small: 3730 bytes | PASS q.status still returns the full snapshot | PASS 3.1.2 regressions: 16 assertions"
+                                      }
+                                  ],
+                        "Count":  18
+                    }
+                ],
+    "sealedTree":  [
+                       {
+                           "value":  [
+                                         {
+                                             "test":  "engine_regressions",
+                                             "exit":  0,
+                                             "seconds":  6.3,
+                                             "tail":  "PASS tiny/huge FP64 normalization, eigenvalues, resource formulas and integer errors | PASS coherent circuit lifecycle, Bell shots, ownership, callback bounds and restart | PASS sequence preflight preserves presets and uses tranche indices | PASS sequence queue checkpoint failure leaves a recoverable inactive job | PASS reset default domain, independent snapshots and circuit ownership | PASS 13 test groups; 38766 assertions; all 13 production C# sources compiled under Windows PowerShell 5.1."
+                                         },
+                                         {
+                                             "test":  "command_receipt_regressions",
+                                             "exit":  0,
+                                             "seconds":  1.7,
+                                             "tail":  "PASS 29 command receipt completion/identity/restart assertions."
+                                         },
+                                         {
+                                             "test":  "preset_shot_regressions",
+                                             "exit":  1,
+                                             "seconds":  1.5,
+                                             "tail":  "    + FullyQualifiedErrorId : NativeCommandError |   | \"FAIL: Catalog release label.\" |     + CategoryInfo          : NotSpecified: (:) [preset_shot_regressions.ps1], MethodInvocationException |     + FullyQualifiedErrorId : Exception,preset_shot_regressions.ps1 |  "
+                                         },
+                                         {
+                                             "test":  "direct_preset_regressions",
+                                             "exit":  0,
+                                             "seconds":  6.5,
+                                             "tail":  "PASS 154 direct-preset dispatch/receipt/preflight assertions; 1029 actual tiny-register shots,2060 draws; no29-qubit execution or live user session changes."
+                                         },
+                                         {
+                                             "test":  "circuit_receipt_transition_regressions",
+                                             "exit":  0,
+                                             "seconds":  1.8,
+                                             "tail":  "PASS 43 controlled circuit receipt-transition assertions; legacy race reproduced; atomic old-completion capture and archive-failure preservation verified; only5 actual two-qubit shots."
+                                         },
+                                         {
+                                             "test":  "manual_receipt_guard_regressions",
+                                             "exit":  0,
+                                             "seconds":  2.5,
+                                             "tail":  "PASS terminal manual receipt barrier/regression assertions: 50"
+                                         },
+                                         {
+                                             "test":  "csv_report_regressions",
+                                             "exit":  0,
+                                             "seconds":  2.8,
+                                             "tail":  "PASS 35928 CSV schema, exact value, escaping, stage, provenance, receipt and bounded export assertions. One one-qubit CSV input circuit ran 4 explicit shots; no stress workloads or maximum verification were run."
+                                         },
+                                         {
+                                             "test":  "csv_gate_regressions",
+                                             "exit":  0,
+                                             "seconds":  2.9,
+                                             "tail":  "PASS 49 CSV gate-list parse/import/run/provenance/native Bloch assertions. <WORK>\\spindoctor312\\suite312_sealed\\csv_gate_regressions\\run\\ded51900e33842d5bda1b42207c59cd7"
+                                         },
+                                         {
+                                             "test":  "csv_input_regressions",
+                                             "exit":  0,
+                                             "seconds":  1.9,
+                                             "tail":  "PASS 124 CSV input/table/empirical-fit/native archive assertions. <WORK>\\spindoctor312\\suite312_sealed\\csv_input_regressions\\run\\4dec8b85bdab48878cd512a985e32755"
+                                         },
+                                         {
+                                             "test":  "csv_workflow_example",
+                                             "exit":  0,
+                                             "seconds":  3.7,
+                                             "tail":  "PASS 58 combined native CSV workflow/example/export assertions. <WORK>\\spindoctor312\\suite312_sealed\\csv_workflow_example\\run"
+                                         },
+                                         {
+                                             "test":  "csv_http_offline",
+                                             "exit":  0,
+                                             "seconds":  2.2,
+                                             "tail":  "PASS: small equation fixture circuit created with native name bound | PASS: H equation fixture instruction stored without execution | PASS: CX equation fixture instruction stored without execution | PASS: native circuit definition retained without simulation shots | PASS: equation POST preserves actual circuit gate order operands and symbolic operators without shots | PASS 59 CSV/equation offline HTTP protocol checks."
+                                         },
+                                         {
+                                             "test":  "detailed_report_regressions",
+                                             "exit":  0,
+                                             "seconds":  1.9,
+                                             "tail":  "PASS readable detail/native archive regression checks: 43 assertions; all production native sources compiled. | PASS PDF detail/figure/budget regression checks; cumulative assertions: 66. | PASS completion/verification receipt regression checks; cumulative assertions: 93 | PASS selected3.0.6 run presentation regressions; cumulative assertions: 120 | PASS automatic Detailed answer-first and23-command folder presentation; cumulative assertions: 170 | PASS actual-source/mixed/north/projection Bloch presentation; cumulative assertions: 194"
+                                         },
+                                         {
+                                             "test":  "newfolder_verification",
+                                             "exit":  0,
+                                             "seconds":  7,
+                                             "tail":  "PASS new folder verification gate: 119 assertions; mock native responses, no real GPU measurement claimed. Large counts are mocked, not an executed billion-sample workload."
+                                         },
+                                         {
+                                             "test":  "native_verification_preview_regressions",
+                                             "exit":  0,
+                                             "seconds":  2.3,
+                                             "tail":  "PASS native verification preview/regression assertions: 23; real GPU requested=False"
+                                         },
+                                         {
+                                             "test":  "native_spin_preview_regressions",
+                                             "exit":  0,
+                                             "seconds":  2.8,
+                                             "tail":  "PASS 277 native spin-preview assertions; five 1/2-qubit runs,20 actual shots,24 draws; 44 separate actual GPU/model comparisons. <WORK>\\spindoctor312\\suite312_sealed\\native_spin_preview_regressions\\run"
+                                         },
+                                         {
+                                             "test":  "native_report_example",
+                                             "exit":  0,
+                                             "seconds":  1.9,
+                                             "tail":  "PASS native archive-resolved PDF example; GPU Intel(R) Graphics;140 real compared addresses;32 preview rows; actual calculator +Z/-Z/+X; no measurement shots. <WORK>\\spindoctor312\\suite312_sealed\\native_report_example\\run"
+                                         },
+                                         {
+                                             "test":  "transport_tests",
+                                             "exit":  0,
+                                             "seconds":  2,
+                                             "tail":  "PASS: session remains usable after persistence recovers | PASS: case-insensitive noise channel preflight matches backend | PASS: calculator count preflight enforces digit bound [ArgumentException] | PASS: PDF histogram integers bounded before parsing [ArgumentException] | Passed 36 transport/archive/parser assertions. | 36"
+                                         },
+                                         {
+                                             "test":  "v312_regressions",
+                                             "exit":  0,
+                                             "seconds":  49,
+                                             "tail":  "PASS 128-command file completes:  | PASS q.folder status response still carries the full live status | PASS archived q.folder status report uses the compact status form | PASS compact q.folder status archive is small: 3737 bytes | PASS q.status still returns the full snapshot | PASS 3.1.2 regressions: 16 assertions"
+                                         }
+                                     ],
+                           "Count":  18
+                       }
+                   ],
+    "note":  "Pre-seal: 18/18. Sealed tree: preset_shot_regressions initially failed only because its catalog-label assertion still expected 3.1.1-candidate; corrected and rerun: PASS. Final: 18/18."
+}
