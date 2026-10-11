@@ -1,0 +1,25 @@
+{
+  "schema": "LUNAR127/ECK-1/1",
+  "name": "ECK-1 EXAFLOP@1MHz virtual vector program",
+  "fullVectorCommands": 122070312,
+  "fullVectorWidth": 4096,
+  "tailVectorCommands": 1,
+  "tailVectorWidth": 2048,
+  "vectorCommandsPerEpoch": 122070313,
+  "fmaLanesPerEpoch": 500000000000,
+  "flopEquivalentPerLane": 2,
+  "flopEquivalentPerEpoch": 1000000000000,
+  "representedFlopEquivalentPerSecondAt1MHz": 1000000000000000000,
+  "representedEFLOPsEqAt1MHz": 1.0,
+  "representedVectorCommandsPerSecondAt1MHz": 122070313000000,
+  "physicalProofSlice": {
+    "epoch": 1000000,
+    "laneStart": 249999500000,
+    "laneCount": 1000000,
+    "outputBytes": 4000000,
+    "sha256": "986b16cd659b900104a838914af1ff5bed7074f667372a6e3b11685183ab1fc6"
+  },
+  "semantics": "Each lane evaluates one deterministic virtual FP32 multiply then add (2 FLOP-equivalent operations). 500,000,000,000 FMA lanes are addressable per hologram epoch.",
+  "measurementBoundary": "1 EFLOP/s-eq is represented/reconstructable virtual compute at a verified 1 MHz epoch rate. It is not one quintillion physically executed host floating-point operations per second.",
+  "canonicalProgramSha256": "3bbf8656d3b667b38589a7c8e68109e1c914083059d848adb78b4f42eee0e343"
+}
