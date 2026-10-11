@@ -1,0 +1,16 @@
+{
+  "schema": "LUNAR127/CONTAINMENT-SIZE-LEDGER/1",
+  "release": "1.1.4",
+  "ultraWideRepositoryFiles": 73,
+  "ultraWideRepositoryBytes": 1522808,
+  "ultraWideSourceZipBytes": 348857,
+  "ultraWideSourceZipSha256": "a2fb210325b75ba832de467040179ad651f4cf0058dfe484c5cc22d92af97b24",
+  "residentWordBytes": 131072,
+  "residentWordBits": 1048576,
+  "authoritativeBoundary": "All MVP runtime logic and the complete UltraWide Appliance are carrier-resident. External BOOT.cmd and harness source are duplicate bootstrap readers only.",
+  "representedDomainsAreProcedural": true,
+  "representedComputePerEpoch": "10^25 FLOP-eq",
+  "representedComputeAt1MHz": "10^31 FLOP-eq/s",
+  "virtualRasterVoxels": "10^40",
+  "runSessionBindingSha256": "4ef0a6992dfdbe039a7cb6aa4b67b5de98bd3798f1fb4563ca0e6342c32e86b6"
+}

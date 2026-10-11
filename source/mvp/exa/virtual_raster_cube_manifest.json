@@ -1,0 +1,23 @@
+{
+  "schema": "LUNAR127/VRC-1/1",
+  "name": "Lunar127 Virtual Raster Cube",
+  "width": 25000000000,
+  "height": 40000000000,
+  "depth": 1000,
+  "voxelCount": "1000000000000000000000000",
+  "nominalVoxelFormat": "RGBA8",
+  "fullyMaterializedEquivalentBytes": "4000000000000000000000000",
+  "fullyMaterializedEquivalentYB": 4.0,
+  "representedVolumeStateBytesPerSecondAt1MHz": "4000000000000000000000000000000",
+  "representedVolumeStateQuettabytesPerSecondAt1MHz": 4.0,
+  "coordinateModel": "unsigned 64-bit X/Y plus 16-bit Z; no flattened index required",
+  "brickWidth": 1024,
+  "brickHeight": 1024,
+  "brickDepth": 16,
+  "virtualBricksX": 24414063,
+  "virtualBricksY": 39062500,
+  "virtualBricksZ": 63,
+  "virtualBrickCount": "60081483164062500",
+  "renderingModel": "finite viewport ray sampling / slice sampling. The 10^24-voxel volume is never physically allocated.",
+  "bigtiffMaterialization": "BigTIFF is used only for finite volume shards/viewports; the full virtual cube is represented by this manifest and procedural kernel."
+}

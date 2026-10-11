@@ -1,0 +1,32 @@
+{
+  "schema": "LUNAR127/CONTAINMENT-VALIDATION/1",
+  "release": "1.1.4",
+  "externalDistributionFiles": [
+    "BOOT.cmd",
+    "cartridge/Lunar127_10Q1M_FULL_ULTRAWIDE_PROCESSABLE.gif",
+    "cartridge/Lunar127_10Q1M_FULL_ULTRAWIDE_PROCESSABLE.tiff",
+    "harness/TIFFGifHoloHarness.cs"
+  ],
+  "externalBootstrapOnly": [
+    "BOOT.cmd",
+    "harness/TIFFGifHoloHarness.cs"
+  ],
+  "processableHologramContainers": [
+    "cartridge/Lunar127_10Q1M_FULL_ULTRAWIDE_PROCESSABLE.gif",
+    "cartridge/Lunar127_10Q1M_FULL_ULTRAWIDE_PROCESSABLE.tiff"
+  ],
+  "entrypoint": "mvp/RUN_10Q_AT_1M_MVP.cmd",
+  "authoritativeFilesystemPrefix": "mvp/",
+  "requiredProperty": "GIF and TIFF carriers decode to one identical THARCH3 logical archive and pass the immutable-bank verifier before materialization.",
+  "completeUltraWideApplianceRoot": "mvp/ultrawide-appliance/repository/UltraWide-Appliance-main/",
+  "completeUltraWideSourceZip": "mvp/ultrawide-appliance/package/UltraWide-Appliance-main.zip",
+  "ultraWideManifest": "mvp/ultrawide-appliance/ULTRAWIDE_APPLIANCE_MANIFEST.json",
+  "residentUltraWideWord": "mvp/tenq/resident_macroprogram.brw",
+  "residentWordBits": 1048576,
+  "hotStateBits": 256,
+  "selfReportedCarrierHashesOmitted": true,
+  "reasonCarrierHashesOmitted": "Embedding a container file hash inside that same container would be self-referential.",
+  "status": "PASS",
+  "runSessionControls": "mvp/TENQ_AT_1MHZ_DASHBOARD.html",
+  "runSessionBinding": "mvp/meta/RUN_SESSION_BINDING.json"
+}
