@@ -1,0 +1,138 @@
+{
+  "schema": "LUNAR127/HOLOGRAPHIC-AVAILABILITY/1",
+  "release": "0.5.0",
+  "researchHypothesis": "A compact TIFF-GIF processable hologram can sustain a deterministic logical transition frequency of at least 1 MHz while maintaining a full-state equivalent of hundreds of GB/s, provided state is directly reconstructable, addressable, and verifiable on demand without full materialization at every epoch.",
+  "carrier": {
+    "source": "cartridge/Lunar127_Showcase_0.3.1_PROCESSABLE.gif",
+    "sourceSha256": "96d813f3b316bfa91a96b12dc7c42ccf59cbfe0e8015d3b808add8aeef01f87d",
+    "frame": 1,
+    "pageWidth": 512,
+    "pageHeight": 512,
+    "symbolBits": 8,
+    "pageBytes": 262144,
+    "controlHeaderBytes": 256,
+    "payloadBytes": 261888,
+    "basePageSha256": "b16a45e1b571d318763fb2402aa33d80bcb74398a138681ec599a810261e4910"
+  },
+  "kernel": {
+    "name": "Lunar127 deterministic availability kernel AVK-1",
+    "seed0": 3779422897,
+    "seed1": 416510389,
+    "arithmetic": "unsigned 32-bit modulo 2^32",
+    "transitionSemantics": "Every epoch computes a direct epoch key and advances a sequential three-word dependency chain. The full virtual page at any epoch is independently addressable from base page + epoch + symbol index; the 256-byte carrier control header remains stable.",
+    "representedStateRateAt1MHzGBps": 262.144,
+    "evolvingPayloadRateAt1MHzGBps": 261.888,
+    "notEntropyClaim": true
+  },
+  "reference": {
+    "chainStates": {
+      "500000": {
+        "a": 1371306914,
+        "b": 3356624987,
+        "c": 901472760
+      },
+      "1000000": {
+        "a": 1638034461,
+        "b": 1439288818,
+        "c": 146854622
+      },
+      "5000000": {
+        "a": 2185885773,
+        "b": 3972689025,
+        "c": 2579725241
+      },
+      "10000000": {
+        "a": 2995843032,
+        "b": 3025082218,
+        "c": 313960547
+      }
+    },
+    "fullCheckpointSha256": {
+      "500000": "b189d149bc93d0ca8cbf7acb2f0af43793895cbf1359bc63d340eb737346fa54",
+      "1000000": "29bad48adbc1f314281d187aec587b9543252e992e7739bd3611df60310b2012",
+      "5000000": "19467d5691c3a245db5cd59809ae53ff01c7ee0eada5d3184186c798c643637c",
+      "10000000": "ad78d638f349e6914f920a80a9edd3c63f6f501525fe0588c95d3c50d5a8cadf"
+    },
+    "rangeChallenges": [
+      {
+        "epoch": 472118,
+        "offset": 81920,
+        "length": 4096,
+        "sha256": "94e37dc18c32209998a47abeafa5d938b20de8c9de4eb14d0647eb2f9c22bc10"
+      },
+      {
+        "epoch": 777777,
+        "offset": 131072,
+        "length": 4096,
+        "sha256": "37ea21a72e4bfeb91393c350512b055abe44c979a690bf73f77b6e4f8ed59ca5"
+      },
+      {
+        "epoch": 1000000,
+        "offset": 200000,
+        "length": 4096,
+        "sha256": "6333e739bbfb93fbf843ce7a878864eaf099e9b66db203989f98b862d15a37e3"
+      },
+      {
+        "epoch": 1234567,
+        "offset": 32768,
+        "length": 4096,
+        "sha256": "23b70ee753e153e7eb55799f9c7f54e6f16dfbdbbb67cd7ca2d0a9c1cc21bd4d"
+      },
+      {
+        "epoch": 2000003,
+        "offset": 221184,
+        "length": 4096,
+        "sha256": "2fe2bceb46e08693551ac728fd0285ad994a7aec29e62db672ad49df75cc18db"
+      },
+      {
+        "epoch": 3333333,
+        "offset": 65536,
+        "length": 4096,
+        "sha256": "fec103db74a67c2f98886e30bd4658b1681896ae60e56e1d544c82ee08cd8ee2"
+      },
+      {
+        "epoch": 4444444,
+        "offset": 147456,
+        "length": 4096,
+        "sha256": "9fe46b29eca6fb3f5b379a55f551e1b08a5404e86b06580a91cd474aa49c6a44"
+      },
+      {
+        "epoch": 5000000,
+        "offset": 98304,
+        "length": 4096,
+        "sha256": "dbdfa350e74211f334c4dbf44be3e51794f92161353b160aec5b69f2ebfb30a5"
+      },
+      {
+        "epoch": 6543210,
+        "offset": 180224,
+        "length": 4096,
+        "sha256": "5e346fe992decd5c9c08ae63a759b3bc0ffb8de71817b7b480ea1389624bd000"
+      },
+      {
+        "epoch": 7777777,
+        "offset": 16384,
+        "length": 4096,
+        "sha256": "83ef0e28c8e57af2c4042690392a63832830bc0c5eabaef0a5e8964782f72c24"
+      },
+      {
+        "epoch": 8888888,
+        "offset": 114688,
+        "length": 4096,
+        "sha256": "40baebe466eb53979d3086c5624d108897521450cb1832e0df680d65fd3c2861"
+      },
+      {
+        "epoch": 9999999,
+        "offset": 245760,
+        "length": 4096,
+        "sha256": "c77bedce89b65a354f2c4706c3e5baa3e828083c50982b1388b94d8f2ea7187f"
+      }
+    ]
+  },
+  "passCriteria": {
+    "minimumMeasuredTransitionsPerSecond": 1000000,
+    "requiredChainAgreement": "all reached reference chain checkpoints",
+    "requiredFullCheckpointAgreement": "all reached full-state checkpoint SHA-256 hashes",
+    "requiredRangeChallengeAgreement": "all reached selective reconstruction SHA-256 hashes",
+    "minimumTargetEpoch": 1000000
+  }
+}
