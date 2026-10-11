@@ -1,0 +1,19 @@
+{
+  "schema": "LUNAR127/VCK-2-COMPUTE-PROGRAM/1",
+  "name": "VCK-2 17T@1M deterministic virtual vector program",
+  "fullVectorCommands": 2075,
+  "fullVectorWidth": 4096,
+  "tailVectorCommands": 1,
+  "tailVectorWidth": 800,
+  "vectorCommandsPerEpoch": 2076,
+  "fmaLanesPerEpoch": 8500000,
+  "flopEquivalentPerLane": 2,
+  "flopEquivalentPerEpoch": 17000000,
+  "representedVectorCommandsPerSecondAt1MHz": 2076000000,
+  "representedFlopEquivalentPerSecondAt1MHz": 17000000000000,
+  "representedTFLOPsEqAt1MHz": 17.0,
+  "semantics": "Each lane evaluates one deterministic virtual FP32 multiply then add (two FLOP-equivalent operations). Full 4096-lane commands cover 8,499,200 lanes and one 800-lane tail covers the final 800 lanes.",
+  "floatSemantics": "FP32 after input conversion, FP32 after multiply, FP32 after add; outputs serialized IEEE-754 little-endian float32.",
+  "availabilityBoundary": "The 17 TFLOP/s-eq figure is represented deterministic compute availability at a 1 MHz epoch rate. It is not conventional measured hardware TFLOPS unless every represented operation is physically executed in real time.",
+  "canonicalProgramSha256": "c2a4acf3310e8fcf5acaed4c24f59f90b8dce80940d544d055a04b11a68a87e5"
+}
