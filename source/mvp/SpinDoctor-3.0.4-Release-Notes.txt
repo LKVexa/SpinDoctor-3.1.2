@@ -1,0 +1,65 @@
+SPINDOCTOR 3.0.4-HARDENED
+Released 2026-10-10 (America/Los_Angeles)
+Based on SpinDoctor 3.0.3-hardened.
+
+FIXED AND HARDENED
+- Controlled dense gates and coherent measurement reductions now honor
+  cancellation with transactional state rollback. Dense working allocations
+  are checked against the declared memory budget before populating new tiles.
+- Failed collapsing measurements retain consumed random counters across restart.
+  Binary checkpoints have bounded strings, validated metadata, and checksum and
+  payload reads from the same file handle. Corrupt files are preserved/refused.
+- Preset cleanup runs only after all preflight checks succeed. Planning accounts
+  for reclaimable preset-owned slots; user circuits remain protected. Sequence
+  tranche selectors use tranche indices. Worker/save failures release active jobs.
+- Completed report TXT/JSON writes and persistent indexes use atomic publication.
+  Failed index commits roll back metadata and can be retried. Archive/input reads
+  enforce limits before allocation and validate hashes and exact identities.
+- Local HTTP parsing rejects malformed/duplicate headers, injected newlines,
+  misleading JSON media types and invalid charsets. Authentication, host and
+  same-origin guards remain in force. Request reading has an overall deadline.
+- PDF input decoding limits each stream and aggregate expansion, validates
+  compressed data and rejects ambiguity. PDF corruption is no longer hidden by
+  preview error handling. Long-line PDF wrapping avoids repeated full-string
+  copies; archive expansion is bounded. Binary PDF source downloads remain intact.
+- Cartridge decoding bounds file/stream/page/archive/decompression sizes and
+  rejects shifted/overlapping page ranges and unsupported archive flags. Windows
+  path aliases, device names, alternate streams, case collisions and reparse
+  redirects are refused. Mount and writeback publish completed files atomically.
+- The generic harness preserves the current cartridge cover on writeback.
+  MVP --smoke now validates the contained entrypoint and required sources without
+  executing or materializing code. Bootstrap inspect propagates the correct error.
+- Legacy launch/verify/inspect/build/diagnose wrappers now find the current package
+  and compile in process. RESET_CURRENT preserves saved state. Benchmark logs
+  remain in the local workspace instead of the system temporary directory.
+- Optional Python services validate HTTP framing, finite JSON, bounded bodies,
+  static path containment, timeouts and concurrency. Seed snapshots publish using
+  unique, flushed temporary files. The tested NumPy dependency is recorded.
+- Browser rate accounting rejects nonfinite rates/times; public decimal ledger
+  fields are bounded before large-integer conversion. Visible standalone copies
+  receive the same safeguards as the embedded payload.
+- The bundled reference appliance publishes objects on Windows without requiring
+  hard links, while preserving atomic refusal to overwrite existing objects.
+- Calculator normalization and 2x2 eigenvectors handle very small/large finite
+  values correctly; impossible phase/output ranges are refused. Numeric parser
+  errors distinguish invalid integers from values outside a supported range.
+- Current version labels, preset provenance and command catalogue are consistent;
+  q.circuit capacity/prune and installed q.reset sequence capability are documented.
+
+RUN AND PRESERVATION
+Start SpinDoctor/BOOT.cmd in this release. BOOT.cmd verifies a TIFF or GIF, then
+materializes its contained program in SpinDoctor/workspace/projection/mvp.
+The original 3.0.3 directory, release ZIP, histories and state remain preserved.
+This audited release is separate under <WORK>. Audit test workspaces are not
+included in the runnable application's live workspace. The readable embedded
+sources and regression harnesses are included with the release for review.
+
+VALIDATION AND LIMITS
+See the release AUDIT_REPORT.txt and VALIDATION_SUMMARY.txt for measured results,
+the exact tests performed, and environmental limitations. Browser connectivity
+to the sandboxed service was unavailable; actual HTTP, native execution, source
+download bytes and DOM/script contracts were tested separately.
+qc-198 / q.compile synthesize remains unavailable, with its existing explicit
+reason and installed alternatives. No approximate gate list is fabricated.
+The simulator remains classical FP64 arithmetic; physical quantum gates are zero.
+Checksum manifests detect corruption; they are not publisher signatures.
