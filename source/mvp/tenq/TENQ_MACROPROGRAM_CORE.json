@@ -1,0 +1,41 @@
+{
+  "clockGateEpochsPerSecond": 1000000,
+  "computeLane": {
+    "name": "TQL-1",
+    "semantics": "Addressable deterministic exact-FP32-domain multiply then add. Operands are signed integers in [-1024,1023], so product-plus-add is exactly representable in FP32. Two FLOP-equivalent operations per lane."
+  },
+  "experiment": "10Q@1M represented-compute",
+  "flopEquivalentPerEpoch": "10000000000000000000000000",
+  "flopEquivalentPerLane": 2,
+  "fmaLanesPerEpoch": "5000000000000000000000000",
+  "hotLoop": {
+    "checkpointIntervalEpochs": 65536,
+    "name": "TQK-1",
+    "semantics": "Four dependent UInt64 limbs form a 256-bit state. Every epoch mutates all limbs using wrapping add/xor/rotate/multiply operations and constants derived from the resident UltraWide word. No 1,048,576-bit word copy, serialization, hashing or BRIM interpretation occurs in the per-epoch hot loop."
+  },
+  "hotStateBits": 256,
+  "measurementBoundary": "Represented FLOP-equivalent domain is virtual and queryable; host arithmetic, bytes, benchmark rates and viewport work are reported separately.",
+  "proof": {
+    "checkpointChain": "SHA-256 commitments every 65,536 epochs",
+    "independentEvaluator": "Browser JavaScript recomputes runtime C# lane and voxel challenge answers from addresses and resident-word digest.",
+    "randomComputeLaneChallenges": 64,
+    "randomVoxelChallenges": 64
+  },
+  "rasterCube": {
+    "addressableVoxels": "10000000000000000000000000000000000000000",
+    "depth": "10000000000000",
+    "height": "40000000000000",
+    "rgba8FlatMaterializationBytes": "40000000000000000000000000000000000000000",
+    "width": "25000000000000"
+  },
+  "release": "1.1.0",
+  "representedFlopEquivalentPerSecondAtGate": "10000000000000000000000000000000",
+  "representedQuettaFlopEquivalentPerSecondAtGate": "10",
+  "schema": "LUNAR127/TENQ-MACROPROGRAM-CORE/1",
+  "ultraWideProgramBits": 1048576,
+  "ultraWideProgramBytes": 131072,
+  "voxel": {
+    "name": "TQV-1",
+    "semantics": "Coordinate/epoch/macro-bound 32-bit mixing maps any valid X,Y,Z address to RGBA8 without materializing neighboring voxels."
+  }
+}
