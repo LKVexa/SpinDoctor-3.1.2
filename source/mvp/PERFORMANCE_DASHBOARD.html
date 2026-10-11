@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lunar127 Processable Hologram Performance Dashboard</title>
+<style>
+:root{color-scheme:dark;--bg:#05090d;--panel:#0b1219;--panel2:#0e1821;--line:#203443;--text:#e8f4f7;--muted:#8ba3ae;--cyan:#7ee7ff;--mint:#7ff2c3;--amber:#ffd27d;--red:#ff9292;--blue:#90bfff}
+*{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at 15% 0%,#102331 0,#05090d 35%,#03070a 100%);color:var(--text);font:14px/1.45 "Segoe UI",system-ui,sans-serif}
+.wrap{max-width:1500px;margin:auto;padding:22px}.top{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:16px}.eyebrow{font:600 11px/1.2 Consolas,monospace;letter-spacing:.15em;color:var(--cyan);text-transform:uppercase}.title{font-size:clamp(26px,4vw,48px);line-height:1.03;margin:5px 0 8px;font-weight:650;letter-spacing:-.035em}.sub{max-width:920px;color:var(--muted);font-size:15px}.badge{padding:8px 11px;border:1px solid var(--line);border-radius:999px;color:var(--mint);font:600 11px Consolas,monospace;background:#081018}
+.controls{display:grid;grid-template-columns:1.3fr .7fr auto auto;gap:12px;margin:18px 0;padding:16px;border:1px solid var(--line);background:rgba(11,18,25,.82);border-radius:14px}.ctrl label{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px}.freqrow{display:grid;grid-template-columns:1fr 120px;gap:10px;align-items:center}input[type=range]{width:100%}select,input[type=number]{width:100%;background:#071017;border:1px solid #294352;color:var(--text);padding:10px;border-radius:8px;font-size:14px}button{border:1px solid #2d5264;background:#0c1e29;color:var(--text);padding:10px 14px;border-radius:8px;font-weight:650;cursor:pointer;min-height:42px}button:hover{border-color:var(--cyan)}button.primary{background:#123647;border-color:#3d8eaa}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}.card{background:linear-gradient(180deg,rgba(14,24,33,.94),rgba(8,15,21,.94));border:1px solid var(--line);border-radius:13px;padding:15px;min-width:0}.kpi{grid-column:span 3}.wide{grid-column:span 8}.side{grid-column:span 4}.full{grid-column:1/-1}.label{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.value{font:650 clamp(21px,2.3vw,36px)/1.1 Consolas,monospace;margin:6px 0 3px;overflow-wrap:anywhere}.unit{color:var(--cyan);font-size:12px}.mini{color:var(--muted);font-size:12px}.split{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metricline{display:grid;grid-template-columns:1fr auto;gap:10px;border-bottom:1px solid #162631;padding:9px 0}.metricline:last-child{border-bottom:0}.metricline b{font-family:Consolas,monospace;font-weight:600}.tag{display:inline-block;padding:3px 7px;border-radius:999px;border:1px solid var(--line);font:600 10px Consolas,monospace;color:var(--muted)}.tag.model{color:var(--amber)}.tag.measured{color:var(--mint)}
+.gauge{height:12px;background:#071017;border:1px solid #19303c;border-radius:99px;overflow:hidden;margin:9px 0}.gauge>span{display:block;height:100%;width:0;background:linear-gradient(90deg,#2b718c,#80e9ff);transition:width .35s}.warn{color:var(--amber)}.danger{color:var(--red)}.ok{color:var(--mint)}
+.stagegrid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:10px}.stage{padding:10px;border:1px solid #1d3441;border-radius:8px;background:#081119}.stage strong{display:block;color:#d9edf2;font-size:12px}.stage span{font:11px Consolas,monospace;color:var(--muted)}.stage.hot{border-color:#4b879c;background:#0b1b23}.stage.hot strong{color:var(--cyan)}
+svg{width:100%;height:240px;display:block}.axis{stroke:#29404c;stroke-width:1}.plot{fill:none;stroke:#7ee7ff;stroke-width:3}.dot{fill:#7ff2c3}.tick{fill:#78909b;font:11px Consolas,monospace}.note{padding:12px;border-left:3px solid var(--amber);background:#14130d;color:#d6ccb5;border-radius:0 8px 8px 0}.foot{margin:16px 0 4px;color:#748b96;font-size:12px}
+@media(max-width:1050px){.kpi{grid-column:span 6}.wide,.side{grid-column:1/-1}.controls{grid-template-columns:1fr 1fr}.stagegrid{grid-template-columns:repeat(3,1fr)}}@media(max-width:650px){.wrap{padding:13px}.top{grid-template-columns:1fr}.controls{grid-template-columns:1fr}.kpi{grid-column:1/-1}.stagegrid{grid-template-columns:repeat(2,1fr)}.freqrow{grid-template-columns:1fr 105px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app">
+  <header class="top">
+    <div><div class="eyebrow">TIFF-GIF-HOLO/4 · performance instrumentation overlay 0.4.0</div><div class="title">Processable Hologram Throughput Lab</div><div class="sub">A rate-sweep dashboard grounded in the attached Lunar127 carrier. It separates measured Windows/.NET evaluator timing from modeled image-memory transport at MHz spool frequencies.</div></div>
+    <div class="badge" id="sourceBadge">REFERENCE METRICS</div>
+  </header>
+
+  <section class="controls" aria-label="Benchmark controls">
+    <div class="ctrl"><label for="freq">Spool frequency (processable pages/s)</label><div class="freqrow"><input id="freq" type="range" min="0" max="9" step="0.001" value="6"><input id="mhz" type="number" min="0.001" max="1000" step="0.001" value="1" aria-label="Spool frequency in MHz"></div></div>
+    <div class="ctrl"><label for="carrier">Carrier</label><select id="carrier"><option value="gif">GIF89a temporal stream</option><option value="tiff">Multipage TIFF</option></select></div>
+    <button class="primary" id="walk" type="button">Start walkthrough</button>
+    <button id="reset" type="button">Reset 1 MHz</button>
+  </section>
+
+  <main class="grid">
+    <section class="card kpi"><div class="label">Raw image-memory lane <span class="tag model">MODELED</span></div><div class="value" id="rawGb">262.144</div><div class="unit">GB/s · 8-bit symbols</div><div class="mini" id="rawTb">2.097152 Tb/s</div></section>
+    <section class="card kpi"><div class="label">Maximum payload lane <span class="tag model">MODELED</span></div><div class="value" id="payloadGb">261.888</div><div class="unit">GB/s · after 256-byte header/page</div><div class="mini" id="payloadTb">2.095104 Tb/s</div></section>
+    <section class="card kpi"><div class="label">Current archive passes <span class="tag model">MODELED</span></div><div class="value" id="archivePass">125,000</div><div class="unit">complete image-resident archives/s</div><div class="mini" id="archiveLat">8.000 µs per 8-page archive</div></section>
+    <section class="card kpi"><div class="label">Effective current-archive rate <span class="tag model">MODELED</span></div><div class="value" id="archiveGb">247.775</div><div class="unit">GB/s useful archive stream</div><div class="mini" id="archiveTb">1.982196 Tb/s</div></section>
+
+    <section class="card wide">
+      <div class="label">Throttle walkthrough · logarithmic rate sweep</div>
+      <svg viewBox="0 0 820 240" role="img" aria-label="Modeled effective archive throughput versus spool frequency">
+        <line class="axis" x1="54" y1="204" x2="792" y2="204"/><line class="axis" x1="54" y1="22" x2="54" y2="204"/>
+        <g id="chartTicks"></g><polyline id="plot" class="plot" points=""/><circle id="dot" class="dot" r="6" cx="0" cy="0"/>
+        <text class="tick" x="8" y="28">GB/s</text><text class="tick" x="715" y="232">spool MHz</text>
+      </svg>
+      <div class="split">
+        <div><div class="label">Walkthrough state</div><div class="value" style="font-size:22px" id="walkState">1 MHz BASELINE</div><div class="mini" id="walkExplain">One million processable data pages per second; all modeled stage-demand counters scale from this rate.</div></div>
+        <div><div class="label">Throttle position</div><div class="gauge"><span id="gauge"></span></div><div class="mini" id="frameTime">1.000 µs/page · 8.000 µs/current archive</div></div>
+      </div>
+    </section>
+
+    <section class="card side">
+      <div class="label">Measured host evaluator <span class="tag measured">MEASURED</span></div>
+      <div class="metricline"><span>Carrier file</span><b id="fileMb">2.555 MiB</b></div>
+      <div class="metricline"><span>Reference full transaction</span><b id="refTx">1866.18 ms</b></div>
+      <div class="metricline"><span>Reference transaction rate</span><b id="refTps">0.536 /s</b></div>
+      <div class="metricline"><span>Live verify mean</span><b id="verifyMs">not run</b></div>
+      <div class="metricline"><span>Live verify pages/s</span><b id="verifyPps">not run</b></div>
+      <div class="metricline"><span>Live verify file throughput</span><b id="verifyMBps">not run</b></div>
+      <div class="metricline"><span>Live smoke-load mean</span><b id="smokeMs">not run</b></div>
+      <div class="mini" style="margin-top:10px" id="measureNote">Run BENCHMARK_DASHBOARD.cmd to refresh machine-local values.</div>
+    </section>
+
+    <section class="card full">
+      <div class="label">Processing demand at selected throttle</div>
+      <div class="stagegrid">
+        <div class="stage hot"><strong>PAGE INTAKE</strong><span id="stagePages">1.000 Mpage/s</span></div>
+        <div class="stage"><strong>PHASE UNWRAP</strong><span id="stageXor">261.888 Gbyte-XOR/s</span></div>
+        <div class="stage"><strong>PAGE HASH</strong><span id="stageHash">261.888 GB/s SHA-256 input</span></div>
+        <div class="stage"><strong>CHAIN / HEADER</strong><span id="stageHeaders">1.000 Mheader/s</span></div>
+        <div class="stage"><strong>ARCHIVE HASH</strong><span id="stageArchiveHash">247.775 GB/s SHA-256 input</span></div>
+        <div class="stage"><strong>ARCHIVE CYCLES</strong><span id="stageCycles">125.000 K/s</span></div>
+      </div>
+    </section>
+
+    <section class="card full">
+      <div class="label">Capacity vs measured evaluator gap</div>
+      <div class="split">
+        <div><div class="metricline"><span>Selected modeled page rate</span><b id="selectedPps">1,000,000 /s</b></div><div class="metricline"><span>Measured live page rate</span><b id="measuredPps">not run</b></div><div class="metricline"><span>Rate multiplier required</span><b id="gap">not available</b></div></div>
+        <div class="note"><strong>Engineering boundary.</strong> The MHz selector expresses a target page-spool frequency and the data/compute rates that would follow from the actual image geometry. It is not a measurement that the supplied Windows evaluator, disk, memory bus, display path, or any optical implementation reaches that frequency. Use the live benchmark to expose the gap rather than conflating modeled capacity with demonstrated throughput.</div>
+      </div>
+    </section>
+
+    <section class="card full">
+      <div class="label">Attached-cartridge facts</div>
+      <div class="stagegrid">
+        <div class="stage"><strong>PAGE</strong><span>512 × 512 × 8-bit</span></div>
+        <div class="stage"><strong>SYMBOLS</strong><span>262,144 bytes/page</span></div>
+        <div class="stage"><strong>PAYLOAD CAP</strong><span>261,888 bytes/page</span></div>
+        <div class="stage"><strong>ARCHIVE</strong><span>1,982,196 bytes</span></div>
+        <div class="stage"><strong>DATA PAGES</strong><span>8 + cover frame/page</span></div>
+        <div class="stage"><strong>HEADER COST</strong><span>0.09765625%/page</span></div>
+      </div>
+    </section>
+  </main>
+  <div class="foot">Lunar127 Performance Dashboard 0.4.0 · processable carrier remains Lunar127 Showcase 0.3.1 Hotfix 4 · modeled rates use decimal GB/Tb; encoded file sizes use MiB.</div>
+</div>
+<script src="benchmark/latest_metrics.js"></script>
+<script>
+(function(){
+"use strict";
+const PAGE=262144, PAYLOAD=261888, geometry=(window.LUNAR127_BENCHMARK||{}).tiff||(window.LUNAR127_BENCHMARK||{}).gif||{}, ARCHIVE=Number.isSafeInteger(geometry.archiveBytes)&&geometry.archiveBytes>0?geometry.archiveBytes:1982196, PAGES=Number.isSafeInteger(geometry.dataPages)&&geometry.dataPages>0?geometry.dataPages:8;
+const steps=[1,2,5,10,25,50,100,250,500,1000];
+const desc={1:"1 MHz BASELINE",2:"2 MHz DOUBLED LANE",5:"5 MHz PAYLOAD PUSH",10:"10 MHz INTEGRITY LOAD",25:"25 MHz MEMORY PRESSURE",50:"50 MHz HASH PRESSURE",100:"100 MHz HUNDRED-MILLION PAGE RATE",250:"250 MHz QUARTER-GHz MODEL",500:"500 MHz HALF-GHz MODEL",1000:"1 GHz DASHBOARD MODEL CEILING"};
+const $=id=>document.getElementById(id);
+let walkTimer=null, walkIndex=0;
+function fmt(x,d=3){return Number(x).toLocaleString(undefined,{maximumFractionDigits:d,minimumFractionDigits:d})}
+function compact(x){if(x>=1e9)return fmt(x/1e9,3)+" G";if(x>=1e6)return fmt(x/1e6,3)+" M";if(x>=1e3)return fmt(x/1e3,3)+" K";return fmt(x,3)}
+function freqToSlider(mhz){return Math.log10(mhz*1000)}
+function sliderToFreq(v){return Math.pow(10,Number(v))/1000}
+function currentBench(){
+  const b=window.LUNAR127_BENCHMARK||{};
+  return b[$("carrier").value]||{};
+}
+function updateMeasured(){
+  const b=currentBench();
+  $("sourceBadge").textContent=b.iterations>0?"MACHINE-LOCAL METRICS":"REFERENCE METRICS";
+  $("fileMb").textContent=b.fileBytes?fmt(b.fileBytes/1048576,3)+" MiB":"n/a";
+  $("refTx").textContent=b.referenceTransactionMs?fmt(b.referenceTransactionMs,2)+" ms":"n/a";
+  $("refTps").textContent=b.referenceTransactionRatePerSec?fmt(b.referenceTransactionRatePerSec,3)+" /s":"n/a";
+  $("verifyMs").textContent=b.liveVerifyMeanMs?fmt(b.liveVerifyMeanMs,2)+" ms":"not run";
+  $("verifyPps").textContent=b.liveVerifyPagesPerSec?fmt(b.liveVerifyPagesPerSec,2)+" /s":"not run";
+  $("verifyMBps").textContent=b.liveVerifyFileMBps?fmt(b.liveVerifyFileMBps,2)+" MiB/s":"not run";
+  $("smokeMs").textContent=b.liveSmokeMeanMs?fmt(b.liveSmokeMeanMs,2)+" ms":"not run";
+  $("measureNote").textContent=b.measurementNote||"Run BENCHMARK_DASHBOARD.cmd to refresh machine-local values.";
+}
+function update(mhz, fromSlider){
+  mhz=Math.max(.001,Math.min(1000,Number(mhz)||1));
+  if(!fromSlider)$("freq").value=freqToSlider(mhz);
+  $("mhz").value=mhz<10?mhz.toFixed(3):mhz.toFixed(mhz<100?2:1);
+  const hz=mhz*1e6, raw=PAGE*hz, payload=PAYLOAD*hz, passes=hz/PAGES, archiveRate=ARCHIVE*passes;
+  $("rawGb").textContent=fmt(raw/1e9,3); $("rawTb").textContent=fmt(raw*8/1e12,6)+" Tb/s";
+  $("payloadGb").textContent=fmt(payload/1e9,3); $("payloadTb").textContent=fmt(payload*8/1e12,6)+" Tb/s";
+  $("archivePass").textContent=Math.round(passes).toLocaleString(); $("archiveLat").textContent=fmt(PAGES/hz*1e6,6)+" µs per 8-page archive";
+  $("archiveGb").textContent=fmt(archiveRate/1e9,3); $("archiveTb").textContent=fmt(archiveRate*8/1e12,6)+" Tb/s";
+  $("frameTime").textContent=fmt(1e9/hz,3)+" ns/page · "+fmt(PAGES/hz*1e6,6)+" µs/current archive";
+  $("stagePages").textContent=compact(hz)+"page/s"; $("stageXor").textContent=fmt(payload/1e9,3)+" Gbyte-XOR/s";
+  $("stageHash").textContent=fmt(payload/1e9,3)+" GB/s SHA-256 input"; $("stageHeaders").textContent=compact(hz)+"header/s";
+  $("stageArchiveHash").textContent=fmt(archiveRate/1e9,3)+" GB/s SHA-256 input"; $("stageCycles").textContent=compact(passes)+"/s";
+  $("selectedPps").textContent=Math.round(hz).toLocaleString()+" /s";
+  const b=currentBench(), measured=b.liveVerifyPagesPerSec;
+  $("measuredPps").textContent=measured?fmt(measured,2)+" /s":"not run";
+  $("gap").textContent=measured?fmt(hz/measured,1)+"× host-rate increase required":"run local benchmark";
+  const pct=(Math.log10(mhz)-Math.log10(.001))/(Math.log10(1000)-Math.log10(.001))*100;
+  $("gauge").style.width=Math.max(0,Math.min(100,pct))+"%";
+  let nearest=steps.reduce((a,c)=>Math.abs(c-mhz)<Math.abs(a-mhz)?c:a,steps[0]);
+  $("walkState").textContent=Math.abs(nearest-mhz)/Math.max(1,mhz)<.02?desc[nearest]:fmt(mhz,3)+" MHz MANUAL THROTTLE";
+  $("walkExplain").textContent="Target page period "+fmt(1e9/hz,3)+" ns; all model counters are derived from the attached 512×512×8-bit carrier geometry.";
+  updateChart(mhz);
+}
+function updateChart(mhz){
+  const x0=54,x1=792,y0=204,y1=22;
+  const maxGb=(ARCHIVE*(1000e6/PAGES))/1e9;
+  const pts=steps.map(v=>{
+    const x=x0+(Math.log10(v)-0)/(3)*(x1-x0), y=y0-((ARCHIVE*(v*1e6/PAGES))/1e9/maxGb)*(y0-y1);
+    return [x,y,v];
+  });
+  $("plot").setAttribute("points",pts.map(p=>p[0].toFixed(1)+","+p[1].toFixed(1)).join(" "));
+  const lx=x0+(Math.log10(Math.max(1,mhz))/3)*(x1-x0), ly=y0-((ARCHIVE*(mhz*1e6/PAGES))/1e9/maxGb)*(y0-y1);
+  $("dot").setAttribute("cx",Math.max(x0,Math.min(x1,lx))); $("dot").setAttribute("cy",Math.max(y1,Math.min(y0,ly)));
+  $("chartTicks").innerHTML=[1,10,100,1000].map(v=>{const x=x0+(Math.log10(v)/3)*(x1-x0);return '<line class="axis" x1="'+x+'" y1="'+y0+'" x2="'+x+'" y2="'+(y0+5)+'"/><text class="tick" x="'+(x-8)+'" y="'+(y0+19)+'">'+v+'</text>'}).join("")+
+  [0,.25,.5,.75,1].map(q=>{const y=y0-q*(y0-y1);return '<line class="axis" x1="'+(x0-5)+'" y1="'+y+'" x2="'+x1+'" y2="'+y+'" opacity=".35"/><text class="tick" x="4" y="'+(y+4)+'">'+fmt(maxGb*q,0)+'</text>'}).join("");
+}
+function stopWalk(){if(walkTimer){clearInterval(walkTimer);walkTimer=null}$("walk").textContent="Start walkthrough"}
+function startWalk(){
+  if(walkTimer){stopWalk();return}
+  walkIndex=0;$("walk").textContent="Pause walkthrough";update(steps[0],false);
+  walkTimer=setInterval(()=>{walkIndex++;if(walkIndex>=steps.length){stopWalk();return}update(steps[walkIndex],false)},1400);
+}
+$("freq").addEventListener("input",()=>{stopWalk();update(sliderToFreq($("freq").value),true)});
+$("mhz").addEventListener("change",()=>{stopWalk();update($("mhz").value,false)});
+$("carrier").addEventListener("change",()=>{updateMeasured();update($("mhz").value,false)});
+$("walk").addEventListener("click",startWalk);
+$("reset").addEventListener("click",()=>{stopWalk();update(1,false)});
+updateMeasured();update(1,false);
+})();
+</script>
+</body>
+</html>
