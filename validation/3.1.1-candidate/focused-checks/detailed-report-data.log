@@ -1,0 +1,7 @@
+PASS readable detail/native archive regression checks: 43 assertions; all production native sources compiled.
+PASS PDF detail/figure/budget regression checks; cumulative assertions: 66.
+PASS completion/verification receipt regression checks; cumulative assertions: 93
+PASS selected3.0.6 run presentation regressions; cumulative assertions: 120
+PASS automatic Detailed answer-first and23-command folder presentation; cumulative assertions: 170
+PASS actual-source/mixed/north/projection Bloch presentation; cumulative assertions: 194
+
