@@ -1,0 +1,9 @@
+SpinDoctor 3.1.1 Candidate - verification summary
+
+PASS: CSV companions preserve archived stage, source hashes, typed values, exact zeros/nulls and receipt guards. PDF and CSV exports resolve authentic native archives and add no numerical work.
+PASS: selected numeric weather/gate/circuit data yield actual native least-squares coefficients and residuals, checked against an independent NumPy/SVD solver. Invalid selected rows and undefined diagnostics remain explicit.
+PASS: equations have editable plain text and conventional mathematical PDF forms, including fitted coefficient mappings, ordered circuit evolution, local gate operators and basis-aware Born probability formulas. The editor loads guarded native archives explicitly; a local draft cannot alter the archived result or execute gates.
+PASS: gate-list CSV programs are validated, imported and explicitly simulated. Native input-run reports resolve all child answers. A rotated qubit has a sideways +X vector; entangled Bell qubits have legitimate mixed zero local vectors.
+PASS: preset sampling remains 1,024 by default, higher explicit shot limits remain available, and successful folder receipts retain their procedural CPU/GPU q.verify barrier.
+PASS: fresh versioned TIFF/GIF covers match, encoded payloads round-trip, carrier security/materialization/smoke checks pass, and the original 555 prior-release files/ZIP remain unchanged.
+PDF pages were visually reviewed; final ZIP integrity is recorded separately. Focused tests ran; stress tests, full catalog native runs, maximum samples and a live graphical browser session were skipped.

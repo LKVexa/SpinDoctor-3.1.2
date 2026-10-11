@@ -1,0 +1,110 @@
+# SPINDOCTOR-SEQUENCE
+q.circuit add ry -0.0062972437188010093 291
+q.circuit add cx 293 291
+q.circuit add ry -0.033451361099008065 291
+q.circuit add cx 292 291
+q.circuit add ry -0.16031519305880529 291
+q.circuit add cx 296 291
+q.circuit add ry -0.010937173236340952 291
+q.circuit add cx 292 291
+q.circuit add ry 0.035963003983284891 291
+q.circuit add cx 293 291
+q.circuit add ry -0.011451156087797645 291
+q.circuit add cx 292 291
+q.circuit add ry -0.042533593918233609 291
+q.circuit add cx 294 291
+q.circuit add ry -0.062661172646709451 291
+q.circuit add cx 292 291
+q.circuit add ry -0.034992071223777121 291
+q.circuit add cx 293 291
+q.circuit add ry -0.016643283820009177 291
+q.circuit add cx 292 291
+q.circuit add ry -0.14873826025536868 291
+q.circuit add cx 295 291
+q.circuit add ry -0.077965411140356863 291
+q.circuit add cx 292 291
+q.circuit add ry -0.0071887492610166644 291
+q.circuit add cx 293 291
+q.circuit add ry -0.014532168456335984 291
+q.circuit add cx 292 291
+q.circuit add ry 0.0032172574857899199 291
+q.circuit add cx 294 291
+q.circuit add ry -0.01458143822458326 291
+q.circuit add cx 292 291
+q.circuit add ry -0.037624780240885225 291
+q.circuit add cx 293 291
+q.circuit add ry 0.0099915953296550002 291
+q.circuit add cx 292 291
+q.circuit add ry 0.81097135690087763 291
+q.circuit add cx 297 291
+q.circuit add x 291
+q.circuit add x 292
+q.circuit add x 293
+q.circuit add x 294
+q.circuit add x 295
+q.circuit add x 296
+q.circuit add x 297
+q.circuit add mcx7 291 292 293 294 295 296 297 257
+q.circuit add mcx7 291 292 293 294 295 296 297 258
+q.circuit add mcx7 291 292 293 294 295 296 297 259
+q.circuit add mcx7 291 292 293 294 295 296 297 260
+q.circuit add mcx7 291 292 293 294 295 296 297 261
+q.circuit add mcx7 291 292 293 294 295 296 297 262
+q.circuit add mcx7 291 292 293 294 295 296 297 263
+q.circuit add mcx7 291 292 293 294 295 296 297 264
+q.circuit add mcx7 291 292 293 294 295 296 297 265
+q.circuit add mcx7 291 292 293 294 295 296 297 266
+q.circuit add mcx7 291 292 293 294 295 296 297 267
+q.circuit add mcx7 291 292 293 294 295 296 297 268
+q.circuit add mcx7 291 292 293 294 295 296 297 269
+q.circuit add mcx7 291 292 293 294 295 296 297 270
+q.circuit add mcx7 291 292 293 294 295 296 297 271
+q.circuit add mcx7 291 292 293 294 295 296 297 272
+q.circuit add x 291
+q.circuit add mcx7 291 292 293 294 295 296 297 256
+q.circuit add mcx7 291 292 293 294 295 296 297 273
+q.circuit add mcx7 291 292 293 294 295 296 297 275
+q.circuit add mcx7 291 292 293 294 295 296 297 276
+q.circuit add mcx7 291 292 293 294 295 296 297 277
+q.circuit add mcx7 291 292 293 294 295 296 297 278
+q.circuit add x 292
+q.circuit add mcx7 291 292 293 294 295 296 297 256
+q.circuit add mcx7 291 292 293 294 295 296 297 274
+q.circuit add mcx7 291 292 293 294 295 296 297 275
+q.circuit add mcx7 291 292 293 294 295 296 297 276
+q.circuit add mcx7 291 292 293 294 295 296 297 278
+q.circuit add mcx7 291 292 293 294 295 296 297 279
+q.circuit add mcx7 291 292 293 294 295 296 297 280
+q.circuit add x 291
+q.circuit add mcx7 291 292 293 294 295 296 297 256
+q.circuit add mcx7 291 292 293 294 295 296 297 273
+q.circuit add mcx7 291 292 293 294 295 296 297 274
+q.circuit add mcx7 291 292 293 294 295 296 297 280
+q.circuit add x 293
+q.circuit add mcx7 291 292 293 294 295 296 297 256
+q.circuit add mcx7 291 292 293 294 295 296 297 273
+q.circuit add mcx7 291 292 293 294 295 296 297 274
+q.circuit add mcx7 291 292 293 294 295 296 297 275
+q.circuit add mcx7 291 292 293 294 295 296 297 277
+q.circuit add mcx7 291 292 293 294 295 296 297 278
+q.circuit add mcx7 291 292 293 294 295 296 297 281
+q.circuit add mcx7 291 292 293 294 295 296 297 282
+q.circuit add x 291
+q.circuit add mcx7 291 292 293 294 295 296 297 256
+q.circuit add mcx7 291 292 293 294 295 296 297 274
+q.circuit add mcx7 291 292 293 294 295 296 297 276
+q.circuit add mcx7 291 292 293 294 295 296 297 277
+q.circuit add mcx7 291 292 293 294 295 296 297 278
+q.circuit add mcx7 291 292 293 294 295 296 297 279
+q.circuit add mcx7 291 292 293 294 295 296 297 280
+q.circuit add mcx7 291 292 293 294 295 296 297 281
+q.circuit add mcx7 291 292 293 294 295 296 297 282
+q.circuit add x 292
+q.circuit add mcx7 291 292 293 294 295 296 297 256
+q.circuit add mcx7 291 292 293 294 295 296 297 275
+q.circuit add mcx7 291 292 293 294 295 296 297 277
+q.circuit add mcx7 291 292 293 294 295 296 297 278
+q.circuit add mcx7 291 292 293 294 295 296 297 279
+q.circuit add mcx7 291 292 293 294 295 296 297 282
+q.circuit add x 291
+q.circuit add mcx7 291 292 293 294 295 296 297 256
