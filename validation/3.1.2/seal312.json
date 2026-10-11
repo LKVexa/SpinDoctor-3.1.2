@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "version": "3.1.2",
+  "immutableFiles": 291,
+  "modelSourceHashes": 16,
+  "changedEntries": [
+    "mvp/bootstrap/BOOT.cmd",
+    "mvp/meta/ENTRYPOINT.json",
+    "mvp/quantum/MODEL.json",
+    "mvp/quantum/QuantumTerminal.cs",
+    "mvp/quantum/SpinDoctorInputs.cs",
+    "mvp/quantum/SpinDoctorSequences.cs",
+    "mvp/QUANTUM-NOTES.txt",
+    "mvp/QUANTUM_TERMINAL.html",
+    "mvp/README.md",
+    "mvp/SHA256SUMS.txt",
+    "mvp/SPINDOCTOR-NOTES.txt",
+    "mvp/SpinDoctor.html",
+    "mvp/SPINDOCTOR_COMMAND_CATALOGUE.txt",
+    "mvp/SPINDOCTOR_PRESETS.json",
+    "mvp/SPINDOCTOR_QUANTUM_GUIDE.txt",
+    "mvp/START_HERE.txt",
+    "mvp/VERSION.txt"
+  ],
+  "addedEntries": [
+    "mvp/HANDGUIDE.md",
+    "mvp/SpinDoctor-3.1.2-Release-Notes.txt"
+  ],
+  "removedEntries": []
+}
