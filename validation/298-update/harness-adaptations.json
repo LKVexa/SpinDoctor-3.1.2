@@ -1,0 +1,50 @@
+{
+  "engine_regressions.ps1": {
+    "original_sha256": "f68eb31a22809f4489aa95c459bb2a577bc5bb22ada180771533ba8f2a20bcf6",
+    "test_copy_sha256": "f68eb31a22809f4489aa95c459bb2a577bc5bb22ada180771533ba8f2a20bcf6"
+  },
+  "engine_regressions.cs": {
+    "original_sha256": "29994c81a50d4671152a89c8a4cc3cb2dee43bb177481e298f8b7f0c1933901e",
+    "adaptation": "Limit original three-qubit dense reference comparisons to legacy targetCount<=3 gates. New mcx7 is independently tested by wide-factor harness.",
+    "test_copy_sha256": "196f1f9ff2493cf731a5ee91233018457cde143a2e0d95247513a167d18d4f26"
+  },
+  "folder_regressions.ps1": {
+    "original_sha256": "361105c0b8d2d087f9c240ad1d30a085d554edf9338f1eebebfc0cd2c6768178",
+    "test_copy_sha256": "361105c0b8d2d087f9c240ad1d30a085d554edf9338f1eebebfc0cd2c6768178"
+  },
+  "folder_regressions.cs": {
+    "original_sha256": "733654dee01f6134f94d364e1c050a46906949830b2b4a028d87e415cab9df0a",
+    "adaptation": "Add focused entry point for seven existing groups: archive/purge failures, cancellation, interrupted checkpoint, quoted fields, async identity failures, detailed reports, bounds. Skip synthetic >32 MiB report stress only. Update obsolete 3.1.0 CANDIDATE report header expectation to TerminalSession.ProductVersion; pass null fourth argument to the existing nullable commandIndex WriteRunSummary reflection signature.",
+    "test_copy_sha256": "e8a28cfdeabacc851694b65020cdb18c1aa6064200f2030074606f9a434f0ef7"
+  },
+  "preset_shot_regressions.ps1": {
+    "original_sha256": "e3579fb12c8a7a4298bd95eff1b492cabc381808b02d42ea525038462336e44e",
+    "test_copy_sha256": "e3579fb12c8a7a4298bd95eff1b492cabc381808b02d42ea525038462336e44e"
+  },
+  "preset_shot_regressions.cs": {
+    "original_sha256": "2d5e18c20b047e19772198e9ab4da14cc4b7c9af155dbc09de65fb5178eed754",
+    "test_copy_sha256": "2d5e18c20b047e19772198e9ab4da14cc4b7c9af155dbc09de65fb5178eed754"
+  },
+  "circuit_receipt_transition_regressions.ps1": {
+    "original_sha256": "0e12b23f3a5baf40da484bb570fa9ef7af0bb7184b325039c5396655b69b9ca5",
+    "test_copy_sha256": "0e12b23f3a5baf40da484bb570fa9ef7af0bb7184b325039c5396655b69b9ca5"
+  },
+  "circuit_receipt_transition_regressions.cs": {
+    "original_sha256": "2a394c405a53d18d1d0f0d54160da2006a07124b313359c80b35100ead9c7814",
+    "test_copy_sha256": "2a394c405a53d18d1d0f0d54160da2006a07124b313359c80b35100ead9c7814"
+  },
+  "run-focused.ps1": {
+    "test_copy_sha256": "afcc24faf30a9ad5fcda6693463f7b014e5501d49227dcc6b0c545eebb514fb3",
+    "adaptation": "Resolve source and test roots to absolute local paths; native folder jobs correctly reject relative input roots."
+  },
+  "saved_session_compatibility.cs": {
+    "test_copy_sha256": "d99f6da36a1cba27d22c22df26d858913d3490a605246b66ee19338acf1d7f41"
+  },
+  "saved_session_compatibility.ps1": {
+    "test_copy_sha256": "974d6a50dabbbb349160c909d91d839be921b35eeda1256b919f9e92dbdb3094"
+  },
+  "wide_factor_regressions.cs": {
+    "test_copy_sha256": "f130b519ea70bb8964eaa20854826096c5dd1ee09b74aefd5e20d9df848f5b91",
+    "adaptation": "New independent native regression harness for global298-bit addressing, correlated sampling, mcx7,59-factor cap rollback, wide checkpoints/restart and original29-qubit shot-replay behavior."
+  }
+}
