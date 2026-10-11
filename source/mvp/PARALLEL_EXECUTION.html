@@ -1,0 +1,255 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>QuettaFLOP — Parallel Individual XPU</title><style>
+:root{color-scheme:dark;--bg:#071019;--panel:#0c1c27;--line:#254555;--text:#d8edf4;--muted:#90abb8;--cyan:#59e8f8;--gold:#f1cc70;--mint:#7ce4ac;--red:#ff8992}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0,#173647,var(--bg) 65%);color:var(--text);font:14px/1.5 Segoe UI,Arial,sans-serif;padding:24px}.shell{max-width:1400px;margin:auto}h1{margin:0;font-size:25px;letter-spacing:.05em}h2{font-size:13px;letter-spacing:.07em;margin:0 0 14px;color:var(--muted)}.top{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:20px}.sub,.muted{color:var(--muted)}.badge{border:1px solid var(--line);border-radius:30px;padding:8px 14px;color:var(--mint);font-weight:700}.layout{display:grid;grid-template-columns:minmax(550px,1fr) 340px;gap:18px}.stack{display:grid;gap:18px}.panel{padding:20px;background:#0c1c27e8;border:1px solid var(--line);border-radius:12px;overflow:hidden}.hero{color:var(--gold);font:700 clamp(23px,3vw,38px)/1.2 Consolas,monospace;margin:8px 0}.hero-total{font:700 24px/1.3 Consolas,monospace;color:var(--cyan);overflow-wrap:anywhere}.exact{font:13px Consolas,monospace;overflow-wrap:anywhere;color:var(--muted);margin:8px 0}.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:20px}.metric{border-top:1px solid var(--line);padding-top:12px}.label{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}.value{font:700 19px Consolas,monospace;overflow-wrap:anywhere;margin-top:5px}.controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px;align-items:center}button,input{background:#102938;border:1px solid #31596a;border-radius:6px;padding:8px 10px;color:var(--text);font:13px Segoe UI,Arial,sans-serif}button{cursor:pointer}button:hover{border-color:var(--cyan)}button.primary{background:#18445a;font-weight:700}button:disabled{opacity:.5;cursor:default}label{display:grid;gap:5px;color:var(--muted);font-size:12px}.config{display:grid;gap:10px}.config input{width:100%;font-family:Consolas,monospace}.mono{font-family:Consolas,monospace}pre{white-space:pre-wrap;overflow-wrap:anywhere;overflow:auto;max-height:320px;background:#061018;border:1px solid #203c4a;padding:12px;border-radius:7px;color:#a7cad9;font:12px/1.5 Consolas,monospace;margin:12px 0 0}.canvas{width:100%;height:auto;display:block;image-rendering:pixelated;background:#071019}.canvaspanel{padding:0}.canvaspanel h2,.canvaspanel .caption{padding:15px 20px;margin:0}.canvaspanel .controls{padding:0 20px 15px}.notice{font-size:12px;color:var(--muted);margin:14px 0 0}.links{display:flex;gap:18px;flex-wrap:wrap;margin-top:20px}a{color:var(--cyan)}summary{cursor:pointer;color:var(--muted)}details pre{max-height:300px}.terminal-input{flex:1;min-width:160px;font-family:Consolas,monospace}.error{color:var(--red)}.status{font-size:12px;margin:12px 0;color:var(--mint)}.host{font-size:12px;color:var(--muted)}[hidden]{display:none!important}@media(max-width:1000px){.layout{grid-template-columns:1fr}.top{align-items:flex-start}.config{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:600px){body{padding:12px}.top{flex-direction:column}.panel{padding:15px}.metrics,.config{grid-template-columns:1fr}.hero-total{font-size:20px}}
+</style><script src="runtime/number-raster.js"></script><script src="runtime/individual-xpu.js"></script><script src="runtime/virtual-worker-pool.js"></script></head>
+<body><main class="shell"><div class="top"><div><h1>PARALLEL INDIVIDUAL EXECUTION</h1><div class="sub">Independent recurrence chains running in a bounded pool of real WebWorkers</div></div><span class="badge" id="executionStatus">PAUSED</span></div><div class="layout"><div class="stack">
+<section class="panel"><h2>ACTUAL ACKNOWLEDGED EXECUTION</h2><div class="label">Individually executed multiply + add operations</div><div class="hero" id="actualOperations">0</div><div class="metrics"><div class="metric"><div class="label">Completed recurrence steps</div><div class="value" id="completedSteps">0</div></div><div class="metric"><div class="label">Measured aggregate integer multiply/add ops / host wall second</div><div class="value" id="aggregateRate">not measured</div></div><div class="metric"><div class="label">Actual WebWorker execution contexts</div><div class="value" id="physicalWorkers">0</div></div><div class="metric"><div class="label">Worker jobs currently in flight</div><div class="value" id="inFlight">0</div></div></div><div class="controls"><button class="primary" id="startExecution">START</button><button id="pauseExecution">PAUSE</button><button id="resetExecution">RESET</button><button id="run1000">RUN 1,000 STEPS</button><button id="runMillion">RUN 1,000,000 STEPS</button></div><div class="status" id="runStatus" aria-live="polite">Paused at zero acknowledged operations.</div><div class="notice">Every acknowledged step ran an individual integer multiply, add and modulus reduction in its worker. Only completed replies count. PAUSE stops dispatch and waits for jobs already in flight. The measured wall rate includes worker dispatch and acknowledgment overhead.</div></section>
+<section class="panel"><h2>REQUESTED TARGET AND LOGICAL ADDRESSES</h2><div class="hero-total" id="targetScientific">4 × 10³⁰ multiply/add operations — target</div><div class="exact" id="targetOperations"></div><div class="metrics"><div class="metric"><div class="label">Operations remaining</div><div class="value" id="remainingOperations"></div></div><div class="metric"><div class="label">Completion</div><div class="value" id="completion">NOT COMPLETE</div></div><div class="metric"><div class="label">Lazy logical worker addresses</div><div class="value" id="virtualWorkers"></div><div class="notice">ceil(cube root(requested operation count))</div></div><div class="metric"><div class="label">Materialized independent chains</div><div class="value" id="materializedWorkers">0</div></div></div><div class="notice">Logical addresses partition the target; they are created as execution slots become available. Inactive addresses contribute zero completed work. The number above is separate from the actual bounded worker pool.</div></section>
+<section class="panel canvaspanel"><h2>DIGITS FROM REAL EXECUTED WORKER RECORDS</h2><canvas class="canvas" id="cv" width="640" height="360" aria-label="Digits from acknowledged individual worker states, with blank cells for missing records"></canvas><div class="caption muted" id="frameCaption"></div><div class="controls"><label>Cell<input id="cellIndex" value="0" size="5"></label><button id="inspectCell">INSPECT WORKER + STEP</button><button id="refreshFrame">REFRESH</button></div><div style="padding:0 20px 20px"><pre id="sampleTrace">No executed worker record selected.</pre></div></section>
+<section class="panel"><h2>CONTAINED POOL TERMINAL</h2><pre id="terminalOutput" role="log" aria-live="polite" style="min-height:160px;max-height:360px"></pre><div class="controls"><span class="mono">pxpu&gt;</span><input class="terminal-input" id="terminalCommand" maxlength="2048" autocomplete="off" spellcheck="false" placeholder="help · status · run 1000 · eval WORKER STEP · op WORKER ID" aria-label="Parallel XPU command"><button id="executeCommand">EXECUTE</button><button id="clearTerminal">CLEAR</button></div><div class="notice">Operation IDs are local to their logical worker. Queries inspect retained executed records in that worker and do not advance the target.</div></section>
+</div><aside class="stack" style="align-content:start"><section class="panel"><h2>POOL CONFIGURATION</h2><div class="config"><label>Multiplier a<input id="configA" value="48271"></label><label>Increment b<input id="configB" value="1"></label><label>Modulus m<input id="configModulus" value="2305843009213693951"></label><label>Base seed<input id="configSeed" value="1"></label><label>Target multiply/add operations<input id="configTarget" value="4000000000000000000000000000000"></label><label>Actual worker contexts<select id="workerCount" style="padding:8px;background:#102938;color:var(--text)"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4" selected>4</option></select></label></div><div class="controls"><button class="primary" id="applyConfig">APPLY + RESET</button><button id="randomSeed">NEW RANDOM BASE SEED</button></div><div class="notice">Each logical worker gets an independent chain with seed <span class="mono">(base seed + worker ID) mod m</span>. Exact per-worker step quotas partition the target. Configuration changes dispose of the previous worker contexts.</div></section>
+<section class="panel"><h2>ACTUAL WORKER COUNTS AND STATES</h2><pre id="workerAccounting"></pre><details style="margin-top:14px"><summary>Materialized chain states and exact quotas</summary><pre id="chainTrace"></pre></details></section><section class="panel"><h2>SAVED WORKER PREFIX</h2><div class="controls"><button id="verifyRecords">VERIFY RECORD INTEGRITY</button><button id="exportResults">DOWNLOAD PREFIX JSON</button><label>Verify saved prefix<input id="importResults" type="file" accept=".json,application/json"></label></div><div class="status" id="verificationStatus" aria-live="polite">No verification requested.</div><div class="notice">Pause and wait for outstanding replies before exporting. Integrity checks the recorded worker receipts, counts, seeds and quotas. This check does not claim to replay every operation or to complete the requested target.</div></section></aside></div>
+<nav class="links"><a href="INDIVIDUAL_EXECUTION.html">Single-context individual execution and bounded direct replay</a><a href="FAST_FORWARD_REFERENCE.html">Algebraic fast-forward reference</a><a href="VIRTUAL_DOMAIN_LEDGER.html">Original virtual-domain ledger</a><a href="FINITE_EXECUTION.html">Finite exhaustive CPU execution</a></nav></main>
+<script id="workerSource" type="application/x-individual-worker">/* Sequential modular recurrence executor. Every credited step executes its
+ * own BigInt multiply, add and reduction. Readback work is counted separately.
+ */
+(function(root,factory){
+  'use strict';var api=factory(root);
+  if(typeof module==='object'&&module.exports)module.exports=api;else root.IndividualXPU=api;
+}(typeof globalThis!=='undefined'?globalThis:this,function(root){
+  'use strict';
+  var VERSION='1.0.0',SCHEMA='INDIVIDUAL-XPU/1',MAX_STEPS=65536;
+  var DEFAULT_TARGET='4000000000000000000000000000000';
+  var DEFAULTS={a:'48271',b:'1',modulus:'2305843009213693951',seed:'1'};
+  function copy(value){return JSON.parse(JSON.stringify(value));}
+  function decimal(value,name){
+    var result;
+    if(typeof value==='bigint'&&value>=0n)result=value;
+    else if(typeof value==='number'&&Number.isSafeInteger(value)&&value>=0)result=BigInt(value);
+    else if(typeof value==='string'&&value.length<=78&&/^(0|[1-9][0-9]*)$/.test(value))result=BigInt(value);
+    else throw new TypeError(name+' must be an exact nonnegative decimal integer.');
+    if(result>=(1n<<256n))throw new RangeError(name+' exceeds the 256-bit input limit.');return result;
+  }
+  function bounded(value,name,maximum){if(!Number.isSafeInteger(value)||value<1||value>maximum)throw new RangeError(name+' must be an integer from 1 through '+maximum+'.');return value;}
+  function hash(value,hashText){var result=hashText(JSON.stringify(value));if(typeof result!=='string'||!/^[0-9a-f]{64}$/i.test(result))throw new TypeError('hashText must synchronously return a SHA-256 hexadecimal string.');return result.toLowerCase();}
+  function finiteRate(operations,ms){if(ms<=0)return null;var rate=Number(operations)*1000/ms;return Number.isFinite(rate)?rate:null;}
+  function counters(n){return {multiplications:n.toString(),additions:n.toString(),reductions:n.toString()};}
+  function bodyOf(record){return {sequence:record.sequence,stepsExecutedBefore:record.stepsExecutedBefore,stepsExecutedAfter:record.stepsExecutedAfter,stepsExecuted:record.stepsExecuted,stateBefore:record.stateBefore,stateAfter:record.stateAfter,actualMultiplications:record.actualMultiplications,actualAdditions:record.actualAdditions,actualReductions:record.actualReductions,actualOperations:record.actualOperations,previousHash:record.previousHash};}
+  function create(params,options){
+    params=params||{};options=options||{};
+    if(typeof params!=='object'||Array.isArray(params))throw new TypeError('Parameters must be an object.');
+    Object.keys(params).forEach(function(key){if(['a','b','modulus','seed'].indexOf(key)<0)throw new TypeError('Unknown parameter: '+key);});
+    if(typeof options.hashText!=='function')throw new TypeError('A synchronous hashText callback is required.');
+    if(options.now!==undefined&&typeof options.now!=='function')throw new TypeError('now must be a function.');
+    var m=decimal(params.modulus===undefined?DEFAULTS.modulus:params.modulus,'modulus');
+    if(m<2n||m>((1n<<64n)-1n))throw new RangeError('modulus must be between 2 and 18446744073709551615.');
+    var a=decimal(params.a===undefined?DEFAULTS.a:params.a,'a'),b=decimal(params.b===undefined?DEFAULTS.b:params.b,'b'),seed=decimal(params.seed===undefined?DEFAULTS.seed:params.seed,'seed');
+    if(a>=m||b>=m||seed>=m)throw new RangeError('a, b and seed must be in [0, modulus).');
+    var target=decimal(options.targetOperations===undefined?DEFAULT_TARGET:options.targetOperations,'targetOperations');
+    if(target<2n||target%2n!==0n)throw new RangeError('targetOperations must be positive and even.');
+    var targetSteps=target/2n,historySize=bounded(options.historySize===undefined?1060:options.historySize,'historySize',MAX_STEPS);
+    var normalized={a:a.toString(),b:b.toString(),modulus:m.toString(),seed:seed.toString()};
+    var definition={schema:SCHEMA,version:VERSION,params:normalized,targetOperations:target.toString(),targetSteps:targetSteps.toString(),historySize:historySize,recurrence:'x[n+1] = (a*x[n] + b) mod modulus',accounting:'Each credited step individually executes one BigInt multiplication, one addition and one modular reduction. ActualOperations counts multiply plus add. Target progress excludes readback, bookkeeping and hashing.'};
+    var hashText=options.hashText,initialHash=hash(definition,hashText),clock=options.now||function(){return root.performance&&typeof root.performance.now==='function'?root.performance.now():Date.now();};
+    var state=seed,completed=0n,queryCount=0n,kernelMs=0,receipts=[],beforeRing=new BigUint64Array(historySize),afterRing=new BigUint64Array(historySize),nextSlot=0,retained=0,lastTrace=null;
+    function readClock(){var value=Number(clock());return Number.isFinite(value)?value:0;}
+    function snapshot(){return copy({schema:SCHEMA,version:VERSION,definition:definition,params:normalized,initialState:seed.toString(),state:state.toString(),targetOperations:target.toString(),targetSteps:targetSteps.toString(),completedSteps:completed.toString(),actualOperations:(completed*2n).toString(),actualMultiplications:completed.toString(),actualAdditions:completed.toString(),actualReductions:completed.toString(),remainingSteps:(targetSteps-completed).toString(),remainingOperations:(target-completed*2n).toString(),complete:completed===targetSteps,kernelElapsedMs:kernelMs,kernelOperationsPerSecond:finiteRate(completed*2n,kernelMs),kernelStepsPerSecond:finiteRate(completed,kernelMs),historySize:historySize,retainedSteps:retained,retainedStartStep:retained?(completed-BigInt(retained)+1n).toString():'0',retainedEndStep:completed.toString(),queryCalls:queryCount.toString(),queryHostIntegerWork:counters(queryCount),hostFloatingPointOperations:'0',initialHash:initialHash,receipts:receipts});}
+    function run(maxSteps,budget){
+      bounded(maxSteps,'maxSteps',MAX_STEPS);
+      if(budget!==null&&(typeof budget!=='number'||!Number.isFinite(budget)||budget<=0||budget>16))throw new RangeError('timeBudgetMs must be positive and at most 16.');
+      if(completed===targetSteps)return {receipt:null,snapshot:snapshot(),stepsExecuted:'0',actualOperations:'0',elapsedMs:0};
+      var remaining=targetSteps-completed,limit=remaining<BigInt(maxSteps)?Number(remaining):maxSteps;
+      var startTime=readClock(),stateBefore=state,completedBefore=completed,executed=0;
+      while(executed<limit){
+        if(budget!==null&&executed>0&&readClock()-startTime>=budget)break;
+        var before=state;
+        var product=a*before;
+        var rawSum=product+b;
+        var after=rawSum%m;
+        beforeRing[nextSlot]=before;afterRing[nextSlot]=after;
+        nextSlot++;if(nextSlot===historySize)nextSlot=0;
+        state=after;executed++;
+      }
+      var measured=Math.max(0,readClock()-startTime),count=BigInt(executed);
+      completed+=count;retained=Math.min(historySize,retained+executed);kernelMs+=measured;
+      var body={sequence:(BigInt(receipts.length)+1n).toString(),stepsExecutedBefore:completedBefore.toString(),stepsExecutedAfter:completed.toString(),stepsExecuted:count.toString(),stateBefore:stateBefore.toString(),stateAfter:state.toString(),actualMultiplications:count.toString(),actualAdditions:count.toString(),actualReductions:count.toString(),actualOperations:(count*2n).toString(),previousHash:receipts.length?receipts[receipts.length-1].hash:initialHash};
+      var receipt=Object.assign({},body,{hash:hash(body,hashText),elapsedMs:measured});receipts.push(receipt);
+      return {receipt:copy(receipt),snapshot:snapshot(),stepsExecuted:count.toString(),actualOperations:(count*2n).toString(),elapsedMs:measured};
+    }
+    function executeSteps(value){var count=decimal(value,'stepCount');if(count<1n||count>BigInt(MAX_STEPS))throw new RangeError('stepCount must be from 1 through 65536.');return run(Number(count),null);}
+    function runChunk(config){config=config||{};if(typeof config!=='object'||Array.isArray(config))throw new TypeError('Chunk settings must be an object.');Object.keys(config).forEach(function(key){if(['maxSteps','timeBudgetMs'].indexOf(key)<0)throw new TypeError('Unknown chunk setting: '+key);});return run(config.maxSteps===undefined?8192:config.maxSteps,config.timeBudgetMs===undefined?8:config.timeBudgetMs);}
+    function recent(count){
+      bounded(count,'count',1060);var entries=[];
+      if(completed===0n){for(var p=0;p<count;p++)entries.push({step:'0',state:seed.toString(),digit:Number(seed%10n),initialPreview:true});}
+      else{var length=Math.min(count,retained),slot=(nextSlot-length+historySize)%historySize,start=completed-BigInt(length)+1n;for(var i=0;i<length;i++){var value=afterRing[slot];entries.push({step:(start+BigInt(i)).toString(),state:value.toString(),digit:Number(value%10n),initialPreview:false});slot++;if(slot===historySize)slot=0;}}
+      return {entries:entries,accounting:{retainedStartStep:retained?(completed-BigInt(retained)+1n).toString():'0',retainedEndStep:completed.toString(),retainedSteps:retained,sampledStates:completed===0n?'0':entries.length.toString(),completedSteps:completed.toString(),actualOperations:(completed*2n).toString(),initialPreview:completed===0n}};
+    }
+    function query(value){
+      var step=decimal(value,'STEP');
+      if(completed===0n&&step===0n)return {step:'0',state:seed.toString(),result:seed.toString(),digit:Number(seed%10n),operations:[],initialPreview:true,hostIntegerWork:counters(0n)};
+      var lower=completed-BigInt(retained)+1n;
+      if(step<lower||step>completed)throw new RangeError('STEP is not retained. Available executed steps: '+lower.toString()+' through '+completed.toString()+'.');
+      var slot=Number((step-1n)%BigInt(historySize)),before=beforeRing[slot],stored=afterRing[slot];
+      var product=a*before,rawSum=product+b,result=rawSum%m;queryCount++;
+      if(result!==stored)throw new Error('Retained recurrence data is inconsistent.');
+      return {step:step.toString(),previous:before.toString(),a:a.toString(),b:b.toString(),modulus:m.toString(),product:product.toString(),rawSum:rawSum.toString(),state:stored.toString(),result:stored.toString(),digit:Number(stored%10n),operations:[{id:((step-1n)*2n).toString(),kind:'multiply',left:a.toString(),right:before.toString(),result:product.toString()},{id:((step-1n)*2n+1n).toString(),kind:'add',left:product.toString(),right:b.toString(),result:rawSum.toString()}],reduction:{modulus:m.toString(),result:stored.toString()},initialPreview:false,hostIntegerWork:counters(1n),accounting:'Readback reconstructs one multiply/add/reduction, counted separately and never credited toward the execution target.'};
+    }
+    function queryOperation(value){var id=decimal(value,'operationId');if(id>=completed*2n)throw new RangeError('operationId has not been executed.');var trace=query(id/2n+1n);return {operation:trace.operations[Number(id%2n)],trace:trace,step:trace.step,state:trace.state,hostIntegerWork:trace.hostIntegerWork};}
+    function execute(line){
+      var started=readClock(),command='',data=null,output='',clear=false;
+      try{
+        if(typeof line!=='string'||line.length>2048||!line.trim())throw new TypeError('Enter a contained command of at most 2048 characters.');
+        var tokens=line.trim().split(/\s+/);if(tokens.length>3)throw new TypeError('Too many command tokens.');command=tokens[0].toLowerCase();
+        function arity(n){if(tokens.length!==n)throw new TypeError('Wrong argument count. Type help.');}
+        if(command==='help'){arity(1);output='help | status | run STEPS | eval STEP | op ID | clear\nrun individually executes at most 65536 steps. Readback is restricted to retained executed steps. Target work is credited only after real sequential iterations.';}
+        else if(command==='status'){arity(1);data=snapshot();output='Individually executed steps: '+data.completedSteps+'\nActual multiply/add operations: '+data.actualOperations+'\nActual modular reductions: '+data.actualReductions+'\nTarget operations: '+data.targetOperations+'\nRemaining operations: '+data.remainingOperations+'\nState: '+data.state+'\nComplete: '+data.complete;}
+        else if(command==='run'){arity(2);data=executeSteps(tokens[1]);output='Individually executed '+data.stepsExecuted+' steps / '+data.actualOperations+' multiply/add operations. State: '+data.snapshot.state;}
+        else if(command==='eval'){arity(2);data=query(tokens[1]);lastTrace=copy(data);output=data.initialPreview?'Initial seed preview, zero executed steps: '+data.state:'Executed step '+data.step+': '+data.a+' * '+data.previous+' = '+data.product+'; + '+data.b+' = '+data.rawSum+'; mod '+data.modulus+' = '+data.state+'\nReadback arithmetic is separate from target progress.';}
+        else if(command==='op'){arity(2);data=queryOperation(tokens[1]);lastTrace=copy(data.trace);output='Executed operation '+data.operation.id+' ['+data.operation.kind+']: '+data.operation.left+' '+(data.operation.kind==='multiply'?'*':'+')+' '+data.operation.right+' = '+data.operation.result+'\nReadback arithmetic is separate from target progress.';}
+        else if(command==='clear'){arity(1);clear=true;}
+        else throw new TypeError('Unknown contained command. Type help.');
+        var response={ok:true,command:command,output:output,data:data,elapsedMs:Math.max(0,readClock()-started)};if(clear)response.clear=true;return response;
+      }catch(error){return {ok:false,command:command,output:'ERROR: '+error.message,data:null,elapsedMs:Math.max(0,readClock()-started)};}
+    }
+    return {executeSteps:executeSteps,runChunk:runChunk,snapshot:snapshot,recent:recent,query:query,evaluateStep:query,queryOperation:queryOperation,execute:execute};
+  }
+  function verifyRecords(actual,options){
+    var errors=[];
+    try{
+      if(!actual||typeof actual!=='object'||Array.isArray(actual))throw new TypeError('Snapshot must be an object.');
+      if(!options||typeof options.hashText!=='function')throw new TypeError('hashText is required.');
+      var baseline=create(actual.params,{hashText:options.hashText,targetOperations:actual.targetOperations,historySize:actual.historySize,now:function(){return 0;}}).snapshot();
+      var m=BigInt(baseline.params.modulus),target=BigInt(baseline.targetOperations),cursor=0n,state=BigInt(baseline.initialState),previous=baseline.initialHash,totalMs=0;
+      function match(a,b,path){if(JSON.stringify(a)!==JSON.stringify(b))errors.push(path+' differs from the recorded execution structure.');}
+      ['schema','version','definition','params','initialState','targetOperations','targetSteps','historySize','initialHash','hostFloatingPointOperations'].forEach(function(key){match(actual[key],baseline[key],key);});
+      if(!Array.isArray(actual.receipts))throw new TypeError('receipts must be an array.');
+      for(var i=0;i<actual.receipts.length;i++){
+        var record=actual.receipts[i],count=decimal(record.stepsExecuted,'stepsExecuted'),after=decimal(record.stateAfter,'stateAfter');
+        if(count<1n||count>BigInt(MAX_STEPS))throw new RangeError('A receipt chunk must contain 1 through 65536 steps.');
+        if(after>=m)throw new RangeError('Receipt state is outside the configured modulus.');
+        var expected={sequence:(BigInt(i)+1n).toString(),stepsExecutedBefore:cursor.toString(),stepsExecutedAfter:(cursor+count).toString(),stepsExecuted:count.toString(),stateBefore:state.toString(),stateAfter:after.toString(),actualMultiplications:count.toString(),actualAdditions:count.toString(),actualReductions:count.toString(),actualOperations:(count*2n).toString(),previousHash:previous};
+        match(bodyOf(record),expected,'receipt '+i);match(record.hash,hash(expected,options.hashText),'receipt hash '+i);
+        if(Object.keys(record).length!==13)errors.push('receipt '+i+' has unexpected or missing fields.');
+        if(typeof record.elapsedMs!=='number'||!Number.isFinite(record.elapsedMs)||record.elapsedMs<0)throw new TypeError('Receipt elapsedMs must be finite nonnegative telemetry.');
+        cursor+=count;state=after;previous=record.hash;totalMs+=record.elapsedMs;
+      }
+      if(cursor*2n>target)throw new RangeError('Recorded execution exceeds its target.');
+      var retained=cursor<BigInt(actual.historySize)?Number(cursor):actual.historySize;
+      var expectedTotals={state:state.toString(),completedSteps:cursor.toString(),actualOperations:(cursor*2n).toString(),actualMultiplications:cursor.toString(),actualAdditions:cursor.toString(),actualReductions:cursor.toString(),remainingSteps:(target/2n-cursor).toString(),remainingOperations:(target-cursor*2n).toString(),complete:cursor*2n===target,kernelElapsedMs:totalMs,kernelOperationsPerSecond:finiteRate(cursor*2n,totalMs),kernelStepsPerSecond:finiteRate(cursor,totalMs),retainedSteps:retained,retainedStartStep:retained?(cursor-BigInt(retained)+1n).toString():'0',retainedEndStep:cursor.toString()};
+      Object.keys(expectedTotals).forEach(function(key){match(actual[key],expectedTotals[key],key);});
+      var calls=decimal(actual.queryCalls,'queryCalls');match(actual.queryHostIntegerWork,counters(calls),'queryHostIntegerWork');
+      if(Object.keys(actual).length!==Object.keys(baseline).length)errors.push('snapshot has unexpected or missing fields.');
+    }catch(error){errors.push(error.message);}
+    return {ok:errors.length===0,errors:errors,kind:'record-integrity',replayedSteps:'0',scope:'Hashes, binding, recorded counter continuity and receipt structure checked. Individual recurrence arithmetic was not replayed; timing telemetry is not execution proof.'};
+  }
+  return {version:VERSION,schema:SCHEMA,defaultParams:copy(DEFAULTS),defaultTargetOperations:DEFAULT_TARGET,maxChunkSteps:MAX_STEPS,create:create,verifyRecords:verifyRecords,verify:verifyRecords};
+}));
+
+/* Worker entry appended to the unchanged IndividualXPU engine. */
+(function(root){
+  'use strict';
+  var nodePort=null,threadId=null;
+  if(typeof module==='object'&&typeof require==='function'){var threads=require('node:worker_threads');nodePort=threads.parentPort;threadId=threads.threadId;}
+  var Engine=typeof module==='object'&&module.exports?module.exports:root.IndividualXPU;
+  var encoder=new TextEncoder();
+  function rol(x,n){return ((x<<n)|(x>>>(32-n)))>>>0;}
+  function hashText(text){
+    var msg=encoder.encode(text),K=[0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
+    var H=[0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19],n=msg.length,total=Math.ceil((n+9)/64)*64,p=new Uint8Array(total);p.set(msg);p[n]=128;
+    var bits=n*8,hi=Math.floor(bits/4294967296),lo=bits>>>0;for(var j=0;j<4;j++){p[total-8+j]=(hi>>>(24-j*8))&255;p[total-4+j]=(lo>>>(24-j*8))&255;}
+    var w=new Uint32Array(64);
+    for(var o=0;o<total;o+=64){
+      for(var i=0;i<16;i++){var k=o+i*4;w[i]=((p[k]<<24)|(p[k+1]<<16)|(p[k+2]<<8)|p[k+3])>>>0;}
+      for(i=16;i<64;i++){var x=w[i-15],y=w[i-2];w[i]=(w[i-16]+(rol(x,25)^rol(x,14)^(x>>>3))+w[i-7]+(rol(y,15)^rol(y,13)^(y>>>10)))>>>0;}
+      var a=H[0],b=H[1],c=H[2],d=H[3],e=H[4],f=H[5],g=H[6],h=H[7];
+      for(i=0;i<64;i++){var t1=(h+(rol(e,26)^rol(e,21)^rol(e,7))+((e&f)^((~e)&g))+K[i]+w[i])>>>0,t2=((rol(a,30)^rol(a,19)^rol(a,10))+((a&b)^(a&c)^(b&c)))>>>0;h=g;g=f;f=e;e=(d+t1)>>>0;d=c;c=b;b=a;a=(t1+t2)>>>0;}
+      H[0]=(H[0]+a)>>>0;H[1]=(H[1]+b)>>>0;H[2]=(H[2]+c)>>>0;H[3]=(H[3]+d)>>>0;H[4]=(H[4]+e)>>>0;H[5]=(H[5]+f)>>>0;H[6]=(H[6]+g)>>>0;H[7]=(H[7]+h)>>>0;
+    }
+    return H.map(function(value){return value.toString(16).padStart(8,'0');}).join('');
+  }
+  function send(value){if(nodePort)nodePort.postMessage(value);else root.postMessage(value);}
+  var job=null,logicalId=null;
+  function handle(message){
+    var tag={generation:message.generation,requestId:message.requestId,workerId:message.workerId,threadId:threadId};
+    try{
+      if(message.type==='run'){
+        if(!job||logicalId!==message.workerId){if(!message.init)throw new Error('Worker initialization is required.');job=Engine.create(message.init.params,{hashText:hashText,targetOperations:message.init.targetOperations,historySize:1060});logicalId=message.workerId;}
+        var result=job.executeSteps(message.steps),recent=job.recent(1060),firstPrevious=null;
+        if(recent.entries.length&&!recent.accounting.initialPreview)firstPrevious=job.query(recent.entries[0].step).previous;
+        send(Object.assign(tag,{type:'ack',receipt:result.receipt,snapshot:job.snapshot(),recent:recent,firstPrevious:firstPrevious}));
+      }else if(message.type==='query'||message.type==='op'){
+        if(!job||logicalId!==message.workerId)throw new Error('Logical worker is not resident.');
+        var data=message.type==='query'?job.query(message.step):job.queryOperation(message.operationId);
+        send(Object.assign(tag,{type:'query-result',data:data,snapshot:job.snapshot()}));
+      }else if(message.type==='hash-test')send(Object.assign(tag,{type:'hash-result',hash:hashText(message.text)}));
+      else throw new Error('Unknown worker protocol command.');
+    }catch(error){send(Object.assign(tag,{type:'error',error:error.message}));}
+  }
+  if(nodePort)nodePort.on('message',handle);else root.onmessage=function(event){handle(event.data);};
+  send({type:'ready',threadId:threadId});
+}(typeof globalThis!=='undefined'?globalThis:this));
+</script><script>'use strict';
+const $=id=>document.getElementById(id),te=new TextEncoder();
+function bytesHex(a){return Array.from(a,b=>b.toString(16).padStart(2,"0")).join("")}
+function rol32(x,n){return ((x<<n)|(x>>>(32-n)))>>>0}
+function sha256Bytes(msg){
+  const K=[0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
+  const H=[0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];
+  const n=msg.length,total=((n+9+63)>>6)<<6,p=new Uint8Array(total);p.set(msg);p[n]=0x80;const bits=n*8,hi=Math.floor(bits/4294967296),lo=bits>>>0;
+  p[total-8]=(hi>>>24)&255;p[total-7]=(hi>>>16)&255;p[total-6]=(hi>>>8)&255;p[total-5]=hi&255;p[total-4]=(lo>>>24)&255;p[total-3]=(lo>>>16)&255;p[total-2]=(lo>>>8)&255;p[total-1]=lo&255;
+  const w=new Uint32Array(64);
+  for(let o=0;o<total;o+=64){for(let i=0;i<16;i++){const j=o+i*4;w[i]=((p[j]<<24)|(p[j+1]<<16)|(p[j+2]<<8)|p[j+3])>>>0}for(let i=16;i<64;i++){const a=w[i-15],b=w[i-2],s0=(rol32(a,25)^rol32(a,14)^(a>>>3))>>>0,s1=(rol32(b,15)^rol32(b,13)^(b>>>10))>>>0;w[i]=(w[i-16]+s0+w[i-7]+s1)>>>0}
+    let [a,b,c,d,e,f,g,h]=H;
+    for(let i=0;i<64;i++){const S1=(rol32(e,26)^rol32(e,21)^rol32(e,7))>>>0,ch=((e&f)^((~e)&g))>>>0,t1=(h+S1+ch+K[i]+w[i])>>>0,S0=(rol32(a,30)^rol32(a,19)^rol32(a,10))>>>0,maj=((a&b)^(a&c)^(b&c))>>>0,t2=(S0+maj)>>>0;h=g;g=f;f=e;e=(d+t1)>>>0;d=c;c=b;b=a;a=(t1+t2)>>>0}
+    H[0]=(H[0]+a)>>>0;H[1]=(H[1]+b)>>>0;H[2]=(H[2]+c)>>>0;H[3]=(H[3]+d)>>>0;H[4]=(H[4]+e)>>>0;H[5]=(H[5]+f)>>>0;H[6]=(H[6]+g)>>>0;H[7]=(H[7]+h)>>>0;
+  }
+  const out=new Uint8Array(32);for(let i=0;i<8;i++){out[i*4]=(H[i]>>>24)&255;out[i*4+1]=(H[i]>>>16)&255;out[i*4+2]=(H[i]>>>8)&255;out[i*4+3]=H[i]&255}return out
+}
+function sha256Hex(msg){return bytesHex(sha256Bytes(msg))}
+
+
+
+function hashText(text){return sha256Hex(te.encode(text));}
+function decimalText(value){return BigInt(value).toLocaleString('en-US');}
+function scaledQuetta(value){const n=BigInt(value),q=n/(10n**30n),r=n%(10n**30n);return q.toString()+(r?'.'+r.toString().padStart(30,'0').replace(/0+$/,''):'');}
+function jsonText(value){return JSON.stringify(value,null,2);}
+let pool=null,poolGeneration=0,frameGeneration=0,frameData=null,frameBinding='',appliedParams=null,appliedTarget='',appliedWorkers=4,wallAccumulatedMs=0,wallIntervalStart=null;
+const raster=NumberRaster.create($('cv')),terminalLines=[],history=[];let historyIndex=0;
+function wallMs(){return wallAccumulatedMs+(wallIntervalStart===null?0:Math.max(0,performance.now()-wallIntervalStart));}
+function startWall(){if(wallIntervalStart===null)wallIntervalStart=performance.now();}
+function stopWall(){if(wallIntervalStart!==null){wallAccumulatedMs+=Math.max(0,performance.now()-wallIntervalStart);wallIntervalStart=null;}}
+function binding(){const s=pool.snapshot();return hashText(JSON.stringify({params:s.params,target:s.targetOperations,steps:s.completedSteps,chains:s.chains.map(c=>[c.workerId,c.completedSteps,c.state])}));}
+function summary(){
+ const s=pool.snapshot(),elapsed=wallMs(),readback={multiplications:0n,additions:0n,reductions:0n};for(const work of [s.mainQueryHostIntegerWork,...s.chains.map(c=>c.snapshot.queryHostIntegerWork)])for(const key of Object.keys(readback))readback[key]+=BigInt(work[key]);$('actualOperations').textContent=decimalText(s.actualOperations);$('completedSteps').textContent=decimalText(s.completedSteps);$('aggregateRate').textContent=elapsed>0&&BigInt(s.actualOperations)>0n?(Number(s.actualOperations)*1000/elapsed).toLocaleString('en-US',{maximumFractionDigits:0})+' integer ops/s':'not measured';
+ $('physicalWorkers').textContent=String(s.runningWorkerCount);$('inFlight').textContent=String(s.inFlight);$('virtualWorkers').textContent=decimalText(s.virtualWorkerCount);$('materializedWorkers').textContent=String(s.chains.length);
+ $('targetScientific').textContent=scaledQuetta(s.targetOperations)+' × 10³⁰ multiply/add operations — target';$('targetOperations').textContent=decimalText(s.targetOperations)+' requested operations';$('remainingOperations').textContent=decimalText(s.remainingOperations);$('completion').textContent=s.complete?'COMPLETE':'NOT COMPLETE';$('executionStatus').textContent=s.complete?'COMPLETE':s.paused?(s.inFlight?'PAUSING':'PAUSED'):'RUNNING';
+ $('workerAccounting').textContent=`ACKNOWLEDGED INDIVIDUAL WORK\nCompleted steps: ${s.completedSteps}\nMultiply/add operations: ${s.actualOperations}\nModulus reductions: ${s.actualReductions}\nConfigured worker limit: ${s.physicalWorkers}\nActual WebWorker contexts: ${s.runningWorkerCount}\nWorker jobs in flight: ${s.inFlight}\nLogical address count: ${s.virtualWorkerCount}\nMaterialized chains: ${s.chains.length}\nInactive-address completed-work credit: 0\nActive host wall interval total: ${elapsed.toFixed(3)} ms\n\nREADBACK / QUERY ARITHMETIC (EXCLUDED FROM TARGET CREDIT)\nMultiplications: ${readback.multiplications}\nAdditions: ${readback.additions}\nModulus reductions: ${readback.reductions}\nPhysical floating-point operations claimed: 0`;
+ $('chainTrace').textContent=jsonText(s.chains.map(c=>({workerId:c.workerId,quotaSteps:c.quotaSteps,completedSteps:c.completedSteps,actualOperations:c.actualOperations,state:c.state,complete:c.complete,physicalWorkerIndex:c.physicalWorkerIndex})));$('startExecution').disabled=!s.paused||s.complete;
+ if(s.errors.length)$('runStatus').textContent='WORKER ERROR: '+s.errors.join('; ');
+}
+function renderFrame(){const recent=pool.recent(1060),entries=recent.entries.filter(e=>!e.initialPreview);frameData={columns:53,rows:20,cells:1060,uniqueExecutedRecords:entries.length,entries,accounting:recent.accounting};raster.render(640,360,(column,row,columns)=>entries[row*columns+column]?.digit??null);frameBinding=binding();$('frameCaption').textContent=entries.length?`${entries.length} retained executed states across real worker replies; ${1060-entries.length} blank cells. Each record keeps its logical worker ID and individual step.`:'0 acknowledged executed states. All 1,060 cells are blank.';summary();}
+function queueFrame(){const token=++frameGeneration,active=pool;requestAnimationFrame(()=>{if(token===frameGeneration&&active===pool)renderFrame();});}
+function inputs(){return {params:{a:$('configA').value.trim(),b:$('configB').value.trim(),modulus:$('configModulus').value.trim(),seed:$('configSeed').value.trim()},target:$('configTarget').value.trim(),workers:Number($('workerCount').value)};}
+function setInputs(params,target,workers){for(const [key,id] of [['a','configA'],['b','configB'],['modulus','configModulus'],['seed','configSeed']])$(id).value=params[key];$('configTarget').value=target;$('workerCount').value=String(workers);}
+function applyConfiguration(params=inputs().params,target=inputs().target,workers=inputs().workers){
+ try{if(!Number.isInteger(workers)||workers<1||workers>4)throw Error('Actual worker count must be 1 through 4.');const token=poolGeneration+1,candidate=VirtualWorkerPool.create(params,{targetOperations:target,physicalWorkers:workers,workerSource:$('workerSource').textContent,hashText,chunkSteps:8192,now:()=>performance.now(),onUpdate:()=>{if(token!==poolGeneration||!pool)return;const s=pool.snapshot();if(s.errors.length&&s.inFlight===0)stopWall();if(s.complete){stopWall();$('runStatus').textContent='COMPLETE — target steps individually executed across worker chains.';}summary();queueFrame();},onError:error=>{if(token===poolGeneration)$('runStatus').textContent='WORKER ERROR: '+(error.message||error);}});const previous=pool;poolGeneration=token;pool=candidate;previous?.dispose();wallAccumulatedMs=0;wallIntervalStart=null;appliedParams={...pool.snapshot().params};appliedTarget=pool.snapshot().targetOperations;appliedWorkers=workers;setInputs(appliedParams,appliedTarget,workers);frameData=null;frameBinding='';summary();queueFrame();$('runStatus').textContent='Paused at zero acknowledged operations.';$('verificationStatus').textContent='Fresh worker prefix: zero completed steps.';return true;}catch(error){$('runStatus').textContent='CONFIGURATION ERROR: '+error.message;return false;}
+}
+async function pauseExecution(){const active=pool;const s=await active.pause();if(active!==pool)return s;stopWall();summary();queueFrame();$('runStatus').textContent=s.complete?'COMPLETE — every assigned target step executed.':'PAUSED — all replies in flight acknowledged; completed prefix retained.';return s;}
+function startExecution(){if(!pool.snapshot().paused||pool.snapshot().complete)return;startWall();try{pool.start();summary();$('runStatus').textContent='Running individual recurrence chains in bounded real worker contexts.';}catch(error){pool.pause().then(()=>{stopWall();summary();showError('runStatus',error);});}}
+async function runSteps(count){const active=pool;if(!active.snapshot().paused||active.snapshot().inFlight)throw Error('Pause and wait for replies before a finite batch.');startWall();try{const s=await active.runSteps(count);if(active===pool){stopWall();summary();queueFrame();$('runStatus').textContent=s.complete?'COMPLETE — all target steps individually executed.':'Finite individual batch acknowledged. Target remains unfinished.';}return s;}catch(error){if(active===pool){await active.pause();stopWall();summary();}throw error;}}
+function terminalWrite(text){terminalLines.push(String(text));while(terminalLines.length>80)terminalLines.shift();$('terminalOutput').textContent=terminalLines.join('\n\n').slice(-65536);$('terminalOutput').scrollTop=$('terminalOutput').scrollHeight;}
+function unsigned(text,name){if(!/^(0|[1-9][0-9]*)$/.test(text||''))throw Error(name+' must be an exact nonnegative decimal integer.');return BigInt(text);}
+async function executeCommand(line){line=String(line??'').trim();if(!line)return null;history.push(line);if(history.length>50)history.shift();historyIndex=history.length;try{if(line.length>2048)throw Error('Command is too long.');const tokens=line.split(/\s+/),command=tokens[0].toLowerCase();let data=null,output='';if(command==='help'&&tokens.length===1)output='help | status | run STEPS (1..1000000) | eval WORKER STEP | op WORKER ID | pause | clear\nOnly actual worker acknowledgments count. Queries inspect retained executed states.';else if(command==='status'&&tokens.length===1){data=pool.snapshot();output=jsonText(data);}else if(command==='run'&&tokens.length===2){const n=unsigned(tokens[1],'STEPS');if(n<1n||n>1000000n)throw Error('Finite terminal batches must be 1 through 1,000,000 steps.');data=await runSteps(n.toString());output='Individual batch acknowledged. Completed steps: '+data.completedSteps+'; actual multiply/add operations: '+data.actualOperations;}else if((command==='eval'||command==='op')&&tokens.length===3){unsigned(tokens[1],'WORKER');unsigned(tokens[2],command==='eval'?'STEP':'ID');data=command==='eval'?await pool.query(tokens[1],tokens[2]):await pool.queryOperation(tokens[1],tokens[2]);output=jsonText(data);}else if(command==='pause'&&tokens.length===1){data=await pauseExecution();output='Paused after outstanding worker replies.';}else if(command==='clear'&&tokens.length===1){terminalLines.length=0;}else throw Error('Unknown contained command or wrong argument count. Type help.');terminalWrite(`pxpu> ${line}\n${output}`);summary();return {ok:true,command,data,output};}catch(error){terminalWrite(`pxpu> ${line}\nERROR: ${error.message}`);return {ok:false,output:error.message};}}
+async function inspectCell(index){index=Number(index);if(!Number.isSafeInteger(index)||index<0||index>=1060)throw Error('Cell index must be 0 through 1059.');const record=frameData?.entries[index];if(!record)throw Error('This cell is blank; no executed worker record is present.');const trace=await pool.query(record.workerId,record.step);$('cellIndex').value=String(index);$('sampleTrace').textContent=jsonText({record,trace});summary();return trace;}
+function exportEnvelope(){const s=pool.snapshot();if(!s.paused||s.inFlight)throw Error('Pause and wait for worker replies before exporting.');if(!frameData||frameBinding!==binding())throw Error('Executed-state refresh pending. Export after the digits update.');const data={snapshot:s,frame:frameData};return {schema:'QUETTAFLOP/PARALLEL-INDIVIDUAL-RESULTS/1',dataSha256:hashText(JSON.stringify(data)),data};}
+function verifyEnvelope(envelope){if(!envelope||envelope.schema!=='QUETTAFLOP/PARALLEL-INDIVIDUAL-RESULTS/1'||!envelope.data||envelope.dataSha256!==hashText(JSON.stringify(envelope.data)))throw Error('Saved worker prefix hash/schema mismatch.');const result=VirtualWorkerPool.verifyRecords(envelope.data.snapshot,{hashText});if(!result.ok)throw Error('Recorded worker prefix mismatch: '+result.errors.join('; '));const f=envelope.data.frame,s=envelope.data.snapshot;if(!f||f.columns!==53||f.rows!==20||f.cells!==1060||f.entries?.length!==f.uniqueExecutedRecords||f.entries.length>1060||f.accounting.completedSteps!==s.completedSteps||f.accounting.actualOperations!==s.actualOperations)throw Error('Recorded worker grid/count mismatch.');const chains=new Map(s.chains.map(c=>[c.workerId,c])),seen=new Set();for(const entry of f.entries){const recordId=entry.workerId+':'+entry.step;if(seen.has(recordId))throw Error('Duplicate executed worker record.');seen.add(recordId);const chain=chains.get(entry.workerId);if(!chain||entry.initialPreview||BigInt(entry.step)<1n||BigInt(entry.step)>BigInt(chain.completedSteps)||BigInt(entry.state)<0n||BigInt(entry.state)>=BigInt(s.params.modulus)||entry.digit!==Number(BigInt(entry.state)%10n))throw Error('Recorded executed worker state mismatch.');}return {ok:true,kind:'worker-record-integrity',replayedSteps:'0',completedSteps:s.completedSteps};}
+function showError(id,error){$(id).textContent='ERROR: '+error.message;}
+$('startExecution').onclick=startExecution;$('pauseExecution').onclick=async()=>{try{await pauseExecution();}catch(error){showError('runStatus',error);}};$('resetExecution').onclick=()=>applyConfiguration({...appliedParams},appliedTarget,appliedWorkers);$('applyConfig').onclick=()=>applyConfiguration();
+$('run1000').onclick=()=>executeCommand('run 1000');$('runMillion').onclick=()=>executeCommand('run 1000000');$('refreshFrame').onclick=queueFrame;$('inspectCell').onclick=async()=>{try{await inspectCell($('cellIndex').value);}catch(error){showError('sampleTrace',error);}};
+$('randomSeed').onclick=()=>{try{const config=inputs();IndividualXPU.create({...config.params,seed:'0'},{hashText,targetOperations:config.target});const m=BigInt(config.params.modulus),space=1n<<64n,limit=space-space%m;let value;do{const words=new Uint32Array(2);crypto.getRandomValues(words);value=(BigInt(words[0])<<32n)|BigInt(words[1]);}while(value>=limit);applyConfiguration({...config.params,seed:(value%m).toString()},config.target,config.workers);}catch(error){showError('runStatus',error);}};
+$('cv').addEventListener('click',async event=>{const bounds=$('cv').getBoundingClientRect(),column=Math.floor((event.clientX-bounds.left)/bounds.width*640/12),row=Math.floor((event.clientY-bounds.top)/bounds.height*360/18);if(column>=0&&column<53&&row>=0&&row<20){try{await inspectCell(row*53+column);}catch(error){showError('sampleTrace',error);}}});
+$('executeCommand').onclick=async()=>{const line=$('terminalCommand').value;$('terminalCommand').value='';await executeCommand(line);};$('clearTerminal').onclick=()=>{terminalLines.length=0;$('terminalOutput').textContent='Terminal cleared. Acknowledged worker prefix retained.';};$('terminalCommand').addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();$('executeCommand').onclick();}else if(event.key==='ArrowUp'){event.preventDefault();historyIndex=Math.max(0,historyIndex-1);$('terminalCommand').value=history[historyIndex]||'';}else if(event.key==='ArrowDown'){event.preventDefault();historyIndex=Math.min(history.length,historyIndex+1);$('terminalCommand').value=history[historyIndex]||'';}});
+$('verifyRecords').onclick=()=>{try{const r=verifyEnvelope(exportEnvelope());$('verificationStatus').textContent=`WORKER RECORD INTEGRITY PASS: ${r.completedSteps} recorded individual steps; no full arithmetic replay claimed.`;}catch(error){showError('verificationStatus',error);}};
+$('exportResults').onclick=()=>{try{const result=exportEnvelope(),url=URL.createObjectURL(new Blob([jsonText(result)+'\n'],{type:'application/json'})),link=document.createElement('a');link.href=url;link.download='QuettaFLOP-Parallel-Individual-Prefix.json';document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);$('verificationStatus').textContent='Actual acknowledged worker prefix downloaded.';}catch(error){showError('verificationStatus',error);}};
+$('importResults').onchange=async event=>{try{const file=event.target.files?.[0];if(!file)return;if(file.size>20000000)throw Error('Saved worker prefix must be smaller than 20 MB.');const r=verifyEnvelope(JSON.parse(await file.text()));$('verificationStatus').textContent=`SAVED WORKER RECORD INTEGRITY PASS: ${r.completedSteps} recorded steps; full arithmetic replay not performed.`;}catch(error){showError('verificationStatus',error);}};
+$('workerCount').value=String(Math.max(1,Math.min(4,Number(navigator.hardwareConcurrency)||4)));applyConfiguration();terminalWrite('PARALLEL INDIVIDUAL XPU READY · zero acknowledged work · unfinished target. START real workers or type run 1000.');
+</script></body></html>
