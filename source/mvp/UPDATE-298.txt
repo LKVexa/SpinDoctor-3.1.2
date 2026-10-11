@@ -1,0 +1,66 @@
+SPINDOCTOR 3.1.2 - 298-LOGICAL-QUBIT UPDATE
+
+LOAD THE UPDATED PROGRAM
+Close the older SpinDoctor service console and start the normal BOOT.cmd.
+BOOT verifies the rebuilt TIFF carrier; BOOT.cmd gif uses the equivalent GIF.
+It refreshes the contained program files and retains mutable workspace files,
+seeds, counters, named circuits, checkpoints, original inputs and report history.
+A running older engine does not load new C# code until it is restarted.
+
+REGISTER LIMITS
+q.circuit new NAME N and q.tranche prepare N zero accept N=1..298.
+Each coherent joint factor is limited to 59 qubits and actual memory.
+Connecting gates preserve entanglement within a factor; a merge beyond 59
+qubits is rejected before changing the selected register. The 298-qubit limit
+is a logical register width, not a promise to allocate a dense 2^298 vector.
+Global basis indices and bitstrings preserve all 298 bits; qubit 0 is at right.
+
+CREATE A WIDE CIRCUIT
+Use a fresh name, for example:
+  q.circuit new record298 298
+  q.circuit input 0
+Then add the complete intended gate program before running:
+  q.circuit run shots 10240 basis z
+  q.circuit status
+  q.circuit result
+Creating an empty circuit alone prepares only the all-zero state.
+q.migrate t 1 changes the procedural model parameter. It does not resize a
+selected circuit or tranche, and it does not construct the record encoding.
+q.tranche from INDEX still selects up to 29 consecutive procedural addresses.
+
+WIDE READOUT AND ACCOUNTING
+Circuits of 30..298 qubits currently require basis z. They use
+samplingMode=prepared-factor-Born-Z: one actual preparation and gate replay,
+followed by independent Born samples of every coherent factor for each shot.
+Each factor is sampled jointly, preserving all correlations inside that factor.
+The retained coherent state is not collapsed or changed by these samples.
+One seeded uniform draw is consumed per factor, including deterministic factors.
+The counters record actual preparations, gates, factor traversals and readout
+outcomes; gates are not credited as replayed when sampling reuses preparation.
+Small 1..29-qubit circuits retain independent-shot-replay and x/y/z readout.
+
+SEVEN-CONTROL X
+  q.circuit add mcx7 C0 C1 C2 C3 C4 C5 C6 TARGET
+There are no angles. All eight operands must be distinct and in the circuit.
+The target is flipped exactly when all seven controls are 1.
+
+ELEVEN ORDERED COMMAND FILES
+All 11 files build one selected 298-qubit circuit in filename order.
+Each TXT begins with the comment # SPINDOCTOR-SEQUENCE and contains at most
+128 ordinary q.* commands. The first file creates/selects the circuit, later
+files append gates, and the final file starts the measurement run.
+The chunk count describes input organization, not independent quantum states.
+Put only runnable inputs in the folder passed to q.folder run; its scan is
+nonrecursive. Put this guide, manifests, reports and normalized source data in
+a separate folder. PDF prose and explanatory TXT are not runnable gate inputs.
+
+VERIFICATION SCOPE
+q.verify and folder verify=true compare sampled procedural-model predictions
+on the CPU and OpenCL GPU. They do not independently certify the complete
+298-qubit circuit. Exact amplitude/record checks and measured joint histograms
+are separate evidence. SpinDoctor performs classical FP64 simulation and seeded
+sampling; these are not physical quantum-hardware measurements.
+
+The historical release notes, audit numbers, preset examples and PDF hand guide
+retain their original build-specific scope. Auxiliary analyses keep their own
+documented bounds; a 298-qubit circuit does not enlarge a bounded matrix query.
