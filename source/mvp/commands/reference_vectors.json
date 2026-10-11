@@ -1,0 +1,181 @@
+{
+  "schema": "LUNAR127/VIRTUAL-COMMAND-KERNEL/1",
+  "release": "0.6.0",
+  "name": "VCK-1 Holographic Virtual Command Kernel",
+  "researchQuestion": "How many deterministic virtual hologram commands can this host generate, decode, execute, and retire per second while preserving sequential state dependency and carrier-anchored semantics?",
+  "carrier": {
+    "pageBytes": 262144,
+    "headerBytes": 256,
+    "payloadBytes": 261888,
+    "basePageSha256": "b16a45e1b571d318763fb2402aa33d80bcb74398a138681ec599a810261e4910",
+    "source": "availability/base_page_frame1.bin"
+  },
+  "kernel": {
+    "commandsPerEpochNominal": 64,
+    "seeds": [
+      2976531937,
+      3044135704,
+      1983885888,
+      715341184
+    ],
+    "arithmetic": "unsigned 32-bit modulo 2^32",
+    "commandDefinition": "One VCK-1 command is counted only after command synthesis, opcode decode, operand selection, execution, dependent VM-state mutation, and retirement.",
+    "dependency": "Every command selects its next opcode/key from a chain that depends on the prior retired command; commands cannot be counted as independent pre-generated tokens.",
+    "opcodes": [
+      {
+        "id": 0,
+        "name": "VLOAD",
+        "meaning": "Resolve and load one epoch-addressed processable-hologram symbol."
+      },
+      {
+        "id": 1,
+        "name": "VXOR",
+        "meaning": "Register XOR/rotate transform."
+      },
+      {
+        "id": 2,
+        "name": "VADDMUL",
+        "meaning": "32-bit add/multiply state transform."
+      },
+      {
+        "id": 3,
+        "name": "VADDR",
+        "meaning": "Resolve a payload address in the 512x512 carrier."
+      },
+      {
+        "id": 4,
+        "name": "VSTORE",
+        "meaning": "Commit a byte into the 256-byte virtual scratch plane."
+      },
+      {
+        "id": 5,
+        "name": "VBRANCH",
+        "meaning": "State-dependent branch and mix."
+      },
+      {
+        "id": 6,
+        "name": "VPHASE",
+        "meaning": "Resolve an epoch-dependent phase-textured symbol and mix it into VM state."
+      },
+      {
+        "id": 7,
+        "name": "VCOMMIT",
+        "meaning": "Commit dependency-chain state and update a destination register."
+      }
+    ]
+  },
+  "reference": {
+    "checkpoints": {
+      "100000": {
+        "registers": [
+          3589979090,
+          487162476,
+          3026770576,
+          3081553913,
+          579309433,
+          2926615974,
+          60132,
+          2486527247
+        ],
+        "chain": 1340354820,
+        "scratchSha256": "5ccbc827f310240f5433408a197e12eaf990b800746e928b16a9bf3e8a97167d",
+        "stateSha256": "7bff4907caaadcbbf62311c3bcc5ed8d26ca38a30efee775e8181b2f83c5f1f0",
+        "opcodeCounts": [
+          12594,
+          12409,
+          12496,
+          12437,
+          12400,
+          12501,
+          12668,
+          12495
+        ]
+      },
+      "1000000": {
+        "registers": [
+          2035638216,
+          558553047,
+          184625,
+          4175177954,
+          209249432,
+          996792363,
+          306922481,
+          1515336841
+        ],
+        "chain": 193114654,
+        "scratchSha256": "cbf89a6e36ab8abd50b68c8c36bb27fe6e77fd6ffbad0b869e5a86d4bb5b188f",
+        "stateSha256": "fac0ba726ed1439195095e068e8174b28371437ae596c0ba7adb80adc09f3850",
+        "opcodeCounts": [
+          125390,
+          124298,
+          124763,
+          125131,
+          124683,
+          125417,
+          125111,
+          125207
+        ]
+      },
+      "5000000": {
+        "registers": [
+          2352303432,
+          3073635892,
+          1769665237,
+          2804355564,
+          110109754,
+          2325764527,
+          1580403518,
+          3451999450
+        ],
+        "chain": 900290048,
+        "scratchSha256": "d782850c325fa1e9eeb628010a7b176c310bb7c917b79724585c89a804fe5bb3",
+        "stateSha256": "664d748aaa255bcf256f4217caf5c11b16fb16db160d2428fc9d90725f944a1d",
+        "opcodeCounts": [
+          624324,
+          624538,
+          623899,
+          625466,
+          624160,
+          626718,
+          625697,
+          625198
+        ]
+      },
+      "10000000": {
+        "registers": [
+          3020394008,
+          445740745,
+          3248871574,
+          710371056,
+          2560892530,
+          4166955192,
+          2078586015,
+          1940556960
+        ],
+        "chain": 1721379711,
+        "scratchSha256": "84ac493e0aa4092f2bb4a3bb00bc18f5555c2eb74a29949508e3af8defb50740",
+        "stateSha256": "2494ee0cb42372019ec03daf21cdf7c54058815ab98fa27dbf9c335f7efb33be",
+        "opcodeCounts": [
+          1249435,
+          1249759,
+          1249865,
+          1249976,
+          1248323,
+          1252088,
+          1249861,
+          1250693
+        ]
+      }
+    }
+  },
+  "metrics": {
+    "primary": "retiredCommandsPerSecond",
+    "derived": [
+      "McommandsPerSecond",
+      "commandsPer1MHzEpoch",
+      "nominalEpochCapacityAt64Commands",
+      "representedStateRateAtNominalEpochCapacity"
+    ],
+    "caution": "Virtual commands are VCK-1 operations, not native CPU instructions. Command throughput is measured independently from represented holographic GB/s."
+  }
+}
