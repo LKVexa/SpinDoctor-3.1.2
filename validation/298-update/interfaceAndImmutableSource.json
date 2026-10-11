@@ -1,0 +1,107 @@
+{
+  "schema": "SPINDOCTOR/298-UPDATE-UI-SOURCE-AUDIT/1",
+  "completedUtc": "2026-10-10T22:27:25.826813+00:00",
+  "passed": true,
+  "version": "3.1.2",
+  "target": "<WORK>\\2026-10-10\\can-you-build-a-quantum-equation-2\\outputs\\SpinDoctor-3.1.2-298-update\\source",
+  "productionFilesModifiedByThisAudit": false,
+  "ui": {
+    "passed": true,
+    "checks": 70,
+    "identicalTerminalPages": true,
+    "verification": "Deterministic DOM/network harness; not a live graphical browser test",
+    "report": "ui-regressions.json",
+    "originalTestSha256": "410f64e84068fe74751c277c6fef17f77a7ae2a0b3a37942f26990451cf5078f",
+    "adaptedTestSha256": "ea9e9c21e9adcd3edce3d1f8ba2cc090e7c7777ff4406e34a47ef45272e49d76",
+    "adaptations": [
+      {
+        "before": "Version 3\\.1\\.1-candidate",
+        "after": "Version 3\\.1\\.2",
+        "occurrences": 1
+      },
+      {
+        "before": "Declare n \\(1\u201329\\)",
+        "after": "Declare n \\(1\u2013298\\)",
+        "occurrences": 2
+      }
+    ],
+    "allOtherAssertionsRetained": true
+  },
+  "carrierBrowser": {
+    "passed": true,
+    "checks": 7,
+    "runtimeAndInlineScriptsCompiled": 34,
+    "adaptations": [],
+    "log": "carrier-browser.log"
+  },
+  "syntax": {
+    "javascriptPassed": 35,
+    "javascriptFailed": 0,
+    "jsonValid": 41,
+    "jsonMalformed": 0,
+    "jsonNonfinite": 0,
+    "terminalUnresolvedLiteralIds": [],
+    "terminalDomResolvedAndUnique": true,
+    "sourcePdfDownloadCasesPassed": 3,
+    "report": "source-syntax.json"
+  },
+  "catalog": {
+    "sha256": "b155d16a30d888d69a2f86e8ecbd62304e9d38d71e88d9658f14d28ccf471d14",
+    "embeddedNativeCatalogParityCoveredByUiHarness": true,
+    "presetCount": 241,
+    "executionVerifier": "verify_presets.py requires a fresh native all-preset run_log.jsonl and associated TXT/PDF reports. No historical execution data were used to claim current native preset execution."
+  },
+  "immutable": {
+    "stageAndAssembledManifestsByteIdentical": true,
+    "sources": [
+      {
+        "source": "<WORK>\\2026-10-10\\can-you-build-a-quantum-equation-2\\work\\spindoctor-3.1.2-298-update\\source",
+        "manifestSha256": "8d047e1e7717cd6ea220cf124cb42422aa09273575f1c0df9c427c697b765422",
+        "immutableEntryCount": 292,
+        "sourceFileCount": 292,
+        "missingEntries": [],
+        "unlistedSourceFiles": [],
+        "malformedPaths": [],
+        "hashMismatches": [],
+        "mutableEntries": []
+      },
+      {
+        "source": "<WORK>\\2026-10-10\\can-you-build-a-quantum-equation-2\\outputs\\SpinDoctor-3.1.2-298-update\\source",
+        "manifestSha256": "8d047e1e7717cd6ea220cf124cb42422aa09273575f1c0df9c427c697b765422",
+        "immutableEntryCount": 292,
+        "sourceFileCount": 292,
+        "missingEntries": [],
+        "unlistedSourceFiles": [],
+        "malformedPaths": [],
+        "hashMismatches": [],
+        "mutableEntries": []
+      }
+    ],
+    "mutableFileNamesChecked": [
+      "quantum-session-state.json",
+      "quantum-errors.jsonl",
+      "quantum-session.lock",
+      "spindoctor-circuits.json",
+      "spindoctor-circuit-errors.log",
+      "spindoctor-sequences.json",
+      "spindoctor-tranche.json",
+      "spindoctor-tranche-state.bin",
+      "_HOLOGRAM_MOUNT_PROVENANCE.txt"
+    ],
+    "mutableDirectoryNamesChecked": [
+      "inputs",
+      "quantum-command-reports",
+      "sequence-jobs",
+      "sequence-reports",
+      "workspace",
+      "checkpoints",
+      "history"
+    ],
+    "reviewedStaticSessionNamedFiles": [
+      "mvp/meta/RUN_SESSION_BINDING.json",
+      "mvp/TENQ_RUN_SESSION_SPEC.md",
+      "mvp/TENQ_RUN_SESSION_VALIDATION.json"
+    ],
+    "scope": "Source manifests and complete source inventories only; no live workspace state was opened or modified."
+  }
+}
