@@ -1,0 +1,105 @@
+folder,file,expected_job,expected_file,expected_message,reason
+01_smoke,a_bell.txt,completed,completed,,valid txt-sequence
+01_smoke,b_math.csv,completed,completed,,valid csv-sequence
+01_smoke,c_ghz.json,completed,completed,,valid json circuit
+01_smoke,d_plus.qasm,completed,completed,,valid openqasm2
+02_functional,01_circuit.txt,completed,completed,,one command family / input format with real commands
+02_functional,02_query.txt,completed,completed,,one command family / input format with real commands
+02_functional,03_tranche.txt,completed,completed,,one command family / input format with real commands
+02_functional,04_grid.txt,completed,completed,,one command family / input format with real commands
+02_functional,05_resource.csv,completed,completed,,one command family / input format with real commands
+02_functional,06_math.json,completed,completed,,one command family / input format with real commands
+02_functional,07_model.txt,completed,completed,,one command family / input format with real commands
+02_functional,08_lesson.csv,completed,completed,,one command family / input format with real commands
+02_functional,09_noise.txt,completed,completed,,one command family / input format with real commands
+02_functional,10_qec.json,completed,completed,,one command family / input format with real commands
+02_functional,11_compile.txt,completed,completed,,one command family / input format with real commands
+02_functional,12_algorithm.txt,completed,completed,,one command family / input format with real commands
+02_functional,13_text_circuit.txt,completed,completed,,one command family / input format with real commands
+02_functional,14_circuit_object.json,completed,completed,,one command family / input format with real commands
+02_functional,15_qft.qasm,completed,completed,,one command family / input format with real commands
+02_functional,16_tagged_txt.pdf,completed,completed,,one command family / input format with real commands
+02_functional,17_embedded_json.pdf,completed,completed,,one command family / input format with real commands
+02_functional,18_status_help.txt,completed,completed,,one command family / input format with real commands
+03_presets,qc-001.txt,completed,completed,,available preset (one per category)
+03_presets,qc-010.txt,completed,completed,,available preset (one per category)
+03_presets,qc-022.txt,completed,completed,,available preset (one per category)
+03_presets,qc-062.txt,completed,completed,,available preset (one per category)
+03_presets,qc-097.txt,completed,completed,,available preset (one per category)
+03_presets,qc-117.txt,completed,completed,,available preset (one per category)
+03_presets,qc-132.txt,completed,completed,,available preset (one per category)
+03_presets,qc-154.txt,completed,completed,,available preset (one per category)
+03_presets,qc-168.txt,completed,completed,,available preset (one per category)
+03_presets,qc-180.txt,completed,completed,,available preset (one per category)
+03_presets,qc-190.txt,completed,completed,,available preset (one per category)
+03_presets,qc-200.txt,completed,completed,,available preset (one per category)
+03_presets,qc-212.txt,completed,completed,,available preset (one per category)
+03_presets,qc-220.txt,completed,completed,,available preset (one per category)
+03_presets,qc-228.txt,completed,completed,,available preset (one per category)
+03_presets,qc-241.txt,completed,completed,,available preset (one per category)
+03_presets,zz_presets.csv,completed,completed,,two presets in one command CSV
+04a_1_file,*,completed,completed,,1 supported files (limit 128)
+04b_64_files,*,completed,completed,,64 supported files (limit 128)
+04c_127_files,*,completed,completed,,127 supported files (limit 128)
+04d_128_files,*,completed,completed,,128 supported files (limit 128)
+04e_129_files_REJECT,*,rejected at q.folder run,not started,Folder mode supports at most 128 input files per job.,the 129th supported file fails enumeration; nothing runs
+04f_128_files_x_120_cmds_HEAVY,*,completed,completed,,15360 commands; 128 x 128 is unreachable because 128-command files hit the 32 MiB report cap (see 05c2); slow (tens of minutes)
+05a_size_4MiB_exact,exact_4194304.txt,completed,completed,,exactly 4 MiB is allowed (rejects only > 4194304)
+05b_size_4MiB_plus1_REJECT,over_4194305.txt,failed,failed,Folder files are limited to 4 MiB each; use bounded batches for larger inputs.,one byte over the per-file cap
+05c_120_commands,c120.txt,completed,completed,,120 commands: under the parser cap (128) and under the 32 MiB combined per-file report cap
+05c2_128_commands_REPORT_CAP,c128.txt,completed,completed,,3.1.x streams combined reports (fixed since 3.0.5): all 128 commands complete
+05d_129_commands_REJECT,c129.txt,failed,failed,Input sequences contain 1..128 commands.,one command over the per-file cap
+05e_command_4096_chars,len4096.txt,completed,completed,,command of exactly 4096 characters
+05f_command_4097_chars_REJECT,len4097.txt,failed,failed,Each sequence entry is one bounded terminal command.,command one character over 4096
+05g_angle_1e12,angle_ok.json,completed,completed,,gate angle exactly 1e12 rad (rejects only |a| > 1e12)
+05h_angle_over_REJECT,angle_over.json,failed,failed,Gate angle exceeds +/-1e12 radians.,gate angle above the circuit-file bound
+06a_bom_crlf,bom.json,completed,completed,,BOM stripped; CRLF / CR line endings accepted
+06a_bom_crlf,bom_crlf.txt,completed,completed,,BOM stripped; CRLF / CR line endings accepted
+06a_bom_crlf,cr_only.csv,completed,completed,,BOM stripped; CRLF / CR line endings accepted
+06b_unicode_and_space_names,café ünïcødé.txt,completed,completed,,non-ASCII / space filename
+06b_unicode_and_space_names,space in name.txt,completed,completed,,non-ASCII / space filename
+06b_unicode_and_space_names,日本語ファイル.txt,completed,completed,,non-ASCII / space filename
+06b_unicode_and_space_names,emoji 🧪.txt,completed,completed,,non-ASCII / space filename
+06c_ordinal_sort,10_ten.txt,completed,completed,run order index 0,StringComparer.Ordinal over full paths: digits < UPPER < _ < lower < ~
+06c_ordinal_sort,2_two.txt,completed,completed,run order index 1,StringComparer.Ordinal over full paths: digits < UPPER < _ < lower < ~
+06c_ordinal_sort,B_upper.txt,completed,completed,run order index 2,StringComparer.Ordinal over full paths: digits < UPPER < _ < lower < ~
+06c_ordinal_sort,Zed.txt,completed,completed,run order index 3,StringComparer.Ordinal over full paths: digits < UPPER < _ < lower < ~
+06c_ordinal_sort,_underscore.txt,completed,completed,run order index 4,StringComparer.Ordinal over full paths: digits < UPPER < _ < lower < ~
+06c_ordinal_sort,a_lower.txt,completed,completed,run order index 5,StringComparer.Ordinal over full paths: digits < UPPER < _ < lower < ~
+06c_ordinal_sort,~tilde.txt,completed,completed,run order index 6,StringComparer.Ordinal over full paths: digits < UPPER < _ < lower < ~
+06d_comments_headings_blanks,markdown_style.txt,completed,completed,,"#, //, indented headings, tabs and blank lines skipped; 2 trimmed commands run"
+06e_decoys_skipped,notes.md,completed,skipped (not enumerated),,unsupported extension; 3.1.2 lists it in job.skippedFiles
+06e_decoys_skipped,report.docx,completed,skipped (not enumerated),,unsupported extension; 3.1.2 lists it in job.skippedFiles
+06e_decoys_skipped,image.png,completed,skipped (not enumerated),,unsupported extension; 3.1.2 lists it in job.skippedFiles
+06e_decoys_skipped,prog.qasm2,completed,completed,,3.1.2 folder runs accept .qasm2 and .circuit (parser already supported them)
+06e_decoys_skipped,prog.circuit,completed,completed,,3.1.2 folder runs accept .qasm2 and .circuit (parser already supported them)
+06e_decoys_skipped,no_extension,completed,skipped (not enumerated),,unsupported extension; 3.1.2 lists it in job.skippedFiles
+06e_decoys_skipped,fake.txt.md,completed,skipped (not enumerated),,unsupported extension; 3.1.2 lists it in job.skippedFiles
+06e_decoys_skipped,script.ps1,completed,skipped (not enumerated),,unsupported extension; 3.1.2 lists it in job.skippedFiles
+06e_decoys_skipped,data.tsv,completed,skipped (not enumerated),,unsupported extension; 3.1.2 lists it in job.skippedFiles
+06e_decoys_skipped,real.txt,completed,completed,,supported file
+06e_decoys_skipped,UPPER.TXT,completed,completed,,extension check is case-insensitive
+06f_same_stem_mixed,bell.csv,completed,completed,,"same stem, different supported extensions all run in ordinal order"
+06f_same_stem_mixed,bell.json,completed,completed,,"same stem, different supported extensions all run in ordinal order"
+06f_same_stem_mixed,bell.qasm,completed,completed,,"same stem, different supported extensions all run in ordinal order"
+06f_same_stem_mixed,bell.txt,completed,completed,,"same stem, different supported extensions all run in ordinal order"
+07a_prose_line,prose.txt,failed,failed,"Input sequences accept documented quantum commands only; shell, file-management and nested folder/input commands are refused.",prose lines become commands in a .txt sequence and are refused
+07b_code_fence,fence.txt,failed,failed,"Input sequences accept documented quantum commands only; shell, file-management and nested folder/input commands are refused.",``` fence lines are not skipped
+07c_unknown_command,unknown.txt,failed,failed,Unknown circuit action.,unknown q.circuit subcommand (fails when the command executes)
+07d_unquoted_semicolon,semicolon.txt,failed,failed,Submit ordinary commands as an array; unquoted macro separators are unsupported.,unquoted ; is refused
+07e_qc198_unavailable,qc198.txt,failed,failed,Preset unavailable:,qc-198 needs a Clifford+T synthesis backend
+07f_nested_folder,nested.txt,failed,failed,"Input sequences accept documented quantum commands only; shell, file-management and nested folder/input commands are refused.",q.folder inside an input sequence is refused
+07g_nested_input,nested_input.csv,failed,failed,"Input sequences accept documented quantum commands only; shell, file-management and nested folder/input commands are refused.",q.input inside an input sequence is refused
+07h_delete_refused,delete.txt,failed,failed,Input sequences do not delete/reset existing user state.,delete/reset second word refused
+07i_invalid_utf8,bad_utf8.txt,failed,failed,Unable to translate bytes [FF] at index 44 from specified code page to Unicode.,strict UTF-8 decoding throws (.NET message)
+07j_empty_file,empty.txt,failed,failed,Text input is empty: every line is blank or a # or // comment.,3.1.2 explains an empty .txt instead of the text-circuit error
+07k_json_bad_field,bad_field.json,failed,failed,Unsupported JSON circuit field: colour,unknown JSON circuit key
+07l_qasm_no_header,noheader.qasm,failed,failed,Require OPENQASM 2.0 header.,QASM must start with OPENQASM 2.0
+07m_pdf_untagged,untagged.pdf,failed,failed,No explicit quantum program found.,PDF with neither an embedded program nor SPINDOCTOR-*-BEGIN/END tags
+07n_csv_parameter_table,params.csv,failed,failed,A parameter CSV needs an explicit base circuit.,parameter CSVs are not runnable in folder mode
+07o_no_supported_files,*,rejected at q.folder run,not started,No supported JSON/QASM/QASM2/TXT/CIRCUIT/CSV/PDF input files were found (2 unsupported file(s) skipped,3.1.2 names the skipped files
+07p_good_good_BAD_good,1_good.txt,failed,completed,,runs before the bad file
+07p_good_good_BAD_good,2_good.csv,failed,completed,,runs before the bad file
+07p_good_good_BAD_good,3_BAD.txt,failed,failed,"Input sequences accept documented quantum commands only; shell, file-management and nested folder/input commands are refused.",first failure aborts the job
+07p_good_good_BAD_good,4_good.txt,failed,not attempted,,never reached (abort on first failure)
+08_cancel_long_running,*,cancelled (after q.folder cancel),completed / cancelled / not attempted,Folder job cancelled; original files and completed native reports are retained.,send q.folder cancel while it runs
