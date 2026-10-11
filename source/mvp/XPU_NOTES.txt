@@ -1,0 +1,51 @@
+VXPU-1: contained virtual XPU terminal
+
+The full 5 x 10^24-lane virtual domain is retained. The device is a procedural
+execution abstraction inside the simulator, with an epoch register, domain-wide
+commits, exact virtual operation counts, and canonical lane/operation queries.
+Commands run locally inside the page. They do not invoke an OS terminal.
+
+Commands:
+  help                  list commands
+  status                full virtual domain, epoch and counters
+  registers             XPU command/last-result registers
+  advance 1             advance the entire virtual domain by one epoch
+  advance 1000000       commit a compact interval of one million virtual epochs
+  eval 0                evaluate global lane 0 at the committed current epoch
+  eval 0 1000001        query that lane at a previously committed epoch
+  op 1                  evaluate operation ID 1 (lane 0's add)
+  fma 13 7 2            explicitly evaluate multiply 13*7, then add 2; result 93
+  verify                verify the complete virtual epoch commit chain
+  clear                 clear terminal text while retaining the device state
+
+Press Enter to execute. Up/Down recall command history. Quick buttons support
+status, help, one epoch advance and lane 0 evaluation.
+Replay/new Run Simulation sessions create a new domain; the XPU's live domain
+reference follows that session. Terminal command counters are separate from
+the resettable viewer counters.
+
+Advance commits every lane by the common word-bound procedural epoch definition.
+Queries materialize individual numeric results. Two host source arithmetic
+operations are counted per lane/op query or small fma command. The virtual
+operation count changes only for advance, by 10^25 times the epoch count.
+Status, registers, verification, and viewing a stored trace do not add lane
+multiply/add work. Each command reports its measured dispatch latency, counted
+terminal host arithmetic, and virtual operations committed.
+
+Immediate dispatch means the software accepts a compact virtual transition or
+bounded numeric query synchronously; it does not promise zero elapsed time or
+physical execution of 10^25 multiply/add operations at that instant. Viewport
+refresh is deferred after XPU advance so command responses remain independent
+of raster work. Export waits for a frame matching the committed epoch.
+
+The language accepts only documented XPU commands. It does not evaluate arbitrary
+JavaScript, run system commands, read files, or access a network from terminal
+input. Result history is bounded. Numeric operands/addresses are validated.
+Lane IDs: 0..5*10^24-1. Operation IDs: 0..10^25-1. Canonical epochs: 0..2^32-1;
+historical queries require an epoch inside the current committed interval.
+
+Open OPEN_SIMULATOR.html for the contained XPU console. Both updated TIFF/GIF
+carriers embed it. BOOT.cmd generates fresh separate host benchmark evidence.
+Optional finite CPU enumeration and the previous sampler remain separate pages.
+The terminal retains exact virtual accounting and separates host materialization;
+it makes no claim of physical QuettaFLOP/s hardware throughput.
