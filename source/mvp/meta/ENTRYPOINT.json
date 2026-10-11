@@ -1,0 +1,38 @@
+{
+  "schema": "LUNAR127/HOLOGRAM-CONTAINED-MVP/1",
+  "release": "3.1.2",
+  "entrypoint": "mvp/RUN_SPINDOCTOR.cmd",
+  "carrierFormat": "TIFF-GIF-HOLO/4",
+  "externalBootstrapAllowlist": [
+    "BOOT.cmd",
+    "harness/TIFFGifHoloHarness.cs"
+  ],
+  "externalBootstrapRole": "duplicate reader keys only; byte content also embedded at mvp/bootstrap/",
+  "authoritativeFilesystemPrefix": "mvp/",
+  "runtimeMaterialization": "temporary verified projection only",
+  "parentRelease": "SpinDoctor 3.1.1-candidate",
+  "representedComputeBoundary": "Procedural independent single-qubit family; one selected coherent register of 1..298 logical qubits, with at most 59 qubits in any joint coherent factor. Global indices are BigInteger. Small circuits retain shot replay; wide circuits prepare once and sample joint factors in Z. Family descriptors, logical gate calls, amplitude work and CPU/GPU comparisons have separate counters. No physical quantum gate throughput claim.",
+  "runSession": "Family seeds/counters persist in the existing mutable workspace. Selected tranche seeds, snapshots, hash-bound binary state and replay journal persist separately. Verification samples stream without an arbitrary total cap.",
+  "product": "SpinDoctor",
+  "presetCount": 241,
+  "requiredFiles": [
+    "mvp/quantum/QuantumCore.cs",
+    "mvp/quantum/QuantumTerminal.cs",
+    "mvp/quantum/SpinDoctorAdvanced.cs",
+    "mvp/quantum/SpinDoctorCalculators.cs",
+    "mvp/quantum/SpinDoctorCircuits.cs",
+    "mvp/quantum/SpinDoctorCommandReports.cs",
+    "mvp/quantum/SpinDoctorInputs.cs",
+    "mvp/quantum/SpinDoctorPdfInputs.cs",
+    "mvp/quantum/SpinDoctorReports.cs",
+    "mvp/quantum/SpinDoctorSequences.cs",
+    "mvp/quantum/SpinDoctorSyntax.cs",
+    "mvp/quantum/SpinDoctorTrancheTerminal.cs",
+    "mvp/quantum/SpinDoctorTranches.cs",
+    "mvp/SpinDoctor.html",
+    "mvp/QUANTUM_TERMINAL.html",
+    "mvp/RUN_SPINDOCTOR.cmd",
+    "mvp/RUN_QUANTUM_XPU.cmd"
+  ],
+  "updateId": "3.1.2-298-20261010"
+}
