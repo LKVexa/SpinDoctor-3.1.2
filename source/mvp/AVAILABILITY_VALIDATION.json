@@ -1,0 +1,29 @@
+{
+  "schema": "LUNAR127/AVAILABILITY-VALIDATION/1",
+  "release": "0.5.0",
+  "referenceVerifier": {
+    "result": "PASS",
+    "depth": 1000000,
+    "carrierAnchor": "PASS",
+    "rangeChallenges": 3,
+    "fullCheckpoints": 2,
+    "chainCheckpoints": 2
+  },
+  "javascriptKernelValidation": {
+    "runtime": "Node.js v22.16.0 sandbox emulating the browser worker algorithm",
+    "targetEpochs": 10000000,
+    "elapsedMs": 255.89145799999997,
+    "transitionsPerSecond": 39079069.22004408,
+    "mhz": 39.079069220044076,
+    "representedGBps": 10244.343521619234,
+    "payloadGBps": 10234.339279898903,
+    "materializedBytes": 1097728,
+    "materializedMBps": 4.2898188496780545,
+    "availabilityExpansion": 2388059.7014925373,
+    "proofPass": 21,
+    "proofTotal": 21,
+    "overallPass": true,
+    "note": "This is implementation validation in the packaging sandbox, not a measurement of the user's laptop and not a physical I/O claim."
+  },
+  "claimBoundary": "The benchmark validates the AVK-1 logical/reconstructable-state model. It does not establish 10+ TB/s physical RAM, storage, network, optical throughput, or new-information entropy."
+}
