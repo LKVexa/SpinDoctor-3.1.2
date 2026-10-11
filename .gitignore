@@ -1,0 +1,43 @@
+# SpinDoctor run-time state (created by BOOT.cmd)
+SpinDoctor/workspace/
+workspace/
+**/session/
+**/scratch/
+quantum-session.lock
+
+# Carriers and release archives (binary; distributed as release assets)
+SpinDoctor/cartridge/
+*.tiff
+*.tif
+*.gif
+*.zip
+*.btf
+*.brw
+*.brimg
+*.uwabundle
+*.bin
+
+# Generated reports and documents
+Reports/*
+!Reports/README.txt
+!Reports/Inputs/
+*.pdf
+
+# Build outputs
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+
+# Python / Node caches
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+
+# Logs and OS files
+*.log
+Thumbs.db
+desktop.ini
+.DS_Store
