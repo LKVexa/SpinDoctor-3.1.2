@@ -1,0 +1,15 @@
+[TIFF-GIF-HOLO] Process start: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File <WORK>\2026-10-10\can\work\spindoctor-3.1.1\release-tools\materialize_test.ps1 -Tree <WORK>\2026-10-10\can\work\spindoctor-3.1.1\source -Carrier <WORK>\2026-10-10\can\work\spindoctor-3.1.1\carriers-3.1.1-final-1791659607576395800\SpinDoctor-3.1.1.gif -Scratch <WORK>\2026-10-10\can\work\spindoctor-3.1.1\validation\carrier-3.1.1-1791659607576395800\materialize-gif
+PASS MVP-MATERIALIZE
+mount=<WORK>\2026-10-10\can\work\spindoctor-3.1.1\validation\carrier-3.1.1-1791659607576395800\materialize-gif\projection
+[TIFF-GIF-HOLO] Process start: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File <WORK>\2026-10-10\can\work\spindoctor-3.1.1\release-tools\materialize_test.ps1 -Tree <WORK>\2026-10-10\can\work\spindoctor-3.1.1\source -Carrier <WORK>\2026-10-10\can\work\spindoctor-3.1.1\carriers-3.1.1-final-1791659607576395800\SpinDoctor-3.1.1.gif -Scratch <WORK>\2026-10-10\can\work\spindoctor-3.1.1\validation\carrier-3.1.1-1791659607576395800\materialize-gif
+PASS MVP-MATERIALIZE
+mount=<WORK>\2026-10-10\can\work\spindoctor-3.1.1\validation\carrier-3.1.1-1791659607576395800\materialize-gif\projection
+{
+    "status":  "PASS",
+    "materializedSourceFiles":  289,
+    "immutableProjectionHashMatch":  true,
+    "repeatedBootPreservesUnlistedMutableFiles":  true,
+    "carrier":  "<WORK>\\2026-10-10\\can\\work\\spindoctor-3.1.1\\carriers-3.1.1-final-1791659607576395800\\SpinDoctor-3.1.1.gif",
+    "scratch":  "<WORK>\\2026-10-10\\can\\work\\spindoctor-3.1.1\\validation\\carrier-3.1.1-1791659607576395800\\materialize-gif"
+}
+
