@@ -43,3 +43,27 @@ Fix (test code only; no production source changed): `validation/release-tools/te
 
 `BOOT.cmd` needs the binary carriers `cartridge/SpinDoctor-3.1.2.tiff/.gif`, which are not stored in git. The interactive
 browser terminal therefore runs from the release package; the carrier smoke above covers that path without opening the UI.
+
+## 2. Post-push run: fresh download of `main` from GitHub (2026-10-10, 8:27–8:31 PM PT)
+
+`main` of LKVexa/SpinDoctor-3.1.2 at commit `97722b9188e68047d7d426d21305911eff53078a` was downloaded as
+`https://github.com/LKVexa/SpinDoctor-3.1.2/archive/refs/heads/main.zip` (2,999,717 bytes) into a new, empty folder and
+extracted (415 files: the 414 published files plus the author's own upload `SpinDoctor_3.1.2_Command_Language_Guide.pdf`).
+The `.gitattributes` rules restored CRLF line endings for `.cmd` scripts (`SpinDoctor/BOOT.cmd` checked).
+
+Tree check before the run: all 413 planned files and `E2E_RESULTS.md` are on `main`, and every blob matches the staged copy.
+GitHub stores text with LF line endings, and nine UTF-8 files lost their byte-order mark on upload. Neither changes their content.
+
+| Step | Command | Result |
+|---|---|---|
+| Build engine | `csc /t:library /optimize+ ... QuantumCore.cs ... QuantumTerminal.cs` | PASS, exit 0 (SpinDoctorEngine.dll 814,080 bytes, identical size to pre-publish) |
+| Build harness | `csc /t:library ... SpinDoctor\harness\TIFFGifHoloHarness.cs` | PASS, exit 0 (Harness.dll 92,672 bytes) |
+| Build TenQ kernel | `csc /t:library ... source\mvp\runtime\TenQKernel.cs` | PASS, exit 0 (TenQKernel.dll 29,184 bytes) |
+| 3.1.2 regressions | `v312_regressions.ps1` | PASS, 16 assertions |
+| Engine regressions | `engine_regressions.ps1` (with the mcx7 test fix) | PASS, 13 groups, 46,960 assertions |
+| Detailed report + PDF checks | `detailed_report_regressions.ps1 -PdfChecks` | PASS, 194 cumulative assertions |
+| Presets, one per category (17) | `run_presets.ps1 -IdList qc-001,qc-010,qc-022,qc-062,qc-097,qc-117,qc-132,qc-154,qc-168,qc-180,qc-190,qc-200,qc-212,qc-220,qc-228,qc-238,qc-241` | 17/17 ok, phase=completed (qc-238 35 steps, 14.8 s) |
+| Preset reports | TXT + PDF per preset and per step | 121 TXT (none empty), 104 PDF, 0 invalid |
+| Small `q.folder run` | `validation/3.1.2/handguide-inputs` | phase=completed, 7 files run, 1 skipped (notes.md, expected); TXT 103,959 chars, PDF 549,692 bytes, valid |
+
+Result: the published repository builds and passes the same suites as the pre-publish copy. No failures.
