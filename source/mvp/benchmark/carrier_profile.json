@@ -1,0 +1,64 @@
+{
+  "schema": "LUNAR127/PERFORMANCE-PROFILE/1",
+  "release": "0.4.0",
+  "carrierFormat": "TIFF-GIF-HOLO/4",
+  "sourceBuild": "Lunar127 Showcase 0.3.1 Hotfix 4",
+  "page": {
+    "width": 512,
+    "height": 512,
+    "bitsPerSymbol": 8,
+    "symbolsPerPage": 262144,
+    "headerBytes": 256,
+    "payloadCapacityBytes": 261888,
+    "headerOverheadPercent": 0.09765625
+  },
+  "currentArchive": {
+    "archiveBytes": 1982196,
+    "dataPages": 8,
+    "payloadUtilizationPercent": 94.61086418621701,
+    "gif": {
+      "filename": "Lunar127_Showcase_0.3.1_PROCESSABLE.gif",
+      "containerBytes": 2678940,
+      "frameCount": 9,
+      "dataPageCount": 8,
+      "pageSizePx": 512,
+      "archiveBytes": 1982196,
+      "payloadBytesByPage": [
+        261888,
+        261888,
+        261888,
+        261888,
+        261888,
+        261888,
+        261888,
+        148980
+      ],
+      "tick": 0
+    },
+    "tiff": {
+      "filename": "Lunar127_Showcase_0.3.1_PROCESSABLE.tiff",
+      "containerBytes": 2825984,
+      "frameCount": 9,
+      "dataPageCount": 8,
+      "pageSizePx": 512,
+      "archiveBytes": 1982196,
+      "payloadBytesByPage": [
+        261888,
+        261888,
+        261888,
+        261888,
+        261888,
+        261888,
+        261888,
+        148980
+      ],
+      "tick": 0
+    }
+  },
+  "modelBoundary": {
+    "frequencyDefinition": "processable data pages per second",
+    "oneMHzPagesPerSecond": 1000000,
+    "dashboardModelCeilingHz": 1000000000,
+    "note": "Modeled transport/processing demand. It is not a measured claim that the supplied Windows/.NET evaluator, storage system, display hardware, or optical system can physically sustain these rates."
+  }
+}
