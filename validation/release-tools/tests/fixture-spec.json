@@ -1,0 +1,1137 @@
+[
+  {
+    "name": "001-unit-norm.md",
+    "title": "Unit norm",
+    "commands": [
+      "q.math norm amplitudes=[1,0]"
+    ],
+    "expected": [
+      {
+        "normSquared": 1,
+        "norm": 1,
+        "normalized": true
+      }
+    ]
+  },
+  {
+    "name": "002-unnormalized-vector.md",
+    "title": "Unnormalized vector",
+    "commands": [
+      "q.math norm amplitudes=[3,4]"
+    ],
+    "expected": [
+      {
+        "normSquared": 25,
+        "norm": 5,
+        "normalized": false
+      }
+    ]
+  },
+  {
+    "name": "003-normalization.md",
+    "title": "Normalization",
+    "commands": [
+      "q.math normalize amplitudes=[3,4]"
+    ],
+    "expected": [
+      {
+        "amplitudes": [
+          [
+            0.6,
+            0
+          ],
+          [
+            0.8,
+            0
+          ]
+        ],
+        "originalNormSquared": 25
+      }
+    ]
+  },
+  {
+    "name": "004-basis-probabilities.md",
+    "title": "Basis probabilities",
+    "commands": [
+      "q.math probabilities amplitudes=[0,1]"
+    ],
+    "expected": [
+      {
+        "probabilities": [
+          0,
+          1
+        ],
+        "sum": 1
+      }
+    ]
+  },
+  {
+    "name": "005-superposition.md",
+    "title": "Equal superposition",
+    "commands": [
+      "q.math probabilities amplitudes=[1/sqrt(2),1/sqrt(2)]",
+      "q.math bloch amplitudes=[1/sqrt(2),1/sqrt(2)]"
+    ],
+    "expected": [
+      {
+        "probabilities": [
+          0.5,
+          0.5
+        ],
+        "sum": 1
+      },
+      {
+        "bloch": [
+          1,
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "name": "006-complex-phase.md",
+    "title": "Complex phase",
+    "commands": [
+      "q.math probabilities amplitudes=[1/sqrt(2),i/sqrt(2)]",
+      "q.math bloch amplitudes=[1/sqrt(2),i/sqrt(2)]"
+    ],
+    "expected": [
+      {
+        "probabilities": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "bloch": [
+          0,
+          1,
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "name": "007-four-state-vector.md",
+    "title": "Four basis states",
+    "commands": [
+      "q.math probabilities amplitudes=[1/2,1/2,1/2,1/2]"
+    ],
+    "expected": [
+      {
+        "probabilities": [
+          0.25,
+          0.25,
+          0.25,
+          0.25
+        ]
+      }
+    ]
+  },
+  {
+    "name": "008-density-matrix.md",
+    "title": "Density matrix",
+    "commands": [
+      "q.math density amplitudes=[1/sqrt(2),1/sqrt(2)]"
+    ],
+    "expected": [
+      {
+        "rho": [
+          [
+            [
+              0.5,
+              0
+            ],
+            [
+              0.5,
+              0
+            ]
+          ],
+          [
+            [
+              0.5,
+              0
+            ],
+            [
+              0.5,
+              0
+            ]
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "name": "009-bloch-directions.md",
+    "title": "Bloch directions",
+    "commands": [
+      "q.math bloch amplitudes=[1,0]",
+      "q.math bloch amplitudes=[0,1]"
+    ],
+    "expected": [
+      {
+        "bloch": [
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "bloch": [
+          0,
+          0,
+          -1
+        ]
+      }
+    ]
+  },
+  {
+    "name": "010-from-bloch.md",
+    "title": "Angles to amplitudes",
+    "commands": [
+      "q.math from-bloch theta=pi/2 phi=pi/2",
+      "q.math from-bloch theta=0 phi=0"
+    ],
+    "expected": [
+      {
+        "bloch": [
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "bloch": [
+          0,
+          0,
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "name": "011-validate-bloch.md",
+    "title": "Bloch validity",
+    "commands": [
+      "q.math validate-bloch x=0 y=0 z=1",
+      "q.math validate-bloch x=0 y=0 z=0"
+    ],
+    "expected": [
+      {
+        "valid": true,
+        "pure": true
+      },
+      {
+        "valid": true,
+        "pure": false
+      }
+    ]
+  },
+  {
+    "name": "012-purity.md",
+    "title": "Pure and mixed density matrices",
+    "commands": [
+      "q.math purity rho=[[1,0],[0,0]]",
+      "q.math purity rho=[[0.5,0],[0,0.5]]"
+    ],
+    "expected": [
+      {
+        "purity": 1
+      },
+      {
+        "purity": 0.5
+      }
+    ]
+  },
+  {
+    "name": "013-entropy.md",
+    "title": "Entropy in bits",
+    "commands": [
+      "q.math entropy rho=[[1,0],[0,0]] base=2",
+      "q.math entropy rho=[[0.5,0],[0,0.5]] base=2"
+    ],
+    "expected": [
+      {
+        "entropy": 0
+      },
+      {
+        "entropy": 1
+      }
+    ]
+  },
+  {
+    "name": "014-fidelity.md",
+    "title": "State fidelity",
+    "commands": [
+      "q.math fidelity a=[1,0] b=[1,0] convention=squared",
+      "q.math fidelity a=[1,0] b=[0,1] convention=squared"
+    ],
+    "expected": [
+      {
+        "fidelity": 1
+      },
+      {
+        "fidelity": 0
+      }
+    ]
+  },
+  {
+    "name": "015-overlap.md",
+    "title": "State overlap",
+    "commands": [
+      "q.math overlap a=[1,0] b=[0,1]",
+      "q.math overlap a=[1/sqrt(2),1/sqrt(2)] b=[1/sqrt(2),-1/sqrt(2)]"
+    ],
+    "expected": [
+      {
+        "overlap": [
+          0,
+          0
+        ]
+      },
+      {
+        "overlap": [
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "name": "016-trace-distance.md",
+    "title": "Orthogonal state distance",
+    "commands": [
+      "q.math trace-distance rho=[[1,0],[0,0]] sigma=[[0,0],[0,1]]"
+    ],
+    "expected": [
+      {
+        "traceDistance": 1
+      }
+    ]
+  },
+  {
+    "name": "017-unitary-matrices.md",
+    "title": "Unitary matrices",
+    "commands": [
+      "q.math unitary matrix=[[0,1],[1,0]] tolerance=1e-12",
+      "q.math unitary matrix=[[1,0],[0,1]] tolerance=1e-12"
+    ],
+    "expected": [
+      {
+        "unitary": true
+      },
+      {
+        "unitary": true
+      }
+    ]
+  },
+  {
+    "name": "018-gate-matrices.md",
+    "title": "Small gate matrices",
+    "commands": [
+      "q.math gate-matrix gate=x",
+      "q.math gate-matrix gate=h",
+      "q.math gate-matrix gate=rz angles=[pi]"
+    ],
+    "expected": [
+      {
+        "unitarityError": 0
+      },
+      {
+        "unitarityError": 0
+      },
+      {
+        "unitarityError": 0
+      }
+    ]
+  },
+  {
+    "name": "019-expectation-values.md",
+    "title": "Z expectation",
+    "commands": [
+      "q.math expectation state=[1,0] operator=z",
+      "q.math expectation state=[0,1] operator=z"
+    ],
+    "expected": [
+      {
+        "expectation": 1
+      },
+      {
+        "expectation": -1
+      }
+    ]
+  },
+  {
+    "name": "020-resource-estimates.md",
+    "title": "Memory and sampling estimates",
+    "commands": [
+      "q.resource memory n=10 representation=statevector dtype=complex128 units=binary",
+      "q.resource factor-memory block-sizes=[2,3] dtype=complex128",
+      "q.resource sampling probability=0.5 shots=1024 metric=standard-error"
+    ],
+    "expected": [
+      {
+        "bytes": "16384",
+        "stateAllocations": 0
+      },
+      {
+        "bytes": "192",
+        "totalQubits": 5
+      },
+      {
+        "standardError": 0.015625
+      }
+    ]
+  },
+  {
+    "name": "021 Unicode café & phase (UTF-8).md",
+    "title": "Unicode text and filename",
+    "commands": [
+      "q.math norm amplitudes=[1,0]",
+      "q.math probabilities amplitudes=[1/sqrt(2),i/sqrt(2)]"
+    ],
+    "expected": [
+      {
+        "normSquared": 1
+      },
+      {
+        "probabilities": [
+          0.5,
+          0.5
+        ]
+      }
+    ],
+    "note": "UTF-8 check: café, naïve, résumé, “quoted text”, α β γ, 東京, 😀."
+  },
+  {
+    "name": "022-whitespace.CRLF.md",
+    "title": "Blank lines, indentation and CRLF",
+    "commands": [
+      "q.math norm amplitudes=[1,0]",
+      "q.math probabilities amplitudes=[0,1]",
+      "q.math purity rho=[[0.5,0],[0,0.5]]"
+    ],
+    "expected": [
+      {
+        "normSquared": 1
+      },
+      {
+        "probabilities": [
+          0,
+          1
+        ]
+      },
+      {
+        "purity": 0.5
+      }
+    ],
+    "lineEnding": "CRLF",
+    "whitespace": true
+  },
+  {
+    "name": "023-large-comment-file.md",
+    "title": "Large file with bounded command work",
+    "commands": [
+      "q.math norm amplitudes=[1,0]",
+      "q.math probabilities amplitudes=[1/2,1/2,1/2,1/2]",
+      "q.math fidelity a=[1,0] b=[1,0] convention=squared",
+      "q.math norm amplitudes=[5,12]"
+    ],
+    "expected": [
+      {
+        "normSquared": 1
+      },
+      {
+        "probabilities": [
+          0.25,
+          0.25,
+          0.25,
+          0.25
+        ]
+      },
+      {
+        "fidelity": 1
+      },
+      {
+        "normSquared": 169,
+        "norm": 13
+      }
+    ],
+    "paddingLines": 3000
+  },
+  {
+    "name": "024-boundary-128-commands.md",
+    "title": "Exactly 128 commands",
+    "commands": [
+      "q.math norm amplitudes=[1,0]",
+      "q.math norm amplitudes=[2,0]",
+      "q.math norm amplitudes=[3,0]",
+      "q.math norm amplitudes=[4,0]",
+      "q.math norm amplitudes=[5,0]",
+      "q.math norm amplitudes=[6,0]",
+      "q.math norm amplitudes=[7,0]",
+      "q.math norm amplitudes=[8,0]",
+      "q.math norm amplitudes=[9,0]",
+      "q.math norm amplitudes=[10,0]",
+      "q.math norm amplitudes=[11,0]",
+      "q.math norm amplitudes=[12,0]",
+      "q.math norm amplitudes=[13,0]",
+      "q.math norm amplitudes=[14,0]",
+      "q.math norm amplitudes=[15,0]",
+      "q.math norm amplitudes=[16,0]",
+      "q.math norm amplitudes=[17,0]",
+      "q.math norm amplitudes=[18,0]",
+      "q.math norm amplitudes=[19,0]",
+      "q.math norm amplitudes=[20,0]",
+      "q.math norm amplitudes=[21,0]",
+      "q.math norm amplitudes=[22,0]",
+      "q.math norm amplitudes=[23,0]",
+      "q.math norm amplitudes=[24,0]",
+      "q.math norm amplitudes=[25,0]",
+      "q.math norm amplitudes=[26,0]",
+      "q.math norm amplitudes=[27,0]",
+      "q.math norm amplitudes=[28,0]",
+      "q.math norm amplitudes=[29,0]",
+      "q.math norm amplitudes=[30,0]",
+      "q.math norm amplitudes=[31,0]",
+      "q.math norm amplitudes=[32,0]",
+      "q.math norm amplitudes=[33,0]",
+      "q.math norm amplitudes=[34,0]",
+      "q.math norm amplitudes=[35,0]",
+      "q.math norm amplitudes=[36,0]",
+      "q.math norm amplitudes=[37,0]",
+      "q.math norm amplitudes=[38,0]",
+      "q.math norm amplitudes=[39,0]",
+      "q.math norm amplitudes=[40,0]",
+      "q.math norm amplitudes=[41,0]",
+      "q.math norm amplitudes=[42,0]",
+      "q.math norm amplitudes=[43,0]",
+      "q.math norm amplitudes=[44,0]",
+      "q.math norm amplitudes=[45,0]",
+      "q.math norm amplitudes=[46,0]",
+      "q.math norm amplitudes=[47,0]",
+      "q.math norm amplitudes=[48,0]",
+      "q.math norm amplitudes=[49,0]",
+      "q.math norm amplitudes=[50,0]",
+      "q.math norm amplitudes=[51,0]",
+      "q.math norm amplitudes=[52,0]",
+      "q.math norm amplitudes=[53,0]",
+      "q.math norm amplitudes=[54,0]",
+      "q.math norm amplitudes=[55,0]",
+      "q.math norm amplitudes=[56,0]",
+      "q.math norm amplitudes=[57,0]",
+      "q.math norm amplitudes=[58,0]",
+      "q.math norm amplitudes=[59,0]",
+      "q.math norm amplitudes=[60,0]",
+      "q.math norm amplitudes=[61,0]",
+      "q.math norm amplitudes=[62,0]",
+      "q.math norm amplitudes=[63,0]",
+      "q.math norm amplitudes=[64,0]",
+      "q.math norm amplitudes=[65,0]",
+      "q.math norm amplitudes=[66,0]",
+      "q.math norm amplitudes=[67,0]",
+      "q.math norm amplitudes=[68,0]",
+      "q.math norm amplitudes=[69,0]",
+      "q.math norm amplitudes=[70,0]",
+      "q.math norm amplitudes=[71,0]",
+      "q.math norm amplitudes=[72,0]",
+      "q.math norm amplitudes=[73,0]",
+      "q.math norm amplitudes=[74,0]",
+      "q.math norm amplitudes=[75,0]",
+      "q.math norm amplitudes=[76,0]",
+      "q.math norm amplitudes=[77,0]",
+      "q.math norm amplitudes=[78,0]",
+      "q.math norm amplitudes=[79,0]",
+      "q.math norm amplitudes=[80,0]",
+      "q.math norm amplitudes=[81,0]",
+      "q.math norm amplitudes=[82,0]",
+      "q.math norm amplitudes=[83,0]",
+      "q.math norm amplitudes=[84,0]",
+      "q.math norm amplitudes=[85,0]",
+      "q.math norm amplitudes=[86,0]",
+      "q.math norm amplitudes=[87,0]",
+      "q.math norm amplitudes=[88,0]",
+      "q.math norm amplitudes=[89,0]",
+      "q.math norm amplitudes=[90,0]",
+      "q.math norm amplitudes=[91,0]",
+      "q.math norm amplitudes=[92,0]",
+      "q.math norm amplitudes=[93,0]",
+      "q.math norm amplitudes=[94,0]",
+      "q.math norm amplitudes=[95,0]",
+      "q.math norm amplitudes=[96,0]",
+      "q.math norm amplitudes=[97,0]",
+      "q.math norm amplitudes=[98,0]",
+      "q.math norm amplitudes=[99,0]",
+      "q.math norm amplitudes=[100,0]",
+      "q.math norm amplitudes=[101,0]",
+      "q.math norm amplitudes=[102,0]",
+      "q.math norm amplitudes=[103,0]",
+      "q.math norm amplitudes=[104,0]",
+      "q.math norm amplitudes=[105,0]",
+      "q.math norm amplitudes=[106,0]",
+      "q.math norm amplitudes=[107,0]",
+      "q.math norm amplitudes=[108,0]",
+      "q.math norm amplitudes=[109,0]",
+      "q.math norm amplitudes=[110,0]",
+      "q.math norm amplitudes=[111,0]",
+      "q.math norm amplitudes=[112,0]",
+      "q.math norm amplitudes=[113,0]",
+      "q.math norm amplitudes=[114,0]",
+      "q.math norm amplitudes=[115,0]",
+      "q.math norm amplitudes=[116,0]",
+      "q.math norm amplitudes=[117,0]",
+      "q.math norm amplitudes=[118,0]",
+      "q.math norm amplitudes=[119,0]",
+      "q.math norm amplitudes=[120,0]",
+      "q.math norm amplitudes=[121,0]",
+      "q.math norm amplitudes=[122,0]",
+      "q.math norm amplitudes=[123,0]",
+      "q.math norm amplitudes=[124,0]",
+      "q.math norm amplitudes=[125,0]",
+      "q.math norm amplitudes=[126,0]",
+      "q.math norm amplitudes=[127,0]",
+      "q.math norm amplitudes=[5,12]"
+    ],
+    "expected": [
+      {
+        "normSquared": 1,
+        "norm": 1
+      },
+      {
+        "normSquared": 4,
+        "norm": 2
+      },
+      {
+        "normSquared": 9,
+        "norm": 3
+      },
+      {
+        "normSquared": 16,
+        "norm": 4
+      },
+      {
+        "normSquared": 25,
+        "norm": 5
+      },
+      {
+        "normSquared": 36,
+        "norm": 6
+      },
+      {
+        "normSquared": 49,
+        "norm": 7
+      },
+      {
+        "normSquared": 64,
+        "norm": 8
+      },
+      {
+        "normSquared": 81,
+        "norm": 9
+      },
+      {
+        "normSquared": 100,
+        "norm": 10
+      },
+      {
+        "normSquared": 121,
+        "norm": 11
+      },
+      {
+        "normSquared": 144,
+        "norm": 12
+      },
+      {
+        "normSquared": 169,
+        "norm": 13
+      },
+      {
+        "normSquared": 196,
+        "norm": 14
+      },
+      {
+        "normSquared": 225,
+        "norm": 15
+      },
+      {
+        "normSquared": 256,
+        "norm": 16
+      },
+      {
+        "normSquared": 289,
+        "norm": 17
+      },
+      {
+        "normSquared": 324,
+        "norm": 18
+      },
+      {
+        "normSquared": 361,
+        "norm": 19
+      },
+      {
+        "normSquared": 400,
+        "norm": 20
+      },
+      {
+        "normSquared": 441,
+        "norm": 21
+      },
+      {
+        "normSquared": 484,
+        "norm": 22
+      },
+      {
+        "normSquared": 529,
+        "norm": 23
+      },
+      {
+        "normSquared": 576,
+        "norm": 24
+      },
+      {
+        "normSquared": 625,
+        "norm": 25
+      },
+      {
+        "normSquared": 676,
+        "norm": 26
+      },
+      {
+        "normSquared": 729,
+        "norm": 27
+      },
+      {
+        "normSquared": 784,
+        "norm": 28
+      },
+      {
+        "normSquared": 841,
+        "norm": 29
+      },
+      {
+        "normSquared": 900,
+        "norm": 30
+      },
+      {
+        "normSquared": 961,
+        "norm": 31
+      },
+      {
+        "normSquared": 1024,
+        "norm": 32
+      },
+      {
+        "normSquared": 1089,
+        "norm": 33
+      },
+      {
+        "normSquared": 1156,
+        "norm": 34
+      },
+      {
+        "normSquared": 1225,
+        "norm": 35
+      },
+      {
+        "normSquared": 1296,
+        "norm": 36
+      },
+      {
+        "normSquared": 1369,
+        "norm": 37
+      },
+      {
+        "normSquared": 1444,
+        "norm": 38
+      },
+      {
+        "normSquared": 1521,
+        "norm": 39
+      },
+      {
+        "normSquared": 1600,
+        "norm": 40
+      },
+      {
+        "normSquared": 1681,
+        "norm": 41
+      },
+      {
+        "normSquared": 1764,
+        "norm": 42
+      },
+      {
+        "normSquared": 1849,
+        "norm": 43
+      },
+      {
+        "normSquared": 1936,
+        "norm": 44
+      },
+      {
+        "normSquared": 2025,
+        "norm": 45
+      },
+      {
+        "normSquared": 2116,
+        "norm": 46
+      },
+      {
+        "normSquared": 2209,
+        "norm": 47
+      },
+      {
+        "normSquared": 2304,
+        "norm": 48
+      },
+      {
+        "normSquared": 2401,
+        "norm": 49
+      },
+      {
+        "normSquared": 2500,
+        "norm": 50
+      },
+      {
+        "normSquared": 2601,
+        "norm": 51
+      },
+      {
+        "normSquared": 2704,
+        "norm": 52
+      },
+      {
+        "normSquared": 2809,
+        "norm": 53
+      },
+      {
+        "normSquared": 2916,
+        "norm": 54
+      },
+      {
+        "normSquared": 3025,
+        "norm": 55
+      },
+      {
+        "normSquared": 3136,
+        "norm": 56
+      },
+      {
+        "normSquared": 3249,
+        "norm": 57
+      },
+      {
+        "normSquared": 3364,
+        "norm": 58
+      },
+      {
+        "normSquared": 3481,
+        "norm": 59
+      },
+      {
+        "normSquared": 3600,
+        "norm": 60
+      },
+      {
+        "normSquared": 3721,
+        "norm": 61
+      },
+      {
+        "normSquared": 3844,
+        "norm": 62
+      },
+      {
+        "normSquared": 3969,
+        "norm": 63
+      },
+      {
+        "normSquared": 4096,
+        "norm": 64
+      },
+      {
+        "normSquared": 4225,
+        "norm": 65
+      },
+      {
+        "normSquared": 4356,
+        "norm": 66
+      },
+      {
+        "normSquared": 4489,
+        "norm": 67
+      },
+      {
+        "normSquared": 4624,
+        "norm": 68
+      },
+      {
+        "normSquared": 4761,
+        "norm": 69
+      },
+      {
+        "normSquared": 4900,
+        "norm": 70
+      },
+      {
+        "normSquared": 5041,
+        "norm": 71
+      },
+      {
+        "normSquared": 5184,
+        "norm": 72
+      },
+      {
+        "normSquared": 5329,
+        "norm": 73
+      },
+      {
+        "normSquared": 5476,
+        "norm": 74
+      },
+      {
+        "normSquared": 5625,
+        "norm": 75
+      },
+      {
+        "normSquared": 5776,
+        "norm": 76
+      },
+      {
+        "normSquared": 5929,
+        "norm": 77
+      },
+      {
+        "normSquared": 6084,
+        "norm": 78
+      },
+      {
+        "normSquared": 6241,
+        "norm": 79
+      },
+      {
+        "normSquared": 6400,
+        "norm": 80
+      },
+      {
+        "normSquared": 6561,
+        "norm": 81
+      },
+      {
+        "normSquared": 6724,
+        "norm": 82
+      },
+      {
+        "normSquared": 6889,
+        "norm": 83
+      },
+      {
+        "normSquared": 7056,
+        "norm": 84
+      },
+      {
+        "normSquared": 7225,
+        "norm": 85
+      },
+      {
+        "normSquared": 7396,
+        "norm": 86
+      },
+      {
+        "normSquared": 7569,
+        "norm": 87
+      },
+      {
+        "normSquared": 7744,
+        "norm": 88
+      },
+      {
+        "normSquared": 7921,
+        "norm": 89
+      },
+      {
+        "normSquared": 8100,
+        "norm": 90
+      },
+      {
+        "normSquared": 8281,
+        "norm": 91
+      },
+      {
+        "normSquared": 8464,
+        "norm": 92
+      },
+      {
+        "normSquared": 8649,
+        "norm": 93
+      },
+      {
+        "normSquared": 8836,
+        "norm": 94
+      },
+      {
+        "normSquared": 9025,
+        "norm": 95
+      },
+      {
+        "normSquared": 9216,
+        "norm": 96
+      },
+      {
+        "normSquared": 9409,
+        "norm": 97
+      },
+      {
+        "normSquared": 9604,
+        "norm": 98
+      },
+      {
+        "normSquared": 9801,
+        "norm": 99
+      },
+      {
+        "normSquared": 10000,
+        "norm": 100
+      },
+      {
+        "normSquared": 10201,
+        "norm": 101
+      },
+      {
+        "normSquared": 10404,
+        "norm": 102
+      },
+      {
+        "normSquared": 10609,
+        "norm": 103
+      },
+      {
+        "normSquared": 10816,
+        "norm": 104
+      },
+      {
+        "normSquared": 11025,
+        "norm": 105
+      },
+      {
+        "normSquared": 11236,
+        "norm": 106
+      },
+      {
+        "normSquared": 11449,
+        "norm": 107
+      },
+      {
+        "normSquared": 11664,
+        "norm": 108
+      },
+      {
+        "normSquared": 11881,
+        "norm": 109
+      },
+      {
+        "normSquared": 12100,
+        "norm": 110
+      },
+      {
+        "normSquared": 12321,
+        "norm": 111
+      },
+      {
+        "normSquared": 12544,
+        "norm": 112
+      },
+      {
+        "normSquared": 12769,
+        "norm": 113
+      },
+      {
+        "normSquared": 12996,
+        "norm": 114
+      },
+      {
+        "normSquared": 13225,
+        "norm": 115
+      },
+      {
+        "normSquared": 13456,
+        "norm": 116
+      },
+      {
+        "normSquared": 13689,
+        "norm": 117
+      },
+      {
+        "normSquared": 13924,
+        "norm": 118
+      },
+      {
+        "normSquared": 14161,
+        "norm": 119
+      },
+      {
+        "normSquared": 14400,
+        "norm": 120
+      },
+      {
+        "normSquared": 14641,
+        "norm": 121
+      },
+      {
+        "normSquared": 14884,
+        "norm": 122
+      },
+      {
+        "normSquared": 15129,
+        "norm": 123
+      },
+      {
+        "normSquared": 15376,
+        "norm": 124
+      },
+      {
+        "normSquared": 15625,
+        "norm": 125
+      },
+      {
+        "normSquared": 15876,
+        "norm": 126
+      },
+      {
+        "normSquared": 16129,
+        "norm": 127
+      },
+      {
+        "normSquared": 169,
+        "norm": 13
+      }
+    ]
+  },
+  {
+    "name": "nested-a/901-same-name.md",
+    "title": "Nested input at depth one",
+    "commands": [
+      "q.math norm amplitudes=[6,8]"
+    ],
+    "expected": [
+      {
+        "normSquared": 100
+      }
+    ],
+    "nested": true
+  },
+  {
+    "name": "nested-b/deeper/901-same-name.md",
+    "title": "Nested input at depth two",
+    "commands": [
+      "q.math norm amplitudes=[8,15]"
+    ],
+    "expected": [
+      {
+        "normSquared": 289
+      }
+    ],
+    "nested": true
+  }
+]
