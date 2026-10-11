@@ -1,0 +1,77 @@
+SPINDOCTOR 3.1.1 CANDIDATE
+
+CSV REPORT COMPANIONS
+Command, sequence, folder-file and visual reports now offer CSV alongside TXT
+and PDF. Automatic report downloads include a CSV companion and retry each
+format independently. Successful folder receipts retain the existing automatic
+procedural CPU/OpenCL GPU q.verify barrier before any format is released.
+CSV exports retain actual native data, identity, completion stage, provenance,
+coefficients, samples, counters, histograms and source hashes. Exporting does
+not perform more shots, gate calculations, data fits or verification.
+
+The report CSV is a typed long-form table: each native JSON-pointer path has
+its original value and type. Nested arrays keep their row/index paths. JSON
+string values remain quoted literals, avoiding spreadsheet formula execution
+while remaining reversible. Null, absent and exact zero values stay distinct.
+Full CSV/TXT/JSON retain counters even when Summary/Detailed PDFs compact an
+unused zero-only group. This report format is separate from CSV input tables.
+
+MEASUREMENT CSV TO AN EMPIRICAL EQUATION
+Upload a weather, gate or circuit measurement CSV, inspect its column summary,
+then choose a numeric target and predictor columns before fitting. q.input table ID previews the table.
+For example, q.input fit ID target=temperature features=[humidity,pressure]
+fits a linear equation to the selected measurements. Optional declared units
+are shown as supplied; no units are inferred from names or numbers.
+The report includes the equation, coefficients, selected columns, source hash,
+row coverage, residuals, fit statistics and actual observed/fitted graphs.
+The downloadable CSV includes the underlying native fit data.
+
+This is classical empirical least-squares fitting with numerical/rank checks.
+An in-sample fit is not a physical law, a causal explanation or a validated
+prediction on unseen data. Numeric gate angles, transformed angle columns,
+probabilities, circuit depths, noise levels and fidelities can be selected just
+like weather columns. The fit is unconstrained: physical probability/fidelity
+bounds and nonlinear gate laws are not inferred from column names.
+No circuit shots, procedural states or quantum gate credits are invented. Upload and table preview remain inert; fitting is explicit.
+Existing command-column CSVs and base-circuit parameter CSVs remain supported.
+See SpinDoctor-3.1.1-CSV-Input-Guide.txt and the included example inputs.
+
+CSV GATE LISTS AND CIRCUIT SIMULATION
+A separate gate-list CSV declares gate,n,targets,angles. Optional name,
+initialBasis,shots,basis columns set circuit-wide metadata. Declare n in the
+first data row; later metadata cells may be blank or repeat the same values.
+Conflicting metadata, unsupported gates, invalid operands and unsafe angles
+are rejected before execution. Comma-separated target/angle lists are quoted
+CSV cells; angles use the existing restricted arithmetic parser in radians.
+q.input evaluate/import validates and selects the program. q.input run executes
+it through the existing native circuit/sequence workflow and produces archived
+results, histograms, circuit diagrams and actual local Bloch figures.
+CSV circuits default to 1,024 shots in Z basis unless declared otherwise;
+explicit UI circuit controls can override the run settings. Import and preview
+remain inert. Large lists retain the existing input/sequence/memory bounds.
+Input gates are simulated as declared; they are not inferred by empirical fitting.
+The attached-circuit Run report now resolves every completed command from its
+native archive, retaining the original CSV hash, circuit answers and figures.
+PDF/CSV exports replace supplied archive hashes with verified native identities.
+
+EDITABLE TEXT AND CONVENTIONAL MATHEMATICS
+Equation reports retain copyable plain equation text and conventional mathematical
+notation. Measurement fits show the actual coefficients and variable mappings.
+Declared circuit reports show chronological gate operands, ordered operator
+products, relevant local gate matrices and state/probability equations alongside
+the native diagrams, histograms and Bloch figures. They do not infer a circuit
+from measured CSV rows or construct an impractical full-register matrix.
+The local equation editor loads guarded native report representations and supports
+copy/reset. Editing this text does not change the source, native calculations or
+immutable receipt. Change the input and explicitly Fit/Import/Run for a new result.
+
+PRESERVED BEHAVIOR AND VERSIONED CARRIERS
+Direct circuit presets and ordinary sampling catalog presets still default to
+1,024 shots unless overridden; the existing 100,000 maximum is retained.
+A collapsing single-shot measurement remains one draw. q.verify retains its
+separate 10,240-sample default and procedural-model scope.
+The TIFF and GIF are SpinDoctor-3.1.1.tiff and SpinDoctor-3.1.1.gif. Their
+matching cover title cards show 3.1.1. BOOT verifies the selected carrier before
+materializing the image-resident filesystem.
+The previous candidate, its live workspace, source records and history are
+preserved. This is a separate clean candidate installation.
