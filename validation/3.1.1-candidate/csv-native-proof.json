@@ -1,0 +1,25 @@
+{
+    "passed":  true,
+    "checks":  35910,
+    "productVersion":  "3.1.1-candidate",
+    "completedUtc":  "2026-10-10T19:12:47.5115571Z",
+    "testSourceSha256":  "51d61d22083c93dac517aa823c4c1941dd4ed2df010da13ff933339042c4ec9b",
+    "testRunnerSha256":  "01ff82bcf0652391c8dce2ebe577eaa18fbb50cdeeb88c0420e7b031fbeee62b",
+    "testRunPath":  "<WORK>\\2026-10-10\\can\\work\\spindoctor-3.1.1\\validation\\csv-native-final-equations-0abd3328d1564071b82960ad90db910a\\9248eb73009b4ed8874a21a51070cd51",
+    "sourceHashes":  {
+                         "QuantumCore.cs":  "ba80a655898fc0b2fc03dd1cfb271204eecd45ff8020a7d81beb428ccd58e9e2",
+                         "QuantumTerminal.cs":  "18a801c50c0d87325f15ef4c4dcd1eb897d2b1fca8ec9c66ab6afcdff577a6d4",
+                         "SpinDoctorAdvanced.cs":  "201cd68a7960227a3d78d7418f2a63994aac9179e2f759586313177e9ab94dd6",
+                         "SpinDoctorCalculators.cs":  "819e517580fea6141a2c4338389cf0d4c46c67cf21d02ad503bcd3e68ff83a62",
+                         "SpinDoctorCircuits.cs":  "1f8e0342de07fd195192b8c3be539c13ea86b15d87f82c73c2ea4074237787e2",
+                         "SpinDoctorCommandReports.cs":  "e1acb66520942b6a431ac2a03e499e724adc592b65dd87f49c3c425359e853fe",
+                         "SpinDoctorInputs.cs":  "f2f0c78f9d1c3d27ef6130d11603d07e1cf36d842f38ef94399aa0847b20c075",
+                         "SpinDoctorPdfInputs.cs":  "be5cbbd76eb1c1a2c2557530bbb6c9ebfd2e1ebfff2125777bef13ddfcf9428d",
+                         "SpinDoctorReports.cs":  "770d7dda4077e7ced1a9a3126c6780beb09909bdff1876ebc7b2a92a3badabd6",
+                         "SpinDoctorSequences.cs":  "25cc31637af07ed54100078694f144f292657068debb4feb9f0f20e594d58e23",
+                         "SpinDoctorSyntax.cs":  "df3827419226d62eca4e23f2fca0f1149a4f1d90e17e68feb06400abbd49be39",
+                         "SpinDoctorTranches.cs":  "825a9c649a1d6fab6899f221c35503ff7eb9677234b7ae4cf8a08d1d6d8dd77d",
+                         "SpinDoctorTrancheTerminal.cs":  "546b2230a6bd36c4a8cba51d1a8e165a9d6bd7725ed93ae658e15fcc9a11b572"
+                     },
+    "scope":  "Lossless invariant RFC4180 serializer; formula-safe strings; exact zero/null/missing/container values; authentic raw archive SHA/stage resolution and forged-client claims removed; hash-verified command/sequence archives and legacy stages; receipt ownership and verification guards; streamed sequence export and cleanup; complete fit rows and pure synthetic renderer tests. Two deterministic norm calculations and one explicit one-qubit CSV circuit with4shots. Actual q.input run parent CSV/PDF hydrates five real immutable command returns, retained native histogram/Bloch/sourceSHA; export does not alter source/archive. Synchronous TXT readable detail carries genuine archived completion envelope without mutating native response. Completed unverified input-run receipt is available without sample verification claim. Shared symbolic equation representations derive actual returned coefficients/native chronological gate operands only; plain editable text, indexed conventional LaTeX, native control-LSB matrix convention, padded basis ket, empty identity, explicit unsupported formula and bounded omission tested. No GPU, stress, full catalog or maximum verification workloads."
+}
