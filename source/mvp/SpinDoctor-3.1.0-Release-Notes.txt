@@ -1,0 +1,38 @@
+SPINDOCTOR 3.1.0 CANDIDATE
+
+Circuit definition reports distinguish a saved gate program from an executed
+simulation. In the attached historical 3.0.9 report, q.circuit preset qft 29
+defined 449 instructions (29 H, 406 controlled phase, 14 SWAP) without running
+the circuit or drawing shots. A definition completion stamp is not a circuit
+measurement completion stamp. In 3.1.0, the same command runs automatically;
+add run=false when you want to define the program without executing it.
+
+Planned instructions, command-local executed work and saved session counters are
+shown separately. Accounting groups distinguish the procedural model domain,
+represented credits, actual procedural work, tranche work and circuit lifetime
+work. Returned zero counters retain their exact values with explanations;
+unreturned counters stay unreturned. No simulation results or verification are
+invented by report export.
+
+The ordinary shot-based preset default remains 1,024; the existing 100,000
+maximum and single-shot collapse remain. q.verify keeps its separate sampled
+procedural CPU/OpenCL GPU scope and the folder receipt completion barrier.
+All 241 preset IDs and original saved files remain preserved.
+
+PRESET EXECUTION
+Direct q.circuit preset bell|ghz|qft [QUBITS] now creates and executes the
+circuit asynchronously with 1,024 shots and Z-basis sampling by default.
+Use shots N or shots=N and basis x|y|z to override those values; the existing
+1..100,000 shot range is retained. Add run=false to define without execution.
+Options are validated before program mutation. Queued jobs receive a matching
+completed report containing actual histogram, work counters and native UTC.
+Catalog sampling presets also default to 1,024, while single-shot collapse
+still requires exactly one shot. Deterministic algebra and resource estimates
+do not invent measurement draws. The separate q.verify sample default remains
+10,240. The modified-input QFT catalog preset defines first, then runs once.
+Carrier filenames are SpinDoctor-3.1.0.tiff and SpinDoctor-3.1.0.gif; matching
+cover title cards read 3.1.0. The image-resident filesystem is verified again.
+
+REPORT CLARITY AND COMPLETION HARDENING
+Summary and Detailed PDFs compact unused scopes whose returned counters are all exactly zero or false. Missing fields remain explicitly unknown; nonzero activity, scientific zero results and true zero Bloch vectors are retained. Complete PDF, TXT and JSON preserve every counter value.
+A stopped circuit job's matching completion is archived before a later command can replace its job or clear the coherent output. Archive write failure blocks that mutation; retry preserves the original finished job and completion stamp.

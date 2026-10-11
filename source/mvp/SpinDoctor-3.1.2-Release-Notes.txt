@@ -1,0 +1,47 @@
+SPINDOCTOR 3.1.2
+Prepared 2026-10-10 (America/Los_Angeles). Parent: SpinDoctor 3.1.1-candidate.
+Separate release; earlier applications and live workspaces are untouched.
+Start BOOT.cmd in this release's SpinDoctor folder. See HANDGUIDE.md / HANDGUIDE.pdf.
+
+WHAT CHANGED
+1. q.folder no longer ignores files silently. Unsupported entries (for example
+   .md, .docx, .png) are skipped as before, but are now listed in the job's
+   skippedFiles (first 64 names, ordinal order) and skippedFileCount, both in the
+   q.folder run response and in every later job status. A folder with no
+   supported files names one skipped file in its error message.
+2. q.folder accepts .qasm2 and .circuit files. The structured-input parser
+   already supported both. Only folder enumeration and the folder compiler
+   refused them.
+3. Clearer text-input errors. A .txt/.circuit file containing only blank or
+   comment lines reports "Text input is empty: ...". A file with no q.* lines
+   whose first line is not a known gate (prose, Markdown) reports
+   "Text input line N is neither a q.* command nor a known gate ('word') ...".
+   Genuine text circuits are unchanged, and gate lines without "qubits N" keep
+   the original "Text circuit requires qubits N ..." message.
+4. Compact polling reports. q.folder status and q.sequence status still return
+   the full live response, but their archived command report replaces the
+   repeated full session snapshot with a short archiveCompacted note. On a
+   3.1.1 chug-series session these archives averaged 155 KB (up to 944 KB) per
+   poll. In 3.1.2 they are about 4 KB. q.status still archives the full snapshot.
+5. q.folder help lists the supported extensions, limits, skipped-file
+   reporting and the first-failure-stops rule.
+6. Version 3.1.2 everywhere (runtime ProductVersion, VERSION.txt, MODEL,
+   ENTRYPOINT, preset catalogue release, UI, carriers SpinDoctor-3.1.2.tiff/.gif
+   with a 3.1.2 title-card footer, BOOT.cmd).
+7. Tests: new validation/release-tools/tests/v312_regressions.ps1 (16
+   assertions) covers every change above. A stale assertion in
+   native_verification_preview_regressions.cs now accepts the documented
+   "unverified" receipt kind for plain sequences. Version strings in the test
+   suite were updated.
+
+UNCHANGED, AND WHY
+- qc-198 / q.compile synthesize remains unavailable. Approximate Clifford+T
+  synthesis needs a number-theoretic synthesizer (for example gridsynth) with
+  independent error checking. SpinDoctor will not fabricate a sequence.
+- .md files are still not read by q.folder (no documented Markdown command
+  format exists). They are now reported as skipped.
+- Per-command sequence reports still embed the job snapshot, so very long
+  folder runs use a lot of disk (about 1.5 GB for the full chug series). This
+  is deferred because receipts and PDF hydration depend on those archives.
+- No calculation, preset, sampling or report-format semantics changed. All
+  241 presets give the same outcomes as 3.1.1 (see validation/3.1.2).
