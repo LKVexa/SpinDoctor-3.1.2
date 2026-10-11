@@ -1,0 +1,2 @@
+gate,n,targets,angles,name,initialBasis,shots,basis
+ry,1,0,pi/2,csv_rotated,0,1024,z
