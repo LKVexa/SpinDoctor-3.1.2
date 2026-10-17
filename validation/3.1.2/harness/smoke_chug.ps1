@@ -1,7 +1,7 @@
-param([string]$Tests=".\chug_tests", [string]$Out=".\chug_smoke_results.json", [string]$Only='', [int]$Timeout=240, [string]$SourceRoot='', [string]$Root='', [string]$FolderArgs='downloads=false')
+param([string]$Tests="D:\AGENT_WORK\spindoctor304\chug_tests", [string]$Out="D:\AGENT_WORK\spindoctor304\chug_smoke_results.json", [string]$Only='', [int]$Timeout=240, [string]$SourceRoot='', [string]$Root='', [string]$FolderArgs='downloads=false')
 # Runs q.folder against a SCRATCH copy only (default 3.0.4; -SourceRoot for others) (compiled in a throwaway root). Never point this at the original release.
 $ErrorActionPreference='Stop'
-$scr="<WORK>\spindoctor304"; $src="$scr\SpinDoctor 3.0.4\source\mvp"; if($SourceRoot){$src=$SourceRoot}
+$scr="D:\AGENT_WORK\spindoctor304"; $src="$scr\SpinDoctor 3.0.4\source\mvp"; if($SourceRoot){$src=$SourceRoot}
 $sessRoot=$(if($Root){$Root}else{"$scr\chug_session_root"}); if(Test-Path $sessRoot){Remove-Item $sessRoot -Recurse -Force}; robocopy $src $sessRoot /E /XD workspace /NFL /NDL /NJH /NJS /NP | Out-Null
 $names='QuantumCore.cs','SpinDoctorTranches.cs','SpinDoctorTrancheTerminal.cs','SpinDoctorCircuits.cs','SpinDoctorInputs.cs','SpinDoctorReports.cs','SpinDoctorPdfInputs.cs','SpinDoctorCalculators.cs','SpinDoctorAdvanced.cs','SpinDoctorSyntax.cs','SpinDoctorSequences.cs','SpinDoctorCommandReports.cs','QuantumTerminal.cs'
 Add-Type -Path @($names | % { Join-Path $sessRoot ('quantum\'+$_) }) -ReferencedAssemblies 'System.dll','System.Core.dll','System.Web.Extensions.dll','System.Numerics.dll'

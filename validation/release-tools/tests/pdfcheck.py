@@ -1,4 +1,4 @@
-import sys, re, zlib, json, os, hashlib
+﻿import sys, re, zlib, json, os, hashlib
 def pdf_info(path):
     b = open(path,'rb').read()
     info = {'bytes': len(b), 'header': b[:5]==b'%PDF-', 'eof': b.rstrip().endswith(b'%%EOF'), 'startxref': b'startxref' in b[-2048:]}

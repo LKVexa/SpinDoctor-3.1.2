@@ -1,21 +1,21 @@
-[TIFF-GIF-HOLO] Process start: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File <WORK>\2026-10-10\can\work\spindoctor-3.1.1\release-tools\tests\verify_carriers.ps1 -Harness <WORK>\2026-10-10\can\work\spindoctor-3.1.1\source\mvp\bootstrap\TIFFGifHoloHarness.cs -Tiff <WORK>\2026-10-10\can\work\spindoctor-3.1.1\carriers-3.1.1-final-1791659607576395800\SpinDoctor-3.1.1.tiff -Gif <WORK>\2026-10-10\can\work\spindoctor-3.1.1\carriers-3.1.1-final-1791659607576395800\SpinDoctor-3.1.1.gif -Smoke
+[TIFF-GIF-HOLO] Process start: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File D:\Codex\2026-10-10\can\work\spindoctor-3.1.1\release-tools\tests\verify_carriers.ps1 -Harness D:\Codex\2026-10-10\can\work\spindoctor-3.1.1\source\mvp\bootstrap\TIFFGifHoloHarness.cs -Tiff D:\Codex\2026-10-10\can\work\spindoctor-3.1.1\carriers-3.1.1-final-1791659607576395800\SpinDoctor-3.1.1.tiff -Gif D:\Codex\2026-10-10\can\work\spindoctor-3.1.1\carriers-3.1.1-final-1791659607576395800\SpinDoctor-3.1.1.gif -Smoke
 PASS TIFF-GIF-HOLO/4
 pages=44
 entries=290
 sha256=9dcca1a4d0287dfae55145e986438f96a89e01f5834503ac7153e938d20e6fd0
 stream=07ce3551fce6eb6f7fe3a83c5f2b7fc238b5f5b4ab6d47cf07e55f2bd19ff1d3
-[TIFF-GIF-HOLO] Process start: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File <WORK>\2026-10-10\can\work\spindoctor-3.1.1\release-tools\tests\verify_carriers.ps1 -Harness <WORK>\2026-10-10\can\work\spindoctor-3.1.1\source\mvp\bootstrap\TIFFGifHoloHarness.cs -Tiff <WORK>\2026-10-10\can\work\spindoctor-3.1.1\carriers-3.1.1-final-1791659607576395800\SpinDoctor-3.1.1.tiff -Gif <WORK>\2026-10-10\can\work\spindoctor-3.1.1\carriers-3.1.1-final-1791659607576395800\SpinDoctor-3.1.1.gif -Smoke
+[TIFF-GIF-HOLO] Process start: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File D:\Codex\2026-10-10\can\work\spindoctor-3.1.1\release-tools\tests\verify_carriers.ps1 -Harness D:\Codex\2026-10-10\can\work\spindoctor-3.1.1\source\mvp\bootstrap\TIFFGifHoloHarness.cs -Tiff D:\Codex\2026-10-10\can\work\spindoctor-3.1.1\carriers-3.1.1-final-1791659607576395800\SpinDoctor-3.1.1.tiff -Gif D:\Codex\2026-10-10\can\work\spindoctor-3.1.1\carriers-3.1.1-final-1791659607576395800\SpinDoctor-3.1.1.gif -Smoke
 PASS MVP-SMOKE
 entry=mvp/RUN_SPINDOCTOR.cmd
 entries=290
 scope=verified carrier, entrypoint and native source presence; no program execution
-[TIFF-GIF-HOLO] Process start: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File <WORK>\2026-10-10\can\work\spindoctor-3.1.1\release-tools\tests\verify_carriers.ps1 -Harness <WORK>\2026-10-10\can\work\spindoctor-3.1.1\source\mvp\bootstrap\TIFFGifHoloHarness.cs -Tiff <WORK>\2026-10-10\can\work\spindoctor-3.1.1\carriers-3.1.1-final-1791659607576395800\SpinDoctor-3.1.1.tiff -Gif <WORK>\2026-10-10\can\work\spindoctor-3.1.1\carriers-3.1.1-final-1791659607576395800\SpinDoctor-3.1.1.gif -Smoke
+[TIFF-GIF-HOLO] Process start: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File D:\Codex\2026-10-10\can\work\spindoctor-3.1.1\release-tools\tests\verify_carriers.ps1 -Harness D:\Codex\2026-10-10\can\work\spindoctor-3.1.1\source\mvp\bootstrap\TIFFGifHoloHarness.cs -Tiff D:\Codex\2026-10-10\can\work\spindoctor-3.1.1\carriers-3.1.1-final-1791659607576395800\SpinDoctor-3.1.1.tiff -Gif D:\Codex\2026-10-10\can\work\spindoctor-3.1.1\carriers-3.1.1-final-1791659607576395800\SpinDoctor-3.1.1.gif -Smoke
 PASS TIFF-GIF-HOLO/4
 pages=44
 entries=290
 sha256=bf916fef96d18c6ff42923def2afe3b0aa0daec2accb5cd8cc7738a8b025ce24
 stream=07ce3551fce6eb6f7fe3a83c5f2b7fc238b5f5b4ab6d47cf07e55f2bd19ff1d3
-[TIFF-GIF-HOLO] Process start: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File <WORK>\2026-10-10\can\work\spindoctor-3.1.1\release-tools\tests\verify_carriers.ps1 -Harness <WORK>\2026-10-10\can\work\spindoctor-3.1.1\source\mvp\bootstrap\TIFFGifHoloHarness.cs -Tiff <WORK>\2026-10-10\can\work\spindoctor-3.1.1\carriers-3.1.1-final-1791659607576395800\SpinDoctor-3.1.1.tiff -Gif <WORK>\2026-10-10\can\work\spindoctor-3.1.1\carriers-3.1.1-final-1791659607576395800\SpinDoctor-3.1.1.gif -Smoke
+[TIFF-GIF-HOLO] Process start: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File D:\Codex\2026-10-10\can\work\spindoctor-3.1.1\release-tools\tests\verify_carriers.ps1 -Harness D:\Codex\2026-10-10\can\work\spindoctor-3.1.1\source\mvp\bootstrap\TIFFGifHoloHarness.cs -Tiff D:\Codex\2026-10-10\can\work\spindoctor-3.1.1\carriers-3.1.1-final-1791659607576395800\SpinDoctor-3.1.1.tiff -Gif D:\Codex\2026-10-10\can\work\spindoctor-3.1.1\carriers-3.1.1-final-1791659607576395800\SpinDoctor-3.1.1.gif -Smoke
 PASS MVP-SMOKE
 entry=mvp/RUN_SPINDOCTOR.cmd
 entries=290

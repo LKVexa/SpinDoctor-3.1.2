@@ -1,6 +1,6 @@
 # SpinDoctor 3.1.2 — Hand Guide
 
-This guide explains how to use SpinDoctor, written for people using it rather than developing it. The original guide examples were run on the original 3.1.2 build; their historical results remain in `validation/3.1.2/handguide-examples.json`. The current 298-qubit extension is described in section 13 and `UPDATE-298.txt`; its native execution reports identify the updated sampling mode.
+This guide explains how to use SpinDoctor, written for people using it rather than developing it. Every example command in this guide was run on the final 3.1.2 build before release. The results are in `validation/3.1.2/handguide-examples.json` in the release folder.
 
 ---
 
@@ -32,10 +32,10 @@ The run produces a histogram with roughly half `00` and half `11`. That is a Bel
 | Concept | What it means |
 |---|---|
 | **Workspace** | The folder where your session lives (`SpinDoctor\workspace`). It holds circuits, saved state, job records and every report. It survives restarts. |
-| **Circuit** | A named gate program on 1 to 298 logical qubits. Each coherent joint factor is limited to 59 qubits and actual memory. You create it (`q.circuit new`), add gates (`q.circuit add`), then run it (`q.circuit run`) to get measurement counts. |
+| **Circuit** | A named gate program on 1 to 29 qubits. You create it (`q.circuit new`), add gates (`q.circuit add`), then run it (`q.circuit run`) to get measurement counts. |
 | **Selected circuit** | Most `q.circuit` commands act on the circuit you created or selected last. Switch with `q.circuit select NAME`. |
 | **Sequence** | A list of commands run one after another as a background job. Presets and folder files run as sequences. `q.sequence status` shows progress. |
-| **Tranche** | A separate selected register of up to 298 logical qubits, with at most 59 qubits per coherent joint factor (`q.tranche ...`). `q.tranche from INDEX` still snapshots up to 29 procedural-family addresses. |
+| **Tranche** | A separate register for larger structured states (up to 29 qubits) with its own commands (`q.tranche ...`). |
 | **Procedural grid** | A very large *described* model (for example 1000 × 1000 addresses). Each address's state comes from a formula. It is not stored as one giant vector. Commands: `q.prepare`, `q.migrate`, `q.gate`, `q.state`, `q.measure`, `q.verify`. |
 | **Capacity and auto-prune** | The workspace keeps a limited number of circuits (64 by default). `q.circuit capacity` shows the limit. Circuits created by presets are pruned automatically when space is needed. Your own circuits are never deleted silently. |
 | **State and memory display** | `q.circuit status`, `q.tranche status` and `q.status` show qubit counts, memory use and the current job. `q.resource headroom` shows how much memory is free for simulation. |
@@ -237,9 +237,7 @@ Measurement CSVs (weather, gate, or circuit data) can also be uploaded in the in
 
 | Item | Limit |
 |---|---|
-| Logical qubits per circuit / zero-prepared tranche | 1–298 |
-| Qubits per coherent joint factor | 1–59, subject to actual memory |
-| Circuit readout basis | x/y/z for 1–29; z for 30–298 |
+| Qubits per circuit / tranche | 1–29 |
 | Shots per run | 1–100,000 (presets default to 1,024) |
 | Instructions per circuit | 8,192 |
 | Gate angle | ±1e12 radians |
@@ -307,19 +305,3 @@ Measurement CSVs (weather, gate, or circuit data) can also be uploaded in the in
 - **Sampling has noise.** Histograms from shots are random samples. Expect normal statistical variation. For example, a 50/50 outcome measured with 1,000 shots typically varies by about ±1.6 percentage points (one standard deviation).
 - **Fits are not laws.** CSV equation fitting is classical least squares on your data. It does not prove a physical law or predict unseen data.
 - **Verification has a scope.** `q.verify` checks sampled points of the procedural model on CPU and GPU. It does not certify every calculator answer or unsampled state.
-
----
-
-## 13. The 298-qubit update
-
-The selected circuit and zero-prepared tranche can now contain 298 logical qubits. Global basis indices and displayed bitstrings retain every bit, including qubit 297. The simulator stores independent coherent factors; a connecting gate can merge factors, and a gate that would create a joint factor wider than 59 qubits is rejected before changing the register. Sparse storage supports structured states within the memory budget; arbitrary dense states still grow exponentially.
-
-Create and select a wide circuit with `q.circuit new NAME 298`, using a fresh name. Add its gates before running `q.circuit run shots 10240 basis z`. `q.migrate t 1` changes the procedural family model; it does not increase a circuit's qubit count. `q.tranche prepare 298 zero` creates a separate selected register. `q.tranche from INDEX` continues to select at most 29 consecutive procedural addresses.
-
-For circuits of 30–298 qubits, basis z is currently required. The program prepares one actual coherent state and samples each factor jointly for every independent shot. This preserves correlations inside each factor and leaves the retained state intact. Reports show `samplingMode=prepared-factor-Born-Z`; one uniform draw is consumed per factor, including deterministic factors. The counters record the preparations and gates actually executed. Circuits of 1–29 qubits continue to prepare, replay and collapse a fresh shot register, with x/y/z readout.
-
-The added gate `mcx7` takes seven controls followed by one target, with no angle: `q.circuit add mcx7 0 1 2 3 4 5 6 25`. It applies X to the target when every control is 1. All eight qubit operands must be distinct and inside the selected register.
-
-An 11-file folder pack divides the ordered commands for one circuit into 11 parts. It does not divide the quantum state into 11 independent simulations. Every command TXT starts with `# SPINDOCTOR-SEQUENCE`, contains at most 128 commands, and appends to the same selected circuit. The first file creates the circuit; the final file runs it. Keep explanatory text, manifests and results outside the runnable folder. Folder enumeration is nonrecursive and follows filename order.
-
-After applying the update, close the older service console and start the normal `BOOT.cmd` again. It verifies the rebuilt carrier and refreshes contained program files while retaining the mutable workspace, seeds, counters, saved circuits, checkpoints and report history. See `UPDATE-298.txt` for the current scope and command examples. The supplied historical PDF guide and original release audits describe their original build.

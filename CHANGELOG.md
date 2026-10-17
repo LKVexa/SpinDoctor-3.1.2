@@ -1,7 +1,3 @@
-## 3.1.2 update 3.1.2-298-20261010
-
-Native 298-qubit registers, exact global indices, MCX7, 59-qubit tensor factors, prepared joint-factor Z sampling, clearer circuit operand errors, and 298-aware query/folder preflight. Both carrier formats and launcher verification are updated. See UPDATE-298.txt for activation and execution scope.
-
 # Changelog
 
 ## 3.1.2 (2026-10-10)

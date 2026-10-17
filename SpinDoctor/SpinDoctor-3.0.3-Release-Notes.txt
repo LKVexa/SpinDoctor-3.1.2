@@ -1,0 +1,47 @@
+SPINDOCTOR 3.0.3 - SESSION, SPEED AND REPORT HARDENING
+
+Built from the 3.0.2-auto-reports carrier after an audit of all 1,775 TXT reports
+produced by running every one of the 241 presets on 3.0.2. Only the five native
+source files listed below, the version labels and these notes changed; every other
+carrier entry is byte-identical to 3.0.2. Extract this package into its own folder
+and start BOOT.cmd, exactly as before.
+
+FIXED
+1. 64-circuit wall in long sessions. 3.0.2 kept at most 64 saved circuit programs
+   per workspace, so in one session the 66 circuit presets after qc-085 were refused
+   ("Sequence would exceed 64 preserved circuit programs"). 3.0.3 records which
+   circuits were created by q.preset runs ("preset-owned"). When a preset needs a
+   slot, its sequence first issues an ordinary, reported command
+   "q.circuit prune presets KEEP" that removes only the oldest preset-owned
+   circuits, and lists them as prunedPresetCircuits on that sequence. Circuits you
+   create yourself are never pruned automatically.
+   New: q.circuit capacity [N]   show or set the slot limit (default 64, 1..1024)
+   New: q.circuit prune presets [KEEP]   remove preset-owned circuits, oldest first
+   When storage really is full, the error now says how many slots are used, how many
+   are preset-owned, and which command frees or raises them.
+2. Very slow circuit shots. Every gate of every replayed shot called
+   TrancheRegister.Status(), which read Process.PrivateMemorySize64 (about 6-15 ms
+   per call on Windows). That telemetry value is now sampled at most every 250 ms.
+   Circuit runs are roughly 100x faster; histograms, seeds, counters and memory
+   budgets are unchanged (the value is informational only).
+3. q.compile synthesize (preset qc-198) stays disabled, with an explicit reason:
+   Clifford+T synthesis to a stated operator-norm tolerance needs a number-theoretic
+   synthesizer with independent error verification, which SpinDoctor does not
+   include. No gate sequence is fabricated. The message lists installed
+   alternatives (q.compile identity/classify/count, q.math gate-matrix).
+4. Sequence step reports for synchronous commands printed an empty
+   "Completed UTC:". They now show the completion time, or say "pending" for an
+   accepted asynchronous job and "not completed" for a rejected command.
+5. Command-history TXT/JSON report files are written atomically (temporary file,
+   then replace), so an interruption cannot leave a truncated report.
+
+UNCHANGED
+Mathematics, gate conventions, random-number derivation, seeds, counters, report
+layout, PDF exporter, loopback-only local service, carrier format and the
+immutable original harness. No network features, no hardware or radio output, and
+no physical quantum hardware is used or claimed: SpinDoctor is a classical FP64
+simulator.
+
+The release validation (all 241 presets in one shared session, TXT and PDF checks,
+comparison with 3.0.2, independent reference check of every sampled histogram) is
+supplied separately in validation/ next to this package.

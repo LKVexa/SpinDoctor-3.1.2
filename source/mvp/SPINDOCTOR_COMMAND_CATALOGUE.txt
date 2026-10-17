@@ -1,20 +1,4 @@
 SpinDoctor 3.1.2
-CURRENT 298-QUBIT UPDATE
-q.circuit new NAME N accepts N=1..298; q.tranche prepare N zero accepts the
-same logical width. Each coherent joint factor is limited to 59 qubits, with
-its actual sparse/dense storage subject to the configured memory budget.
-q.circuit add mcx7 C0 C1 C2 C3 C4 C5 C6 TARGET flips TARGET if all seven
-controls are 1; all eight operands must be distinct and within the register.
-Circuits wider than 29 currently run in basis z using prepared-factor-Born-Z:
-one real coherent preparation/replay, then independent joint draws per factor.
-One uniform draw is consumed per factor, including deterministic factors.
-Small 1..29-qubit circuits retain independent shot replay and x/y/z readout.
-q.migrate changes the procedural family parameter, not a selected register's
-size. Procedural q.tranche from INDEX retains its 29-address partition.
-Restart with BOOT.cmd to load updated carrier code; mutable state is retained.
-See UPDATE-298.txt. Preset definitions, historical design claims and narrower
-auxiliary-analysis limits below remain unchanged; they are not wide benchmarks.
-
 See SpinDoctor-3.1.2-Release-Notes.txt for the 3.1.2 audit fixes: folder runs list skipped files, accept .qasm2/.circuit, explain empty or prose .txt inputs, and keep q.folder/q.sequence status polling reports compact.
 See HANDGUIDE.md (or HANDGUIDE.pdf in the release folder) for a plain-language user guide.
 See SpinDoctor-3.1.1-Release-Notes.txt for CSV report companions, measurement fitting and CSV gate-list simulation.

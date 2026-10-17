@@ -1,0 +1,74 @@
+SpinDoctor 3.1.2
+See SpinDoctor-3.1.2-Release-Notes.txt for the 3.1.2 audit fixes: folder runs list skipped files, accept .qasm2/.circuit, explain empty or prose .txt inputs, and keep q.folder/q.sequence status polling reports compact.
+See HANDGUIDE.md (or HANDGUIDE.pdf in the release folder) for a plain-language user guide.
+See SpinDoctor-3.1.1-Release-Notes.txt for CSV report companions, measurement fitting and CSV gate-list simulation.
+See SpinDoctor-3.1.1-CSV-Input-Guide.txt for selecting measurement columns, fitting equations and importing CSV circuits.
+Earlier version notes below are preserved as history.
+
+SpinDoctor 3.1.0 candidate
+See SpinDoctor-3.1.0-Release-Notes.txt for circuit definition and report accounting clarity.
+
+SpinDoctor 3.0.9 candidate
+See SpinDoctor-3.0.9-Release-Notes.txt for circuit-state PDF figures and preset defaults.
+
+SpinDoctor 3.0.8 candidate
+See SpinDoctor-3.0.8-Release-Notes.txt for the PDF pipeline update.
+
+SpinDoctor 3.0.7 candidate
+See SpinDoctor-3.0.7-Release-Notes.txt for this update.
+
+HISTORICAL SPINDOCTOR 3.0.6 NOTES
+Run BOOT.cmd. Read SpinDoctor-3.0.6-Release-Notes.txt for automatic CPU/GPU
+model sampling before folder receipts, completion stamps and report details.
+Earlier releases and live workspaces are preserved.
+
+Historical notes below refer to earlier releases.
+==========================================================================
+SPINDOCTOR 3.0.4 - FAMILY MODEL AND SELECTED REGISTERS
+
+BOOT.cmd verifies the TIFF/GIF filesystem and launches its contained quantum
+program. The three core artifacts remain the TIFF, GIF and generic C# evaluator;
+BOOT.cmd is a convenience launcher. The images contain equivalent filesystems.
+
+The default family has M=20,000,000 and L=25,000,000, yielding exactly
+500,000,000,000,000 virtual state addresses. At migration t=1, every index
+defines a distinct mathematical single-qubit pure state. At t=0 all addresses
+start at |0>. Local gates preserve coherence through a composed 2x2 matrix.
+The q.prepare/q.migrate/q.gate/q.state/q.measure/q.verify family commands
+describe independent single-qubit states, without family-wide entanglement.
+The separate q.tranche and q.circuit commands calculate joint entangled states
+inside one selected coherent register of up to 29 qubits, subject to memory limits.
+
+For k=a+M*b, p=(a+0.5)/M, phi=2*pi*b/L and theta=2*asin(sqrt(p)).
+The state is G*[cos(t*theta/2), exp(i*t*phi)*sin(t*theta/2)].
+U(theta,phi,0) prepares the target at t=1. RY followed by RZ has the same
+state up to global phase. Gate accounting uses explicit terminal commits.
+Point queries, verification and measurements earn no represented gate credit.
+
+The C# module performs real FP64 CPU and OpenCL GPU calculations. No Python,
+NumPy, cloud service or quantum hardware is required. The primary terminal uses
+Windows/.NET Framework and Windows PowerShell. CPU commands work without a GPU.
+Actual CPU/GPU sample comparison requires an installed FP64-capable OpenCL GPU
+driver. A GPU failure is reported explicitly and is not replaced by a fabricated
+GPU result.
+
+The rule checks establish mathematical normalization, unitary composed gates
+and the indexed grid properties. Actual implementation checks compare selected
+GPU states with CPU reference amplitudes, normalization, Born probabilities
+and all three Bloch components. A sample PASS is not a full-domain memory scan.
+
+Only failed per-state checks are written to the error log. Aggregate counts,
+timings, source identities, descriptor state and replay information persist.
+Sampling and measurement seeds are preserved across runs. Measurements are
+seeded classical draws from Born probabilities; they are not physical shots.
+
+The prior approximately one-second verification of 10,252 states is a target
+reference, not a guaranteed boot time or 500-trillion executed gate rate.
+The terminal reports its newly measured timings separately from model counts.
+
+Model arithmetic source:
+https://chatgpt.com/s/cx_6ac93a09e8048191a1b90ffb448a453c
+Quantum gate convention:
+https://quantum.cloud.ibm.com/docs/en/api/qiskit/qiskit.circuit.library.UGate
+Bloch-sphere formulation:
+https://quantum.cloud.ibm.com/learning/en/courses/general-formulation-of-quantum-information/density-matrices/bloch-sphere

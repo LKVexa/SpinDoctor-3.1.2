@@ -5,7 +5,7 @@
     "completedUtc":  "2026-10-10T19:12:47.5115571Z",
     "testSourceSha256":  "51d61d22083c93dac517aa823c4c1941dd4ed2df010da13ff933339042c4ec9b",
     "testRunnerSha256":  "01ff82bcf0652391c8dce2ebe577eaa18fbb50cdeeb88c0420e7b031fbeee62b",
-    "testRunPath":  "<WORK>\\2026-10-10\\can\\work\\spindoctor-3.1.1\\validation\\csv-native-final-equations-0abd3328d1564071b82960ad90db910a\\9248eb73009b4ed8874a21a51070cd51",
+    "testRunPath":  "D:\\Codex\\2026-10-10\\can\\work\\spindoctor-3.1.1\\validation\\csv-native-final-equations-0abd3328d1564071b82960ad90db910a\\9248eb73009b4ed8874a21a51070cd51",
     "sourceHashes":  {
                          "QuantumCore.cs":  "ba80a655898fc0b2fc03dd1cfb271204eecd45ff8020a7d81beb428ccd58e9e2",
                          "QuantumTerminal.cs":  "18a801c50c0d87325f15ef4c4dcd1eb897d2b1fca8ec9c66ab6afcdff577a6d4",

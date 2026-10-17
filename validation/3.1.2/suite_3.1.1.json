@@ -18,7 +18,7 @@
                                                            "test":  "csv_workflow_example",
                                                            "exit":  0,
                                                            "seconds":  2.9,
-                                                           "tail":  "PASS 58 combined native CSV workflow/example/export assertions. <WORK>\\spindoctor312\\suite311b\\csv_workflow_example\\run"
+                                                           "tail":  "PASS 58 combined native CSV workflow/example/export assertions. D:\\AGENT_WORK\\spindoctor312\\suite311b\\csv_workflow_example\\run"
                                                        },
                                                        {
                                                            "test":  "native_verification_preview_regressions",
@@ -30,13 +30,13 @@
                                                            "test":  "native_spin_preview_regressions",
                                                            "exit":  0,
                                                            "seconds":  2.6,
-                                                           "tail":  "PASS 277 native spin-preview assertions; five 1/2-qubit runs,20 actual shots,24 draws; 44 separate actual GPU/model comparisons. <WORK>\\spindoctor312\\suite311b\\native_spin_preview_regressions\\run"
+                                                           "tail":  "PASS 277 native spin-preview assertions; five 1/2-qubit runs,20 actual shots,24 draws; 44 separate actual GPU/model comparisons. D:\\AGENT_WORK\\spindoctor312\\suite311b\\native_spin_preview_regressions\\run"
                                                        },
                                                        {
                                                            "test":  "native_report_example",
                                                            "exit":  0,
                                                            "seconds":  1.5,
-                                                           "tail":  "PASS native archive-resolved PDF example; GPU Intel(R) Graphics;140 real compared addresses;32 preview rows; actual calculator +Z/-Z/+X; no measurement shots. <WORK>\\spindoctor312\\suite311b\\native_report_example\\run"
+                                                           "tail":  "PASS native archive-resolved PDF example; GPU Intel(R) Graphics;140 real compared addresses;32 preview rows; actual calculator +Z/-Z/+X; no measurement shots. D:\\AGENT_WORK\\spindoctor312\\suite311b\\native_report_example\\run"
                                                        }
                                                    ],
                                          "Count":  6
@@ -91,13 +91,13 @@
                                             "test":  "csv_gate_regressions",
                                             "exit":  0,
                                             "seconds":  2.3,
-                                            "tail":  "PASS 49 CSV gate-list parse/import/run/provenance/native Bloch assertions. <WORK>\\spindoctor312\\suite311\\csv_gate_regressions\\cc79d48bfea34f76b9df1808fd19dcf2"
+                                            "tail":  "PASS 49 CSV gate-list parse/import/run/provenance/native Bloch assertions. D:\\AGENT_WORK\\spindoctor312\\suite311\\csv_gate_regressions\\cc79d48bfea34f76b9df1808fd19dcf2"
                                         },
                                         {
                                             "test":  "csv_input_regressions",
                                             "exit":  0,
                                             "seconds":  1.5,
-                                            "tail":  "PASS 124 CSV input/table/empirical-fit/native archive assertions. <WORK>\\spindoctor312\\suite311\\csv_input_regressions\\fd9d40631a5944fd9874a8e9d8a28c95"
+                                            "tail":  "PASS 124 CSV input/table/empirical-fit/native archive assertions. D:\\AGENT_WORK\\spindoctor312\\suite311\\csv_input_regressions\\fd9d40631a5944fd9874a8e9d8a28c95"
                                         },
                                         {
                                             "test":  "csv_workflow_example",

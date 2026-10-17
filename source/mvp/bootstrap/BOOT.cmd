@@ -47,7 +47,7 @@ echo  External bootstrap: BOOT.cmd + generic C# harness source only
 echo  Authoritative MVP: TIFF-GIF-HOLO/4 image-resident filesystem
 echo  Model domain:      500 trillion procedural single-qubit state addresses
 echo  Quantum program:   FP64 C# CPU and actual OpenCL GPU kernels in carrier
-echo  Selected register: 1-298 logical qubits; joint coherent factors up to 59
+echo  Selected register: 1-29 coherent qubits with entangling gate operands
 echo  Verification:      mathematical rule checks and independent sampled calculations
 echo  Accounting:        represented gates and actual state calculations reported separately
 echo  Carrier:           %CARRIER%

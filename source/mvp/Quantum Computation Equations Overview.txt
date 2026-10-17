@@ -1,4 +1,4 @@
-Theoretical Foundations of Quantum Computation: Equations of States, Gates, and Circuit Architectures
+﻿Theoretical Foundations of Quantum Computation: Equations of States, Gates, and Circuit Architectures
 Mathematical Representation of Quantum States and Geometries
 The rigorous mathematical formulation of quantum states dictates the evolution, measurement, and error mitigation of quantum information. At the most fundamental level, the state of a two-level quantum system, or qubit, is represented as a unit vector within a separable complex Hilbert space. However, theoretical quantum computation requires a robust framework to account for mixed states, multi-qubit entanglement, and high-dimensional generalizations across diverse symmetry groups.
 The Bloch Sphere, Density Matrices, and Spin-j Extensions

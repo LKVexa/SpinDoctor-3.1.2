@@ -1,6 +1,6 @@
 # SpinDoctor 3.1.1 Candidate → 3.1.2 audit
 
-Prepared 2026-10-10 (PT). Source audited: `<WORK>\2026-10-10\can\outputs\SpinDoctor 3.1.1 Candidate`. It was treated as read-only, and all work was done in `<WORK>\spindoctor312\`.
+Prepared 2026-10-10 (PT). Source audited: `D:\Codex\2026-10-10\can\outputs\SpinDoctor 3.1.1 Candidate`. It was treated as read-only, and all work was done in `D:\AGENT_WORK\spindoctor312\`.
 Build toolchain: the existing .NET Framework `csc.exe` 4.8.9221.0 and Windows PowerShell 5.1 `Add-Type`, the same ones the project uses. Python 3.14.8 was already on the PC and was used only for `release.py`. Nothing was installed on the PC.
 
 ## 1. Inventory: 3.1.1 vs 3.0.4 (and 3.0.3)

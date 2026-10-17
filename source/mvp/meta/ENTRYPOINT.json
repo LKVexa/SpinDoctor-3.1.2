@@ -11,7 +11,7 @@
   "authoritativeFilesystemPrefix": "mvp/",
   "runtimeMaterialization": "temporary verified projection only",
   "parentRelease": "SpinDoctor 3.1.1-candidate",
-  "representedComputeBoundary": "Procedural independent single-qubit family; one selected coherent register of 1..298 logical qubits, with at most 59 qubits in any joint coherent factor. Global indices are BigInteger. Small circuits retain shot replay; wide circuits prepare once and sample joint factors in Z. Family descriptors, logical gate calls, amplitude work and CPU/GPU comparisons have separate counters. No physical quantum gate throughput claim.",
+  "representedComputeBoundary": "Procedural independent single-qubit family; one selected coherent register of 1-29 qubits. Family descriptors, selected logical gate calls and actual amplitude/CPU/GPU work have separate counters. No physical quantum gate throughput claim.",
   "runSession": "Family seeds/counters persist in the existing mutable workspace. Selected tranche seeds, snapshots, hash-bound binary state and replay journal persist separately. Verification samples stream without an arbitrary total cap.",
   "product": "SpinDoctor",
   "presetCount": 241,
@@ -33,6 +33,5 @@
     "mvp/QUANTUM_TERMINAL.html",
     "mvp/RUN_SPINDOCTOR.cmd",
     "mvp/RUN_QUANTUM_XPU.cmd"
-  ],
-  "updateId": "3.1.2-298-20261010"
+  ]
 }

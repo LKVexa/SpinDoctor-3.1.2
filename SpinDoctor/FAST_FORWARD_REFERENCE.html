@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QuettaFLOP — Recursive Virtual XPU</title>
+<style>
+:root{color-scheme:dark;--bg:#071019;--panel:#0c1c27;--line:#254555;--text:#d8edf4;--muted:#90abb8;--cyan:#59e8f8;--gold:#f1cc70;--mint:#7ce4ac;--red:#ff8992}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0,#173647,var(--bg) 65%);color:var(--text);font:14px/1.5 Segoe UI,Arial,sans-serif;padding:24px}.shell{max-width:1400px;margin:auto}h1{margin:0;font-size:25px;letter-spacing:.05em}h2{font-size:13px;letter-spacing:.07em;margin:0 0 14px;color:var(--muted)}.top{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:20px}.sub,.muted{color:var(--muted)}.badge{border:1px solid var(--line);border-radius:30px;padding:8px 14px;color:var(--mint);font-weight:700}.layout{display:grid;grid-template-columns:minmax(550px,1fr) 340px;gap:18px}.stack{display:grid;gap:18px}.panel{padding:20px;background:#0c1c27e8;border:1px solid var(--line);border-radius:12px;overflow:hidden}.hero{color:var(--gold);font:700 clamp(23px,3vw,38px)/1.2 Consolas,monospace;margin:8px 0}.hero-total{font:700 24px/1.3 Consolas,monospace;color:var(--cyan);overflow-wrap:anywhere}.exact{font:13px Consolas,monospace;overflow-wrap:anywhere;color:var(--muted);margin:8px 0}.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:20px}.metric{border-top:1px solid var(--line);padding-top:12px}.label{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}.value{font:700 19px Consolas,monospace;overflow-wrap:anywhere;margin-top:5px}.controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px;align-items:center}button,input{background:#102938;border:1px solid #31596a;border-radius:6px;padding:8px 10px;color:var(--text);font:13px Segoe UI,Arial,sans-serif}button{cursor:pointer}button:hover{border-color:var(--cyan)}button.primary{background:#18445a;font-weight:700}button:disabled{opacity:.5;cursor:default}label{display:grid;gap:5px;color:var(--muted);font-size:12px}.config{display:grid;gap:10px}.config input{width:100%;font-family:Consolas,monospace}.mono{font-family:Consolas,monospace}pre{white-space:pre-wrap;overflow-wrap:anywhere;overflow:auto;max-height:320px;background:#061018;border:1px solid #203c4a;padding:12px;border-radius:7px;color:#a7cad9;font:12px/1.5 Consolas,monospace;margin:12px 0 0}.canvas{width:100%;height:auto;display:block;image-rendering:pixelated;background:#071019}.canvaspanel{padding:0}.canvaspanel h2,.canvaspanel .caption{padding:15px 20px;margin:0}.canvaspanel .controls{padding:0 20px 15px}.notice{font-size:12px;color:var(--muted);margin:14px 0 0}.links{display:flex;gap:18px;flex-wrap:wrap;margin-top:20px}a{color:var(--cyan)}summary{cursor:pointer;color:var(--muted)}details pre{max-height:300px}.terminal-input{flex:1;min-width:160px;font-family:Consolas,monospace}.error{color:var(--red)}.status{font-size:12px;margin:12px 0;color:var(--mint)}.host{font-size:12px;color:var(--muted)}[hidden]{display:none!important}@media(max-width:1000px){.layout{grid-template-columns:1fr}.top{align-items:flex-start}.config{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:600px){body{padding:12px}.top{flex-direction:column}.panel{padding:15px}.metrics,.config{grid-template-columns:1fr}.hero-total{font-size:20px}}
+</style>
+<script src="runtime/number-raster.js"></script>
+<script src="runtime/recursive-xpu.js"></script>
+</head>
+<body><main class="shell">
+<div class="top"><div><h1>QUETTAFLOP // RECURSIVE XPU</h1><div class="sub">An evolving modular recurrence, calculated through exact affine fast-forwarding</div></div><span class="badge" id="clockStatus">PAUSED</span></div>
+<div class="layout"><div class="stack">
+<section class="panel" id="workSummary"><h2>VIRTUAL WORKLOAD RATE</h2><div class="hero" id="virtualRate">4 QFLOP-eq / virtual second</div><div class="muted">4 × 10³⁰ modeled multiply/add operations per virtual second</div><div class="metric"><div class="label">Calculated virtual workload total</div><div class="hero-total" id="totalScientific">0 × 10³⁰ modeled operations</div><div class="exact" id="totalOperations">0</div></div><div class="metrics"><div class="metric"><div class="label">Elapsed virtual time</div><div class="value" id="virtualTime">0 seconds</div></div><div class="metric"><div class="label">Current recursive state x[n]</div><div class="value" id="recursiveState">0</div></div><div class="metric"><div class="label">Recurrence steps represented</div><div class="value" id="totalSteps">0</div></div><div class="metric"><div class="label">Actual fast-forward host arithmetic</div><div class="value" id="transitionHostOps">0 integer operations</div></div></div><div class="controls"><button class="primary" id="advanceOne">CALCULATE +1 VIRTUAL SECOND</button><button id="startClock">START 1× VIRTUAL CLOCK</button><button id="pauseClock" disabled>PAUSE</button></div><div class="status" id="runStatus" aria-live="polite">Initializing recurrence…</div><div class="host" id="hostTiming" hidden></div><div class="notice">The recurrence uses exact modular integers. QFLOP-eq credits two modeled multiply/add operations per recurrence step. Host arithmetic is counted separately; this is a virtual workload rate.</div></section>
+<section class="panel"><h2>ACTUAL STATE TRANSITION</h2><div class="mono" id="recurrenceFormula">x[n+1] = (a × x[n] + b) mod m</div><pre id="transitionTrace">No transition yet.</pre><details style="margin-top:14px"><summary>Exact model and verified receipt chain</summary><pre id="modelDetails"></pre></details></section>
+<section class="panel canvaspanel"><h2>DIGITS 0–9 // COMPUTED RECURSIVE STATES</h2><canvas class="canvas" id="cv" width="640" height="360" aria-label="Digits zero through nine from computed recursive state samples"></canvas><div class="caption muted" id="frameCaption">Sampling the completed step interval…</div><div class="controls"><label>Sample cell <input id="cellIndex" value="0" size="5" inputmode="numeric"></label><button id="inspectCell">INSPECT CELL</button><button id="refreshFrame">REFRESH SAMPLES</button></div><div style="padding:0 20px 20px"><pre id="sampleTrace">Select a sample cell to inspect its exact interval and calculated state.</pre></div></section>
+<section class="panel"><h2>CONTAINED XPU TERMINAL</h2><pre id="terminalOutput" role="log" aria-live="polite" style="min-height:160px;max-height:360px"></pre><div class="controls"><span class="mono">rxpu&gt;</span><input class="terminal-input" id="terminalCommand" placeholder="help · status · advance 1 · eval 1 · op 0 · verify" maxlength="2048" autocomplete="off" spellcheck="false" aria-label="Recursive XPU command"><button id="executeCommand">EXECUTE</button><button id="clearTerminal">CLEAR</button></div><div class="notice">Commands calculate inside the recursive XPU. <span class="mono">eval STEP</span> returns a committed step; <span class="mono">op ID</span> shows its modeled multiply or add. The terminal accepts a fixed command grammar.</div></section>
+</div><aside class="stack" style="align-content:start">
+<section class="panel"><h2>RECURRENCE CONFIGURATION</h2><div class="config"><label>Multiplier a<input id="configA" value="48271" inputmode="numeric"></label><label>Increment b<input id="configB" value="1" inputmode="numeric"></label><label>Modulus m<input id="configModulus" value="2305843009213693951" inputmode="numeric"></label><label>Initial state / seed<input id="configSeed" value="1" inputmode="numeric"></label></div><div class="controls"><button class="primary" id="applyConfig">APPLY + CALCULATE 1 SECOND</button><button id="randomSeed">NEW RANDOM SEED</button><button id="replayConfig">REPLAY CURRENT SEED</button></div><div class="notice">a, b and seed are exact nonnegative integers smaller than m. The modulus ranges from 2 through 2⁶⁴−1. APPLY resets the virtual clock and computes a fresh first transition.</div></section>
+<section class="panel"><h2>HOST CALCULATIONS</h2><pre id="hostAccounting">No host operations counted.</pre><div class="notice">Fast-forwarding composes modular affine transforms in logarithmic time. Sample, query and verification arithmetic are reported separately. Hashing, addressing and canvas copying are outside these arithmetic counters.</div></section>
+<section class="panel"><h2>REPRODUCIBLE RESULTS</h2><div class="controls"><button id="verifyCurrent">VERIFY CURRENT RESULTS</button><button id="exportResults">DOWNLOAD RESULTS JSON</button><label>Verify saved results<input id="importResults" type="file" accept=".json,application/json"></label></div><div class="status" id="verificationStatus" aria-live="polite">No verification requested.</div><div class="notice">The saved result binds the parameters, exact duration, rates, computed state, affine transforms, receipts, and displayed sample values.</div></section>
+</aside></div>
+<nav class="links"><a href="VIRTUAL_DOMAIN_LEDGER.html">Open original full-domain virtual ledger</a><a href="FINITE_EXECUTION.html">Open finite exhaustive CPU execution</a></nav>
+</main>
+<script>
+'use strict';
+const $=id=>document.getElementById(id),te=new TextEncoder();
+function bytesHex(a){return Array.from(a,b=>b.toString(16).padStart(2,"0")).join("")}
+function rol32(x,n){return ((x<<n)|(x>>>(32-n)))>>>0}
+function sha256Bytes(msg){
+  const K=[0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
+  const H=[0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];
+  const n=msg.length,total=((n+9+63)>>6)<<6,p=new Uint8Array(total);p.set(msg);p[n]=0x80;const bits=n*8,hi=Math.floor(bits/4294967296),lo=bits>>>0;
+  p[total-8]=(hi>>>24)&255;p[total-7]=(hi>>>16)&255;p[total-6]=(hi>>>8)&255;p[total-5]=hi&255;p[total-4]=(lo>>>24)&255;p[total-3]=(lo>>>16)&255;p[total-2]=(lo>>>8)&255;p[total-1]=lo&255;
+  const w=new Uint32Array(64);
+  for(let o=0;o<total;o+=64){for(let i=0;i<16;i++){const j=o+i*4;w[i]=((p[j]<<24)|(p[j+1]<<16)|(p[j+2]<<8)|p[j+3])>>>0}for(let i=16;i<64;i++){const a=w[i-15],b=w[i-2],s0=(rol32(a,25)^rol32(a,14)^(a>>>3))>>>0,s1=(rol32(b,15)^rol32(b,13)^(b>>>10))>>>0;w[i]=(w[i-16]+s0+w[i-7]+s1)>>>0}
+    let [a,b,c,d,e,f,g,h]=H;
+    for(let i=0;i<64;i++){const S1=(rol32(e,26)^rol32(e,21)^rol32(e,7))>>>0,ch=((e&f)^((~e)&g))>>>0,t1=(h+S1+ch+K[i]+w[i])>>>0,S0=(rol32(a,30)^rol32(a,19)^rol32(a,10))>>>0,maj=((a&b)^(a&c)^(b&c))>>>0,t2=(S0+maj)>>>0;h=g;g=f;f=e;e=(d+t1)>>>0;d=c;c=b;b=a;a=(t1+t2)>>>0}
+    H[0]=(H[0]+a)>>>0;H[1]=(H[1]+b)>>>0;H[2]=(H[2]+c)>>>0;H[3]=(H[3]+d)>>>0;H[4]=(H[4]+e)>>>0;H[5]=(H[5]+f)>>>0;H[6]=(H[6]+g)>>>0;H[7]=(H[7]+h)>>>0;
+  }
+  const out=new Uint8Array(32);for(let i=0;i<8;i++){out[i*4]=(H[i]>>>24)&255;out[i*4+1]=(H[i]>>>16)&255;out[i*4+2]=(H[i]>>>8)&255;out[i*4+3]=H[i]&255}return out
+}
+function sha256Hex(msg){return bytesHex(sha256Bytes(msg))}
+
+function hashText(text){return sha256Hex(te.encode(text));}
+function decimalText(value){return BigInt(value).toLocaleString('en-US');}
+function fractionText(value,scale,places){const n=BigInt(value),whole=n/scale,remainder=n%scale;return whole.toString()+(remainder?'.'+remainder.toString().padStart(places,'0').replace(/0+$/,''):'');}
+function secondsText(ns){return fractionText(ns,1000000000n,9);}
+function scientificTotal(operations){return fractionText(operations,10n**30n,30)+' × 10³⁰ modeled operations';}
+function jsonText(value){return JSON.stringify(value,null,2);}
+function emptyWork(){return {multiplications:'0',additions:'0',reductions:'0',compositions:'0'};}
+function addWork(target,work){if(!work)return;for(const key of Object.keys(target))target[key]=(BigInt(target[key])+BigInt(work[key]||'0')).toString();}
+function workOperations(work){return BigInt(work.multiplications)+BigInt(work.additions)+BigInt(work.reductions);}
+let engine=null,appliedParams=null,lastReceipt=null,lastTransitionMs=0,frameData=null,frameBinding='',frameGeneration=0;
+let viewWork=emptyWork(),queryWork=emptyWork(),verifyWork=emptyWork(),renderMs=0,queryMs=0,verifyMs=0;
+let clockRunning=false,clockGeneration=0,lastClockMs=0;
+const raster=NumberRaster.create($('cv')),terminalLines=[],terminalHistory=[];let historyIndex=0;
+function currentBinding(){const s=engine.snapshot();return hashText(JSON.stringify({params:s.params,totalSteps:s.totalSteps,state:s.state}));}
+function summary(){
+ const s=engine.snapshot(),transition=s.transitionHostIntegerWork;
+ $('virtualRate').textContent=fractionText(s.rateVirtualOperationsPerSecond,10n**30n,30)+' QFLOP-eq / virtual second';
+ $('totalScientific').textContent=scientificTotal(s.totalVirtualOperations);$('totalOperations').textContent=decimalText(s.totalVirtualOperations)+' modeled operations';
+ $('virtualTime').textContent=secondsText(s.virtualNanoseconds)+' virtual seconds';$('recursiveState').textContent=s.state;$('totalSteps').textContent=decimalText(s.totalSteps);
+ $('transitionHostOps').textContent=decimalText(workOperations(transition))+' integer operations';
+ $('recurrenceFormula').textContent=`x[n+1] = (${s.params.a} × x[n] + ${s.params.b}) mod ${s.params.modulus}`;
+ $('modelDetails').textContent=jsonText(s);
+ if(lastReceipt)$('transitionTrace').textContent=`State before: ${lastReceipt.stateBefore}\nState after:  ${lastReceipt.stateAfter}\nExact affine fast-forward:\nx_after = (${lastReceipt.affineMultiplier} × x_before + ${lastReceipt.affineIncrement}) mod ${s.params.modulus}\nSteps calculated by this transform: ${lastReceipt.steps}\nModeled multiply/add workload credits: ${lastReceipt.operations}\nVirtual duration: ${secondsText(lastReceipt.virtualDurationNanoseconds)} seconds\nActual transform arithmetic: ${decimalText(workOperations(lastReceipt.hostIntegerWork))} integer operations\nThe transformed state is calculated; the workload credit records the equivalent recursive multiply/add sequence.`;
+ const all=emptyWork();for(const work of [transition,viewWork,queryWork,verifyWork])addWork(all,work);
+ $('hostAccounting').textContent=`ACTUAL MODULAR INTEGER ARITHMETIC\nTransition fast-forward: ${decimalText(workOperations(transition))}\nDisplayed samples:      ${decimalText(workOperations(viewWork))}\nTerminal queries:       ${decimalText(workOperations(queryWork))}\nResult verification:    ${decimalText(workOperations(verifyWork))}\nTotal multiply/add/mod: ${decimalText(workOperations(all))}\nMultiplications: ${all.multiplications}\nAdditions: ${all.additions}\nRemainder reductions: ${all.reductions}\nAffine compositions: ${all.compositions}\nPhysical floating-point operations claimed: 0`;
+ const hasTiming=lastTransitionMs>0||renderMs>0||queryMs>0||verifyMs>0;$('hostTiming').hidden=!hasTiming;
+ if(hasTiming)$('hostTiming').textContent=`Measured host time: latest fast-forward ${lastTransitionMs.toFixed(3)} ms · samples ${renderMs.toFixed(3)} ms · queries ${queryMs.toFixed(3)} ms · verification ${verifyMs.toFixed(3)} ms. These host times are separate from the virtual clock.`;
+}
+function inspectSample(index,withArithmetic=false){
+ if(!frameData)return;index=Number(index);if(!Number.isSafeInteger(index)||index<0||index>=frameData.entries.length)throw Error('Cell index is outside the displayed sample grid.');
+ const sample=frameData.entries[index];$('cellIndex').value=String(index);
+ if(withArithmetic){const calculation=engine.query(sample.sampleStep);addWork(queryWork,calculation.hostIntegerWork);queryMs+=Number(calculation.elapsedMs)||0;$('sampleTrace').textContent=jsonText({sample,calculation});summary();}
+ else $('sampleTrace').textContent=jsonText(sample);
+}
+function renderFrame(){
+ const sample=engine.sample(1060);addWork(viewWork,sample.hostIntegerWork);renderMs+=Number(sample.elapsedMs)||0;
+ frameData={columns:53,rows:20,cells:1060,entries:sample.entries,accounting:sample.accounting};
+ raster.render(640,360,(column,row,columns)=>sample.entries[row*columns+column].digit);frameBinding=currentBinding();
+ $('frameCaption').textContent=`53 × 20 digits from exact recursive states. ${sample.accounting.representedSteps} completed steps partitioned across 1,060 cells. Each digit is its sampled state mod 10.`;
+ inspectSample(Number($('cellIndex').value)||0);summary();$('runStatus').textContent=clockRunning?'RUNNING — one virtual second per elapsed wall-clock second.':'PAUSED — recursive state and samples calculated.';
+}
+function queueFrame(){const generation=++frameGeneration,active=engine;requestAnimationFrame(()=>{if(generation===frameGeneration&&engine===active)renderFrame();});$('runStatus').textContent='Recursive state calculated. Updating displayed samples…';}
+function pauseClock(){clockRunning=false;clockGeneration++;$('clockStatus').textContent='PAUSED';$('startClock').disabled=false;$('pauseClock').disabled=true;}
+function advanceSeconds(seconds){const result=engine.advance(seconds);lastReceipt=result.receipt;lastTransitionMs=Number(result.elapsedMs)||0;summary();queueFrame();return result;}
+function startClock(){
+ if(clockRunning)return;clockRunning=true;lastClockMs=performance.now();const token=++clockGeneration;$('clockStatus').textContent='RUNNING 1×';$('startClock').disabled=true;$('pauseClock').disabled=false;
+ function tick(now){if(!clockRunning||token!==clockGeneration)return;const elapsed=Math.max(0,Number(now)-lastClockMs);if(elapsed>=1000){const seconds=Math.floor(elapsed/1000);lastClockMs+=seconds*1000;try{advanceSeconds(String(seconds));}catch(error){pauseClock();$('runStatus').textContent='CLOCK ERROR: '+error.message;return;}}requestAnimationFrame(tick);}
+ requestAnimationFrame(tick);
+}
+function inputs(){return {a:$('configA').value.trim(),b:$('configB').value.trim(),modulus:$('configModulus').value.trim(),seed:$('configSeed').value.trim()};}
+function setInputs(params){for(const [key,id] of [['a','configA'],['b','configB'],['modulus','configModulus'],['seed','configSeed']])$(id).value=params[key];}
+function applyConfiguration(params=inputs()){
+ try{
+  const candidate=RecursiveXPU.create(params,{hashText,now:()=>performance.now()}),result=candidate.advance('1');
+  pauseClock();engine=candidate;appliedParams={...candidate.snapshot().params};lastReceipt=result.receipt;lastTransitionMs=Number(result.elapsedMs)||0;
+  viewWork=emptyWork();queryWork=emptyWork();verifyWork=emptyWork();renderMs=0;queryMs=0;verifyMs=0;frameData=null;frameBinding='';setInputs(appliedParams);summary();queueFrame();$('verificationStatus').textContent='Fresh recurrence: calculated one virtual second.';return true;
+ }catch(error){$('runStatus').textContent='CONFIGURATION ERROR: '+error.message;return false;}
+}
+function randomizeSeed(){
+ try{const params=inputs();RecursiveXPU.create({...params,seed:'0'},{hashText});const modulus=BigInt(params.modulus),space=1n<<64n,limit=space-space%modulus;let value;do{const words=new Uint32Array(2);crypto.getRandomValues(words);value=(BigInt(words[0])<<32n)|BigInt(words[1]);}while(value>=limit);params.seed=(value%modulus).toString();return applyConfiguration(params);}catch(error){$('runStatus').textContent='SEED ERROR: '+error.message;return false;}
+}
+function terminalWrite(text){terminalLines.push(String(text));while(terminalLines.length>80)terminalLines.shift();$('terminalOutput').textContent=terminalLines.join('\n\n').slice(-65536);$('terminalOutput').scrollTop=$('terminalOutput').scrollHeight;}
+function executeCommand(line){
+ line=String(line??'').trim();if(!line)return null;terminalHistory.push(line);if(terminalHistory.length>50)terminalHistory.shift();historyIndex=terminalHistory.length;
+ const before=engine.snapshot().totalSteps,result=engine.execute(line);
+ if(result.clear)terminalLines.length=0;
+ if(result.ok){if(result.command==='eval'||result.command==='op'){addWork(queryWork,result.hostIntegerWork);queryMs+=Number(result.elapsedMs)||0;}else if(result.command==='verify'){addWork(verifyWork,result.hostIntegerWork);verifyMs+=Number(result.elapsedMs)||0;}if(engine.snapshot().totalSteps!==before){lastReceipt=engine.snapshot().receipts.at(-1);lastTransitionMs=Number(result.elapsedMs)||0;queueFrame();}}
+ terminalWrite(`rxpu> ${line}\n${result.output}\nHost dispatch: ${Number(result.elapsedMs).toFixed(3)} ms · actual integer arithmetic: ${workOperations(result.hostIntegerWork)} · modeled operations added: ${result.virtualOperationsCommitted}`);summary();return result;
+}
+function exportEnvelope(){
+ if(!frameData||frameBinding!==currentBinding())throw Error('Sample refresh pending. Export after the digits update.');
+ const data={snapshot:engine.snapshot(),frame:frameData};return {schema:'QUETTAFLOP/RECURSIVE-RESULTS/1',dataSha256:hashText(JSON.stringify(data)),data};
+}
+function verifyEnvelope(envelope){
+ const started=performance.now();if(!envelope||envelope.schema!=='QUETTAFLOP/RECURSIVE-RESULTS/1'||!envelope.data||envelope.dataSha256!==hashText(JSON.stringify(envelope.data)))throw Error('Saved result hash/schema mismatch.');
+ const result=RecursiveXPU.verify(envelope.data.snapshot,{hashText});addWork(verifyWork,result.hostIntegerWork);if(!result.ok){summary();throw Error('Recursive result mismatch: '+result.errors.join('; '));}
+ const frame=envelope.data.frame;if(!frame||frame.columns!==53||frame.rows!==20||frame.cells!==1060)throw Error('Saved sample grid mismatch.');
+ const reference=RecursiveXPU.create(envelope.data.snapshot.params,{hashText,now:()=>performance.now()});
+ if(BigInt(envelope.data.snapshot.virtualNanoseconds)>0n){const advance=reference.advance(secondsText(envelope.data.snapshot.virtualNanoseconds));addWork(verifyWork,advance.hostIntegerWork);}
+ const sampled=reference.sample(1060);addWork(verifyWork,sampled.hostIntegerWork);
+ const expected={columns:53,rows:20,cells:1060,entries:sampled.entries,accounting:sampled.accounting};
+ if(JSON.stringify(frame)!==JSON.stringify(expected)){summary();throw Error('Saved sample values or interval counts mismatch.');}
+ verifyMs+=performance.now()-started;summary();return {ok:true,state:reference.snapshot().state,cells:1060};
+}
+function showError(id,error){$(id).textContent='ERROR: '+error.message;}
+$('applyConfig').onclick=()=>applyConfiguration();$('randomSeed').onclick=randomizeSeed;$('replayConfig').onclick=()=>applyConfiguration({...appliedParams});
+$('advanceOne').onclick=()=>{try{executeCommand('advance 1');}catch(error){showError('runStatus',error);}};$('startClock').onclick=startClock;$('pauseClock').onclick=()=>{pauseClock();$('runStatus').textContent='PAUSED — calculated state retained.';};
+$('refreshFrame').onclick=queueFrame;$('inspectCell').onclick=()=>{try{inspectSample($('cellIndex').value,true);}catch(error){showError('sampleTrace',error);}};
+$('cv').addEventListener('click',event=>{const bounds=$('cv').getBoundingClientRect(),column=Math.floor((event.clientX-bounds.left)/bounds.width*640/12),row=Math.floor((event.clientY-bounds.top)/bounds.height*360/18);if(column>=0&&column<53&&row>=0&&row<20)inspectSample(row*53+column,true);});
+$('executeCommand').onclick=()=>{executeCommand($('terminalCommand').value);$('terminalCommand').value='';};$('clearTerminal').onclick=()=>{terminalLines.length=0;$('terminalOutput').textContent='Terminal cleared. Recursive state retained.';};
+$('terminalCommand').addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();$('executeCommand').onclick();}else if(event.key==='ArrowUp'){event.preventDefault();historyIndex=Math.max(0,historyIndex-1);$('terminalCommand').value=terminalHistory[historyIndex]||'';}else if(event.key==='ArrowDown'){event.preventDefault();historyIndex=Math.min(terminalHistory.length,historyIndex+1);$('terminalCommand').value=terminalHistory[historyIndex]||'';}});
+$('verifyCurrent').onclick=()=>{try{const verified=verifyEnvelope(exportEnvelope());$('verificationStatus').textContent=`PASS: computed state ${verified.state}, exact receipt chain, and all ${verified.cells} sampled states verified.`;}catch(error){showError('verificationStatus',error);}};
+$('exportResults').onclick=()=>{try{const envelope=exportEnvelope(),url=URL.createObjectURL(new Blob([jsonText(envelope)+'\n'],{type:'application/json'})),link=document.createElement('a');link.href=url;link.download='QuettaFLOP-Recursive-Results.json';document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);$('verificationStatus').textContent='Computed results downloaded.';}catch(error){showError('verificationStatus',error);}};
+$('importResults').onchange=async event=>{try{const file=event.target.files?.[0];if(!file)return;if(file.size>10000000)throw Error('Saved result must be smaller than 10 MB.');const result=verifyEnvelope(JSON.parse(await file.text()));$('verificationStatus').textContent=`SAVED RESULTS PASS: recursive state ${result.state} and all ${result.cells} sample values verified.`;}catch(error){showError('verificationStatus',error);}};
+applyConfiguration();terminalWrite('RECURSIVE XPU READY · actual one-second state transition calculated · virtual clock paused. Type help for commands.');
+
+</script>
+</body></html>

@@ -1,0 +1,107 @@
+QuettaFLOP CPU + GPU XPU: full RAM fill waves and sampled arithmetic
+
+The native backend fills its planned RAM reservoir and computes recurrence
+answers only at requested sample positions. Bulk filled bits and bytes are
+storage/write work. They are not credited as an AND/XOR recurrence calculation
+for every stored bit. CPU and GPU completion, selected arithmetic counts and
+bulk write counts have separate units; no FLOP/s throughput is claimed.
+
+To run the native backend, extract the ZIP and open RUN_XPU.cmd. The standalone
+QuettaFLOP-CPU-GPU-XPU.html viewer shows native execution as unavailable until
+the authenticated local service is connected.
+
+The memory planner uses observed available system RAM, retains an OS reserve
+of at least 2 GiB, and deducts modeled application, driver and scratch overhead.
+An integrated GPU shares this budget: its reported global-memory capacity is
+not added to system RAM. The main reservoir is one host buffer allocated with
+VirtualAlloc. The GPU has only small selected-sample input/result buffers, not
+a second full-RAM reservoir. The planner reserves room for this staging and
+constrains each OpenCL buffer by the device allocation limit. Unallocated or
+merely planned ranges receive no completed-fill credit.
+
+The reservoir is actually allocated and written. Owned logical payload bytes,
+process/OS memory observations and driver overhead are separate measurements.
+CL_MEM_ALLOC_HOST_PTR requests host-accessible OpenCL storage; that flag alone
+proves neither zero-copy implementation nor exact physical-page residency.
+Khronos reference:
+https://registry.khronos.org/OpenCL/specs/unified/refpages/man/html/clCreateBuffer.html
+
+A wave starts at the declared host issue boundary and finishes only after CPU
+bulk fill work and requested CPU/GPU sample work have completed. A queued
+GPU command or submitted CPU task is pending work, rather than a completed wave.
+The deadline check uses this completed host interval. Separate device events or
+CPU timings are not added together as the concurrent latency denominator.
+Allocation, cold first touch, warm reuse and readback have explicit boundaries.
+
+The configured CPU worker threads perform native memset writes across the reservoir;
+the controller waits for their completed futures. The fill credits written
+bytes and bits, with zero recurrence arithmetic credit for unrequested bits.
+The CPU/GPU answer engines calculate only selected positions. Actual RAM bits
+are copied to the GPU's staging buffers, its real sample kernel completes,
+and its results are read back. Read depth controls actual repeated selected
+reads/calculations; wave count controls actual repeated bulk fills.
+Each performed repetition is counted at its completion boundary. It is not a
+virtual multiplier for omitted full-RAM recurrence steps. Algorithmic reads
+and writes are not measured DRAM traffic or hardware instruction counters.
+The read counter is a count of selected byte-load expressions; addresses can
+share bytes and cache lines. Multiply/add counters count acknowledged source
+integer arithmetic, and do not identify the GPU's compiled instruction count.
+
+Sample results come from actual CPU storage or completed GPU readback. The
+selected answers are compared with a separate reference. They establish their
+observed positions, not correctness of every unobserved RAM value or a
+cryptographic execution proof. The digit display maps these actual requested
+results to digits 0 through 9. Packed stored bits are data lanes, rather than one
+operating-system thread per bit. Prior full-traversal modes remain references
+with their own distinct operation accounting.
+
+The requested wave deadline is under 2 ms. targetMet is computed from the full
+measured completion interval and observed issue-to-issue cadence. Both must be
+strictly under the deadline. The first wave has no observed cadence, so it
+cannot pass the combined target; latencyTargetMet reports its latency separately.
+Filling 13 billion bytes in 2 ms would require 6.5 trillion payload bytes/s. This
+is a requirement calculation, not a hardware throughput claim. A separate
+1 GiB native memset probe measured an 8-thread warm median 24.0118 ms, or about
+44.717 billion payload bytes/s. Its initial single-thread first-touch trial took
+234.598 ms. The approximately 89.4 MB predicted for 2 ms is an extrapolation from
+that warm probe, not an observed completed wave or a theoretical hardware limit.
+The included full-reservoir report records an actual missed deadline.
+
+That run allocated 11,712,266,240 reservoir bytes and initialized all
+93,698,129,920 stored bits. Three completed full-reservoir waves took
+277.6729, 519.8290 and 359.8619 ms, including selected CPU/GPU work and readback.
+Their fill-only intervals were 261.3828, 498.0352 and 340.3606 ms. All latency
+and observed cadence checks missed 2 ms. The full payload would require about
+5.856 trillion bytes/s at that deadline. The completed wave payload rates were
+about 42.18, 22.53 and 32.55 billion bytes/s; these are measured payload rates,
+not a theoretical memory bandwidth limit.
+
+The run wrote 35,136,798,720 wave bytes, plus 11,712,266,240 initialization bytes.
+Its three waves evaluated 4,240 selected bits each. A fresh query checked 352
+positions at both sides of native thread/chunk boundaries. The total credited
+sample arithmetic was 26,144 source integer multiply/add expressions, with
+13,072 modulo-2 reductions counted separately. Full-reservoir arithmetic credit
+was zero. Selected traces and digits passed an independent scalar reference;
+sampling does not certify all unobserved bits. Peak process working set was
+11,918,950,400 bytes, an OS measurement rather than guaranteed per-page residency.
+The reservoir and GPU resources were released after the test.
+
+The 4 x 10^30 binary-operation budget remains a requested quantity. Only actual
+sample arithmetic reduces an arithmetic-work budget; filled byte count, RAM
+capacity and active processor contexts do not automatically complete it.
+GPU errors or unavailable native execution are shown explicitly. A CPU-only
+measurement cannot stand in for a successful GPU measurement.
+When one arithmetic branch fails, the other branch's acknowledged arithmetic
+is retained. Unacknowledged work and an incomplete wave receive no completion
+credit. Each selected answer has product, sum, modulo-2 result and observed bit.
+
+The seed selects a mixed byte template, repeated across the reservoir. Sample
+addresses use a deterministic pseudo-random sequence. This makes stored data
+easy to check; it does not create independent random entropy for every RAM bit.
+
+Pause stops subsequent bounded requests after in-flight work settles. Release
+frees the owned buffers; reset begins a fresh generation. Partial waves and
+errors retain only their established acknowledged work. An offline dashboard
+shows native execution as unavailable. The authenticated loopback service
+exposes contained operations and no arbitrary shell, with token and origin
+checks before actions.

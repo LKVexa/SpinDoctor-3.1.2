@@ -1,19 +1,4 @@
 SpinDoctor 3.1.2
-CURRENT 298-QUBIT UPDATE
-Selected circuits and zero-prepared tranche registers support 1..298 logical
-qubits, with each coherent joint factor limited to 59 qubits and actual memory.
-Registers wider than 29 use basis-z sampling from one prepared coherent state:
-each factor is sampled jointly, preserving its internal correlations. Reports
-identify prepared-factor-Born-Z and count the preparations/gates actually run.
-Circuits of 1..29 qubits retain independent shot replay and x/y/z readout.
-Use q.circuit new NAME 298 to create/select a wide circuit. q.migrate changes
-the procedural family parameter; it does not resize a circuit or tranche.
-Close the older service console and run BOOT.cmd to load the rebuilt carriers.
-Existing mutable workspace, seeds, counters, saved circuits and history remain.
-Read UPDATE-298.txt for the current limits, mcx7 and ordered chunk inputs.
-Earlier release notes, validations and 29-qubit examples below are historical;
-procedural q.tranche from INDEX still selects consecutive groups of up to 29.
-
 See SpinDoctor-3.1.2-Release-Notes.txt for the 3.1.2 audit fixes: folder runs list skipped files, accept .qasm2/.circuit, explain empty or prose .txt inputs, and keep q.folder/q.sequence status polling reports compact.
 See HANDGUIDE.md (or HANDGUIDE.pdf in the release folder) for a plain-language user guide.
 See SpinDoctor-3.1.1-Release-Notes.txt for CSV report companions, measurement fitting and CSV gate-list simulation.
@@ -58,7 +43,7 @@ reference experiments and tests. See native/requirements.txt for the tested
 NumPy dependency. Read SpinDoctor-3.0.4-Release-Notes.txt for current fixes.
 
 The original 3.0.3 release and its history are preserved at their original
-location. This is a separate release under <WORK>. Do not copy generated
+location. This is a separate release under D:/Codex. Do not copy generated
 audit test sessions into your live workspace. Existing workspace schemas are
 retained; invalid or corrupted saved state is refused with its files preserved.
 
@@ -128,7 +113,7 @@ PREVIOUS RELEASE NOTES (3.0.2)
 
 SPINDOCTOR 3.0.2 - AUTOMATIC TXT AND PDF REPORTS
 
-Extract this package into its own folder under <WORK> and start BOOT.cmd.
+Extract this package into its own folder under D:\Codex and start BOOT.cmd.
 The terminal now automatically requests both a .txt and a .pdf download for
 every native command return, including help, status and rejected commands.
 Asynchronous jobs request an accepted report pair and a completed report pair.

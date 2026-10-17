@@ -1,19 +1,3 @@
-// SPDX-License-Identifier: GPL-3.0-or-later
-// SpinDoctor 3.1.2 - Quantum Virtual Terminal
-// Copyright (C) 2026 RUSSELL PHILIP SMITHSON <russellsmithson77@outlook.com>
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -819,12 +803,12 @@ namespace QuettaQuantum
             if(first=="q.circuit")
             {
                 if(w.Length <2)throw new ArgumentException("Missing circuit action."); string action=w[1].ToLowerInvariant();
-                if(action=="new") { Exact(w,4); Name(w[2]); Number(w[3],1,TrancheRegister.MaximumLogicalQubits); return; }
-                if(action=="add") { Gate(w,2,TrancheRegister.MaximumLogicalQubits); return; }
+                if(action=="new") { Exact(w,4); Name(w[2]); Number(w[3],1,29); return; }
+                if(action=="add") { Gate(w,2,29); return; }
                 if(action=="preset") { CircuitTerminal.ParsePresetOptions(w);return; }
                 if(action=="run") { Exact(w,6); Need(w[2],"shots");Number(w[3],1,100000);Need(w[4],"basis");Basis(w[5]);return; }
-                if(action=="state" ||action=="input") { Exact(w,3);Count(w[2]);return; }
-                if(action=="spin") { Exact(w,3);Number(w[2],0,TrancheRegister.MaximumLogicalQubits-1);return; }
+                if(action=="state" ||action=="input") { Exact(w,3);Unsigned(w[2]);return; }
+                if(action=="spin") { Exact(w,3);Number(w[2],0,28);return; }
                 if(action=="select") { Exact(w,3);Name(w[2]);return; }
                 if(action=="memory") { Exact(w,3);if(!Eq(w[2],"auto") &&Unsigned(w[2]) <2)throw new ArgumentException("Circuit memory minimum is 2 MiB.");return; }
                 if(action=="delete") { if(w.Length !=2 &&w.Length !=3)throw new ArgumentException("Invalid delete arguments."); if(w.Length==3)Name(w[2]);return; }
@@ -834,12 +818,12 @@ namespace QuettaQuantum
             if(first=="q.tranche")
             {
                 if(w.Length<2)throw new ArgumentException("Missing tranche action."); string action=w[1].ToLowerInvariant();
-                if(action=="prepare") {Exact(w,4);Number(w[2],1,TrancheRegister.MaximumLogicalQubits);Need(w[3],"zero");return;}
+                if(action=="prepare") {Exact(w,4);Number(w[2],1,29);Need(w[3],"zero");return;}
                 if(action=="from") {Exact(w,3);Unsigned(w[2]);return;}
-                if(action=="gate") {Gate(w,2,TrancheRegister.MaximumLogicalQubits);return;}
-                if(action=="state") {Exact(w,3);Count(w[2]);return;}
-                if(action=="spin") {Exact(w,3);Number(w[2],0,TrancheRegister.MaximumLogicalQubits-1);return;}
-                if(action=="measure") {if(w.Length!=7 &&w.Length!=8)throw new ArgumentException("Invalid tranche measure arguments.");Number(w[2],0,TrancheRegister.MaximumLogicalQubits-1);Need(w[3],"basis");Basis(w[4]);Need(w[5],"shots");int n=Number(w[6],1,100000);if(w.Length==8){Need(w[7],"collapse");if(n!=1)throw new ArgumentException("Collapse requires one shot.");}return;}
+                if(action=="gate") {Gate(w,2,29);return;}
+                if(action=="state") {Exact(w,3);Unsigned(w[2]);return;}
+                if(action=="spin") {Exact(w,3);Number(w[2],0,28);return;}
+                if(action=="measure") {if(w.Length!=7 &&w.Length!=8)throw new ArgumentException("Invalid tranche measure arguments.");Number(w[2],0,28);Need(w[3],"basis");Basis(w[4]);Need(w[5],"shots");int n=Number(w[6],1,100000);if(w.Length==8){Need(w[7],"collapse");if(n!=1)throw new ArgumentException("Collapse requires one shot.");}return;}
                 if(action=="memory") {Exact(w,3);if(!Eq(w[2],"auto"))Unsigned(w[2]);return;}
                 if(action=="save") {if(w.Length!=2 &&w.Length!=3)throw new ArgumentException("Invalid tranche save arguments.");if(w.Length==3)Need(w[2],"dense");return;}
                 if(action=="status" ||action=="cancel" ||action=="export" ||action=="resume" ||action=="reset" ||action=="release" ||action=="help") {Exact(w,2);return;}
@@ -867,12 +851,12 @@ namespace QuettaQuantum
                 else if(Eq(w[0],"q.circuit"))
                 {
                     string action=w[1].ToLowerInvariant();
-                    if(action=="new"){n=Number(w[3],1,TrancheRegister.MaximumLogicalQubits);selected=w[2];programs[selected]=n;output=false;}
+                    if(action=="new"){n=Number(w[3],1,29);selected=w[2];programs[selected]=n;output=false;}
                     else if(action=="preset"){var options=CircuitTerminal.ParsePresetOptions(w);n=options.Qubits;selected=options.Name ??(options.Preset=="bell" ?"bell":options.Preset+"-"+options.Qubits.ToString(CultureInfo.InvariantCulture));programs[selected]=n;output=options.Run;}
                     else if(action=="select"){if(!programs.TryGetValue(w[2],out n))throw new ArgumentException("Circuit selection does not exist in this sequence context.");selected=w[2];output=false;}
                     else if(action=="delete"){string name=w.Length==3 ?w[2]:selected;if(!programs.Remove(name))throw new ArgumentException("Circuit deletion target does not exist.");if(Eq(name,selected)){selected="";n=0;output=false;}}
                     else if(action=="add"){if(n==0)throw new ArgumentException("No selected circuit for a gate.");Gate(w,2,n);output=false;}
-                    else if(action=="input" ||action=="state"){if(n==0 ||Count(w[2]) >=(BigInteger.One<<n))throw new ArgumentException("Circuit basis index is outside the declared register.");if(action=="input")output=false;else if(!output)throw new ArgumentException("Run the current circuit before its state query.");}
+                    else if(action=="input" ||action=="state"){if(n==0 ||Unsigned(w[2]) >=(1UL<<n))throw new ArgumentException("Circuit basis index is outside the declared register.");if(action=="input")output=false;else if(!output)throw new ArgumentException("Run the current circuit before its state query.");}
                     else if(action=="spin"){if(n==0 ||!output)throw new ArgumentException("Run the current circuit before its spin query.");Number(w[2],0,n-1);}
                     else if(action=="run"){if(n==0)throw new ArgumentException("No selected circuit to run.");output=true;}
                     else if(action=="clear" ||action=="show" ||action=="export"){if(n==0)throw new ArgumentException("No selected circuit.");if(action=="clear")output=false;}
@@ -886,7 +870,7 @@ namespace QuettaQuantum
                 }
                 else if(Eq(w[0],"q.tranche"))
                 {
-                    string action=w[1].ToLowerInvariant();if(action=="prepare")tranche=Number(w[2],1,TrancheRegister.MaximumLogicalQubits);else if(action=="from"){ulong index=Unsigned(w[2]);if(domain!=0 &&index>=(domain+28)/29)throw new ArgumentException("Tranche index is outside the declared family.");ulong start=checked(index*29);tranche=domain==0 ?29:(int)Math.Min(29UL,domain-start);}else if(action=="release")tranche=0;else if(action=="gate"){if(tranche==0)throw new ArgumentException("No prepared tranche for a gate.");Gate(w,2,tranche);}else if(action=="state"){if(tranche==0 ||Count(w[2]) >=(BigInteger.One<<tranche))throw new ArgumentException("Tranche basis index is outside the declared register.");}else if(action=="spin" ||action=="measure"){if(tranche==0)throw new ArgumentException("No prepared tranche.");Number(w[2],0,tranche-1);}
+                    string action=w[1].ToLowerInvariant();if(action=="prepare")tranche=Number(w[2],1,29);else if(action=="from"){ulong index=Unsigned(w[2]);if(domain!=0 &&index>=(domain+28)/29)throw new ArgumentException("Tranche index is outside the declared family.");ulong start=checked(index*29);tranche=domain==0 ?29:(int)Math.Min(29UL,domain-start);}else if(action=="release")tranche=0;else if(action=="gate"){if(tranche==0)throw new ArgumentException("No prepared tranche for a gate.");Gate(w,2,tranche);}else if(action=="state"){if(tranche==0 ||Unsigned(w[2]) >=(1UL<<tranche))throw new ArgumentException("Tranche basis index is outside the declared register.");}else if(action=="spin" ||action=="measure"){if(tranche==0)throw new ArgumentException("No prepared tranche.");Number(w[2],0,tranche-1);}
                 }
             }
         }
@@ -929,10 +913,10 @@ namespace QuettaQuantum
                 }
                 int shotOperand=ShotOperandIndex(w);if(parameters.ContainsKey("shots") &&shotOperand>=0)w[shotOperand+1]=Number(Convert.ToString(parameters["shots"],CultureInfo.InvariantCulture),1,Int(Value(Map(Value(schema,"shots")),"maximum"))).ToString(CultureInfo.InvariantCulture);
                 if(parameters.ContainsKey("basis"))for(int p=0;p<w.Length-1;p++)if(Eq(w[p],"basis"))w[p+1]=Basis(Convert.ToString(parameters["basis"],CultureInfo.InvariantCulture));
-                if(Eq(w[0],"q.circuit") &&Eq(w[1],"new")) {if(parameters.ContainsKey("qubits"))w[3]=Number(Convert.ToString(parameters["qubits"],CultureInfo.InvariantCulture),1,TrancheRegister.MaximumLogicalQubits).ToString(CultureInfo.InvariantCulture);string original=Name(w[2]),fresh=Fresh(original,names);mapping[original]=fresh;w[2]=fresh;added++;}
+                if(Eq(w[0],"q.circuit") &&Eq(w[1],"new")) {if(parameters.ContainsKey("qubits"))w[3]=Number(Convert.ToString(parameters["qubits"],CultureInfo.InvariantCulture),1,29).ToString(CultureInfo.InvariantCulture);string original=Name(w[2]),fresh=Fresh(original,names);mapping[original]=fresh;w[2]=fresh;added++;}
                 
                 if(Eq(w[0],"q.circuit") &&Eq(w[1],"select")){string mapped;if(mapping.TryGetValue(w[2],out mapped))w[2]=mapped;}
-                if(parameters.ContainsKey("input") &&Eq(w[0],"q.circuit") &&Eq(w[1],"input"))w[2]=Count(Convert.ToString(parameters["input"],CultureInfo.InvariantCulture)).ToString(CultureInfo.InvariantCulture);
+                if(parameters.ContainsKey("input") &&Eq(w[0],"q.circuit") &&Eq(w[1],"input"))w[2]=Unsigned(Convert.ToString(parameters["input"],CultureInfo.InvariantCulture)).ToString(CultureInfo.InvariantCulture);
                 int gateStart=Eq(w[0],"q.circuit") ||Eq(w[0],"q.tranche") ?w.Length>1 &&(Eq(w[1],"add") ||Eq(w[1],"gate")) ?2 :-1 :Eq(w[0],"q.gate") ?1 :-1;
                 if(gateStart>=0){int ac=GateAngles(w[gateStart]);for(int a=0;a<ac;a++){string expression=parameters.ContainsKey("angle") ?Convert.ToString(parameters["angle"],CultureInfo.InvariantCulture) :w[gateStart+1+a];w[gateStart+1+a]=Real(expression).ToString("R",CultureInfo.InvariantCulture);}}
                 result[i]=String.Join(" ",w);
@@ -958,7 +942,7 @@ namespace QuettaQuantum
                 }
                 if(automaticPreset)result["basis"]=D("type","choice","values",new string[]{"x","y","z"});
                 for(int i=0;i<w.Length;i++)if(Eq(w[i],"basis"))result["basis"]=D("type","choice","values",new string[]{"x","y","z"});
-                if(w.Length>1 &&Eq(w[0],"q.circuit") &&Eq(w[1],"new"))result["qubits"]=D("type","integer","minimum",1,"maximum",TrancheRegister.MaximumLogicalQubits);
+                if(w.Length>1 &&Eq(w[0],"q.circuit") &&Eq(w[1],"new"))result["qubits"]=D("type","integer","minimum",1,"maximum",29);
                 if(w.Length>1 &&Eq(w[0],"q.circuit") &&Eq(w[1],"input"))result["input"]=D("type","basis-index","ordering","little-endian");
                 int at=(Eq(w[0],"q.circuit") ||Eq(w[0],"q.tranche")) &&w.Length>2 &&(Eq(w[1],"add") ||Eq(w[1],"gate")) ?2 :Eq(w[0],"q.gate") &&w.Length>1 ?1 :-1;if(at>=0)angles+=GateAngles(w[at]);
             }

@@ -1,0 +1,34 @@
+SPINDOCTOR 3.0.2 - AUTOMATIC TXT AND PDF REPORTS
+
+Extract this package into its own folder under D:\Codex and start BOOT.cmd.
+The terminal now automatically requests both a .txt and a .pdf download for
+every native command return, including help, status and rejected commands.
+Asynchronous jobs request an accepted report pair and a completed report pair.
+Very fast jobs are also checked for completion, even if their returned status
+already shows that they finished.
+
+PDF reports use the native exporter and the immutable accepted/completed
+archive snapshots. Exporting does not rerun calculations, gates or measurements.
+Automatic PDFs queue separately from terminal commands. Repeated job polling
+does not request duplicate report pairs. Failed TXT/PDF requests are shown in
+the terminal with a retry button; retrying does not rerun the original command.
+Manual selected, session, archived and circuit reports remain available.
+
+If your browser asks, allow multiple automatic downloads for the local
+calculator page. A browser may block a download after the app requests it;
+the app cannot verify that the browser saved a file. Manual downloads remain
+available if the browser blocks automatic downloads.
+
+Batch 001 audit
+All 17 supplied command TXT files were parsed: 85 complete JSON sections.
+The 12 chronological gate matrices independently agree to within 2.78e-16.
+Recorded represented gate credits total 6,000,000,000,000,000.
+The recorded verification has 10,252 CPU/GPU comparisons: 10,240 requested
+samples plus 12 boundary addresses, zero recorded errors, no measurements.
+These are recorded historical GPU results, not a fresh GPU run in this release.
+No mathematical calibration change was indicated by this batch.
+The PDF issue was the missing automatic PDF request in the browser interface.
+
+Original input files and the original candidate ZIP were preserved.
+Prior validation reports are retained as historical evidence. Current
+automatic-report validation is supplied separately in validation/.

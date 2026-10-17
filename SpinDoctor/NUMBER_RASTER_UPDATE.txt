@@ -1,0 +1,22 @@
+QuettaFLOP Simulator - number raster presentation update
+
+The 10Q, QFLOP and EXAFLOP raster dashboards display randomized digits
+0 through 9 in place of colored pixels. Each visible cell shows one digit.
+The existing coordinate hash supplies a pseudorandom digit modulo ten.
+In the main dashboard, Run Simulation supplies a fresh session seed;
+Replay Seed restores the same sequence.
+
+The source dimensions, compute kernel, proof vectors, word and session
+binding stay as supplied. Seed replay, volume/slice selection, zoom and
+pan continue to work. A render generation token discards superseded
+progressive refinements after rapid control or seed changes.
+
+The runtime/number-raster.js renderer caches ten digit tiles,
+retains a bounded two-resolution frame cache, copies bitmap rows into
+typed buffers, and uploads the canvas once per render. A 12 x 18 backing
+pixel cell shows one digit. The same backing canvas dimensions are
+retained. Performance comparisons concern complete viewport fill time;
+the digit display does less source sampling than the original pixel view.
+
+All MVP payload hashes, the payload index, and the TIFF/GIF page chains
+are rebuilt. Both image formats carry the same logical source archive.

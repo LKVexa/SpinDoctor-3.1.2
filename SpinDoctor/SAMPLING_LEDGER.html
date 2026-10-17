@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lunar127 1.1.4 — 10Q@1M UltraWide Hologram Console</title>
+<style>
+:root{--bg:#061017;--panel:#0b1a23;--panel2:#0e222d;--line:#1d4658;--text:#d7edf4;--muted:#7fa4b3;--cyan:#56d9ff;--mint:#63efb0;--gold:#e9c45a;--red:#ff6b76;--blue:#4d8fff}
+*{box-sizing:border-box}html,body{margin:0;background:radial-gradient(circle at 20% -10%,#12384a 0,#08151e 32%,var(--bg) 70%);color:var(--text);font-family:Segoe UI,Inter,Arial,sans-serif;min-height:100%}
+body{padding:18px}.shell{max-width:1600px;margin:auto}.top{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;margin-bottom:14px}.brand h1{font-size:24px;letter-spacing:.08em;margin:0 0 5px}.brand .sub{font-size:12px;color:var(--muted);letter-spacing:.08em}.badge{border:1px solid var(--line);background:#08151dd9;border-radius:999px;padding:10px 14px;font:700 12px Consolas,monospace;color:var(--gold)}
+.grid{display:grid;grid-template-columns:minmax(650px,1fr) 390px;gap:14px}.stack{display:grid;gap:14px}.panel{border:1px solid var(--line);background:linear-gradient(180deg,#0d202bdc,#08151edc);border-radius:12px;box-shadow:0 16px 40px #0007;overflow:hidden}.panel h2{font-size:11px;letter-spacing:.16em;color:#8fb4c2;margin:0;padding:12px 14px;border-bottom:1px solid #173746;background:#0b1c25}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:12px}.metric{background:#08161f;border:1px solid #143748;border-radius:9px;padding:12px;min-height:94px}.metric .k{font-size:10px;letter-spacing:.11em;color:var(--muted);text-transform:uppercase}.metric .v{font:700 21px Consolas,monospace;color:var(--cyan);margin-top:7px;overflow-wrap:anywhere}.metric .s{font-size:10px;color:#7796a3;margin-top:5px}.metric.hero .v{color:var(--gold);font-size:24px}.metric.ok .v{color:var(--mint)}.metric.bad .v{color:var(--red)}
+.canvaswrap{position:relative;background:#02080d;padding:0}.canvaswrap canvas{display:block;width:100%;height:auto;image-rendering:pixelated;background:#02080d}.hud{position:static;margin:10px 12px;background:#06121bcc;border:1px solid #235064;border-radius:8px;padding:9px 11px;font:12px Consolas,monospace;line-height:1.55;backdrop-filter:blur(6px)}
+.controls,.runcontrols{display:flex;gap:8px;flex-wrap:wrap;padding:10px 12px;border-top:1px solid #173746;align-items:center}.runcontrols{border-top:0;border-bottom:1px solid #173746;background:#07131b}.controls button,.controls select,.controls input,.runcontrols button,.runcontrols input{background:#0b202b;color:var(--text);border:1px solid #285165;border-radius:7px;padding:7px 10px;font:12px Segoe UI}.controls button,.runcontrols button{cursor:pointer}.controls button:hover,.runcontrols button:hover{border-color:var(--cyan)}.runcontrols .primary{background:#0f3443;border-color:#3da8c8;color:#dff8ff;font-weight:700}.runcontrols .seed{width:min(100%,540px);font:12px Consolas,monospace}.runcontrols .custom{width:min(100%,540px);font:12px Consolas,monospace}.toggle{display:flex;gap:6px;align-items:center;padding:6px 8px;border:1px solid #285165;border-radius:7px;background:#0b202b;font-size:11px;color:#a9c8d3}.toggle input{width:auto;padding:0;margin:0}
+.gates{padding:10px 12px;display:grid;gap:7px}.gate{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;border-bottom:1px solid #112f3d;padding:7px 2px;font-size:12px}.gate:last-child{border-bottom:0}.status{font:700 11px Consolas,monospace;padding:4px 8px;border-radius:999px;border:1px solid}.pass{color:var(--mint);border-color:#2a7b5c;background:#0b2a20}.fail{color:var(--red);border-color:#7f3440;background:#2c1017}.wait{color:var(--gold);border-color:#785f2e;background:#2a220c}
+.mono{font-family:Consolas,monospace}.small{font-size:11px;color:var(--muted)}.proof{padding:12px}.proof pre{margin:0;max-height:280px;overflow:auto;white-space:pre-wrap;background:#050e14;border:1px solid #183b4a;border-radius:8px;padding:10px;color:#9cc2cf;font:11px/1.45 Consolas,monospace}.boundary{padding:12px 14px;font-size:12px;line-height:1.55;color:#a8c3ce;border-top:1px solid #173746}.boundary b{color:#fff}.footer{margin-top:12px;color:#789aa8;font-size:10px;line-height:1.5}.progress{height:3px;background:#132f3c}.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--cyan),var(--mint));transition:width .25s}
+@media(max-width:1100px){.grid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}.canvaswrap canvas{height:auto}}@media(max-width:650px){body{padding:8px}.metrics{grid-template-columns:1fr}.top{flex-direction:column}.canvaswrap canvas{height:auto}.runcontrols .seed,.runcontrols .custom{width:100%}}
+</style>
+<script src="runtime/latest_10q_metrics.js"></script>
+<script src="runtime/number-raster.js"></script>
+<script src="runtime/rate-metrics.js"></script>
+<script src="runtime/flop-ledger.js"></script>
+</head>
+<body><div class="shell">
+<div class="top"><div class="brand"><h1>QUETTAFLOP // DIGIT & OPERATION LEDGER</h1><div class="sub">Word-bound multiply/add model · exact operation addresses · finite digit samples</div></div><div class="badge" id="overall">VALIDATING</div></div>
+<div class="progress"><i id="bar"></i></div>
+<div class="grid">
+<div class="stack">
+<section class="panel"><h2>REPRESENTED COMPUTE / MEASURED HOST BOUNDARY</h2><div class="metrics">
+<div class="metric hero" style="grid-column:1/-1"><div class="k">Model capacity at measured state-update clock</div><div class="v" id="representedRate">not measured</div><div class="s" id="representedFormula">Run BOOT.cmd to measure the host epoch clock.</div><div class="s">The 10²⁵ operations/epoch are a declared, queryable model. This rate is not measured execution of those operations. Viewer sampling speed and the CPU diagnostic are separate.</div></div>
+<div class="metric" id="clockCard"><div class="k">Measured integer state-update clock</div><div class="v" id="clock">—</div><div class="s">sequential dependent epochs/s, median of 3 measured rounds</div></div>
+<div class="metric hero"><div class="k">Declared model domain / epoch</div><div class="v">10²⁵ FLOP-eq</div><div class="s">5×10²⁴ lane addresses × (1 multiply + 1 add); symbolic, not all executed</div></div>
+<div class="metric"><div class="k">Reference at 1 MHz</div><div class="v">10.000 QFLOP/s-eq</div><div class="s">Fixed program reference; the rate above uses the measured clock.</div></div>
+<div class="metric ok"><div class="k">UltraWide program width</div><div class="v">1,048,576 bits</div><div class="s">131,072-byte BRWWORD/1 resident macroprogram</div></div>
+<div class="metric ok"><div class="k">UltraWide word status</div><div class="v" id="wordStatus">—</div><div class="s mono" id="wordHash">—</div></div>
+<div class="metric ok"><div class="k">UltraWide appliance</div><div class="v" id="applianceStatus">—</div><div class="s" id="applianceInfo">complete repository + original ZIP, carrier-resident</div></div>
+<div class="metric ok"><div class="k">Active raster seed</div><div class="v" id="rasterSeed">—</div><div class="s" id="rasterSeedMode">press Run Simulation for a new session</div></div>
+<div class="metric"><div class="k">Hot state width</div><div class="v">256 bits</div><div class="s">four sequential UInt64 limbs; resident word not moved per epoch</div></div>
+<div class="metric"><div class="k">Measured CPU scalar rate</div><div class="v" id="physical">—</div><div class="s" id="physicalDetails">Dependent scalar FP64 diagnostic; actual physical FLOP/s.</div></div>
+<div class="metric"><div class="k">Model / scalar diagnostic ratio</div><div class="v" id="amp">—</div><div class="s">Current represented rate ÷ measured scalar rate. This ratio does not accelerate physical computation.</div></div>
+<div class="metric"><div class="k">Materialized bytes</div><div class="v" id="bytes">—</div><div class="s">32-byte state read + 32-byte write model; excludes viewer, hashing and other overhead</div></div>
+</div><div class="boundary"><b>Why the rates differ:</b> one quetta is 10³⁰. This program represents 10²⁵ FLOP-equivalent operations per epoch, so <b>QFLOP/s-eq = measured epochs/s ÷ 100,000</b>. Only the finite state and requested samples are executed by the host. <b>Run Simulation</b> creates a new digit sequence; run <b>BOOT.cmd</b> again to remeasure the host benchmarks.</div></section>
+
+<section class="panel"><h2>RUN SESSION CONTROL // SEED ROTATES ONCE PER RUN</h2>
+<div class="runcontrols">
+<button class="primary" id="runSimulation">RUN SIMULATION</button>
+<input class="seed" id="currentSeed" readonly placeholder="Current Seed — no active session">
+<button id="copySeed">COPY SEED</button>
+<button id="replaySeed">REPLAY SEED</button>
+<input class="custom" id="customSeed" maxlength="64" spellcheck="false" placeholder="Custom Seed — exactly 64 hexadecimal characters">
+<label class="toggle"><input id="randomizeOnRun" type="checkbox" checked><span id="randomizeLabel">Randomize Seed On Run: ON</span></label>
+</div>
+<div class="boundary">Each randomized press computes <span class="mono">launchSeed = SHA256(OS RNG || time || counter || GUID)</span>, then <span class="mono">sessionSeed = SHA256(launchSeed || carrierProgramBinding || BRWWORD_SHA256)</span>. Replay/custom seeds skip launch randomization but preserve the same session derivation.</div>
+</section>
+
+<section class="panel"><h2>DIGITS 0–9 // ONE MULTIPLY + ADD SAMPLE PER CELL</h2>
+<div class="canvaswrap"><canvas id="cv" width="384" height="216" aria-label="Randomized sequence of digits zero through nine"></canvas><div class="hud" id="hud">VIEW INITIALIZING…</div></div>
+<div class="controls"><button id="fit">FULL DOMAIN</button><button id="zoomIn">ZOOM ×4</button><button id="zoomOut">ZOOM ÷4</button><label>Epoch <input id="epochInput" value="1000000" inputmode="numeric" size="12" aria-label="Model epoch, zero to 4294967295"></label><button id="rerender">RENDER</button></div>
+<div class="controls"><label>First lane <input id="rangeStart" value="0" size="29" inputmode="numeric"></label><label>End lane (exclusive) <input id="rangeEnd" value="5000000000000000000000000" size="29" inputmode="numeric"></label><button id="applyRange">APPLY RANGE</button></div>
+<div class="boundary">Each cell owns a disjoint range of lane addresses and shows <span class="mono">((a × b + c) % 10 + 10) % 10</span> for one seed-selected lane. Click a digit to inspect its two operations. Ranges cover the selected domain symbolically; the remaining lanes are queryable but unevaluated.</div>
+<div class="proof"><pre id="accounting">Building exact domain ledger…</pre></div>
+<div class="controls"><label>Cell <input id="cellIndex" value="0" inputmode="numeric" size="5"></label><button id="inspectCell">INSPECT CELL</button><button id="verifyLedger">VERIFY CURRENT LEDGER</button><button id="exportLedger">DOWNLOAD LEDGER JSON</button><label>Verify saved ledger <input id="importLedger" type="file" accept=".json,application/json"></label></div>
+<div class="proof"><pre id="cellTrace">Select a digit.</pre><pre id="ledgerStatus" aria-live="polite">No ledger recomputation yet.</pre></div>
+<div class="controls"><label>Operation ID <input id="operationId" value="0" size="29" inputmode="numeric"></label><button id="queryOperation">QUERY OPERATION</button></div>
+<div class="proof"><pre id="operationTrace" aria-live="polite">Any operation ID from 0 through 9999999999999999999999999 can be queried at the selected epoch. Even IDs multiply; odd IDs add.</pre></div>
+</section>
+<section class="panel"><h2>PROOF / CHALLENGE TRACE</h2><div class="proof"><pre id="log">Loading measured runtime evidence…</pre></div></section>
+</div>
+
+<div class="stack">
+<section class="panel"><h2>HOST RELEASE GATES</h2><div class="gates" id="gates"></div></section>
+<section class="panel"><h2>ACTIVE SESSION GATES</h2><div class="gates" id="sessionGates"></div></section>
+<section class="panel"><h2>ACTIVE RUN SESSION</h2><div class="proof"><pre id="session">No active dashboard run yet.</pre></div></section>
+<section class="panel"><h2>RESIDENT MACROPROGRAM</h2><div class="proof"><div class="small">The complete UltraWide Appliance repository and original source ZIP are decoded from the TIFF/GIF carrier and SHA-256 verified file-by-file before benchmarking. BRWWORD/1 then binds the macroprogram core.</div><pre id="resident">—</pre></div></section>
+<section class="panel"><h2>CHECKPOINT CHAIN</h2><div class="proof"><pre id="checkpoint">—</pre></div></section>
+<section class="panel"><h2>HOST RESULT</h2><div class="proof"><pre id="host">—</pre></div></section>
+</div>
+</div>
+<div class="footer">Lunar127 1.1.4 · represented-compute research MVP. The grid is a symbolic domain partition with finite lane samples. Every modeled operation has an epoch and exact decimal ID. “10Q” is represented/queryable FLOP-equivalent capacity at the 1 MHz gate, not a claim of 10³¹ physically executed laptop FLOPS/s.</div>
+</div>
+<script>
+"use strict";
+const M=window.LUNAR127_TENQ_METRICS||{notRun:true};
+const R=SimulatorRates.calculate(M);
+const FALLBACK_WORD_SHA256="8222fd2c7b321703b9e6f44fa22a7a7cb069aa2d7cd311fb00f6c2eeb1549b83";
+const CARRIER_PROGRAM_BINDING_SHA256="4ef0a6992dfdbe039a7cb6aa4b67b5de98bd3798f1fb4563ca0e6342c32e86b6";
+const $=id=>document.getElementById(id),cv=$("cv"),ctx=cv.getContext("2d",{alpha:false});
+const numberRaster=NumberRaster.create(cv);
+let numberStats=null,renderGeneration=0,frameLedger=null,selectedCell=0;
+let viewerCounters={render:0,verify:0,query:0};
+const DOMAIN_LANES=5000000000000000000000000n;
+const te=new TextEncoder();
+const logLines=[];function log(s){logLines.push(new Date().toLocaleTimeString()+"  "+s);if(logLines.length>100)logLines.shift();$("log").textContent=logLines.join("\n")}
+const gateRows=[];function gate(name,ok,detail){gateRows.push({name,ok,detail});renderGateList("gates",gateRows);return ok}
+let sessionGateRows=[];function sgate(name,ok,detail){sessionGateRows.push({name,ok,detail});renderGateList("sessionGates",sessionGateRows);return ok}
+function renderGateList(id,rows){$(id).innerHTML=rows.map(g=>`<div class="gate"><div>${esc(g.name)}<div class="small">${esc(g.detail||"")}</div></div><span class="status ${g.ok===null?'wait':g.ok?'pass':'fail'}">${g.ok===null?'WAIT':g.ok?'PASS':'FAIL'}</span></div>`).join("")}
+function esc(s){return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+function fmt(x,d=3){return Number(x).toLocaleString(undefined,{maximumFractionDigits:d})}function sci(x){return Number(x).toExponential(3)}
+function hexBytes(h){if(!/^[0-9a-f]{64}$/i.test(h||""))return null;const a=new Uint8Array(32);for(let i=0;i<32;i++)a[i]=parseInt(h.slice(i*2,i*2+2),16);return a}
+function bytesHex(a){return Array.from(a,b=>b.toString(16).padStart(2,"0")).join("")}
+function concatBytes(...parts){let n=0;for(const p of parts)n+=p.length;const out=new Uint8Array(n);let o=0;for(const p of parts){out.set(p,o);o+=p.length}return out}
+function u32le(a,o){return (a[o]|a[o+1]<<8|a[o+2]<<16|a[o+3]<<24)>>>0}
+function u32leBytes(x){return new Uint8Array([x&255,(x>>>8)&255,(x>>>16)&255,(x>>>24)&255])}
+function rol32(x,n){return ((x<<n)|(x>>>(32-n)))>>>0}function mix32(x){x>>>=0;x^=x>>>16;x=Math.imul(x,0x7feb352d)>>>0;x^=x>>>15;x=Math.imul(x,0x846ca68b)>>>0;x^=x>>>16;return x>>>0}
+function sha256Bytes(msg){
+  const K=[0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
+  const H=[0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];
+  const n=msg.length,total=((n+9+63)>>6)<<6,p=new Uint8Array(total);p.set(msg);p[n]=0x80;const bits=n*8,hi=Math.floor(bits/4294967296),lo=bits>>>0;
+  p[total-8]=(hi>>>24)&255;p[total-7]=(hi>>>16)&255;p[total-6]=(hi>>>8)&255;p[total-5]=hi&255;p[total-4]=(lo>>>24)&255;p[total-3]=(lo>>>16)&255;p[total-2]=(lo>>>8)&255;p[total-1]=lo&255;
+  const w=new Uint32Array(64);
+  for(let o=0;o<total;o+=64){for(let i=0;i<16;i++){const j=o+i*4;w[i]=((p[j]<<24)|(p[j+1]<<16)|(p[j+2]<<8)|p[j+3])>>>0}for(let i=16;i<64;i++){const a=w[i-15],b=w[i-2],s0=(rol32(a,25)^rol32(a,14)^(a>>>3))>>>0,s1=(rol32(b,15)^rol32(b,13)^(b>>>10))>>>0;w[i]=(w[i-16]+s0+w[i-7]+s1)>>>0}
+    let [a,b,c,d,e,f,g,h]=H;
+    for(let i=0;i<64;i++){const S1=(rol32(e,26)^rol32(e,21)^rol32(e,7))>>>0,ch=((e&f)^((~e)&g))>>>0,t1=(h+S1+ch+K[i]+w[i])>>>0,S0=(rol32(a,30)^rol32(a,19)^rol32(a,10))>>>0,maj=((a&b)^(a&c)^(b&c))>>>0,t2=(S0+maj)>>>0;h=g;g=f;f=e;e=(d+t1)>>>0;d=c;c=b;b=a;a=(t1+t2)>>>0}
+    H[0]=(H[0]+a)>>>0;H[1]=(H[1]+b)>>>0;H[2]=(H[2]+c)>>>0;H[3]=(H[3]+d)>>>0;H[4]=(H[4]+e)>>>0;H[5]=(H[5]+f)>>>0;H[6]=(H[6]+g)>>>0;H[7]=(H[7]+h)>>>0;
+  }
+  const out=new Uint8Array(32);for(let i=0;i<8;i++){out[i*4]=(H[i]>>>24)&255;out[i*4+1]=(H[i]>>>16)&255;out[i*4+2]=(H[i]>>>8)&255;out[i*4+3]=H[i]&255}return out
+}
+function sha256Hex(msg){return bytesHex(sha256Bytes(msg))}
+function newGuidText(){if(globalThis.crypto&&typeof crypto.randomUUID==="function")return crypto.randomUUID();const a=new Uint8Array(16);crypto.getRandomValues(a);a[6]=(a[6]&15)|64;a[8]=(a[8]&63)|128;const h=bytesHex(a);return `${h.slice(0,8)}-${h.slice(8,12)}-${h.slice(12,16)}-${h.slice(16,20)}-${h.slice(20)}`}
+let runCounter=0;
+function generateLaunchSeed(){if(!globalThis.crypto||typeof crypto.getRandomValues!=="function")throw new Error("OS cryptographic RNG is unavailable in this browser context");const rng=new Uint8Array(32);crypto.getRandomValues(rng);runCounter++;const meta=te.encode(`${Date.now()}|${performance.now()}|${runCounter}|${newGuidText()}`);return bytesHex(sha256Bytes(concatBytes(rng,meta)))}
+
+let laneSalt=[0,0,0,0],voxSalt=[0,0,0,0];
+function setSalts(sessionSeedHex){const b=hexBytes(activeWordHash()),sb=hexBytes(sessionSeedHex);if(!b||!sb)return false;laneSalt=[u32le(b,0),u32le(b,4),u32le(b,8),u32le(b,12)];const base=[u32le(b,16),u32le(b,20),u32le(b,24),u32le(b,28)],c=[0xa5a5a5a5,0x3c6ef372,0xbb67ae85,0x9e3779b9];for(let i=0;i<4;i++){const s0=u32le(sb,i*4),s1=u32le(sb,(i+4)*4);voxSalt[i]=mix32(base[i]^s0^rol32(s1,7+i*3)^c[i])}return true}
+function activeWordHash(){return (/^[0-9a-f]{64}$/i.test(M?.verification?.wordSha256||"")?M.verification.wordSha256:FALLBACK_WORD_SHA256).toLowerCase()}
+function activeCarrierBinding(){return (/^[0-9a-f]{64}$/i.test(M?.rasterRandomization?.carrierBindingSha256||"")?M.rasterRandomization.carrierBindingSha256:CARRIER_PROGRAM_BINDING_SHA256).toLowerCase()}
+function deriveSessionSeed(launchHex){const l=hexBytes(launchHex),c=hexBytes(activeCarrierBinding()),w=hexBytes(activeWordHash());if(!l||!c||!w)throw new Error("Cannot derive session seed: a 256-bit binding value is invalid");return bytesHex(sha256Bytes(concatBytes(l,c,w)))}
+
+function laneResult(epochS,laneS){const L=BigInt(laneS),e=Number(BigInt(epochS)&0xffffffffn)>>>0,l0=Number(L&0xffffffffn)>>>0,l1=Number((L>>32n)&0xffffffffn)>>>0,l2=Number((L>>64n)&0xffffffffn)>>>0;const h0=mix32(l0^rol32(l1,7)^rol32(l2,13)^e^laneSalt[0]);const h1=mix32(l1^rol32(l2,11)^rol32(l0,17)^Math.imul(e,0x9e3779b1)^laneSalt[1]);const h2=mix32(l2^rol32(l0,5)^rol32(l1,19)^Math.imul(e,0x85ebca6b)^laneSalt[2]);const a=(h0&2047)-1024,b=(h1&2047)-1024,c=(h2&2047)-1024;return {a,b,c,result:a*b+c}}
+const U32=4294967296;
+function splitSafe(n){const hi=Math.floor(n/U32)>>>0,lo=(n-hi*U32)>>>0;return [lo,hi]}
+function voxelCodeNum(x,y,z,epoch){const [xl,xh]=splitSafe(x),[yl,yh]=splitSafe(y),[zl,zh]=splitSafe(z),e=(Number(epoch)>>>0);const h=mix32(xl^rol32(yl,11)^Math.imul(xh,0x9e3779b1)^Math.imul(yh,0x85ebca6b)^rol32(zl,3)^Math.imul(zh,0x27d4eb2d)^Math.imul(e,0xc2b2ae35)^voxSalt[0]);const h2=mix32(h^rol32(xl,7)^rol32(yh,17)^Math.imul(zl,0x165667b1)^rol32(zh,9)^voxSalt[1]);const h3=mix32(h2^rol32(yl,5)^Math.imul(xh,0xd3a2646c)^rol32(zl,15)^Math.imul((e+1)>>>0,0x9e3779b1)^voxSalt[2]);const h4=mix32(h3^rol32(zh,13)^Math.imul(yh,0x94d049bb)^voxSalt[3]);return [h,h2,h3,h4]}
+function voxelRGBA(x,y,z,epoch){const [h,h2,h3,h4]=voxelCodeNum(x,y,z,epoch);return [30+(h2&0x9f),35+((h3>>>8)&0x8f),45+((h4>>>16)&0x9f),64+((h>>>24)&0xbf)]}
+
+function prngFromSeed(seedHex){const b=hexBytes(seedHex);let s=[u32le(b,0),u32le(b,4),u32le(b,8),u32le(b,12)];if((s[0]|s[1]|s[2]|s[3])===0)s[0]=0x9e3779b9;return function(){let t=s[3],x=s[0];s[3]=s[2];s[2]=s[1];s[1]=x;t^=(t<<11);t^=t>>>8;s[0]=(t^x^(x>>>19))>>>0;return s[0]}}
+function rand64(r){return (BigInt(r())<<32n)|BigInt(r())}
+function buildSessionChallenges(sessionSeedHex,epochLimit){const r=prngFromSeed(sessionSeedHex),lanes=[],voxels=[],limit=5000000000000000000000000n;for(let i=0;i<64;i++){const lane=(rand64(r)<<32n|BigInt(r()))%limit,epoch=1+Number(rand64(r)%BigInt(epochLimit));const q=laneResult(String(epoch),String(lane));lanes.push({lane:String(lane),epoch:String(epoch),...q})}for(let i=0;i<64;i++){const x=Number(rand64(r)%25000000000000n),y=Number(rand64(r)%40000000000000n),z=Number(rand64(r)%10000000000000n),epoch=1+Number(rand64(r)%BigInt(epochLimit)),rgba=voxelRGBA(x,y,z,epoch),code=voxelCodeNum(x,y,z,epoch).map(String);voxels.push({x:String(x),y:String(y),z:String(z),epoch:String(epoch),rgba,code})}return {lanes,voxels}}
+function verifySessionChallenges(ch){let lp=true,vp=true;for(const c of ch.lanes){const q=laneResult(c.epoch,c.lane);lp=lp&&q.a===c.a&&q.b===c.b&&q.c===c.c&&q.result===c.result}for(const c of ch.voxels){const rgba=voxelRGBA(Number(c.x),Number(c.y),Number(c.z),Number(c.epoch)),code=voxelCodeNum(Number(c.x),Number(c.y),Number(c.z),Number(c.epoch)).map(String);vp=vp&&JSON.stringify(rgba)===JSON.stringify(c.rgba)&&JSON.stringify(code)===JSON.stringify(c.code)}return {lane:lp&&ch.lanes.length===64,voxel:vp&&ch.voxels.length===64}}
+function sessionCheckpointRoot(sessionSeedHex){const s=hexBytes(sessionSeedHex),w=hexBytes(activeWordHash()),c=hexBytes(activeCarrierBinding());let prev=sha256Bytes(concatBytes(te.encode("LUNAR127/SESSION-CHECKPOINT/1"),s,w,c));for(let i=1;i<=16;i++)prev=sha256Bytes(concatBytes(prev,s,u32leBytes(i),w,c));return bytesHex(prev)}
+function rasterFingerprint(epoch){const out=[];for(let i=0;i<32;i++){const x=(i*780291637+1234567)%25000000000000,y=(i*15485863+7654321)%40000000000000,z=(i*32452843+24681357)%10000000000000;out.push(...voxelRGBA(x,y,z,epoch))}return sha256Hex(new Uint8Array(out))}
+
+let S={active:false,launchSeed:"",sessionSeed:"",source:"none",checkpointRoot:"",fingerprint:"",challengePass:false,runNumber:0,startedUtc:"",firstFill:Infinity,finalFill:Infinity};
+const replayCache=new Map();
+let view={start:0n,end:DOMAIN_LANES,epoch:1000000},lastFirst=Infinity,lastFinal=Infinity;
+function syncViewInputs(){ $('rangeStart').value=String(view.start);$('rangeEnd').value=String(view.end);$('epochInput').value=String(view.epoch); }
+function renderPass(w,h){
+  const columns=Math.floor(w/NumberRaster.cellWidth),rows=Math.floor(h/NumberRaster.cellHeight);
+  frameLedger=FlopLedger.createFrame({columns,rows,epoch:String(view.epoch),sessionSeed:S.sessionSeed,wordSha256:activeWordHash(),start:String(view.start),end:String(view.end)});
+  viewerCounters.render+=Number(frameLedger.accounting.sampledOperationEvaluations);
+  numberStats=numberRaster.render(w,h,(col,row)=>frameLedger.entries[row*columns+col].digit);
+  selectedCell=Math.min(selectedCell,frameLedger.entries.length-1);
+  $('ledgerStatus').textContent='Current frame created. Use VERIFY CURRENT LEDGER to recompute its ranges and samples from the seed/address definition.';
+  updateAccounting();inspectCell(selectedCell);return numberStats;
+}
+function updateAccounting(){
+  if(!frameLedger)return;
+  const a=frameLedger.accounting,shown=BigInt(view.end)-BigInt(view.start);
+  $('accounting').textContent=`EPOCH ${frameLedger.epoch} · ${frameLedger.entries.length} cells\nSelected lane range: [${view.start}, ${view.end})\nGlobal domain: ${DOMAIN_LANES} lanes; ${DOMAIN_LANES*2n} model operations/epoch\nSymbolic coverage of selected range: ${shown} lanes; ${shown*2n} operations (100%, no overlap/gaps by construction)\nModel operations evaluated for this frame: ${a.sampledOperationEvaluations}\nSelected-range operations left unevaluated: ${a.unmaterializedOperations}\nViewer work since this run: render ${viewerCounters.render}, verification ${viewerCounters.verify}, query ${viewerCounters.query} model-operation evaluations\nEach coarse/final frame is counted separately; repeated samples are repeated evaluations.\nThese are logical multiply/add counts, not a whole-browser or hardware FLOP counter. Integer addressing, hashes, digit modulo, tile copying, and rendering overhead are outside this model count.\nHeadline: whole declared domain × measured integer state-update clock. It is not viewer throughput.\nFinite challenge work outside viewer counters: 64 session lanes generated + 64 recomputed = 256 logical operations per dashboard Run Simulation; host diagnostics have their own count.`;
+}
+function inspectCell(index){
+  if(!frameLedger)return;
+  if(!Number.isInteger(index)||index<0||index>=frameLedger.entries.length){$('cellTrace').textContent='Cell index must be from 0 through '+(frameLedger.entries.length-1);return;}
+  selectedCell=index;$('cellIndex').value=String(index);const c=frameLedger.entries[index];
+  $('cellTrace').textContent=`CELL ${index} · column ${c.column}, row ${c.row} · digit ${c.digit}\nEpoch: ${frameLedger.epoch}\nLane interval [start, end): [${c.laneStart}, ${c.laneEndExclusive})\nRepresented lanes: ${c.laneCount}\nOperation interval: [${c.operationStart}, ${c.operationEndExclusive})\nRepresented model operations: ${c.representedOperations}\nEvaluated sample lane: ${c.sampledLane}\n${c.operations.map(o=>`ID ${o.id}: ${o.left} ${o.kind==='multiply'?'×':'+'} ${o.right} = ${o.result}`).join('\n')}\nDigit = Euclidean modulo 10 of ${c.result} = ${c.digit}\nTwo model operations evaluated; all other operations in this cell's range remain symbolic.`;
+}
+function hud(){
+  cv.setAttribute('aria-label',`Digit operation ledger, ${numberStats?.cells||0} cells. Click a digit to inspect its multiply and add.`);
+  $('hud').textContent=`${numberStats?.columns||0} × ${numberStats?.rows||0} DIGITS · ${2*(numberStats?.cells||0)} evaluated model operations · EPOCH ${view.epoch}\nRUN ${S.runNumber||0} · SEED ${(S.launchSeed||'—').slice(0,16)}…\nCOARSE ${isFinite(lastFirst)?lastFirst.toFixed(1):'—'} ms · FINAL ${isFinite(lastFinal)?lastFinal.toFixed(1):'—'} ms (sampling + bitmap render only)`;
+  $('hud').style.whiteSpace='pre-wrap';
+}
+function renderVolume(){
+  const generation=++renderGeneration,t=performance.now();renderPass(384,216);lastFirst=performance.now()-t;lastFinal=Infinity;S.firstFill=lastFirst;S.finalFill=Infinity;hud();
+  requestAnimationFrame(()=>{if(generation!==renderGeneration)return;const q=performance.now();renderPass(640,360);lastFinal=performance.now()-q;S.finalFill=lastFinal;hud();updateSessionPanel()});
+}
+function ledgerEnvelope(){
+  const text=JSON.stringify(frameLedger);
+  return {schema:'QUETTAFLOP/VIEWER-EXPORT/1',frameSha256:sha256Hex(te.encode(text)),frame:frameLedger,context:{launchSeed:S.launchSeed,carrierProgramBinding:activeCarrierBinding(),wordSha256:activeWordHash(),hostEpochsPerSecond:R.epochsPerSecond,modelQFlopsEquivalentPerSecond:R.representedQ,physicalScalarFlopsPerSecond:R.physicalFlops,viewerCounters:{...viewerCounters},boundary:'Exact symbolic operation ledger with finite materialized samples. No full-domain physical execution claimed.'}};
+}
+function verifyLedgerEnvelope(envelope){
+  if(!envelope||envelope.schema!=='QUETTAFLOP/VIEWER-EXPORT/1'||!envelope.frame)throw Error('Unrecognized ledger export.');
+  const f=envelope.frame,c=envelope.context||{};
+  if(f.wordSha256!==activeWordHash()||c.wordSha256!==activeWordHash())throw Error('Ledger word does not match this program.');
+  if(c.carrierProgramBinding!==activeCarrierBinding()||deriveSessionSeed(c.launchSeed)!==f.sessionSeed)throw Error('Ledger seed/program binding mismatch.');
+  if(sha256Hex(te.encode(JSON.stringify(f)))!==envelope.frameSha256)throw Error('Ledger SHA-256 mismatch.');
+  
+  const result=FlopLedger.verifyFrame(f);viewerCounters.verify+=Number(result.modelOperationEvaluations);updateAccounting();return result;
+}
+
+function updateSeedUI(){$("currentSeed").value=S.launchSeed||"";$("rasterSeed").textContent=S.launchSeed?`${S.launchSeed.slice(0,16)}…`:"—";$("rasterSeedMode").textContent=S.active?`${S.source} · session ${S.sessionSeed.slice(0,12)}… · deterministic within run`:"press Run Simulation for a new session"}
+function refreshCheckpointPanel(){const host=M.notRun?"HOST MEASURED CHAIN\nnot available until RUN_10Q_AT_1M_MVP.cmd executes":`HOST MEASURED CHAIN\ninterval: ${Number(M.checkpointIntervalEpochs).toLocaleString()} epochs\ncount: ${M.checkpointCount}\nroot SHA-256: ${M.checkpointRootSha256}\nfinal state SHA-256: ${M.finalStateSha256}\nsession seed bound: ${M.checkpointBindsRasterSeed}\nlaunch seed: ${M.rasterRandomization?.launchSeedHex}\nsession seed: ${M.rasterRandomization?.sessionSeedHex}\npreflight root: ${M.preflight?.checkpointRootSha256}`;const active=S.active?`ACTIVE DASHBOARD SESSION\nrun: ${S.runNumber}\ncheckpoint count: 16\nroot SHA-256: ${S.checkpointRoot}\nlaunch seed: ${S.launchSeed}\nsession seed: ${S.sessionSeed}`:"ACTIVE DASHBOARD SESSION\npress Run Simulation to create/reset the active session chain";$("checkpoint").textContent=host+"\n\n"+active}
+function updateSessionPanel(){$("session").textContent=S.active?`run: ${S.runNumber}\nsource: ${S.source}\nstarted UTC: ${S.startedUtc}\nlaunch seed: ${S.launchSeed}\nsession seed: ${S.sessionSeed}\ncarrier program binding: ${activeCarrierBinding()}\nBRWWORD SHA-256: ${activeWordHash()}\ncheckpoint count: 16\nsession checkpoint root: ${S.checkpointRoot}\nchallenge context: 64 lane + 64 voxel\nchallenge verification: ${S.challengePass?'PASS':'FAIL'}\nraster fingerprint: ${S.fingerprint}\nfirst viewport fill: ${isFinite(S.firstFill)?S.firstFill.toFixed(1)+' ms':'—'}\nfinal viewport fill: ${isFinite(S.finalFill)?S.finalFill.toFixed(1)+' ms':'—'}\nnumber grid: ${numberStats?.columns||0} x ${numberStats?.rows||0} cells`:"No active dashboard run yet.";refreshCheckpointPanel()}
+
+function runSessionWithSeed(seedHex,source){seedHex=(seedHex||"").trim().toLowerCase();if(!/^[0-9a-f]{64}$/.test(seedHex)){log("RUN REJECTED — seed must be exactly 64 hexadecimal characters.");$("overall").textContent="SEED ERROR";$("overall").style.color="var(--red)";return}
+  $("overall").textContent="RUNNING";$("overall").style.color="var(--gold)";$("bar").style.width="15%";sessionGateRows=[];renderGateList("sessionGates",sessionGateRows);
+  const sessionSeed=deriveSessionSeed(seedHex);setSalts(sessionSeed);S={active:true,launchSeed:seedHex,sessionSeed,source,checkpointRoot:"",fingerprint:"",challengePass:false,runNumber:S.runNumber+1,startedUtc:new Date().toISOString(),firstFill:Infinity,finalFill:Infinity};updateSeedUI();
+  $("bar").style.width="36%";const epochLimit=Math.max(1000000,Math.min(1000000000,Number(M.benchmarkEpochs)||1000000));const ch=buildSessionChallenges(sessionSeed,epochLimit),vp=verifySessionChallenges(ch);S.challengePass=vp.lane&&vp.voxel;S.checkpointRoot=sessionCheckpointRoot(sessionSeed);S.fingerprint=rasterFingerprint(Math.min(1000000,epochLimit));
+  const prior=replayCache.get(seedHex);if(prior){log(`REPLAY ${prior===S.fingerprint?'PASS':'FAIL'} — raster fingerprint ${S.fingerprint}`)}else replayCache.set(seedHex,S.fingerprint);
+  sessionGateRows=[];sgate("256-bit launch seed valid",/^[0-9a-f]{64}$/.test(seedHex),source);sgate("Carrier + BRWWORD session binding",deriveSessionSeed(seedHex)===sessionSeed,`SHA256(launch || carrier binding || word) = ${sessionSeed.slice(0,16)}…`);sgate("Session checkpoint chain binds active seed",/^[0-9a-f]{64}$/.test(S.checkpointRoot),`16 commitments · root ${S.checkpointRoot.slice(0,16)}…`);sgate("Finite session challenge checks",S.challengePass,"64 lane + 64 voxel challenges regenerated from the active session seed");sgate("Legacy voxel challenge fingerprint replays",replayCache.get(seedHex)===S.fingerprint,`fingerprint ${S.fingerprint.slice(0,16)}…`);
+  viewerCounters={render:0,verify:0,query:0};view={start:0n,end:DOMAIN_LANES,epoch:Math.min(1000000,epochLimit)};syncViewInputs();lastFirst=Infinity;lastFinal=Infinity;$("bar").style.width="70%";renderVolume();$("bar").style.width="100%";$("overall").textContent="RUN READY";$("overall").style.color="var(--mint)";updateSessionPanel();log(`RUN ${S.runNumber} READY — ${source}; launch ${seedHex.slice(0,16)}…; session ${sessionSeed.slice(0,16)}…; checkpoint ${S.checkpointRoot.slice(0,16)}…`)
+}
+function runSimulation(){try{const randomize=$("randomizeOnRun").checked;if(randomize)runSessionWithSeed(generateLaunchSeed(),"os-csprng/button");else{const custom=$("customSeed").value.trim();runSessionWithSeed(custom||S.launchSeed,"custom/replay")}}catch(e){log("RUN FAILED — "+e.message);$("overall").textContent="RUN FAIL";$("overall").style.color="var(--red)"}}
+async function copySeed(){if(!S.launchSeed){log("COPY SEED — no active seed.");return}try{if(navigator.clipboard&&navigator.clipboard.writeText)await navigator.clipboard.writeText(S.launchSeed);else{const t=document.createElement("textarea");t.value=S.launchSeed;document.body.appendChild(t);t.select();document.execCommand("copy");t.remove()}log("COPY SEED PASS — 64-hex launch seed copied.")}catch(e){log("COPY SEED FAILED — select the Current Seed field and copy manually.")}}
+function replaySeed(){const custom=$("customSeed").value.trim();const seed=custom||S.launchSeed;if(!seed){log("REPLAY SEED — provide a custom seed or run once first.");return}runSessionWithSeed(seed,"replay")}
+$("randomizeOnRun").onchange=e=>$("randomizeLabel").textContent=`Randomize Seed On Run: ${e.target.checked?'ON':'OFF'}`;
+$("runSimulation").onclick=runSimulation;$("copySeed").onclick=copySeed;$("replaySeed").onclick=replaySeed;
+function viewerError(error){$('ledgerStatus').textContent='ERROR: '+error.message;}
+function applyRange(){try{
+  const start=$('rangeStart').value.trim(),end=$('rangeEnd').value.trim(),epoch=$('epochInput').value.trim();
+  if(!/^\d+$/.test(start)||!/^\d+$/.test(end)||!/^\d+$/.test(epoch))throw Error('Lane and epoch addresses require decimal nonnegative integers.');
+  const a=BigInt(start),b=BigInt(end),e=BigInt(epoch);
+  if(a<0n||b>DOMAIN_LANES||b-a<1060n)throw Error('Choose a range inside the domain with at least 1060 lanes.');
+  if(e>4294967295n)throw Error('Epoch must be 0 through 4294967295; the legacy lane evaluator repeats beyond 32 bits.');
+  view={start:a,end:b,epoch:Number(e)};syncViewInputs();renderVolume();
+}catch(error){viewerError(error);}}
+function zoomRange(factor){
+  const oldWidth=view.end-view.start,center=(view.start+view.end)/2n;
+  let width=factor===4?oldWidth/4n:oldWidth*4n;if(width<1060n)width=1060n;if(width>DOMAIN_LANES)width=DOMAIN_LANES;
+  let start=center-width/2n;if(start<0n)start=0n;if(start+width>DOMAIN_LANES)start=DOMAIN_LANES-width;
+  view={...view,start,end:start+width};syncViewInputs();renderVolume();
+}
+cv.addEventListener('click',e=>{if(!frameLedger)return;const r=cv.getBoundingClientRect(),col=Math.floor((e.clientX-r.left)*cv.width/r.width/NumberRaster.cellWidth),row=Math.floor((e.clientY-r.top)*cv.height/r.height/NumberRaster.cellHeight);if(col>=0&&row>=0&&col<frameLedger.columns&&row<frameLedger.rows)inspectCell(row*frameLedger.columns+col);});
+$('fit').onclick=()=>{view={...view,start:0n,end:DOMAIN_LANES};syncViewInputs();renderVolume();};
+$('zoomIn').onclick=()=>zoomRange(4);$('zoomOut').onclick=()=>zoomRange(0.25);
+$('rerender').onclick=applyRange;$('applyRange').onclick=applyRange;
+$('inspectCell').onclick=()=>inspectCell(Number($('cellIndex').value));
+$('verifyLedger').onclick=()=>{try{const r=verifyLedgerEnvelope(ledgerEnvelope());$('ledgerStatus').textContent=r.ok?`PASS: ranges, counts, seed-selected lanes, both operation traces and every digit recomputed. ${frameLedger.entries.length} samples checked; unsampled domain remains symbolic.`:'FAIL: '+r.errors.join('; ');}catch(error){viewerError(error);}};
+$('exportLedger').onclick=()=>{try{const blob=new Blob([JSON.stringify(ledgerEnvelope(),null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`QuettaFLOP-ledger-epoch-${view.epoch}-run-${S.runNumber}.json`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);$('ledgerStatus').textContent='Ledger downloaded with exact ranges, all displayed sample traces, full-domain definition and frame SHA-256.';}catch(error){viewerError(error);}};
+$('importLedger').onchange=async e=>{try{const file=e.target.files?.[0];if(!file)return;if(file.size>4000000)throw Error('Ledger exceeds the 4 MB verification limit.');const saved=JSON.parse(await file.text()),r=verifyLedgerEnvelope(saved);$('ledgerStatus').textContent=r.ok?`SAVED LEDGER PASS: ${saved.frame.entries.length} samples, exact selected-domain coverage and all displayed digits verified. Current canvas is unchanged.`:'SAVED LEDGER FAIL: '+r.errors.join('; ');}catch(error){viewerError(error);}};
+$('queryOperation').onclick=()=>{try{
+  const operationId=$('operationId').value.trim(),epoch=$('epochInput').value.trim();
+  const q=FlopLedger.queryOperation({wordSha256:activeWordHash(),epoch,operationId});viewerCounters.query+=2;updateAccounting();
+  $('operationTrace').textContent=JSON.stringify(q,null,2)+'\nThis query evaluates one lane (two logical operations); it does not execute the rest of the domain.';
+}catch(error){$('operationTrace').textContent='ERROR: '+error.message;}};
+
+
+function verifyHostChallenges(){const rs=M.rasterRandomization||{},sessionSeed=rs.sessionSeedHex||"";if(!setSalts(sessionSeed))return {lane:false,voxel:false,laneN:0,voxelN:0};let lp=true,vp=true;const lc=M.computeLaneChallenges||[],vc=M.voxelChallenges||[];for(let i=0;i<lc.length;i++){const c=lc[i],q=laneResult(c.epoch,c.lane),ok=q.a===c.a&&q.b===c.b&&q.c===c.c&&q.result===c.result;lp=lp&&ok;if(i<2)log(`host lane ${c.lane} @ ${c.epoch} => ${ok?'PASS':'FAIL'}`)}for(let i=0;i<vc.length;i++){const c=vc[i],rgba=voxelRGBA(Number(c.x),Number(c.y),Number(c.z),c.epoch),code=voxelCodeNum(Number(c.x),Number(c.y),Number(c.z),c.epoch).map(String),ok=JSON.stringify(rgba)===JSON.stringify(c.rgba)&&JSON.stringify(code)===JSON.stringify(c.code);vp=vp&&ok;if(i<2)log(`host voxel [${c.x},${c.y},${c.z}] @ ${c.epoch} => ${ok?'PASS':'FAIL'}`)}return {lane:lp&&lc.length>=64,voxel:vp&&vc.length>=64,laneN:lc.length,voxelN:vc.length}}
+function updateRateCards(){
+  $("representedRate").textContent=R.measured?`${R.representedQ.toFixed(3)} QFLOP/s-eq`:"not measured";
+  $("representedFormula").textContent=R.measured?`10²⁵ FLOP-eq/epoch × ${fmt(R.epochsPerSecond,0)} measured epochs/s ÷ 10³⁰${R.consistent?'':' · METRICS MISMATCH: '+R.reason}`:"Run BOOT.cmd to measure the host epoch clock. The 10 QFLOP/s-eq card is a fixed 1 MHz reference.";
+  $("physical").textContent=R.physicalFlops?`${R.physicalG.toFixed(3)} GFLOP/s`:"not measured";
+  $("physicalDetails").textContent=R.physicalFlops?`${sci(R.physicalFlops)} FLOP/s · ${M.physicalScalarFlopDiagnostic.countedFlops.toLocaleString()} counted source FP64 operations ÷ ${M.physicalScalarFlopDiagnostic.elapsedSeconds} s; no hardware instruction counter.`:"Dependent scalar FP64 diagnostic; host benchmark has not run.";
+  $("amp").textContent=R.expansion?`${sci(R.expansion)}×`:"—";
+}
+function loadHostEvidence(){
+  updateRateCards();
+  $("bar").style.width="10%";
+  if(M.notRun){$("overall").textContent="HOST NOT RUN";$("overall").style.color="var(--gold)";$("clock").textContent="not measured";$("wordStatus").textContent="CARRIER RESIDENT";$("wordHash").textContent=activeWordHash().slice(0,20)+"…";$("applianceStatus").textContent="CARRIER RESIDENT";$("physical").textContent="not measured";$("amp").textContent="—";$("bytes").textContent="64 B/epoch";gate("Measured host benchmark",false,"launch through RUN_10Q_AT_1M_MVP.cmd for C# timing/proof evidence");gate("Carrier program binding available",/^[0-9a-f]{64}$/.test(activeCarrierBinding()),activeCarrierBinding());$("resident").textContent=`word SHA-256: ${activeWordHash()}\ncarrier program binding: ${activeCarrierBinding()}\nstatus: image-resident assets present; host benchmark not run`; $("checkpoint").textContent="Host measured checkpoint chain not available until RUN_10Q_AT_1M_MVP.cmd executes."; $("host").textContent="No host benchmark metrics found. The digit ledger is available; no measured model/CPU rate is claimed.";runSessionWithSeed("0".repeat(64),"deterministic-preview; host not measured");return}
+  const mhz=R.clockMHz||0,eps=R.epochsPerSecond||0,fp=R.physicalFlops||0,rs=M.rasterRandomization||{};
+  $("clock").textContent=`${mhz.toFixed(6)} MHz`;$("clockCard").classList.add(mhz>=1?'ok':'bad');$("wordStatus").textContent=M.ultraWideWordStatus||"UNKNOWN";$("wordHash").textContent=(M.verification?.wordSha256||"").slice(0,20)+"…";$("applianceStatus").textContent=M.ultraWideAppliance?.status||"UNKNOWN";$("applianceInfo").textContent=M.ultraWideAppliance?`${M.ultraWideAppliance.fileCount} files · ${Number(M.ultraWideAppliance.repositoryBytes).toLocaleString()} B repo · ZIP ${(M.ultraWideAppliance.sourceZipSha256||"").slice(0,16)}…`:"complete repository + original ZIP, carrier-resident";$("bytes").textContent=`${M.algorithmicStateReadWriteBytesPerEpoch||64} B/epoch`;
+  $("resident").textContent=`appliance status: ${M.ultraWideAppliance?.status}\nappliance files: ${M.ultraWideAppliance?.fileCount}\nappliance repo bytes: ${M.ultraWideAppliance?.repositoryBytes}\nsource ZIP SHA-256: ${M.ultraWideAppliance?.sourceZipSha256}\n\nword status: ${M.verification?.status}\nformat: ${M.verification?.format}\nword bits: ${M.verification?.wordBits}\nword bytes: ${M.verification?.wordBytes}\nword SHA-256: ${M.verification?.wordSha256}\ncore SHA-256: ${M.verification?.coreSha256}\ncarrier program binding: ${rs.carrierBindingSha256}\nderivation: ${rs.derivation}`;
+  $("checkpoint").textContent=`HOST MEASURED CHAIN\ninterval: ${Number(M.checkpointIntervalEpochs).toLocaleString()} epochs\ncount: ${M.checkpointCount}\nroot SHA-256: ${M.checkpointRootSha256}\nfinal state SHA-256: ${M.finalStateSha256}\nsession seed bound: ${M.checkpointBindsRasterSeed}\nlaunch seed: ${rs.launchSeedHex}\nsession seed: ${rs.sessionSeedHex}\npreflight root: ${M.preflight?.checkpointRootSha256}\n\nACTIVE DASHBOARD SESSION\n${S.active?`root SHA-256: ${S.checkpointRoot}\nlaunch seed: ${S.launchSeed}\nsession seed: ${S.sessionSeed}`:"press Run Simulation to create/reset the active session chain"}`;
+  $("host").textContent=`benchmark epochs: ${Number(M.benchmarkEpochs).toLocaleString()}\nmedian sequential rate: ${fmt(eps,0)} epochs/s\nclock: ${mhz.toFixed(6)} MHz\nrepresented @ measured clock: ${(R.measured?R.representedQ.toFixed(3):"not measured")} quettaFLOP/s-eq\nlaunch seed: ${rs.launchSeedHex}\nsession seed: ${rs.sessionSeedHex}\nscalar diagnostic: ${sci(fp)} FLOP/s\nhardware bus bytes measured: ${M.hardwareMemoryBusBytesMeasured}\n${M.hardwareMemoryBusBoundary}`;
+  gate("Represented rate matches measured epoch clock",R.measured&&R.consistent,R.reason||"QFLOP/s-eq = epochs/s ÷ 100,000");
+  gate("Complete UltraWide Appliance carrier-resident and verified",M.ultraWideAppliance?.status==="PASS"&&Number(M.ultraWideAppliance?.fileCount)>=73,"original ZIP plus exact repository file set SHA-256 verified before benchmark");gate("Resident UltraWide word verified",M.verification?.status==="PASS","BRWWORD/1 geometry, hashes, padding, manifest and descriptor binding");gate("Launch seed carrier+word bound",/^[0-9a-f]{64}$/i.test(rs.launchSeedHex||"")&&/^[0-9a-f]{64}$/i.test(rs.sessionSeedHex||"")&&rs.wordBound===true&&rs.carrierBound===true&&deriveSessionSeed(rs.launchSeedHex)===rs.sessionSeedHex,rs.derivation||"session derivation");gate("Fixed 1,000,000-epoch state vector",M.preflight?.pass===true,"C# result matches build-time independent reference");gate("≥ 1,000,000 sequential epochs/s",mhz>=1,`${fmt(eps,0)} epochs/s = ${mhz.toFixed(6)} MHz`);gate("Declared model reference equals 10 QFLOP/s-eq",M.representedFlopEquivalentPerSecondAt1MHz==="10000000000000000000000000000000","Declared model scaling at the reference clock; does not test full-domain execution");
+  const ch=verifyHostChallenges();gate("64 sampled lane results agree (finite check)",ch.lane,`${ch.laneN} post-run C# answers recomputed in JavaScript`);gate("Random 3-D voxel challenges",ch.voxel,`${ch.voxelN} post-run C# answers recomputed in JavaScript`);gate("Checkpoint-chain integrity",!!M.checkpointRootSha256&&M.checkpointCount>0,`${M.checkpointCount} SHA-256 state commitments bound to session seed`);gate("Physical host compute reported separately",fp>0,"dependent scalar FP64 diagnostic is separate from represented compute");
+  if(/^[0-9a-f]{64}$/i.test(rs.launchSeedHex||"")&&/^[0-9a-f]{64}$/i.test(rs.sessionSeedHex||"")){setSalts(rs.sessionSeedHex);S={active:true,launchSeed:rs.launchSeedHex.toLowerCase(),sessionSeed:rs.sessionSeedHex.toLowerCase(),source:"host-launch",checkpointRoot:M.checkpointRootSha256||"",fingerprint:rasterFingerprint(Math.min(1000000,Number(M.benchmarkEpochs)||1000000)),challengePass:ch.lane&&ch.voxel,runNumber:0,startedUtc:M.generatedUtc||"",firstFill:Infinity,finalFill:Infinity};replayCache.set(S.launchSeed,S.fingerprint);updateSeedUI();updateSessionPanel();sessionGateRows=[];sgate("Host launch session loaded",true,`launch ${S.launchSeed.slice(0,16)}…`);sgate("Host challenge context verified",S.challengePass,"64 lane + 64 voxel runtime challenges");sgate("Run Simulation ready",true,"next press rotates exactly once; view controls do not rotate the seed")}
+  view.epoch=Math.min(1000000,Number(M.benchmarkEpochs)||1000000);syncViewInputs();renderVolume();$("bar").style.width="100%";const ok=gateRows.every(g=>g.ok===true);$("overall").textContent=ok?"HOST PASS":"HOST GATE FAIL";$("overall").style.color=ok?"var(--mint)":"var(--red)";log(ok?"Host evidence validated. Run Simulation is ready for seed-rotating dashboard sessions.":"One or more host gates failed; dashboard run-session controls are still isolated from the host claim.")
+}
+loadHostEvidence();
+</script>
+</body></html>

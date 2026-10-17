@@ -1,4 +1,4 @@
-# Independent sparse state-vector reference (pure Python, little-endian: q0 = LSB).
+﻿# Independent sparse state-vector reference (pure Python, little-endian: q0 = LSB).
 import cmath, math
 R2 = 1 / math.sqrt(2)
 def U(t, p, l):

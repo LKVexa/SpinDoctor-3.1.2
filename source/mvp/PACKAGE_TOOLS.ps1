@@ -36,7 +36,7 @@ try {
         Write-Host 'PASS: generic carrier harness compiled in-process. No transient executable is required.'
         exit 0
     }
-    $carrierStem = Join-Path $packageRoot 'cartridge\SpinDoctor-3.1.2'
+    $carrierStem = Join-Path $packageRoot 'cartridge\Lunar127_10Q1M_FULL_ULTRAWIDE_PROCESSABLE'
     $targets = @()
     if (-not $Target) {
         if ($Mode -eq 'Inspect') { $targets = @($carrierStem + '.tiff') }

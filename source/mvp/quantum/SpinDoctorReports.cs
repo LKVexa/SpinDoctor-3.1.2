@@ -1,19 +1,3 @@
-// SPDX-License-Identifier: GPL-3.0-or-later
-// SpinDoctor 3.1.2 - Quantum Virtual Terminal
-// Copyright (C) 2026 RUSSELL PHILIP SMITHSON <russellsmithson77@outlook.com>
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -117,14 +101,13 @@ namespace QuettaQuantum
                 case "swap":rows=new string[][]{new string[]{"1","0","0","0"},new string[]{"0","0","1","0"},new string[]{"0","1","0","0"},new string[]{"0","0","0","1"}};break;
                 case "cy":case "cz":case "ch":case "cp":case "crx":case "cry":case "crz":expression="P0(control=operand0) I(target=operand1) + P1(control=operand0) "+name.Substring(1).ToUpperInvariant()+"(target=operand1; a1 when applicable)";break;
                 case "cu":expression="P0(control=operand0) I(target=operand1) + P1(control=operand0) exp(i*a4) U(a1,a2,a3; target=operand1)";break;
-                case "mcx7":expression="I256 + P1(operand0) P1(operand1) P1(operand2) P1(operand3) P1(operand4) P1(operand5) P1(operand6) (X(operand7)-I); seven controls followed by target, operand0 is local least-significant bit.";break;
                 case "ccx":expression="I8 + P1(operand0) P1(operand1) (X(operand2)-I); labelled operators are embedded on the stated operands and multiplied, not tensor-listed in control-first order.";break;
                 case "cswap":expression="P0(control=operand0) I(targets=operand1,operand2) + P1(control=operand0) SWAP(targets=operand1,operand2); labelled commuting embedded products, not tensor-listed in control-first order.";break;
                 case "rxx":case "ryy":case "rzz":case "rzx":expression="cos(a1/2) I4 - i sin(a1/2) "+Char.ToUpperInvariant(name[1])+"(operand0) "+Char.ToUpperInvariant(name[2])+"(operand1)";break;
                 default:return D("available",false,"equationText","Display formula unavailable for this recorded operator; operands are retained without a guessed matrix.");
             }
             if(rows!=null)expression=(factor.Length>0?factor+" * ":"")+Json.Serialize(rows);
-            string basis=name=="mcx7"?"|operand7,...,operand0>; operands0..6 control operand7; no full-register matrix.":name=="ccx"||name=="cswap"?"|operand2,operand1,operand0>; operand0 is local least-significant bit. Labelled operators act on their stated operands in this embedding; no full-register matrix.":rows!=null&&rows.Length==2?"|0>,|1>":"|operand1,operand0> = |00>,|01>,|10>,|11>; operand0 is local least-significant bit and control where controlled. No global register matrix.";
+            string basis=name=="ccx"||name=="cswap"?"|operand2,operand1,operand0>; operand0 is local least-significant bit. Labelled operators act on their stated operands in this embedding; no full-register matrix.":rows!=null&&rows.Length==2?"|0>,|1>":"|operand1,operand0> = |00>,|01>,|10>,|11>; operand0 is local least-significant bit and control where controlled. No global register matrix.";
             return D("available",true,"equationText",expression,"prefactor",factor,"rows",rows,"basis",basis);
         }
         private static Dictionary<string,object> D(params object[] a){return SpinDoctorCalculators.D(a);}
@@ -132,7 +115,7 @@ namespace QuettaQuantum
         private static Dictionary<string,object> M(object value){return value as Dictionary<string,object>??new Dictionary<string,object>();}
         private static string S(object value){return value==null?"":Convert.ToString(value,Inv);}
         private static string N(object value){return value is double?((double)value).ToString("R",Inv):value is float?((float)value).ToString("R",Inv):value==null?"Not returned":S(value);}
-        private static string BasisKet(string initial,string width){BigInteger basis;int n;if(BigInteger.TryParse(initial,NumberStyles.None,Inv,out basis)&&basis>=0&&Int32.TryParse(width,NumberStyles.None,Inv,out n)&&n>=1&&n<=TrancheRegister.MaximumLogicalQubits&&basis<(BigInteger.One<<n))return SpinDoctorCalculators.Bits(basis,n);return "b";}
+        private static string BasisKet(string initial,string width){long basis;int n;if(Int64.TryParse(initial,NumberStyles.None,Inv,out basis)&&basis>=0&&Int32.TryParse(width,NumberStyles.None,Inv,out n)&&n>=1&&n<=29&&basis<(1L<<n))return Convert.ToString(basis,2).PadLeft(n,'0');return "b";}
         private static List<object> Items(object value){List<object> items=new List<object>();IEnumerable list=value as IEnumerable;if(list!=null&&!(value is string)&&!(value is IDictionary))foreach(object item in list)items.Add(item);return items;}
     }
     // A lossless table of recorded values. JSON string literals keep arbitrary
@@ -451,7 +434,7 @@ namespace QuettaQuantum
             string phase=Scalar(Get(result,"phase"),100);if(phase.Length>0&&phase!="completed"&&phase!="ready")return new Dictionary<string,object>();
             Dictionary<string,object> program=Map(Get(result,"program"));if(program.Count==0)program=result ?? new Dictionary<string,object>();
             int qubits,gates;string name=Scalar(Get(program,"name"),128),hash=Scalar(Get(program,"descriptorHash"),128);
-            if(name.Length==0||hash.Length!=64||!Int32.TryParse(Scalar(Get(program,"qubits"),16),NumberStyles.None,Inv,out qubits)||qubits<1||qubits>TrancheRegister.MaximumLogicalQubits||!Int32.TryParse(Scalar(Get(program,"gateCount"),16),NumberStyles.None,Inv,out gates)||gates<0||gates>8192)return new Dictionary<string,object>();
+            if(name.Length==0||hash.Length!=64||!Int32.TryParse(Scalar(Get(program,"qubits"),16),NumberStyles.None,Inv,out qubits)||qubits<1||qubits>29||!Int32.TryParse(Scalar(Get(program,"gateCount"),16),NumberStyles.None,Inv,out gates)||gates<0||gates>8192)return new Dictionary<string,object>();
             return program;
         }
         public static Dictionary<string,object> CompletionMetadata(Dictionary<string,object> root,Dictionary<string,object> result)
@@ -947,7 +930,7 @@ namespace QuettaQuantum
             foreach(string key in new string[]{"programHash","capturedUtc","premeasurement","selectedQubits","returnedQubits","omittedQubits","unrequestedQubits","qubitLimit","maximumFactorEntries","scope","verificationScope"})if(preview.ContainsKey(key))p.Key(key,Str(Get(preview,key)));
             p.Paragraph("These local Pauli expectations were captured from this run's actual coherent output before shot measurements. They are not reconstructed from the histogram, do not describe a later edited circuit, and are separate from procedural q.verify sampling.");
             List<object> rows=Items(Get(preview,"rows"));if(rows.Count>4)throw new ArgumentException("Retained circuit spin preview exceeds its four-qubit bound.");
-            HashSet<int> qubits=new HashSet<int>();double width;bool validWidth=TryNumber(Get(result,"qubits"),out width)&&width>=1&&width<=TrancheRegister.MaximumLogicalQubits&&width==Math.Floor(width);
+            HashSet<int> qubits=new HashSet<int>();double width;bool validWidth=TryNumber(Get(result,"qubits"),out width)&&width>=1&&width<=29&&width==Math.Floor(width);
             foreach(object raw in rows){Dictionary<string,object> row=Map(raw);double q;if(!validWidth||!TryNumber(Get(row,"qubit"),out q)||q!=Math.Floor(q)||q<0||q>=width||!qubits.Add((int)q)||!Bool(Get(row,"premeasurement")))throw new ArgumentException("Retained circuit spin rows require unique in-range premeasurement qubit identities.");List<object> vector=Items(Get(row,"bloch"));if(vector.Count!=3||!IsNumericVector(vector))throw new ArgumentException("Retained circuit spin row lacks a finite native Bloch vector.");p.Keep(590);p.Heading("Circuit local spin / qubit "+Str(Get(row,"qubit")));SpinSource(p,row,"Actual premeasurement circuit marginal");p.Spin(Number(vector[0]),Number(vector[1]),Number(vector[2]));}
             foreach(object raw in Items(Get(preview,"omissions")))p.Key("Unplotted qubit / reason",Json.Serialize(raw));
             if(Items(Get(preview,"omissions")).Count>0)p.Paragraph("An omitted qubit is missing evidence, not a zero spin vector. Its state is not invented by the report.",true);
@@ -1050,7 +1033,7 @@ namespace QuettaQuantum
             List<Outcome> rows = full ?? HistogramRows(Get(result, "histogram"));
             if(rows.Count>65536)throw new ArgumentException("PDF histogram appendix supports<=65536 distinct rows; use TXT/JSON for larger distributions.");
             bool complete=full!=null || Bool(Get(result,"histogramComplete"));BigInteger total=BigInteger.Zero;HashSet<string> labels=new HashSet<string>(StringComparer.Ordinal);
-            int qubits=(int)Number(Get(result,"qubits"));if(qubits<1||qubits>TrancheRegister.MaximumLogicalQubits)throw new ArgumentException("Recorded circuit qubit width must be1..298.");
+            int qubits=(int)Number(Get(result,"qubits"));if(qubits<1||qubits>29)throw new ArgumentException("Recorded circuit qubit width must be1..29.");
             foreach(Outcome row in rows){if(row.Label.Length!=qubits || !labels.Add(row.Label))throw new ArgumentException("Histogram bitstrings must have the recorded qubit width and be unique.");foreach(char bit in row.Label)if(bit!='0'&&bit!='1')throw new ArgumentException("Histogram labels must be binary bitstrings.");total+=DecimalCount(row.Count,"Histogram count");}
             BigInteger shots=DecimalCount(Str(Get(result,"completedShots")),"Circuit completed-shot count");
             BigInteger requested=DecimalCount(Str(Get(result,"requestedShots")),"Circuit requested-shot count");if(shots>requested)throw new ArgumentException("Completed-shot count exceeds the recorded nonnegative requested-shot count.");
@@ -1064,7 +1047,7 @@ namespace QuettaQuantum
             p.Paragraph("Job-local actual work for this recorded circuit run, identified by its native job id and programHash. These counts remain separate from the saved circuit lifetime totals and from the procedural model's CPU/GPU verification counters.");
             Dictionary<string, object> counts = Map(Get(result, "counts"));
             foreach (KeyValuePair<string, object> count in counts) p.Key(count.Key, Str(count.Value));
-            p.Paragraph(Str(Get(result,"samplingMode"))=="prepared-factor-Born-Z" ? "Actual work includes one retained coherent-output preparation and independent joint Born-Z samples of its factors. No per-shot gate replay is counted in this mode. These units are not physical quantum gate throughput or FLOPS." : "Actual work includes independent shot replays and the separately retained coherent-output execution. Exact classical-input controlled-phase reductions are recorded. These units are not physical quantum gate throughput or FLOPS.");
+            p.Paragraph("Actual work includes independent shot replays and the separately retained coherent-output execution. Exact classical-input controlled-phase reductions are recorded. These units are not physical quantum gate throughput or FLOPS.");
             CircuitSpinPreview(p,result);
             p.Heading(full == null ? "Returned histogram rows" : "Complete native histogram");
             p.Key("Histogram rows included", rows.Count.ToString(Inv));
@@ -1072,13 +1055,12 @@ namespace QuettaQuantum
         }
         private static void Diagram(Report p, Dictionary<string, object> program)
         {
-            int n = (int)Double(Get(program, "qubits")); if (n < 1 || n > TrancheRegister.MaximumLogicalQubits) return;
+            int n = (int)Double(Get(program, "qubits")); if (n < 1 || n > 29) return;
             List<object> gates = Items(Get(program, "gates"));
-            if(n<=29)p.Keep(130 + n * (n > 16 ? 12 : n > 8 ? 17 : 26));
+            p.Keep(130 + n * (n > 16 ? 12 : n > 8 ? 17 : 26));
             p.Heading("Circuit gate sequence"); p.Key("Qubits / input basis", n.ToString(Inv) + " / " + Str(Get(program, "initialBasis")));
             int at = 0;
-            if(n>29)p.Paragraph("Wire diagrams are bounded to 29 qubits. This wide logical circuit is recorded in the exact chronological gate operand table below.");
-            else do
+            do
             {
                 int count = Math.Min(14, gates.Count - at); p.Diagram(n, gates, at, count); at += count;
                 if (at < gates.Count) p.NewPage();
@@ -1328,10 +1310,9 @@ namespace QuettaQuantum
             }
             public void CircuitEquations(int gates,string inputBasis)
             {
-                bool wideInput = inputBasis.Length > 48; string completeInputBasis = inputBasis; if(wideInput)inputBasis="b";
                 Keep(190);double at=Left+12,baseline=y-25;MathText(at,baseline,"|",22);Psi(at+16,baseline,24);MathText(at+22,baseline-7,"out",9);MathText(at+41,baseline,"> =",22);if(gates>0){MathText(at+95,baseline,"U",22);MathText(at+111,baseline-5,gates.ToString(Inv),10);if(gates==1)MathText(at+137,baseline,"|"+inputBasis+">",20);else if(gates==2){MathText(at+137,baseline,"U",22);MathText(at+153,baseline-5,"1",10);MathText(at+180,baseline,"|"+inputBasis+">",20);}else{MathText(at+137,baseline,"... U",22);MathText(at+185,baseline-5,"1",10);MathText(at+205,baseline,"|"+inputBasis+">",20);}}else MathText(at+95,baseline,"|"+inputBasis+">",20);
                 baseline-=58;MathText(at,baseline,"P(s | B) = |<s| B |",19);Psi(at+165,baseline,22);MathText(at+172,baseline-7,"out",9);MathText(at+190,baseline,">|",20);MathText(at+211,baseline+10,"2",10);
-                baseline-=52;MathText(at,baseline,"r",22);MathText(at+10,baseline-5,"q,k",10);MathText(at+40,baseline,"= Tr(",19);Rho(at+89,baseline,21);MathText(at+105,baseline-5,"q",10);SmallSigma(at+124,baseline,21);MathText(at+144,baseline-5,"k",10);MathText(at+160,baseline,")",19);y-=183;if(wideInput)Key("Input ket |b>","The declared "+completeInputBasis.Length.ToString(Inv)+"-bit computational basis ket is "+completeInputBasis+". The native program retains its full decimal basis index.");
+                baseline-=52;MathText(at,baseline,"r",22);MathText(at+10,baseline-5,"q,k",10);MathText(at+40,baseline,"= Tr(",19);Rho(at+89,baseline,21);MathText(at+105,baseline-5,"q",10);SmallSigma(at+124,baseline,21);MathText(at+144,baseline-5,"k",10);MathText(at+160,baseline,")",19);y-=183;
             }
             public void SymbolicMatrix(List<object> rows,string prefactor)
             {
@@ -1449,10 +1430,10 @@ namespace QuettaQuantum
                 Space(count * 20 + 35);
                 for (int i = 0; i < count; i++)
                 {
-                    string barLabel=rows[i].Label.Length>29 ?rows[i].Label.Substring(0,7)+"..."+rows[i].Label.Substring(rows[i].Label.Length-7):rows[i].Label;Text(Left, y - 5, barLabel, 7, false, true, false); Fill(0.88, 0.94, 0.96); Rect(211, y - 10, 270, 12, true); Fill(0.04, 0.55, 0.67); Rect(211, y - 10, 270 * Double(rows[i].Count) / max, 12, true); Text(489, y - 7, rows[i].Count, 8, false, true, false); y -= 20;
+                    Text(Left, y - 5, rows[i].Label, 7, false, true, false); Fill(0.88, 0.94, 0.96); Rect(211, y - 10, 270, 12, true); Fill(0.04, 0.55, 0.67); Rect(211, y - 10, 270 * Double(rows[i].Count) / max, 12, true); Text(489, y - 7, rows[i].Count, 8, false, true, false); y -= 20;
                 }
                 if(rows.Count>count){BigInteger rest=BigInteger.Zero;for(int i=count;i<rows.Count;i++)rest+=BigInteger.Parse(rows[i].Count,Inv);Key("Additional recorded outcomes",(rows.Count-count).ToString(Inv)+" rows; "+rest.ToString(Inv)+" completed shots. Their exact rows follow.");}
-                Paragraph("Bars show returned counts, not probability amplitudes. Exact rows follow; omitted preview rows are explicitly identified.");if(rows.Exists(delegate(Outcome row){return row.Label.Length>29;}))Paragraph("Long bitstrings in bar labels show only their first and last seven bits. Exact full-width bitstrings and counts follow in the histogram table.");
+                Paragraph("Bars show returned counts, not probability amplitudes. Exact rows follow; omitted preview rows are explicitly identified.");
             }
             public void Diagram(int n, List<object> gates, int first, int count)
             {

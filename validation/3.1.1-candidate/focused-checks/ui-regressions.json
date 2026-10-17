@@ -3,7 +3,7 @@
   "passed": true,
   "identicalPages": true,
   "scope": "UI CSV companions, local native equation editor, format retry, folder receipt gating, numeric table fitting controls, retention and report-detail regressions",
-  "sourceRoot": "<WORK>\\2026-10-10\\can\\work\\spindoctor-3.1.1\\source\\mvp",
+  "sourceRoot": "D:\\Codex\\2026-10-10\\can\\work\\spindoctor-3.1.1\\source\\mvp",
   "htmlSha256": "66A1EEC29508A5532F709414BD9D08D6282CB30F9E869319A88DF74E83CED930",
   "verification": "Deterministic DOM/network harness; not a live graphical browser test",
   "passedChecks": [

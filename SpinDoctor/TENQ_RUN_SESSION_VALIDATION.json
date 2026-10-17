@@ -1,0 +1,41 @@
+{
+  "schema": "LUNAR127/RUN-SESSION-STATIC-VALIDATION/1",
+  "release": "1.1.4",
+  "carrierProgramBindingSha256": "4ef0a6992dfdbe039a7cb6aa4b67b5de98bd3798f1fb4563ca0e6342c32e86b6",
+  "wordSha256": "8222fd2c7b321703b9e6f44fa22a7a7cb069aa2d7cd311fb00f6c2eeb1549b83",
+  "controls": [
+    "Run Simulation",
+    "Current Seed",
+    "Copy Seed",
+    "Replay Seed",
+    "Custom Seed",
+    "Randomize Seed On Run"
+  ],
+  "seedHexCharacters": 64,
+  "checkpointLinks": 16,
+  "laneChallenges": 64,
+  "voxelChallenges": 64,
+  "viewControlsRotateSeed": false,
+  "sessionDerivation": "SHA256(launchSeed || carrierProgramBinding || BRWWORD_SHA256)",
+  "status": "PASS",
+  "backtest": {
+    "seedA": "0000000000000000000000000000000000000000000000000000000000000000",
+    "sessionSeedA": "0e3e1eb66fac5f07edce0fee0bea1b3a6921ee4ae0ebd55109e8b7d53676a377",
+    "rasterFingerprintA": "b3cb62cdd72a36d353716b1576800a3ffff4c6be5e3456d0cf704c5d369078c3",
+    "sessionCheckpointRootA": "ec30697143d2f5c0bde58a90bef84d0b19461bdb0277ae5a1b470cff8149e1f2",
+    "seedAReplayFingerprint": "b3cb62cdd72a36d353716b1576800a3ffff4c6be5e3456d0cf704c5d369078c3",
+    "replayDeterministic": true,
+    "seedB": "0101010101010101010101010101010101010101010101010101010101010101",
+    "sessionSeedB": "9d2172d357f7629f2233fcc38720ac15808f0b67f0aac71c9db9a71724c3a4fa",
+    "rasterFingerprintB": "7afdd8abe9db25ad6191f8e7da34c25b7eb25db13137643b952b015876444327",
+    "sessionCheckpointRootB": "52c395a9ef289e02a6152848bdd50585e168ee61dfbd3f56bf7cb8b2f8781bb4",
+    "differentSeedChangesRaster": true,
+    "differentSeedChangesCheckpointRoot": true
+  },
+  "staticChecks": {
+    "allRequestedControlsPresent": true,
+    "viewHandlersDoNotRotateSeed": true,
+    "javascriptSyntax": "PASS (Node.js --check)",
+    "sha256KnownVector": "PASS (SHA256('abc') = ba7816bf...)"
+  }
+}
