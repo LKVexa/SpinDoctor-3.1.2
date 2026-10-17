@@ -1,19 +1,3 @@
-// SPDX-License-Identifier: GPL-3.0-or-later
-// SpinDoctor 3.1.2 - Quantum Virtual Terminal
-// Copyright (C) 2026 RUSSELL PHILIP SMITHSON <russellsmithson77@outlook.com>
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -79,11 +63,9 @@ namespace QuettaQuantum
                 Dictionary<string, object> value = new Dictionary<string, object>(snapshot);
                 value["product"] = "SpinDoctor"; value["prepared"] = qubits > 0;
                 value["suspended"] = suspended; value["qubits"] = qubits;
-                value["basisStateCount"] = qubits == 0 ? "0" : S(BigInteger.One << qubits);
+                value["basisStateCount"] = qubits == 0 ? "0" : S(1UL << qubits);
                 value["memoryLimitBytes"] = S(memoryLimit);
-                value["worstDenseStateBytes"] = qubits == 0 ? "0" : S(new BigInteger(16) << qubits);
-                value["maximumLogicalQubits"] = TrancheRegister.MaximumLogicalQubits;
-                value["maximumJointFactorQubits"] = TrancheRegister.MaximumFactorQubits;
+                value["worstDenseStateBytes"] = qubits == 0 ? "0" : S(16UL << qubits);
                 if (register == null)
                 {
                     value["allocatedDenseStateBytes"] = "0"; value["estimatedSparseStateBytes"] = "0";
@@ -101,7 +83,7 @@ namespace QuettaQuantum
                 value["accountingScope"] = "Lifetime actual work survives release, reset and restart, including cancelled gate work and replay calculations. Register counters describe its current backend history; replay does not add committed logical gate credit. Amplitude writes and tensor products are source-level work units, not FLOPS or physical quantum operations.";
                 value["modelBinding"] = binding;
                 value["job"] = JobStatus();
-                value["scope"] = "One selected coherent register of up to 298 logical qubits, with each coherent joint factor limited to 59 qubits. Tensor factors retain entanglement. Global dense-state bounds are not allocated arrays. Logical gate calls and actual amplitude work are separate from the procedural family and from physical quantum gates.";
+                value["scope"] = "One selected coherent register of up to 29 qubits. Tensor factors and joint-state blocks retain entanglement. Logical gate calls and actual amplitude work are separate from the procedural family and from physical quantum gates.";
                 value["supportedGates"] = TrancheRegister.SupportedGates;
                 return value;
             }
@@ -126,7 +108,7 @@ namespace QuettaQuantum
                 if (action == "prepare")
                 {
                     Exact(words, 4); Need(words[3], "zero");
-                    int next = Int(words[2]); if (next < 1 || next > TrancheRegister.MaximumLogicalQubits) throw new ArgumentException("A selected register contains 1..298 logical qubits; each coherent joint factor is limited to 59 qubits.");
+                    int next = Int(words[2]); if (next < 1 || next > 29) throw new ArgumentException("A tranche contains 1-29 qubits.");
                     Replace(new TrancheRegister(next), next, null, null);
                     Save(); return D("prepared", true, "qubits", next, "initialState", "zero", "note", "Selected register prepared in |0...0>. No family-wide gate credit is issued.");
                 }
@@ -189,7 +171,7 @@ namespace QuettaQuantum
                         return result;
                     });
                 }
-                if (action == "state") { Exact(words, 3); object result = register.State(WideIndex(words[2])); UpdateSnapshot(); SaveMetadata(); return result; }
+                if (action == "state") { Exact(words, 3); object result = register.State(UInt(words[2])); UpdateSnapshot(); SaveMetadata(); return result; }
                 if (action == "spin") { Exact(words, 3); int q = Qubit(words[2]); double[] spin = register.Spin(q); UpdateSnapshot(); SaveMetadata(); return D("qubit", q, "spin", D("x", spin[0], "y", spin[1], "z", spin[2]), "scope", "Reduced single-qubit spin expectation in the selected coherent register; entangled qubits can have a mixed reduced state."); }
                 if (action == "measure")
                 {
@@ -386,7 +368,7 @@ namespace QuettaQuantum
                 Dictionary<string, object> value = json.DeserializeObject(File.ReadAllText(metaPath)) as Dictionary<string, object>;
                 if (value == null || (string)value["schema"] != "SPINDOCTOR/TRANCHE-SESSION/1" || (string)value["measurementSeed"] != seed) throw new InvalidDataException("Tranche schema or seed differs.");
                 qubits = Int(Convert.ToString(value["qubits"], CultureInfo.InvariantCulture));
-                if (qubits < 0 || qubits > TrancheRegister.MaximumLogicalQubits) throw new InvalidDataException("Invalid saved tranche size.");
+                if (qubits < 0 || qubits > 29) throw new InvalidDataException("Invalid saved tranche size.");
                 memoryLimit = UInt((string)value["memoryLimitBytes"]); if (memoryLimit < 1024UL * 1024) throw new InvalidDataException("Invalid saved memory budget.");
                 randomCounter = UInt((string)value["measurementCounter"]);
                 preparedPoints = BigInteger.Parse((string)value["preparedPoints"], CultureInfo.InvariantCulture); committedGates = BigInteger.Parse((string)value["committedGates"], CultureInfo.InvariantCulture);
@@ -449,7 +431,6 @@ namespace QuettaQuantum
         private static void Need(string word, string expected) { if (!word.Equals(expected, StringComparison.OrdinalIgnoreCase)) throw new ArgumentException("Expected '" + expected + "'."); }
         private static int Int(string value) { int n; if (!Int32.TryParse(value, NumberStyles.None, CultureInfo.InvariantCulture, out n)) throw new ArgumentException("Expected a nonnegative integer operand."); return n; }
         private static ulong UInt(string value) { ulong n; if (!UInt64.TryParse(value, NumberStyles.None, CultureInfo.InvariantCulture, out n)) throw new ArgumentException("Expected an unsigned decimal integer."); return n; }
-        private static BigInteger WideIndex(string value) { BigInteger n; if (!BigInteger.TryParse(value, NumberStyles.None, CultureInfo.InvariantCulture, out n) || n.Sign < 0) throw new ArgumentException("Expected a nonnegative decimal basis index."); return n; }
         private static double Number(string value) { double n; if (!Double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out n) || Double.IsNaN(n) || Double.IsInfinity(n) || Math.Abs(n) > 1e12) throw new ArgumentException("Angle must be finite and within +/-1e12."); return n; }
         private static string S(ulong n) { return n.ToString(CultureInfo.InvariantCulture); }
         private static string S(BigInteger n) { return n.ToString(CultureInfo.InvariantCulture); }

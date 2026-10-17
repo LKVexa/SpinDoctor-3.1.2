@@ -1,7 +1,3 @@
-SpinDoctor 3.1.2 — 298-qubit update applied to the normal carrier launcher.
-Read UPDATE-298.txt for restart, capabilities, limits and the eleven-file run.
-The older HANDGUIDE.pdf and audit PDFs describe their original builds.
-
 SPINDOCTOR 3.1.2
 Prepared 2026-10-10 (America/Los_Angeles). Parent: SpinDoctor 3.1.1-candidate.
 Separate release; earlier applications and live workspaces are untouched.

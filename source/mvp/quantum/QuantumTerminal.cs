@@ -1,19 +1,3 @@
-// SPDX-License-Identifier: GPL-3.0-or-later
-// SpinDoctor 3.1.2 - Quantum Virtual Terminal
-// Copyright (C) 2026 RUSSELL PHILIP SMITHSON <russellsmithson77@outlook.com>
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -1039,7 +1023,6 @@ namespace QuettaQuantum
                 "actualCpuStates", S(actualCpu), "actualGpuStates", S(actualGpu), "verifiedSamples", S(verified), "measurementShots", S(shots), "ruleChecks", S(rules), "errorCount", S(errors),
                 "descriptorHash", DescriptorHash(), "gpuAvailable", gpu != null, "gpuDevice", gpu == null ? "" : gpu.DeviceName, "gpuError", gpuError,
                 "runtimeSourceHashes", sourceHashes,
-                "coherentRegisterCapabilities", D("updateId", "3.1.2-298-20261010", "maximumLogicalQubits", TrancheRegister.MaximumLogicalQubits, "maximumJointFactorQubits", TrancheRegister.MaximumFactorQubits, "globalIndexEncoding", "BigInteger", "wideCircuitMeasurementBasis", "z", "wideCircuitSampling", "prepared-factor-Born-Z"),
                 "quantumHardwareGates", "0", "lastVerification", lastVerification, "lastRuleVerification", lastRuleVerification,
                 "lastVerificationJob", VerificationJobStatus(),
                 "tranche", tranche == null ? null : tranche.GetStatus(),

@@ -1,18 +1,4 @@
 SpinDoctor 3.1.2
-CURRENT 298-QUBIT UPDATE
-Selected circuits and zero-prepared tranche registers support 1..298 logical
-qubits. Each coherent joint factor is limited to 59 qubits and actual memory.
-Wide circuits (30..298) use basis-z prepared-factor Born sampling: one actual
-gate replay prepares the state, then independent joint factor draws produce
-complete register bitstrings without collapsing that retained state.
-Small circuits (1..29) retain independent shot replay and x/y/z readout.
-q.circuit new NAME 298 creates/selects a wide circuit; q.migrate changes only
-the procedural family parameter and does not resize any selected register.
-Restart the older service console with BOOT.cmd to load the rebuilt carriers;
-the mutable workspace, seeds, counters, checkpoints and report history remain.
-Read UPDATE-298.txt. Historical release limits below remain historical evidence.
-Procedural-family q.tranche from INDEX partitioning remains 29 addresses.
-
 See SpinDoctor-3.1.2-Release-Notes.txt for the 3.1.2 audit fixes: folder runs list skipped files, accept .qasm2/.circuit, explain empty or prose .txt inputs, and keep q.folder/q.sequence status polling reports compact.
 See HANDGUIDE.md (or HANDGUIDE.pdf in the release folder) for a plain-language user guide.
 See SpinDoctor-3.1.1-Release-Notes.txt for CSV report companions, measurement fitting and CSV gate-list simulation.

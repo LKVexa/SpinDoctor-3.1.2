@@ -1,19 +1,3 @@
-// SPDX-License-Identifier: GPL-3.0-or-later
-// SpinDoctor 3.1.2 - Quantum Virtual Terminal
-// Copyright (C) 2026 RUSSELL PHILIP SMITHSON <russellsmithson77@outlook.com>
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,32 +14,30 @@ namespace QuettaQuantum
 {
     public sealed class CircuitQueryView
     {
-        private readonly Func<BigInteger, double[]> amplitude;
+        private readonly Func<ulong, double[]> amplitude;
         private readonly Func<int, double[]> spin;
         private readonly int fullQubitLimit, fullStateLimit, ownerThread;
         private bool active = true;
         public int Qubits { get; private set; }
         public string ProgramHash { get; private set; }
-        public BigInteger BasisStateCount { get { return BigInteger.One << Qubits; } }
-        internal CircuitQueryView(int qubits, string hash, int maxQubits, int maxStates, Func<BigInteger, double[]> a, Func<int, double[]> s)
+        public ulong BasisStateCount { get { return 1UL << Qubits; } }
+        internal CircuitQueryView(int qubits, string hash, int maxQubits, int maxStates, Func<ulong, double[]> a, Func<int, double[]> s)
         { Qubits = qubits; ProgramHash = hash; fullQubitLimit = maxQubits; fullStateLimit = maxStates; amplitude = a; spin = s; ownerThread = Thread.CurrentThread.ManagedThreadId; }
         private void CheckAccess() { if (!active || Thread.CurrentThread.ManagedThreadId != ownerThread) throw new InvalidOperationException("A circuit query view is valid only inside its synchronous snapshot callback."); }
-        public double[] Amplitude(BigInteger basisIndex) { CheckAccess(); if(basisIndex < BigInteger.Zero || basisIndex >= BasisStateCount) throw new ArgumentOutOfRangeException("basisIndex"); return amplitude(basisIndex); }
-        public double[] Amplitude(ulong basisIndex) { return Amplitude(new BigInteger(basisIndex)); }
+        public double[] Amplitude(ulong basisIndex) { CheckAccess(); return amplitude(basisIndex); }
         public double[] Spin(int qubit) { CheckAccess(); return spin(qubit); }
         public double[] FullState()
         {
-            CheckAccess(); if (Qubits > fullQubitLimit || BasisStateCount > fullStateLimit) throw new InvalidOperationException("Full state exceeds this query's explicit output bound. Use a bounded amplitude prefix or reduced single-qubit spin instead.");
+            CheckAccess(); if (Qubits > fullQubitLimit || BasisStateCount > (ulong)fullStateLimit) throw new InvalidOperationException("Full state exceeds this query's explicit output bound. Use a bounded amplitude prefix or reduced single-qubit spin instead.");
             double[] values = new double[checked((int)BasisStateCount *2)];
-            for (int id = 0; id < (int)BasisStateCount; id++) { double[] a = amplitude(new BigInteger(id)); values[id *2] = a[0]; values[id *2 +1] = a[1]; }
+            for (ulong id = 0; id < BasisStateCount; id++) { double[] a = amplitude(id); values[(int)id *2] = a[0]; values[(int)id *2 +1] = a[1]; }
             return values;
         }
         internal void Close() { active = false; }
     }
 
-    // Selected coherent circuits. Small registers independently replay each shot;
-    // wide registers retain one prepared state and sample complete coherent
-    // factors jointly in Z. Counters record only the work actually performed.
+    // Selected, genuine coherent circuits. Every measurement shot prepares and
+    // executes an independent register. No address-family throughput is credited.
     public sealed class CircuitTerminal : IDisposable
     {
         public const int DefaultPresetShots = 1024;
@@ -75,7 +57,7 @@ namespace QuettaQuantum
             string preset = words[2].ToLowerInvariant();
             if (preset != "bell" && preset != "ghz" && preset != "qft") throw new ArgumentException("Presets are bell, ghz and qft.");
             int at = 3, n = preset == "bell" ? 2 : 29, shots = DefaultPresetShots;
-            if (at < words.Length && System.Text.RegularExpressions.Regex.IsMatch(words[at], @"^-?[0-9]+$")) n = Integer(words[at++], 1, 298);
+            if (at < words.Length && System.Text.RegularExpressions.Regex.IsMatch(words[at], @"^-?[0-9]+$")) n = Integer(words[at++], 1, 29);
             if (preset == "bell" && n != 2) throw new ArgumentException("The Bell preset has exactly two qubits.");
             string name = null, basis = "z"; bool run = true;
             HashSet<string> seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -135,7 +117,7 @@ namespace QuettaQuantum
         {
             public string Name;
             public int Qubits;
-            public BigInteger InitialBasis;
+            public ulong InitialBasis;
             public List<Instruction> Gates = new List<Instruction>();
             public Dictionary<string, object> InputImport;
         }
@@ -145,8 +127,6 @@ namespace QuettaQuantum
             public bool Active = true;
             public volatile bool Cancel;
             public int RequestedShots, CompletedShots, MeasuredQubits;
-            public string SamplingMode = "independent-shot-replay";
-            public int SamplingFactorCount;
             public ulong CounterStart, CounterEnd, MemoryLimit;
             public double PreviousElapsedMs;
             public readonly Stopwatch Clock = new Stopwatch();
@@ -181,7 +161,7 @@ namespace QuettaQuantum
                     "result", job == null ? null : ResultObject(job),
                     "coherentOutputAvailable", coherentOutput != null, "coherentOutputProgramHash", coherentHash,
                     "coherentOutputStatus", coherentSnapshot,
-                    "scope", "Selected 1..298-qubit coherent circuits, simulated with classical FP64 arithmetic and seeded Born sampling. Registers of at most 29 qubits independently replay every shot. Wider registers prepare once and draw independent joint Z-basis samples from coherent factors. No physical quantum hardware or whole-family gate execution is claimed.");
+                    "scope", "Selected 1..29-qubit coherent circuits, simulated with classical FP64 arithmetic and seeded Born sampling. Shots independently replay the circuit. No physical quantum hardware or whole-family gate execution is claimed.");
             }
         }
 
@@ -216,8 +196,8 @@ namespace QuettaQuantum
             {
                 Alive();
                 if (job != null && job.Active) throw new InvalidOperationException("A circuit run is active. Finish or cancel it before importing another program.");
-                Program p = new Program { Name = Name(Text(spec, "name")), Qubits = Integer(Text(spec, "qubits"), 1, 298), InitialBasis = BasisIndex(Text(spec, "initialBasis")) };
-                if (p.InitialBasis >= (BigInteger.One << p.Qubits)) throw new ArgumentException("Initial basis must be below 2^qubits.");
+                Program p = new Program { Name = Name(Text(spec, "name")), Qubits = Integer(Text(spec, "qubits"), 1, 29), InitialBasis = Unsigned(Text(spec, "initialBasis")) };
+                if (p.InitialBasis >= (1UL << p.Qubits)) throw new ArgumentException("Initial basis must be below 2^qubits.");
                 foreach (object value in Sequence(spec["gates"]))
                 {
                     if (p.Gates.Count >= 8192) throw new ArgumentException("Imported circuit exceeds 8192 instructions.");
@@ -227,7 +207,7 @@ namespace QuettaQuantum
                     foreach (object angle in Sequence(gate["angles"])) words.Add(Convert.ToDouble(angle, CultureInfo.InvariantCulture).ToString("R", CultureInfo.InvariantCulture));
                     if (Convert.ToBoolean(gate["all"], CultureInfo.InvariantCulture)) words.Add("all");
                     else foreach (object q in Sequence(gate["qubits"])) words.Add(Convert.ToString(q, CultureInfo.InvariantCulture));
-                    p.Gates.Add(ParseInstruction(words.ToArray(), 0, p.Qubits, p.Name));
+                    p.Gates.Add(ParseInstruction(words.ToArray(), 0, p.Qubits));
                 }
                 bool replaced = programs.ContainsKey(p.Name);
                 if (!replaced && programs.Count >= programCapacity) throw new InvalidOperationException(CapacityMessage());
@@ -269,7 +249,7 @@ namespace QuettaQuantum
                 if (beforeMutation != null && job != null) beforeMutation(GetStatus());
                 if (command == "new")
                 {
-                    Exact(words, 4); string name = Name(words[2]); int qubits = Integer(words[3], 1, 298);
+                    Exact(words, 4); string name = Name(words[2]); int qubits = Integer(words[3], 1, 29);
                     if (programs.ContainsKey(name)) throw new ArgumentException("Circuit name already exists. Select it or delete it first.");
                     if (programs.Count >= programCapacity) throw new InvalidOperationException(CapacityMessage());
                     CommitProgramMutation(delegate() { programs[name] = new Program { Name = name, Qubits = qubits }; selected = name; }); return ProgramObject(Current(), true);
@@ -287,14 +267,14 @@ namespace QuettaQuantum
                 if (command == "show") { Exact(words, 2); return ProgramObject(Current(), true); }
                 if (command == "input")
                 {
-                    Exact(words, 3); Program p = Current(); BigInteger value = BasisIndex(words[2]);
-                    if (value >= (BigInteger.One << p.Qubits)) throw new ArgumentOutOfRangeException("basisIndex", "Input basis index must be below 2^qubits.");
+                    Exact(words, 3); Program p = Current(); ulong value = Unsigned(words[2]);
+                    if (value >= (1UL << p.Qubits)) throw new ArgumentOutOfRangeException("basisIndex", "Input basis index must be below 2^qubits.");
                     CommitProgramMutation(delegate() { p.InitialBasis = value; }); return ProgramObject(p, false);
                 }
                 if (command == "add")
                 {
                     Program p = Current(); if (p.Gates.Count >= 8192 || InstructionCount() >= 65536) throw new InvalidOperationException("Circuit program storage limit reached (8192 instructions per program, 65536 total).");
-                    Instruction instruction = ParseInstruction(words, 2, p.Qubits, p.Name);
+                    Instruction instruction = ParseInstruction(words, 2, p.Qubits);
                     CommitProgramMutation(delegate() { p.Gates.Add(instruction); }); return D("program", ProgramObject(p, false), "instruction", InstructionObject(instruction));
                 }
                 if (command == "clear") { Exact(words, 2); Program p = Current(); CommitProgramMutation(delegate() { p.Gates.Clear(); }); return ProgramObject(Current(), true); }
@@ -380,7 +360,7 @@ namespace QuettaQuantum
                 {
                     Exact(words, 3); if (coherentOutput == null || coherentHash != ProgramHash(Current())) throw new InvalidOperationException("No retained coherent output for the selected program is available. Run the circuit first; persisted histograms survive restart, while coherent output is recalculated by the next run.");
                     object result;
-                    if (command == "state") result = coherentOutput.State(BasisIndex(words[2]));
+                    if (command == "state") result = coherentOutput.State(Unsigned(words[2]));
                     else result = D("qubit", Integer(words[2], 0, coherentOutput.Qubits - 1), "spin", coherentOutput.Spin(Integer(words[2], 0, coherentOutput.Qubits - 1)));
                     Account(coherentOutput, coherentBaseline, job); coherentSnapshot = coherentOutput.Status(); SaveLocked();
                     return D("programHash", coherentHash, "premeasurement", true, "result", result);
@@ -397,10 +377,9 @@ namespace QuettaQuantum
         // finish, preserving the native identity used by receipts and sequence waits.
         private Dictionary<string, object> QueueRun(Program p, int shots, string basis, Action programChange)
         {
-            if(p.Qubits > 29 && basis != "z") throw new ArgumentException("Wide registers currently use prepared-factor Born sampling in basis z. Select basis z for a register wider than 29 qubits.");
             if (UInt64.MaxValue - counter < (ulong)shots * (ulong)p.Qubits) throw new InvalidOperationException("Measurement counter exhausted.");
             Work previous = job;
-            Work target = new Work { Program = p, ProgramHash = ProgramHash(p), RequestedShots = shots, Basis = basis, CounterStart = counter, CounterEnd = counter, MemoryLimit = memoryLimit, SamplingMode = p.Qubits > 29 ? "prepared-factor-Born-Z" : "independent-shot-replay" };
+            Work target = new Work { Program = p, ProgramHash = ProgramHash(p), RequestedShots = shots, Basis = basis, CounterStart = counter, CounterEnd = counter, MemoryLimit = memoryLimit };
             Thread pending = new Thread(delegate() { Run(target); }); pending.IsBackground = true;
             try
             {
@@ -433,30 +412,6 @@ namespace QuettaQuantum
                     target.CoherentSnapshot = snapshot; target.SpinPreview = spinPreview; AddCount(target, "coherentOutputExecutions", 1);
                 }
                 current = null; baseline = null;
-                if(target.SamplingMode == "prepared-factor-Born-Z")
-                {
-                    int factorCount = 0;foreach(object factor in Sequence(snapshot["factors"])) factorCount++;
-                    if(factorCount < 1 || factorCount > target.Program.Qubits) throw new InvalidOperationException("Invalid prepared factor coverage for joint Born sampling.");
-                    lock(sync) { target.SamplingFactorCount = factorCount; }
-                    double wideLastSave = target.Clock.Elapsed.TotalMilliseconds;
-                    for(int shot = 0; shot < target.RequestedShots; shot++)
-                    {
-                        CheckCancel(target);SetPhase(target,"sampling prepared joint Z shot " + (shot+1).ToString(CultureInfo.InvariantCulture));
-                        BigInteger sampled = coherentOutput.SampleZ(delegate(){return Uniform(target);},delegate(){return target.Cancel;});
-                        Account(coherentOutput,coherentBaseline,target);
-                        lock(sync)
-                        {
-                            string bits = Bits(sampled,target.Program.Qubits);ulong old;
-                            target.Histogram.TryGetValue(bits,out old);target.Histogram[bits] = old+1;
-                            target.MeasuredQubits += target.Program.Qubits;AddCount(target,"measuredQubits",target.Program.Qubits);
-                            target.CompletedShots++;AddCount(target,"completedShots",1);target.CounterEnd = counter;
-                            if((target.CompletedShots & 127)==0 || target.Clock.Elapsed.TotalMilliseconds-wideLastSave >=250)
-                            {SaveLocked();wideLastSave = target.Clock.Elapsed.TotalMilliseconds;}
-                        }
-                    }
-                    lock(sync) { coherentSnapshot = coherentOutput.Status();target.CoherentSnapshot = coherentSnapshot; }
-                    SetPhase(target,"completed");return;
-                }
                 if (cacheBytes > target.MemoryLimit - 1024 * 1024) throw new InvalidOperationException("Retained output leaves insufficient memory for an independent shot.");
                 ulong shotBudget = target.MemoryLimit - cacheBytes;
                 double lastSave = target.Clock.Elapsed.TotalMilliseconds;
@@ -465,12 +420,12 @@ namespace QuettaQuantum
                     CheckCancel(target); SetPhase(target, "executing shot " + (shot + 1).ToString(CultureInfo.InvariantCulture));
                     current = Prepare(target, shotBudget); baseline = BackendBaseline();
                     Replay(current, target.Program, target);
-                    BigInteger result = BigInteger.Zero;
+                    ulong result = 0;
                     for (int q = 0; q < target.Program.Qubits; ++q)
                     {
                         CheckCancel(target);
                         Dictionary<string, object> measured = current.Measure(q, target.Basis, 1, delegate() { return Uniform(target); }, true, delegate() { return target.Cancel; });
-                        if ((int)measured["collapseOutcome"] == 1) result |= BigInteger.One << q;
+                        if ((int)measured["collapseOutcome"] == 1) result |= 1UL << q;
                         lock (sync) { target.MeasuredQubits++; AddCount(target, "measuredQubits", 1); }
                     }
                     Account(current, baseline, target); current.Dispose(); current = null; baseline = null;
@@ -495,11 +450,6 @@ namespace QuettaQuantum
             }
             finally
             {
-                if(target.SamplingMode == "prepared-factor-Born-Z" && coherentOutput != null && coherentBaseline != null)
-                {
-                    Account(coherentOutput,coherentBaseline,target);
-                    lock(sync) { coherentSnapshot = coherentOutput.Status();target.CoherentSnapshot = coherentSnapshot; }
-                }
                 if (current != null)
                 {
                     try { if (baseline != null) Account(current, baseline, target); }
@@ -548,7 +498,7 @@ namespace QuettaQuantum
             CheckCancel(target);
             double[][] spinors = new double[target.Program.Qubits][];
             for (int q = 0; q < spinors.Length; ++q)
-                spinors[q] = (target.Program.InitialBasis & (BigInteger.One << q)) == 0 ? new double[] { 1, 0, 0, 0 } : new double[] { 0, 0, 1, 0 };
+                spinors[q] = (target.Program.InitialBasis & (1UL << q)) == 0 ? new double[] { 1, 0, 0, 0 } : new double[] { 0, 0, 1, 0 };
             TrancheRegister register = new TrancheRegister(spinors.Length, spinors);
             lock (sync) { AddCount(target, "actualPreparedQubits", spinors.Length); }
             try { register.SetMemoryLimit(budget); return register; }
@@ -561,7 +511,7 @@ namespace QuettaQuantum
         private void Replay(TrancheRegister register, Program program, Work target)
         {
             int[] known = new int[program.Qubits];
-            for (int q = 0; q < known.Length; ++q) known[q] = (program.InitialBasis & (BigInteger.One << q)) == 0 ? 0 : 1;
+            for (int q = 0; q < known.Length; ++q) known[q] = (program.InitialBasis & (1UL << q)) == 0 ? 0 : 1;
             foreach (Instruction gate in program.Gates)
             {
                 CheckCancel(target);
@@ -647,8 +597,6 @@ namespace QuettaQuantum
                 "programName", target.Program.Name, "qubits", target.Program.Qubits, "initialBasis", S(target.Program.InitialBasis),
                 "programHash", target.ProgramHash, "elapsedMs", target.PreviousElapsedMs + target.Clock.Elapsed.TotalMilliseconds,
                 "programSnapshot", ProgramObject(target.Program, true),
-                "samplingMode",target.SamplingMode,"samplingFactorCount",target.SamplingFactorCount,
-                "samplingScope",target.SamplingMode == "prepared-factor-Born-Z" ? "One actual coherent preparation and gate replay; each independent shot samples every coherent factor jointly without collapsing the retained state. One seeded uniform draw per factor; correlations within a factor are preserved. Counters record only performed preparations, gates, factor traversals and sampled readout outcomes." : "Each independent shot prepares, replays and measures a fresh coherent register in qubit order. One additional coherent execution is retained before measurement. Counters record actual replay and collapsing-measurement work.",
                 "counterStart", S(target.CounterStart), "counterEnd", S(target.CounterEnd),
                 "error", target.Error, "checkpointError", target.CheckpointError, "counts", CountsObject(target.Counts), "coherentSpinPreview", target.SpinPreview);
         }
@@ -663,7 +611,7 @@ namespace QuettaQuantum
             result["distinctOutcomes"] = keys.Count; result["omittedOutcomes"] = Math.Max(0, keys.Count - HistogramPreviewLimit); result["omittedShots"] = S(omittedShots);
             result["fullPrintoutAvailable"] = true; result["coherentOutputAvailable"] = coherentOutput != null && coherentHash == target.ProgramHash;
             result["coherentOutputStatus"] = target.CoherentSnapshot; result["bitOrder"] = "Most significant displayed bit at left; qubit 0 at right.";
-            result["seed"] = seed; result["scope"] = target.SamplingMode == "prepared-factor-Born-Z" ? "Full joint bitstrings from independent Born-Z samples of the prepared coherent factors. Each factor is sampled jointly; its internal correlations are preserved. Histograms contain completed shots only; consumed draws and factor traversals from partial shots are counted separately." : "Full joint bitstrings from independently replayed coherent registers and sequential collapsing Born measurements. Histograms contain completed shots only; partial shot work and consumed random draws are counted separately.";
+            result["seed"] = seed; result["scope"] = "Full joint bitstrings from independently replayed coherent registers and sequential collapsing Born measurements. Histograms contain completed shots only; partial shot work and consumed random draws are counted separately.";
             return result;
         }
 
@@ -703,7 +651,7 @@ namespace QuettaQuantum
             {
                 StringBuilder text = new StringBuilder();
                 text.AppendLine("SPINDOCTOR — COHERENT CIRCUIT MEASUREMENT PRINTOUT");
-                text.AppendLine("Classical FP64 quantum-circuit simulation; sampling mode and actual work are declared below; no physical quantum hardware credit.");
+                text.AppendLine("Classical FP64 quantum-circuit simulation; independently replayed shots; no physical quantum hardware credit.");
                 text.AppendLine("Measurement seed: " + seed); text.AppendLine("Current measurement counter: " + S(counter));
                 if (job == null) { text.AppendLine("No circuit run has been requested."); return text.ToString(); }
                 foreach (KeyValuePair<string, object> field in JobObject(job)) if (field.Key != "counts") text.AppendLine(field.Key + ": " + Convert.ToString(field.Value, CultureInfo.InvariantCulture));
@@ -768,15 +716,13 @@ namespace QuettaQuantum
                 "q.circuit state INDEX", "q.circuit spin Q", "q.circuit cancel", "q.circuit export", "q.circuit memory MiB", "q.circuit capacity [N]", "q.circuit prune presets [KEEP]", "q.circuit help" },
                 "storage", "Default capacity 64 saved circuits (configurable 1..1024 with q.circuit capacity N; 65536 instructions total). Circuits created by q.preset runs are tracked as preset-owned; when a preset needs space, its sequence automatically prunes the oldest preset-owned circuits (never user circuits) and records them. q.circuit prune presets [KEEP] does the same explicitly.",
                 "gates", TrancheRegister.SupportedGates, "aliases", D("cnot", "cx", "toffoli", "ccx", "fredkin", "cswap", "id", "i", "identity", "i", "u3", "u"),
-                "limits", D("maximumLogicalQubits", TrancheRegister.MaximumLogicalQubits, "maximumJointFactorQubits", TrancheRegister.MaximumFactorQubits,
-                    "scope", "Native circuits support 1..298 logical qubits with at most 59 qubits in one coherent factor, subject to memory limits. Full joint query analysis is bounded to 16 qubits. Auxiliary q.compile, q.qec and q.noise analyses retain the limits described by their own capabilities."),
                 "operandOrder", "Angles first, then qubit indices. Controlled gates: control(s), target. RZX: Z operand, X operand. Local all applies to the selected circuit's qubits only.",
                 "qftConvention", "|j> maps to sum_k exp(2*pi*i*j*k/2^n)|k>/sqrt(2^n), with final bit-reversal swaps.",
                 "presets", "bell uses 2 qubits; ghz/qft default to 29. Presets replace/select bell, ghz-N or qft-N, reset input to 0, and automatically queue 1024 independent shots in basis z. Override shots (1..100000) or basis (x/y/z); run=false defines/selects only, for scripts that set input before running. Options accept key value or key=value. Existing coherent memory limits and cancellation apply.",
-                "run", "1..100000 independent shots. Registers of at most 29 qubits replay each shot and retain one separately counted premeasurement execution. Wider registers prepare once and sample every coherent factor jointly in Z, with actual work declared by samplingMode and samplingFactorCount. Full histograms survive restart; coherent output is recalculated by the next run.");
+                "run", "1..100000 independent replayed shots. One extra premeasurement coherent execution is retained and separately counted. Full histogram survives restart; coherent output is recalculated by the next run.");
         }
 
-        private static Instruction ParseInstruction(string[] words, int start, int n, string programName)
+        private static Instruction ParseInstruction(string[] words, int start, int n)
         {
             if (words.Length <= start) throw new ArgumentException("Supply a gate name, its angles and its qubits.");
             string name = Alias(words[start]); Dictionary<string, object> spec = GateSpec(name);
@@ -786,25 +732,7 @@ namespace QuettaQuantum
             if (words.Length != start + 1 + ac + (all ? 1 : qc)) throw new ArgumentException("Incorrect angle/qubit count for " + name + ". Angles precede qubits.");
             double[] angles = new double[ac]; for (int j = 0; j < ac; ++j) angles[j] = Angle(words[start + 1 + j]);
             int[] qubits = new int[all ? 0 : qc]; HashSet<int> distinct = new HashSet<int>();
-            List<string> outside = new List<string>(); BigInteger requiredWidth = BigInteger.Zero; bool negative = false;
-            string context = "Circuit '" + programName + "' has " + n.ToString(CultureInfo.InvariantCulture) + " qubits (valid indices 0.." + (n - 1).ToString(CultureInfo.InvariantCulture) + "). Gate " + name.ToUpperInvariant();
-            for (int j = 0; j < qubits.Length; ++j)
-            {
-                string text = words[start + 1 + ac + j]; BigInteger operand;
-                if (String.IsNullOrEmpty(text) || !System.Text.RegularExpressions.Regex.IsMatch(text, @"^-?[0-9]+$") || !BigInteger.TryParse(text, NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out operand))
-                    throw new ArgumentException(context + " requires integer qubit operands in that range; received '" + text + "'.");
-                if (operand < 0 || operand >= n) { outside.Add(text); negative |= operand < 0; }
-                if (operand >= 0 && operand + BigInteger.One > requiredWidth) requiredWidth = operand + BigInteger.One;
-                if (operand >= 0 && operand < n) qubits[j] = (int)operand;
-            }
-            if (outside.Count != 0)
-            {
-                string remedy = negative ? " Use nonnegative qubit indices within the selected circuit's range." : requiredWidth <= TrancheRegister.MaximumLogicalQubits ?
-                    " Create or select a circuit with at least " + requiredWidth.ToString(CultureInfo.InvariantCulture) + " qubits before adding this gate." :
-                    " This runtime supports at most " + TrancheRegister.MaximumLogicalQubits.ToString(CultureInfo.InvariantCulture) + " logical qubits.";
-                throw new ArgumentException(context + " uses out-of-range qubit operands [" + String.Join(", ", outside.ToArray()) + "]." + remedy);
-            }
-            for (int j = 0; j < qubits.Length; ++j) if (!distinct.Add(qubits[j])) throw new ArgumentException(context + " requires distinct qubit operands.");
+            for (int j = 0; j < qubits.Length; ++j) { qubits[j] = Integer(words[start + 1 + ac + j], 0, n - 1); if (!distinct.Add(qubits[j])) throw new ArgumentException("Gate qubits must be distinct."); }
             return new Instruction { Name = name, Angles = angles, Qubits = qubits, All = all };
         }
         private static Dictionary<string, object> GateSpec(string name)
@@ -913,33 +841,16 @@ namespace QuettaQuantum
                 job = new Work { Id = Text(data, "id"), Program = p, ProgramHash = Text(data, "programHash"), Basis = Basis(Text(data, "basis")),
                     Active = false, Phase = Convert.ToBoolean(data["active"], CultureInfo.InvariantCulture) ? "interrupted" : Text(data, "phase"),
                     RequestedShots = Integer(Text(data, "requestedShots"), 1, 100000), CompletedShots = Integer(Text(data, "completedShots"), 0, 100000),
-                    MeasuredQubits = Integer(Text(data, "measuredQubits"), 0, 29800000), CounterStart = Unsigned(Text(data, "counterStart")), CounterEnd = Unsigned(Text(data, "counterEnd")),
+                    MeasuredQubits = Integer(Text(data, "measuredQubits"), 0, 2900000), CounterStart = Unsigned(Text(data, "counterStart")), CounterEnd = Unsigned(Text(data, "counterEnd")),
                     MemoryLimit = memoryLimit, PreviousElapsedMs = Double.Parse(Text(data, "elapsedMs"), CultureInfo.InvariantCulture), Error = Text(data, "error"), CheckpointError = Text(data, "checkpointError") };
-                object savedSamplingMode,savedSamplingFactors;
-                job.SamplingMode = data.TryGetValue("samplingMode",out savedSamplingMode) ? Convert.ToString(savedSamplingMode,CultureInfo.InvariantCulture) : "independent-shot-replay";
-                job.SamplingFactorCount = data.TryGetValue("samplingFactorCount",out savedSamplingFactors) ? Integer(Convert.ToString(savedSamplingFactors,CultureInfo.InvariantCulture),0,p.Qubits) : 0;
-                bool preparedSampling = job.SamplingMode == "prepared-factor-Born-Z";
-                if((!preparedSampling && job.SamplingMode != "independent-shot-replay") || preparedSampling != (p.Qubits > 29) || (preparedSampling && job.Basis != "z") || (!preparedSampling && job.SamplingFactorCount != 0))
-                    throw new InvalidDataException("Invalid saved circuit sampling mode or register width.");
                 if (job.ProgramHash != ProgramHash(p) || job.CompletedShots > job.RequestedShots || job.CounterStart > job.CounterEnd || job.CounterEnd != counter || !QuantumMath.IsFinite(job.PreviousElapsedMs) || job.PreviousElapsedMs < 0)
                     throw new InvalidDataException("Invalid circuit job descriptor/counts.");
                 ReadCounts((Dictionary<string, object>)data["counts"], job.Counts);
                 foreach(string key in CountKeys) if(job.Counts[key]>lifetime[key])throw new InvalidDataException("Circuit job work exceeds lifetime accounting.");
                 if (job.Counts["uniformDraws"] != job.CounterEnd - job.CounterStart || job.Counts["completedShots"] != job.CompletedShots || job.Counts["measuredQubits"] != job.MeasuredQubits ||
-                    job.MeasuredQubits < job.CompletedShots * p.Qubits || job.MeasuredQubits > (job.CompletedShots + 1) * p.Qubits)
+                    job.MeasuredQubits < job.CompletedShots * p.Qubits || job.MeasuredQubits > (job.CompletedShots + 1) * p.Qubits ||
+                    job.Counts["uniformDraws"] < job.MeasuredQubits || job.Counts["uniformDraws"] > job.MeasuredQubits + 1)
                     throw new InvalidDataException("Circuit shot/draw accounting does not match the saved job.");
-                if(preparedSampling)
-                {
-                    BigInteger completeDraws = new BigInteger(job.CompletedShots)*job.SamplingFactorCount;
-                    if(job.MeasuredQubits != job.CompletedShots*p.Qubits || (job.SamplingFactorCount == 0 && (job.CompletedShots != 0 || job.Counts["uniformDraws"] != 0)) ||
-                        job.Counts["uniformDraws"] < completeDraws || job.Counts["uniformDraws"] > completeDraws+job.SamplingFactorCount ||
-                        (job.CompletedShots == job.RequestedShots && job.Counts["uniformDraws"] != completeDraws))
-                        throw new InvalidDataException("Prepared-factor sample counts do not match completed and partial factor draws.");
-                    if(job.CompletedShots > 0 && (job.Counts["coherentOutputExecutions"] != 1 || job.Counts["actualPreparedQubits"] != p.Qubits || job.Counts["executedCircuitInstructions"] != p.Gates.Count))
-                        throw new InvalidDataException("Prepared-factor sampling must record exactly one actual circuit preparation and replay.");
-                }
-                else if(job.Counts["uniformDraws"] < job.MeasuredQubits || job.Counts["uniformDraws"] > job.MeasuredQubits+1)
-                    throw new InvalidDataException("Replay-shot draw accounting does not match sequential measurement work.");
                 Dictionary<string, object> histogram = (Dictionary<string, object>)data["histogramFull"]; ulong total = 0;
                 foreach (KeyValuePair<string, object> row in histogram)
                 {
@@ -950,12 +861,6 @@ namespace QuettaQuantum
                 }
                 if (total != (ulong)job.CompletedShots) throw new InvalidDataException("Histogram does not match completed shots.");
                 object status; if (data.TryGetValue("coherentOutputStatus", out status)) job.CoherentSnapshot = status as Dictionary<string, object>;
-                if(preparedSampling && job.SamplingFactorCount > 0)
-                {
-                    if(job.CoherentSnapshot == null || Integer(Text(job.CoherentSnapshot,"qubits"),1,298) != p.Qubits)throw new InvalidDataException("Prepared-factor sampling checkpoint lacks matching coherent output metadata.");
-                    int capturedFactors=0;foreach(object factor in Sequence(job.CoherentSnapshot["factors"]))capturedFactors++;
-                    if(capturedFactors != job.SamplingFactorCount)throw new InvalidDataException("Prepared-factor sampling factor count differs from the coherent snapshot.");
-                }
                 object preview; if (data.TryGetValue("coherentSpinPreview", out preview) && preview != null) job.SpinPreview = ReadSpinPreview(preview, job);
             }
         }
@@ -967,7 +872,7 @@ namespace QuettaQuantum
                 !DateTime.TryParseExact(Text(data, "capturedUtc"), "o", CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out captured) || captured.Kind != DateTimeKind.Utc ||
                 !SavedBoolean(data, "premeasurement") || SavedBoolean(data, "independentVerification") ||
                 Integer(Text(data, "qubitLimit"), 4, 4) != SpinPreviewQubitLimit || Integer(Text(data, "maximumFactorEntries"), 65536, 65536) != SpinPreviewFactorLimit ||
-                Integer(Text(data, "selectedQubits"), 1, 298) != target.Program.Qubits || Text(data, "scope") != SpinPreviewScope || Text(data, "verificationScope") != SpinPreviewVerificationScope)
+                Integer(Text(data, "selectedQubits"), 1, 29) != target.Program.Qubits || Text(data, "scope") != SpinPreviewScope || Text(data, "verificationScope") != SpinPreviewVerificationScope)
                 throw new InvalidDataException("Invalid saved premeasurement spin-preview source or scope.");
             int considered = Math.Min(SpinPreviewQubitLimit, target.Program.Qubits), rowCount = 0, omittedCount = 0;
             HashSet<int> qubits = new HashSet<int>();
@@ -1019,8 +924,8 @@ namespace QuettaQuantum
         }
         private static Program ReadProgram(Dictionary<string, object> data)
         {
-            Program p = new Program { Name = Name(Text(data, "name")), Qubits = Integer(Text(data, "qubits"), 1, 298), InitialBasis = BasisIndex(Text(data, "initialBasis")) };
-            if (p.InitialBasis >= (BigInteger.One << p.Qubits)) throw new InvalidDataException("Invalid initial circuit basis index.");
+            Program p = new Program { Name = Name(Text(data, "name")), Qubits = Integer(Text(data, "qubits"), 1, 29), InitialBasis = Unsigned(Text(data, "initialBasis")) };
+            if (p.InitialBasis >= (1UL << p.Qubits)) throw new InvalidDataException("Invalid initial circuit basis index.");
             foreach (object value in Sequence(data["gates"]))
             {
                 if (p.Gates.Count >= 8192) throw new InvalidDataException("Saved circuit instruction limit exceeded.");
@@ -1028,7 +933,7 @@ namespace QuettaQuantum
                 foreach (object angle in Sequence(row["anglesExact"])) words.Add(Convert.ToString(angle, CultureInfo.InvariantCulture));
                 if (Convert.ToBoolean(row["all"], CultureInfo.InvariantCulture)) words.Add("all");
                 else foreach (object q in Sequence(row["qubits"])) words.Add(Convert.ToString(q, CultureInfo.InvariantCulture));
-                p.Gates.Add(ParseInstruction(words.ToArray(), 0, p.Qubits, p.Name));
+                p.Gates.Add(ParseInstruction(words.ToArray(), 0, p.Qubits));
             }
             if (Text(data, "descriptorHash") != ProgramHash(p)) throw new InvalidDataException("Circuit program descriptor hash mismatch.");
             object provenance; if (data.TryGetValue("inputImport", out provenance))
@@ -1057,13 +962,12 @@ namespace QuettaQuantum
             foreach (char ch in name) if (!(ch >= 'A' && ch <= 'Z') && !(ch >= 'a' && ch <= 'z') && !(ch >= '0' && ch <= '9') && ch != '-' && ch != '_') throw new ArgumentException("Invalid circuit name."); return name;
         }
         private static int Integer(string value, int minimum, int maximum) { BigInteger parsed; if (String.IsNullOrEmpty(value)||!System.Text.RegularExpressions.Regex.IsMatch(value,@"^-?[0-9]+$")) throw new ArgumentException("Expected an integer value."); if(!BigInteger.TryParse(value,NumberStyles.AllowLeadingSign,CultureInfo.InvariantCulture,out parsed)||parsed<minimum||parsed>maximum)throw new ArgumentOutOfRangeException("number", "Integer is outside the supported range.");return (int)parsed; }
-        private static BigInteger BasisIndex(string value) { BigInteger n; if (String.IsNullOrEmpty(value) || !System.Text.RegularExpressions.Regex.IsMatch(value,@"^[0-9]+$") || !BigInteger.TryParse(value, NumberStyles.None, CultureInfo.InvariantCulture, out n) || n < BigInteger.Zero) throw new ArgumentException("Expected a nonnegative decimal basis index."); return n; }
         private static ulong Unsigned(string value) { ulong n; if (!UInt64.TryParse(value, NumberStyles.None, CultureInfo.InvariantCulture, out n)) throw new ArgumentException("Expected an unsigned decimal integer."); return n; }
         private static double Angle(string value) { double n; if (!Double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out n) || !QuantumMath.IsFinite(n) || Math.Abs(n) > 1e12) throw new ArgumentException("Angles must be finite within +/-1e12 radians."); return n; }
         private static string Basis(string value) { value = value.ToLowerInvariant(); if (value != "x" && value != "y" && value != "z") throw new ArgumentException("Basis must be x, y or z."); return value; }
         private static void Exact(string[] words, int count) { if (words.Length != count) throw new ArgumentException("Incorrect command argument count. Use q.circuit help."); }
         private static bool Eq(string a, string b) { return String.Equals(a, b, StringComparison.OrdinalIgnoreCase); }
-        private static string Bits(BigInteger value, int width) { if(width < 1 || width > 298 || value < BigInteger.Zero || value >= (BigInteger.One << width)) throw new ArgumentOutOfRangeException("basisIndex"); char[] chars = new char[width]; for (int q = 0; q < width; ++q) chars[width - 1 - q] = (value & (BigInteger.One << q)) == 0 ? '0' : '1'; return new String(chars); }
+        private static string Bits(ulong value, int width) { char[] chars = new char[width]; for (int q = 0; q < width; ++q) chars[width - 1 - q] = (value & (1UL << q)) == 0 ? '0' : '1'; return new String(chars); }
         private static string S(ulong value) { return value.ToString(CultureInfo.InvariantCulture); }
         private static string S(BigInteger value) { return value.ToString(CultureInfo.InvariantCulture); }
         private static string Hash(string text) { using (SHA256 hash = SHA256.Create()) { byte[] bytes = hash.ComputeHash(Encoding.UTF8.GetBytes(text)); StringBuilder result = new StringBuilder(64); foreach (byte value in bytes) result.Append(value.ToString("x2", CultureInfo.InvariantCulture)); return result.ToString(); } }

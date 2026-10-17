@@ -34,7 +34,7 @@
                     },
                     {
                         "command":  "q.folder run path=\"C:/Users/me/Desktop/inputs\" downloads=false verify=false",
-                        "executed":  "q.folder run path=\"<WORK>/spindoctor312/guide/inputs\" downloads=false verify=false",
+                        "executed":  "q.folder run path=\"D:/AGENT_WORK/spindoctor312/guide/inputs\" downloads=false verify=false",
                         "ok":  true,
                         "reportId":  "b2aa03d8b8dd4fd681406880aa165b3f",
                         "folderPhase":  "completed",

@@ -1,0 +1,1447 @@
+SPINDOCTOR — COMMAND RESULT
+Report ID: c6324fef51f4453daac592afacd9b99c
+Captured UTC: 2026-10-10T19:13:27.1560832Z
+Command: q.input fit 67b43c4e300b4882af7de00409533dc0 target=temperature features=[humidity,pressure] target-unit=degC feature-units=[percent,hPa]
+COMMAND EXECUTION: COMPLETED
+Command completed/stopped UTC: 2026-10-10T19:13:27.1560832Z
+Completion scope: Synchronous command returned at this observed UTC; this is not independent numerical verification.
+Recorded classical calculation or command response. Represented procedural family operations are not executed gates. A status/help/error report does not imply a measurement.
+
+READABLE NATIVE REPORT DETAIL
+Recorded command / exact inputs: q.input fit 67b43c4e300b4882af7de00409533dc0 target=temperature features=[humidity,pressure] target-unit=degC feature-units=[percent,hPa]
+Input scope: The recorded command is the input evidence. Native echoed operands appear below where returned; omitted/default operands are not reconstructed by this report.
+Returned operation: resultKind=empirical-csv-fit
+Native command ok: true
+Native phase: not returned (no asynchronous phase inferred)
+Completion meaning: A synchronous return or recorded final snapshot is shown. Command acceptance alone is not independent verification.
+Execution completion stamp: executionOutcome=completed; commandCompletedUtc=2026-10-10T19:13:27.1560832Z; completionScope=Synchronous command returned at this observed UTC; this is not independent numerical verification.
+Failure stage / scope: not returned
+Equation text (editable local draft): y_hat = 13.705034643885003 + (-0.083280891215193192) * x1 + (0.025477293465290859) * x2
+y_hat is the fitted target: temperature; b0 = 13.705034643885003
+x1 = CSV column "humidity"; b1 = -0.083280891215193192; unit = degC/(percent)
+x2 = CSV column "pressure"; b2 = 0.025477293465290859; unit = degC/(hPa)
+Recorded input-column equation: temperature = 13.705034643885003 + (-0.083280891215193192) * [humidity] + (0.025477293465290859) * [pressure]
+Stable centered form: temperature = 34.5475 + (-0.083280891215193192) * ([humidity] - (55.500000000000007)) + (0.025477293465290859) * ([pressure] - (999.50000000000011))
+
+Conventional mathematical notation (LaTeX): \widehat{y}=b_0+\sum_{j=1}^{p}b_jx_j
+Equation representation scope: Empirical in-sample fitted equation. Symbols map only to the actual returned CSV coefficients and column names; no circuit is inferred from measurement data.
+Documented method for the requested operation: Empirical ordinary least-squares fit of the selected CSV target column against the selected numeric feature columns with an intercept, using centered/scaled column-pivoted Householder QR. Rows and exclusions are returned explicitly. Training fit metrics do not establish causality or validated forecast accuracy.
+Native method / convention: method=centered/scaled column-pivoted Householder QR; equation=temperature = 13.705034643885003 + (-0.083280891215193192) * [humidity] + (0.025477293465290859) * [pressure]; scope=Bounded classical empirical CSV regression using actual supplied numeric rows. In-sample diagnostics only; no physical-law discovery, causal proof, quantum computation, holdout validation or future prediction is claimed.
+Native echoed operands: not returned
+Key returned results: equation=temperature = 13.705034643885003 + (-0.083280891215193192) * [humidity] + (0.025477293465290859) * [pressure]; centeredEquation=temperature = 34.5475 + (-0.083280891215193192) * ([humidity] - (55.500000000000007)) + (0.025477293465290859) * ([pressure] - (999.50000000000011)); equationConvention=target = intercept + sum(coefficients[i].coefficient * features[i]); fitted rows are evaluated in centered/scaled coordinates to reduce cancellation.; target={name=temperature; columnIndex=3; unit=degC}; features=[{structured fields; raw return}, {structured fields; raw return}]; intercept=13.705034643885; coefficients=[{structured fields; raw return}, {structured fields; raw return}]; metrics={rSquared=0.949556347205688; rmse=0.234775795850852; mae=0.207496315013689; residualSumSquares=1.32287218361762; more in raw return}; rowCount=26; usedRows=24; excludedRows=2; rank=3; parameterCount=3; qrDiagonalRatio=1.46494567763522; residualDegreesOfFreedom=21; source={id=67b43c4e300b4882af7de00409533dc0; filename=weather-example.csv; sha256=7a64610e0a077d880955b264aec5c3616b348ab6a664368fe5a5b7d247c8905e; bytes=703}; further fields in raw return
+Complex values: [real, imaginary] stores both components of a complex number. An exactly returned [0,0] means zero amplitude/overlap; its phase is undefined. Probabilities are squared magnitudes, while density/operator entries are not individual probabilities.
+Returned native checks: not returned
+Validation boundary: Returned booleans/residuals describe native checks at the returned tolerance and scope. ok=true is a command return/acceptance flag. Independent verification is not established unless a matched native verification result and its coverage are explicitly returned; the exporter does not recompute or certify it.
+Command-local work returned: physicalQuantumOperations=0
+Measurement seed / counters: not returned
+Accounting boundary: Command-local returned work, represented model credits and saved lifetime counters are different quantities. Status counters are snapshots, not this command's delta; this report does not derive FLOPS, throughput or unreturned work.
+Saved session snapshot: stateCount=500000000000000; representedPreparations=0; representedGateApplications=0; lifetimeRepresentedPreparations=0; lifetimeRepresentedGateApplications=0; actualCpuStates=0; actualGpuStates=0; verifiedSamples=0; measurementShots=0; measurementCounter=0; ruleChecks=0; quantumHardwareGates=0
+Elapsed time scope: Native response elapsedMs=59.1141; result elapsedMs=not returned; result totalMs=not returned. These are returned command/job timing scopes, not export time or a measured operation rate.
+Recorded provenance: not returned
+Native identity / source hashes: not returned
+Saved native product: productName=SpinDoctor; productVersion=3.1.1-candidate; schema=QUETTAFLOP/PROCEDURAL-PRODUCT-SESSION/1; descriptorHash=8851eb9b8dd83093c90097cf4c958108905e5bd1624bd3b1ad5c8a84cacc4117; fieldSeed=e1a83f29c3d5835b5b7f46bcf5334998f005abebc420be459e764fbeef6ae468
+Report renderer version: 3.1.1-candidate; renderer version does not prove the version of an imported historical response.
+Archive and detail scope: Human detail is bounded to 8192 characters; long arrays are summarized. The unchanged complete structured native return follows or remains available in the matched TXT/JSON archive. Hashes establish byte identity, not independent numerical validation.
+
+COMPLETE STRUCTURED RETURN (exact integer count strings retained)
+ok: True
+command: q.input fit 67b43c4e300b4882af7de00409533dc0 target=temperature features=[humidity,pressure] target-unit=degC feature-units=[percent,hPa]
+result:
+  resultKind: empirical-csv-fit
+  model: ordinary-least-squares-linear
+  equation: temperature = 13.705034643885003 + (-0.083280891215193192) * [humidity] + (0.025477293465290859) * [pressure]
+  centeredEquation: temperature = 34.5475 + (-0.083280891215193192) * ([humidity] - (55.500000000000007)) + (0.025477293465290859) * ([pressure] - (999.50000000000011))
+  equationConvention: target = intercept + sum(coefficients[i].coefficient * features[i]); fitted rows are evaluated in centered/scaled coordinates to reduce cancellation.
+  target:
+    name: temperature
+    columnIndex: 3
+    unit: degC
+  features:
+    [0]
+      name: humidity
+      columnIndex: 1
+      unit: percent
+    [1]
+      name: pressure
+      columnIndex: 2
+      unit: hPa
+  intercept: 13.705034643885
+  coefficients:
+    [0]
+      feature: humidity
+      coefficient: -0.0832808912151932
+      unit: degC/(percent)
+    [1]
+      feature: pressure
+      coefficient: 0.0254772934652909
+      unit: degC/(hPa)
+  metrics:
+    rSquared: 0.949556347205688
+    rmse: 0.234775795850852
+    mae: 0.207496315013689
+    residualSumSquares: 1.32287218361762
+    residualSumSquaresRepresentable: True
+    targetMean: 34.5475
+    constantTarget: False
+    trainingOnly: True
+    holdoutRows: 0
+  rowCount: 26
+  usedRows: 24
+  excludedRows: 2
+  excluded:
+    [0]
+      rowIndex: 24
+      reason: feature humidity is missing, nonnumeric, nonfinite or outside +/-1e150
+    [1]
+      rowIndex: 25
+      reason: target temperature is missing, nonnumeric, nonfinite or outside +/-1e150
+  dataRows:
+    [0]
+      rowIndex: 0
+      observed: 35.885
+      fitted: 35.6354948410192
+      residual: 0.249505158980838
+      features:
+        [0]
+          38
+        [1]
+          985
+    [1]
+      rowIndex: 1
+      observed: 34.85
+      fitted: 35.0780058959781
+      residual: -0.2280058959781
+      features:
+        [0]
+          45
+        [1]
+          986
+    [2]
+      rowIndex: 2
+      observed: 34.615
+      fitted: 34.520516950937
+      residual: 0.0944830490629585
+      features:
+        [0]
+          52
+        [1]
+          987
+    [3]
+      rowIndex: 3
+      observed: 33.505
+      fitted: 33.8865961255001
+      residual: -0.381596125500103
+      features:
+        [0]
+          59
+        [1]
+          985
+    [4]
+      rowIndex: 4
+      observed: 33.57
+      fitted: 33.329107180459
+      residual: 0.24089281954096
+      features:
+        [0]
+          66
+        [1]
+          986
+    [5]
+      rowIndex: 5
+      observed: 32.835
+      fitted: 32.771618235418
+      residual: 0.0633817645820187
+      features:
+        [0]
+          73
+        [1]
+          987
+    [6]
+      rowIndex: 6
+      observed: 36.11
+      fitted: 35.8647904822068
+      residual: 0.245209517793221
+      features:
+        [0]
+          38
+        [1]
+          994
+    [7]
+      rowIndex: 7
+      observed: 35.075
+      fitted: 35.3073015371657
+      residual: -0.232301537165718
+      features:
+        [0]
+          45
+        [1]
+          995
+    [8]
+      rowIndex: 8
+      observed: 34.84
+      fitted: 34.7498125921247
+      residual: 0.090187407875348
+      features:
+        [0]
+          52
+        [1]
+          996
+    [9]
+      rowIndex: 9
+      observed: 33.73
+      fitted: 34.1158917666877
+      residual: -0.385891766687728
+      features:
+        [0]
+          59
+        [1]
+          994
+    [10]
+      rowIndex: 10
+      observed: 33.795
+      fitted: 33.5584028216467
+      residual: 0.236597178353342
+      features:
+        [0]
+          66
+        [1]
+          995
+    [11]
+      rowIndex: 11
+      observed: 33.06
+      fitted: 33.0009138766056
+      residual: 0.0590861233944082
+      features:
+        [0]
+          73
+        [1]
+          996
+    [12]
+      rowIndex: 12
+      observed: 36.335
+      fitted: 36.0940861233944
+      residual: 0.240913876605603
+      features:
+        [0]
+          38
+        [1]
+          1003
+    [13]
+      rowIndex: 13
+      observed: 35.3
+      fitted: 35.5365971783533
+      residual: -0.236597178353342
+      features:
+        [0]
+          45
+        [1]
+          1004
+    [14]
+      rowIndex: 14
+      observed: 35.065
+      fitted: 34.9791082333123
+      residual: 0.0858917666877232
+      features:
+        [0]
+          52
+        [1]
+          1005
+    [15]
+      rowIndex: 15
+      observed: 33.955
+      fitted: 34.3451874078753
+      residual: -0.390187407875345
+      features:
+        [0]
+          59
+        [1]
+          1003
+    [16]
+      rowIndex: 16
+      observed: 34.02
+      fitted: 33.7876984628343
+      residual: 0.232301537165725
+      features:
+        [0]
+          66
+        [1]
+          1004
+    [17]
+      rowIndex: 17
+      observed: 33.285
+      fitted: 33.2302095177932
+      residual: 0.0547904822067835
+      features:
+        [0]
+          73
+        [1]
+          1005
+    [18]
+      rowIndex: 18
+      observed: 36.56
+      fitted: 36.323381764582
+      residual: 0.236618235417986
+      features:
+        [0]
+          38
+        [1]
+          1012
+    [19]
+      rowIndex: 19
+      observed: 35.525
+      fitted: 35.765892819541
+      residual: -0.240892819540953
+      features:
+        [0]
+          45
+        [1]
+          1013
+    [20]
+      rowIndex: 20
+      observed: 35.29
+      fitted: 35.2084038744999
+      residual: 0.0815961255001056
+      features:
+        [0]
+          52
+        [1]
+          1014
+    [21]
+      rowIndex: 21
+      observed: 34.18
+      fitted: 34.574483049063
+      residual: -0.394483049062963
+      features:
+        [0]
+          59
+        [1]
+          1012
+    [22]
+      rowIndex: 22
+      observed: 34.245
+      fitted: 34.0169941040219
+      residual: 0.228005895978107
+      features:
+        [0]
+          66
+        [1]
+          1013
+    [23]
+      rowIndex: 23
+      observed: 33.51
+      fitted: 33.4595051589808
+      residual: 0.0504948410191659
+      features:
+        [0]
+          73
+        [1]
+          1014
+  dataRowsComplete: True
+  featureStatistics:
+    [0]
+      name: humidity
+      min: 38
+      max: 73
+      mean: 55.5
+      scale: 17.5
+      unit: percent
+    [1]
+      name: pressure
+      min: 985
+      max: 1014
+      mean: 999.5
+      scale: 14.5000000000001
+      unit: hPa
+  targetStatistics:
+    min: 32.835
+    max: 36.56
+    mean: 34.5475
+    unit: degC
+  source:
+    id: 67b43c4e300b4882af7de00409533dc0
+    filename: weather-example.csv
+    sha256: 7a64610e0a077d880955b264aec5c3616b348ab6a664368fe5a5b7d247c8905e
+    bytes: 703
+  method: centered/scaled column-pivoted Householder QR
+  rank: 3
+  parameterCount: 3
+  qrDiagonalRatio: 1.46494567763522
+  residualDegreesOfFreedom: 21
+  warnings:
+    [0]
+      Coefficients describe an empirical linear relationship in the supplied rows. They do not establish physical causality or validated future forecasts.
+    [1]
+      R-squared, RMSE and MAE use the same rows used to fit the model; no independent holdout validation was performed.
+    [2]
+      Rows with missing, nonnumeric, nonfinite or out-of-range selected cells were excluded; see every row index and reason.
+  fittingPerformed: True
+  physicalQuantumOperations: 0
+  measurementShots: 0
+  scope: Bounded classical empirical CSV regression using actual supplied numeric rows. In-sample diagnostics only; no physical-law discovery, causal proof, quantum computation, holdout validation or future prediction is claimed.
+status:
+  productName: SpinDoctor
+  productVersion: 3.1.1-candidate
+  model: procedural-product-state
+  schema: QUETTAFLOP/PROCEDURAL-PRODUCT-SESSION/1
+  phase: ready
+  hasPrepared: False
+  gridM: 20000000
+  gridL: 25000000
+  stateCount: 500000000000000
+  migrationT: 0
+  matrix:
+    [0]
+      1
+    [1]
+      0
+    [2]
+      0
+    [3]
+      0
+    [4]
+      0
+    [5]
+      0
+    [6]
+      1
+    [7]
+      0
+  modelGeneration: 0
+  fieldSeed: e1a83f29c3d5835b5b7f46bcf5334998f005abebc420be459e764fbeef6ae468
+  measurementSeed: 1efd6137fe2bd4ff0be90691ad39eb2ec4dabcc886f34c2b08ef0283c9fd9949
+  measurementCounter: 0
+  representedPreparations: 0
+  representedGateApplications: 0
+  representedPreparationRotations: 0
+  lifetimeRepresentedPreparations: 0
+  lifetimeRepresentedGateApplications: 0
+  actualCpuStates: 0
+  actualGpuStates: 0
+  verifiedSamples: 0
+  measurementShots: 0
+  ruleChecks: 0
+  errorCount: 0
+  descriptorHash: 8851eb9b8dd83093c90097cf4c958108905e5bd1624bd3b1ad5c8a84cacc4117
+  gpuAvailable: False
+  gpuDevice: 
+  gpuError: 
+  runtimeSourceHashes:
+    QuantumCore.cs: ba80a655898fc0b2fc03dd1cfb271204eecd45ff8020a7d81beb428ccd58e9e2
+    QuantumTerminal.cs: 18a801c50c0d87325f15ef4c4dcd1eb897d2b1fca8ec9c66ab6afcdff577a6d4
+    SpinDoctorTranches.cs: 825a9c649a1d6fab6899f221c35503ff7eb9677234b7ae4cf8a08d1d6d8dd77d
+    SpinDoctorTrancheTerminal.cs: 546b2230a6bd36c4a8cba51d1a8e165a9d6bd7725ed93ae658e15fcc9a11b572
+    SpinDoctorCircuits.cs: 1f8e0342de07fd195192b8c3be539c13ea86b15d87f82c73c2ea4074237787e2
+    SpinDoctorInputs.cs: f2f0c78f9d1c3d27ef6130d11603d07e1cf36d842f38ef94399aa0847b20c075
+    SpinDoctorReports.cs: 770d7dda4077e7ced1a9a3126c6780beb09909bdff1876ebc7b2a92a3badabd6
+    SpinDoctorPdfInputs.cs: be5cbbd76eb1c1a2c2557530bbb6c9ebfd2e1ebfff2125777bef13ddfcf9428d
+    SpinDoctorCalculators.cs: 819e517580fea6141a2c4338389cf0d4c46c67cf21d02ad503bcd3e68ff83a62
+    SpinDoctorAdvanced.cs: 201cd68a7960227a3d78d7418f2a63994aac9179e2f759586313177e9ab94dd6
+    SpinDoctorSyntax.cs: df3827419226d62eca4e23f2fca0f1149a4f1d90e17e68feb06400abbd49be39
+    SpinDoctorSequences.cs: 25cc31637af07ed54100078694f144f292657068debb4feb9f0f20e594d58e23
+    SpinDoctorCommandReports.cs: e1acb66520942b6a431ac2a03e499e724adc592b65dd87f49c3c425359e853fe
+    SPINDOCTOR_PRESETS.json: 70aec920c588d5c7a6f704418c3eddd189159bbda41f67b35e039f34e72017f1
+    EquationCatalogue.json: 887bb9c847034efa69959db406581e8ffe83441d0aff8695b1ca3ba5ac0dc234
+  quantumHardwareGates: 0
+  lastVerification: 
+  lastRuleVerification: 
+  lastVerificationJob: 
+  tranche:
+    product: SpinDoctor
+    prepared: False
+    suspended: False
+    qubits: 0
+    basisStateCount: 0
+    memoryLimitBytes: 536870912
+    worstDenseStateBytes: 0
+    allocatedDenseStateBytes: 0
+    estimatedSparseStateBytes: 0
+    allocatedStateBytesEstimate: 0
+    checkpointAvailable: False
+    checkpointStateRestored: False
+    seed: ce52aface9db97c465d9517d132a06cde6f83fdb97f2d87dca33a32c3890ba72
+    counter: 0
+    actualPreparedSingleQubits: 0
+    committedGateApplications: 0
+    lifetimeActualWork:
+      actualAmplitudeWrites: 0
+      actualTensorProducts: 0
+      measurementShots: 0
+      queryCount: 0
+      actualCheckpointAmplitudeLoads: 0
+    accountingScope: Lifetime actual work survives release, reset and restart, including cancelled gate work and replay calculations. Register counters describe its current backend history; replay does not add committed logical gate credit. Amplitude writes and tensor products are source-level work units, not FLOPS or physical quantum operations.
+    modelBinding: 
+    job: 
+    scope: One selected coherent register of up to 29 qubits. Tensor factors and joint-state blocks retain entanglement. Logical gate calls and actual amplitude work are separate from the procedural family and from physical quantum gates.
+    supportedGates:
+      [0]
+        name: h
+        angleCount: 0
+        targetCount: 1
+        local: True
+      [1]
+        name: x
+        angleCount: 0
+        targetCount: 1
+        local: True
+      [2]
+        name: y
+        angleCount: 0
+        targetCount: 1
+        local: True
+      [3]
+        name: z
+        angleCount: 0
+        targetCount: 1
+        local: True
+      [4]
+        name: s
+        angleCount: 0
+        targetCount: 1
+        local: True
+      [5]
+        name: sdg
+        angleCount: 0
+        targetCount: 1
+        local: True
+      [6]
+        name: t
+        angleCount: 0
+        targetCount: 1
+        local: True
+      [7]
+        name: tdg
+        angleCount: 0
+        targetCount: 1
+        local: True
+      [8]
+        name: i
+        angleCount: 0
+        targetCount: 1
+        local: True
+      [9]
+        name: sx
+        angleCount: 0
+        targetCount: 1
+        local: True
+      [10]
+        name: sxdg
+        angleCount: 0
+        targetCount: 1
+        local: True
+      [11]
+        name: rx
+        angleCount: 1
+        targetCount: 1
+        local: True
+      [12]
+        name: ry
+        angleCount: 1
+        targetCount: 1
+        local: True
+      [13]
+        name: rz
+        angleCount: 1
+        targetCount: 1
+        local: True
+      [14]
+        name: p
+        angleCount: 1
+        targetCount: 1
+        local: True
+      [15]
+        name: u
+        angleCount: 3
+        targetCount: 1
+        local: True
+      [16]
+        name: cx
+        angleCount: 0
+        targetCount: 2
+        local: False
+      [17]
+        name: cy
+        angleCount: 0
+        targetCount: 2
+        local: False
+      [18]
+        name: cz
+        angleCount: 0
+        targetCount: 2
+        local: False
+      [19]
+        name: ch
+        angleCount: 0
+        targetCount: 2
+        local: False
+      [20]
+        name: swap
+        angleCount: 0
+        targetCount: 2
+        local: False
+      [21]
+        name: cp
+        angleCount: 1
+        targetCount: 2
+        local: False
+      [22]
+        name: crx
+        angleCount: 1
+        targetCount: 2
+        local: False
+      [23]
+        name: cry
+        angleCount: 1
+        targetCount: 2
+        local: False
+      [24]
+        name: crz
+        angleCount: 1
+        targetCount: 2
+        local: False
+      [25]
+        name: rxx
+        angleCount: 1
+        targetCount: 2
+        local: False
+      [26]
+        name: ryy
+        angleCount: 1
+        targetCount: 2
+        local: False
+      [27]
+        name: rzz
+        angleCount: 1
+        targetCount: 2
+        local: False
+      [28]
+        name: rzx
+        angleCount: 1
+        targetCount: 2
+        local: False
+      [29]
+        name: cu
+        angleCount: 4
+        targetCount: 2
+        local: False
+      [30]
+        name: ccx
+        angleCount: 0
+        targetCount: 3
+        local: False
+      [31]
+        name: cswap
+        angleCount: 0
+        targetCount: 3
+        local: False
+  circuit:
+    product: SpinDoctor
+    available: True
+    selected: 
+    programCount: 0
+    programCapacity: 64
+    presetOwnedCount: 0
+    programNames:
+    programSummaries:
+    program: 
+    measurementSeed: 421d696fd15594faa8c7ed33687909240d8fe2f6e3aeccffa48705b305bcf05f
+    counter: 0
+    memoryLimitBytes: 536870912
+    memoryAccountingScope: Combined estimated retained coherent output and working shot state, including backend transactional work. Managed GC retention and other host memory are reported separately by the backend.
+    lifetime:
+      executedCircuitInstructions: 0
+      backendGateApplications: 0
+      actualAmplitudeWrites: 0
+      actualTensorProducts: 0
+      actualPreparedQubits: 0
+      completedShots: 0
+      measuredQubits: 0
+      uniformDraws: 0
+      exactCPReductions: 0
+      queryCount: 0
+      coherentOutputExecutions: 0
+    job: 
+    result: 
+    coherentOutputAvailable: False
+    coherentOutputProgramHash: 
+    coherentOutputStatus: 
+    scope: Selected 1..29-qubit coherent circuits, simulated with classical FP64 arithmetic and seeded Born sampling. Shots independently replay the circuit. No physical quantum hardware or whole-family gate execution is claimed.
+  inputs:
+    attachments:
+      [0]
+        id: 67b43c4e300b4882af7de00409533dc0
+        filename: weather-example.csv
+        sha256: 7a64610e0a077d880955b264aec5c3616b348ab6a664368fe5a5b7d247c8905e
+        bytes: 703
+        uploadedUtc: 2026-10-10T19:13:26.6659363Z
+        fullPreviewAvailable: True
+        format: unsupported
+        parseValid: False
+        executable: False
+        requiresBase: False
+        requiresBindings: False
+        warnings:
+        error: Arithmetic expressions require1..1024 characters.
+        tableValid: True
+    count: 1
+    maxFileBytes: 5242880
+    maxPdfBytes: 4194304
+    maxFiles: 32
+    totalBytes: 703
+    maxTotalBytes: 31457280
+    formats:
+      [0]
+        json
+      [1]
+        openqasm2
+      [2]
+        text-circuit
+      [3]
+        csv-parameters
+      [4]
+        csv-gates
+      [5]
+        csv-data-table
+      [6]
+        json-sequence
+      [7]
+        txt-sequence
+      [8]
+        csv-sequence
+      [9]
+        pdf-embedded-or-tagged-program
+    scope: Original UTF-8 and binary PDF source data with preserved SHA256. Preview and compilation do not execute. Explicit import selects a circuit; q.input run executes a validated program or command sequence with native job barriers. q.input table inspects CSV measurements; q.input fit performs a bounded empirical linear regression only after explicit target/features selection.
+  sequence:
+    job: 
+    recentJobIds:
+    totalJobs: 0
+    executedCommands: 0
+    maximumCommands: 128
+    maximumCommandsPerFile: 128
+    maximumFolderFiles: 128
+    manifestSha256: 70aec920c588d5c7a6f704418c3eddd189159bbda41f67b35e039f34e72017f1
+    manifestError: 
+    scope: Ordered native commands with matched asynchronous job barriers. Folder command totals accumulate per file; complete TXT exports are streamed from durable reports.
+  history:
+    schema: SPINDOCTOR/COMMAND-HISTORY/1
+    totalCommands: 1
+    records:
+      [0]
+        id: 65a27cc5a0b8410e9a95821966f1b0b8
+        capturedUtc: 2026-10-10T19:13:26.8721892Z
+        receivedUtc: 2026-10-10T19:13:26.8721892Z
+        command: q.input table 67b43c4e300b4882af7de00409533dc0
+        ok: True
+        acceptedOk: True
+        phase: completed
+        executionOutcome: completed
+        commandCompletedUtc: 2026-10-10T19:13:26.8721892Z
+        completionScope: Synchronous command returned at this observed UTC; this is not independent numerical verification.
+        elapsedMs: 33.6919
+        txtSha256: c1e06f728cf5dbd118516976cdb429435b1e5b1159f4fe81ec88013e302f4864
+        jsonSha256: 72a5c7a275339a88085ab9649eab770559acf7bde4a3db4642946b369ea61b14
+        txtBytes: 46315
+        jsonBytes: 36900
+        downloadAvailable: True
+    omitted: 0
+    scope: Native reports preserve commands, seeds/counters, result snapshots and replay hashes. Large calculation buffers are independent and released by their backend. Existing browser history and checkpoints are preserved.
+  calculatorCapabilities:
+    [0]
+      command: q.math normalize
+      namespace: q.math
+      action: normalize
+      installed: True
+      backend: bounded-complex-FP64
+      resultKind: numerical
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [1]
+      command: q.math norm
+      namespace: q.math
+      action: norm
+      installed: True
+      backend: bounded-complex-FP64
+      resultKind: numerical
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [2]
+      command: q.math probabilities
+      namespace: q.math
+      action: probabilities
+      installed: True
+      backend: bounded-complex-FP64
+      resultKind: numerical
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [3]
+      command: q.math bloch
+      namespace: q.math
+      action: bloch
+      installed: True
+      backend: bounded-complex-FP64
+      resultKind: numerical
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [4]
+      command: q.math from-bloch
+      namespace: q.math
+      action: from-bloch
+      installed: True
+      backend: bounded-complex-FP64
+      resultKind: numerical
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [5]
+      command: q.math validate-bloch
+      namespace: q.math
+      action: validate-bloch
+      installed: True
+      backend: bounded-complex-FP64
+      resultKind: numerical
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [6]
+      command: q.math density
+      namespace: q.math
+      action: density
+      installed: True
+      backend: bounded-complex-FP64
+      resultKind: numerical
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [7]
+      command: q.math validate-density
+      namespace: q.math
+      action: validate-density
+      installed: True
+      backend: bounded-complex-FP64
+      resultKind: numerical
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [8]
+      command: q.math purity
+      namespace: q.math
+      action: purity
+      installed: True
+      backend: bounded-complex-FP64
+      resultKind: numerical
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [9]
+      command: q.math entropy
+      namespace: q.math
+      action: entropy
+      installed: True
+      backend: bounded-complex-FP64
+      resultKind: numerical
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [10]
+      command: q.math overlap
+      namespace: q.math
+      action: overlap
+      installed: True
+      backend: bounded-complex-FP64
+      resultKind: numerical
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [11]
+      command: q.math fidelity
+      namespace: q.math
+      action: fidelity
+      installed: True
+      backend: bounded-complex-FP64
+      resultKind: numerical
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [12]
+      command: q.math trace-distance
+      namespace: q.math
+      action: trace-distance
+      installed: True
+      backend: bounded-complex-FP64
+      resultKind: numerical
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [13]
+      command: q.math gate-matrix
+      namespace: q.math
+      action: gate-matrix
+      installed: True
+      backend: bounded-complex-FP64
+      resultKind: numerical
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [14]
+      command: q.math compare-gates
+      namespace: q.math
+      action: compare-gates
+      installed: True
+      backend: bounded-complex-FP64
+      resultKind: numerical
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [15]
+      command: q.math unitary
+      namespace: q.math
+      action: unitary
+      installed: True
+      backend: bounded-complex-FP64
+      resultKind: numerical
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [16]
+      command: q.math tensor
+      namespace: q.math
+      action: tensor
+      installed: True
+      backend: bounded-complex-FP64
+      resultKind: numerical
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [17]
+      command: q.math commutator
+      namespace: q.math
+      action: commutator
+      installed: True
+      backend: bounded-complex-FP64
+      resultKind: numerical
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [18]
+      command: q.math eigen
+      namespace: q.math
+      action: eigen
+      installed: True
+      backend: bounded-complex-FP64
+      resultKind: numerical
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [19]
+      command: q.math expectation
+      namespace: q.math
+      action: expectation
+      installed: True
+      backend: bounded-complex-FP64
+      resultKind: numerical
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [20]
+      command: q.math canonical-phase
+      namespace: q.math
+      action: canonical-phase
+      installed: True
+      backend: bounded-complex-FP64
+      resultKind: numerical
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [21]
+      command: q.query amplitudes
+      namespace: q.query
+      action: amplitudes
+      installed: True
+      backend: selected-coherent-register
+      resultKind: analysis
+      limits: Prefix <=4096; full joint analysis <=16 qubits/65536 states; one-qubit reductions via exact native spin <=29.
+      validation: calculator-validation.json
+    [22]
+      command: q.query probabilities
+      namespace: q.query
+      action: probabilities
+      installed: True
+      backend: selected-coherent-register
+      resultKind: analysis
+      limits: Prefix <=4096; full joint analysis <=16 qubits/65536 states; one-qubit reductions via exact native spin <=29.
+      validation: calculator-validation.json
+    [23]
+      command: q.query marginal
+      namespace: q.query
+      action: marginal
+      installed: True
+      backend: selected-coherent-register
+      resultKind: analysis
+      limits: Prefix <=4096; full joint analysis <=16 qubits/65536 states; one-qubit reductions via exact native spin <=29.
+      validation: calculator-validation.json
+    [24]
+      command: q.query reduced-density
+      namespace: q.query
+      action: reduced-density
+      installed: True
+      backend: selected-coherent-register
+      resultKind: analysis
+      limits: Prefix <=4096; full joint analysis <=16 qubits/65536 states; one-qubit reductions via exact native spin <=29.
+      validation: calculator-validation.json
+    [25]
+      command: q.query purity
+      namespace: q.query
+      action: purity
+      installed: True
+      backend: selected-coherent-register
+      resultKind: analysis
+      limits: Prefix <=4096; full joint analysis <=16 qubits/65536 states; one-qubit reductions via exact native spin <=29.
+      validation: calculator-validation.json
+    [26]
+      command: q.query entropy
+      namespace: q.query
+      action: entropy
+      installed: True
+      backend: selected-coherent-register
+      resultKind: analysis
+      limits: Prefix <=4096; full joint analysis <=16 qubits/65536 states; one-qubit reductions via exact native spin <=29.
+      validation: calculator-validation.json
+    [27]
+      command: q.query expectation
+      namespace: q.query
+      action: expectation
+      installed: True
+      backend: selected-coherent-register
+      resultKind: analysis
+      limits: Prefix <=4096; full joint analysis <=16 qubits/65536 states; one-qubit reductions via exact native spin <=29.
+      validation: calculator-validation.json
+    [28]
+      command: q.query concurrence
+      namespace: q.query
+      action: concurrence
+      installed: True
+      backend: selected-coherent-register
+      resultKind: analysis
+      limits: Prefix <=4096; full joint analysis <=16 qubits/65536 states; one-qubit reductions via exact native spin <=29.
+      validation: calculator-validation.json
+    [29]
+      command: q.query negativity
+      namespace: q.query
+      action: negativity
+      installed: True
+      backend: selected-coherent-register
+      resultKind: analysis
+      limits: Prefix <=4096; full joint analysis <=16 qubits/65536 states; one-qubit reductions via exact native spin <=29.
+      validation: calculator-validation.json
+    [30]
+      command: q.query stabilizers
+      namespace: q.query
+      action: stabilizers
+      installed: True
+      backend: selected-coherent-register
+      resultKind: analysis
+      limits: Prefix <=4096; full joint analysis <=16 qubits/65536 states; one-qubit reductions via exact native spin <=29.
+      validation: calculator-validation.json
+    [31]
+      command: q.query fidelity
+      namespace: q.query
+      action: fidelity
+      installed: True
+      backend: selected-coherent-register
+      resultKind: analysis
+      limits: Prefix <=4096; full joint analysis <=16 qubits/65536 states; one-qubit reductions via exact native spin <=29.
+      validation: calculator-validation.json
+    [32]
+      command: q.resource memory
+      namespace: q.resource
+      action: memory
+      installed: True
+      backend: classical-resource-formulas
+      resultKind: resource-estimate
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [33]
+      command: q.resource max-n
+      namespace: q.resource
+      action: max-n
+      installed: True
+      backend: classical-resource-formulas
+      resultKind: resource-estimate
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [34]
+      command: q.resource factor-memory
+      namespace: q.resource
+      action: factor-memory
+      installed: True
+      backend: classical-resource-formulas
+      resultKind: resource-estimate
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [35]
+      command: q.resource tranche-plan
+      namespace: q.resource
+      action: tranche-plan
+      installed: True
+      backend: classical-resource-formulas
+      resultKind: resource-estimate
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [36]
+      command: q.resource sampling
+      namespace: q.resource
+      action: sampling
+      installed: True
+      backend: classical-resource-formulas
+      resultKind: resource-estimate
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [37]
+      command: q.resource shots
+      namespace: q.resource
+      action: shots
+      installed: True
+      backend: classical-resource-formulas
+      resultKind: resource-estimate
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [38]
+      command: q.resource grover
+      namespace: q.resource
+      action: grover
+      installed: True
+      backend: classical-resource-formulas
+      resultKind: resource-estimate
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [39]
+      command: q.resource qec
+      namespace: q.resource
+      action: qec
+      installed: True
+      backend: classical-resource-formulas
+      resultKind: resource-estimate
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [40]
+      command: q.resource headroom
+      namespace: q.resource
+      action: headroom
+      installed: True
+      backend: classical-resource-formulas
+      resultKind: resource-estimate
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [41]
+      command: q.resource auto
+      namespace: q.resource
+      action: auto
+      installed: True
+      backend: classical-resource-formulas
+      resultKind: resource-estimate
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [42]
+      command: q.model spectrum
+      namespace: q.model
+      action: spectrum
+      installed: True
+      backend: bounded-complex-FP64
+      resultKind: numerical
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [43]
+      command: q.model ising
+      namespace: q.model
+      action: ising
+      installed: True
+      backend: bounded-complex-FP64
+      resultKind: numerical
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [44]
+      command: q.model qubo-to-ising
+      namespace: q.model
+      action: qubo-to-ising
+      installed: True
+      backend: bounded-complex-FP64
+      resultKind: numerical
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [45]
+      command: q.model evolve
+      namespace: q.model
+      action: evolve
+      installed: True
+      backend: bounded-complex-FP64
+      resultKind: numerical
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [46]
+      command: q.model mbqc
+      namespace: q.model
+      action: mbqc
+      installed: True
+      backend: bounded-complex-FP64
+      resultKind: numerical
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [47]
+      command: q.model compare
+      namespace: q.model
+      action: compare
+      installed: True
+      backend: documented-theory
+      resultKind: theory
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [48]
+      command: q.model compare-codes
+      namespace: q.model
+      action: compare-codes
+      installed: True
+      backend: documented-theory
+      resultKind: theory
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [49]
+      command: q.model topology
+      namespace: q.model
+      action: topology
+      installed: True
+      backend: documented-theory
+      resultKind: theory
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [50]
+      command: q.lesson amplitude-vs-probability
+      namespace: q.lesson
+      action: amplitude-vs-probability
+      installed: True
+      backend: documented-theory
+      resultKind: theory
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [51]
+      command: q.lesson entanglement
+      namespace: q.lesson
+      action: entanglement
+      installed: True
+      backend: documented-theory
+      resultKind: theory
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [52]
+      command: q.lesson complexity
+      namespace: q.lesson
+      action: complexity
+      installed: True
+      backend: documented-theory
+      resultKind: theory
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [53]
+      command: q.lesson parallelism
+      namespace: q.lesson
+      action: parallelism
+      installed: True
+      backend: documented-theory
+      resultKind: theory
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [54]
+      command: q.lesson stabilizer
+      namespace: q.lesson
+      action: stabilizer
+      installed: True
+      backend: documented-theory
+      resultKind: theory
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [55]
+      command: q.lesson magic
+      namespace: q.lesson
+      action: magic
+      installed: True
+      backend: documented-theory
+      resultKind: theory
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [56]
+      command: q.lesson algorithms
+      namespace: q.lesson
+      action: algorithms
+      installed: True
+      backend: documented-theory
+      resultKind: theory
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+    [57]
+      command: q.lesson pqc
+      namespace: q.lesson
+      action: pqc
+      installed: True
+      backend: documented-theory
+      resultKind: theory
+      limits: Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.
+      validation: calculator-validation.json
+  advancedCapabilities:
+    [0]
+      command: q.noise apply
+      namespace: q.noise
+      action: apply
+      installed: True
+      backend: bounded-density-FP64
+      resultKind: numerical
+      limits: Noise/circuit matrices<=4qubits; compile matrix identity<=4qubits, logical analysis<=29; repetition code3qubits; phase-estimation1..8countingqubits, controlled phase eigenstates only.
+      validation: advanced-validation.json
+    [1]
+      command: q.noise circuit
+      namespace: q.noise
+      action: circuit
+      installed: True
+      backend: bounded-density-FP64
+      resultKind: numerical
+      limits: Noise/circuit matrices<=4qubits; compile matrix identity<=4qubits, logical analysis<=29; repetition code3qubits; phase-estimation1..8countingqubits, controlled phase eigenstates only.
+      validation: advanced-validation.json
+    [2]
+      command: q.noise t1
+      namespace: q.noise
+      action: t1
+      installed: True
+      backend: bounded-density-FP64
+      resultKind: numerical
+      limits: Noise/circuit matrices<=4qubits; compile matrix identity<=4qubits, logical analysis<=29; repetition code3qubits; phase-estimation1..8countingqubits, controlled phase eigenstates only.
+      validation: advanced-validation.json
+    [3]
+      command: q.noise t2
+      namespace: q.noise
+      action: t2
+      installed: True
+      backend: bounded-density-FP64
+      resultKind: numerical
+      limits: Noise/circuit matrices<=4qubits; compile matrix identity<=4qubits, logical analysis<=29; repetition code3qubits; phase-estimation1..8countingqubits, controlled phase eigenstates only.
+      validation: advanced-validation.json
+    [4]
+      command: q.noise readout
+      namespace: q.noise
+      action: readout
+      installed: True
+      backend: bounded-density-FP64
+      resultKind: numerical
+      limits: Noise/circuit matrices<=4qubits; compile matrix identity<=4qubits, logical analysis<=29; repetition code3qubits; phase-estimation1..8countingqubits, controlled phase eigenstates only.
+      validation: advanced-validation.json
+    [5]
+      command: q.noise zne
+      namespace: q.noise
+      action: zne
+      installed: True
+      backend: bounded-density-FP64
+      resultKind: numerical
+      limits: Noise/circuit matrices<=4qubits; compile matrix identity<=4qubits, logical analysis<=29; repetition code3qubits; phase-estimation1..8countingqubits, controlled phase eigenstates only.
+      validation: advanced-validation.json
+    [6]
+      command: q.qec repetition3
+      namespace: q.qec
+      action: repetition3
+      installed: True
+      backend: bounded-code-analysis
+      resultKind: numerical
+      limits: Noise/circuit matrices<=4qubits; compile matrix identity<=4qubits, logical analysis<=29; repetition code3qubits; phase-estimation1..8countingqubits, controlled phase eigenstates only.
+      validation: advanced-validation.json
+    [7]
+      command: q.qec phase-repetition3
+      namespace: q.qec
+      action: phase-repetition3
+      installed: True
+      backend: bounded-code-analysis
+      resultKind: numerical
+      limits: Noise/circuit matrices<=4qubits; compile matrix identity<=4qubits, logical analysis<=29; repetition code3qubits; phase-estimation1..8countingqubits, controlled phase eigenstates only.
+      validation: advanced-validation.json
+    [8]
+      command: q.qec validate
+      namespace: q.qec
+      action: validate
+      installed: True
+      backend: bounded-code-analysis
+      resultKind: numerical
+      limits: Noise/circuit matrices<=4qubits; compile matrix identity<=4qubits, logical analysis<=29; repetition code3qubits; phase-estimation1..8countingqubits, controlled phase eigenstates only.
+      validation: advanced-validation.json
+    [9]
+      command: q.qec parameters
+      namespace: q.qec
+      action: parameters
+      installed: True
+      backend: bounded-code-analysis
+      resultKind: numerical
+      limits: Noise/circuit matrices<=4qubits; compile matrix identity<=4qubits, logical analysis<=29; repetition code3qubits; phase-estimation1..8countingqubits, controlled phase eigenstates only.
+      validation: advanced-validation.json
+    [10]
+      command: q.qec correction-budget
+      namespace: q.qec
+      action: correction-budget
+      installed: True
+      backend: bounded-code-analysis
+      resultKind: numerical
+      limits: Noise/circuit matrices<=4qubits; compile matrix identity<=4qubits, logical analysis<=29; repetition code3qubits; phase-estimation1..8countingqubits, controlled phase eigenstates only.
+      validation: advanced-validation.json
+    [11]
+      command: q.qec compare
+      namespace: q.qec
+      action: compare
+      installed: True
+      backend: documented-theory
+      resultKind: theory
+      limits: Noise/circuit matrices<=4qubits; compile matrix identity<=4qubits, logical analysis<=29; repetition code3qubits; phase-estimation1..8countingqubits, controlled phase eigenstates only.
+      validation: advanced-validation.json
+    [12]
+      command: q.compile identity
+      namespace: q.compile
+      action: identity
+      installed: True
+      backend: bounded-matrix / logical-analysis
+      resultKind: analysis
+      limits: Noise/circuit matrices<=4qubits; compile matrix identity<=4qubits, logical analysis<=29; repetition code3qubits; phase-estimation1..8countingqubits, controlled phase eigenstates only.
+      validation: advanced-validation.json
+    [13]
+      command: q.compile simplify
+      namespace: q.compile
+      action: simplify
+      installed: True
+      backend: bounded-matrix / logical-analysis
+      resultKind: analysis
+      limits: Noise/circuit matrices<=4qubits; compile matrix identity<=4qubits, logical analysis<=29; repetition code3qubits; phase-estimation1..8countingqubits, controlled phase eigenstates only.
+      validation: advanced-validation.json
+    [14]
+      command: q.compile count
+      namespace: q.compile
+      action: count
+      installed: True
+      backend: bounded-matrix / logical-analysis
+      resultKind: analysis
+      limits: Noise/circuit matrices<=4qubits; compile matrix identity<=4qubits, logical analysis<=29; repetition code3qubits; phase-estimation1..8countingqubits, controlled phase eigenstates only.
+      validation: advanced-validation.json
+    [15]
+      command: q.compile depth
+      namespace: q.compile
+      action: depth
+      installed: True
+      backend: bounded-matrix / logical-analysis
+      resultKind: analysis
+      limits: Noise/circuit matrices<=4qubits; compile matrix identity<=4qubits, logical analysis<=29; repetition code3qubits; phase-estimation1..8countingqubits, controlled phase eigenstates only.
+      validation: advanced-validation.json
+    [16]
+      command: q.compile classify
+      namespace: q.compile
+      action: classify
+      installed: True
+      backend: bounded-matrix / logical-analysis
+      resultKind: analysis
+      limits: Noise/circuit matrices<=4qubits; compile matrix identity<=4qubits, logical analysis<=29; repetition code3qubits; phase-estimation1..8countingqubits, controlled phase eigenstates only.
+      validation: advanced-validation.json
+    [17]
+      command: q.compile universality
+      namespace: q.compile
+      action: universality
+      installed: True
+      backend: documented-theory
+      resultKind: theory
+      limits: Noise/circuit matrices<=4qubits; compile matrix identity<=4qubits, logical analysis<=29; repetition code3qubits; phase-estimation1..8countingqubits, controlled phase eigenstates only.
+      validation: advanced-validation.json
+    [18]
+      command: q.algorithm phase-estimation
+      namespace: q.algorithm
+      action: phase-estimation
+      installed: True
+      backend: bounded-coherent-FP64
+      resultKind: numerical
+      limits: Noise/circuit matrices<=4qubits; compile matrix identity<=4qubits, logical analysis<=29; repetition code3qubits; phase-estimation1..8countingqubits, controlled phase eigenstates only.
+      validation: advanced-validation.json
+  memoryPolicy: Procedural families are descriptors, never a 16 PB allocation. Coherent jobs enforce a memory budget including live output/cache/working state and rollback. q.circuit memory auto or q.tranche memory auto uses measured available Windows RAM with an OS reserve; transient local calculator buffers are released after execution.
+  accountingScope: Represented single-qubit gate applications are descriptor credits; CPU/GPU calculated states and checked samples are lifetime completed work. No represented gates/s benchmark is inferred.
+  errorLog: quantum-errors.jsonl
+  ledger:
+  completeLedgerRetained: True
+elapsedMs: 59.1141

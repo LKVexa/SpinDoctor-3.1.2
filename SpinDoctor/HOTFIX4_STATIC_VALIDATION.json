@@ -1,0 +1,22 @@
+{
+  "checks": {
+    "public_runtime_dispose": true,
+    "catch_order": true,
+    "delayed_scheduler": true,
+    "loopback_client_contained": true,
+    "asset_fallback": true,
+    "smoke_mode": true,
+    "startup_stages": true,
+    "delimiter_balance": true
+  },
+  "carriers": {
+    "gif": {
+      "bytes": 2678940,
+      "sha256": "96d813f3b316bfa91a96b12dc7c42ccf59cbfe0e8015d3b808add8aeef01f87d"
+    },
+    "tiff": {
+      "bytes": 2825984,
+      "sha256": "af3cf16feb21e8cc0315945cca0b646254d4d5e0df60f85c6bcd88da020839c8"
+    }
+  }
+}

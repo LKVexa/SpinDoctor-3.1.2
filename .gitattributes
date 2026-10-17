@@ -1,9 +1,2 @@
-* text=auto
-*.cmd text eol=crlf
-*.bat text eol=crlf
-*.ps1 text eol=crlf
-*.png binary
-*.pdf binary
-*.gif binary
-*.tiff binary
-*.zip binary
+# Preserve the supplied package bytes and its sealed SHA-256 manifests.
+* -text

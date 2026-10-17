@@ -1,0 +1,188 @@
+[
+  {
+    "name": "assets/cartridge-cover.png",
+    "bank": "Material Bank",
+    "bytes": 17167,
+    "sha256": "c38d66df9c50f214a335fc42f61f79bc81ebb6c850ec403bb01583bc42914be3"
+  },
+  {
+    "name": "assets/cockpit.png",
+    "bank": "Material Bank",
+    "bytes": 14913,
+    "sha256": "fa793824a5a6d2dce1784768cd0c7770c8261aba3bb7d046a67099c1876d48c4"
+  },
+  {
+    "name": "assets/csm.png",
+    "bank": "Material Bank",
+    "bytes": 4695,
+    "sha256": "bacbadb335136ff3798c9d2365a745b06c76c985ffa13b62eaec6c67cf354465"
+  },
+  {
+    "name": "assets/earth.png",
+    "bank": "Material Bank",
+    "bytes": 571725,
+    "sha256": "0c50cd16602b25fa67128dea0737c027f4c7ab6825d1ee92bdf849df8e9ac0c3"
+  },
+  {
+    "name": "assets/engine.wav",
+    "bank": "Material Bank",
+    "bytes": 88244,
+    "sha256": "2c18af9d19b3ee69d33e4a0ec2a502cd2d1d880eeb67f3dd031cca962655de0e"
+  },
+  {
+    "name": "assets/lander.png",
+    "bank": "Material Bank",
+    "bytes": 12837,
+    "sha256": "5bca3d0ac7172b7049dc73a25d5e2a9e6ec316a13328ddcbf615d029471ab053"
+  },
+  {
+    "name": "assets/lunar_surface.png",
+    "bank": "Material Bank",
+    "bytes": 976565,
+    "sha256": "92d3a62da4e32b065e1c456d6e655afcdff89a9f7ee169094d3724004cd6cade"
+  },
+  {
+    "name": "assets/moon.png",
+    "bank": "Material Bank",
+    "bytes": 306372,
+    "sha256": "318e1035ab5c4f2210d9d0be74d8badcd930ed14fe8635a595a03d78be394e0c"
+  },
+  {
+    "name": "assets/saturnv.png",
+    "bank": "Material Bank",
+    "bytes": 6228,
+    "sha256": "68881c170dd64520070c3c99658bd6111d2968b11a47295f2f0fe654926a891a"
+  },
+  {
+    "name": "cartridge/banks.json",
+    "bank": "Integrity Bank",
+    "bytes": 890,
+    "sha256": "8de0c61f1d2956234f187646fd370e8f82fe90fef45ce15b38e632eb08d9feb0"
+  },
+  {
+    "name": "cartridge/manifest.json",
+    "bank": "Integrity Bank",
+    "bytes": 1308,
+    "sha256": "0f0c581cb3a04ab3ca3ca77e985450176f942d9578500a9b3c3ba25265e85508"
+  },
+  {
+    "name": "cartridge/temporal-spool.json",
+    "bank": "VM Runtime Bank",
+    "bytes": 853,
+    "sha256": "c14116d96ed33652e58d750f07a845804ef4b1b0f3856d450690dc7f2b496f78"
+  },
+  {
+    "name": "checkpoint/history.json",
+    "bank": "Checkpoint Bank",
+    "bytes": 47,
+    "sha256": "33ef317d388f7c1ea0d8c527e43513236f5ef7569e06ff02e47b34e913644bcd"
+  },
+  {
+    "name": "docs/ARCHITECTURE.md",
+    "bank": "Documentation Bank",
+    "bytes": 901,
+    "sha256": "631274595c0d3189c3694cea03d427899d685d6fcb912aeb3c448ed447e2ccbc"
+  },
+  {
+    "name": "docs/PHYSICS.md",
+    "bank": "Documentation Bank",
+    "bytes": 371,
+    "sha256": "1e8dfb1a1eaba4ec89cb0e36b3814dbedf54f8e377cd641890a407acf91faa1f"
+  },
+  {
+    "name": "docs/PLATFORM_BOUNDARY.md",
+    "bank": "Documentation Bank",
+    "bytes": 622,
+    "sha256": "3746c5fab7540e869a21fa04cf1e966e77396464a50f633677a884846eaef0a8"
+  },
+  {
+    "name": "docs/README.md",
+    "bank": "Documentation Bank",
+    "bytes": 1083,
+    "sha256": "876c31a712ad8a9e9952e8cfde6b0b37f3d090c1e889f2b83095b112e04f128e"
+  },
+  {
+    "name": "docs/TIFF_GIF_PROCESSABLE_HOLOGRAM.md",
+    "bank": "Documentation Bank",
+    "bytes": 1985,
+    "sha256": "4fb7f895fa3f3a993a9cbf1690e348e77913a0f63c454b80985f60b3a4eedbd8"
+  },
+  {
+    "name": "integrity/immutable.json",
+    "bank": "Integrity Bank",
+    "bytes": 2466,
+    "sha256": "86f64a904ffd2e46a0ba129e6542fdf1322f8e4458d4223717636396d2957525"
+  },
+  {
+    "name": "journal/events.ndjson",
+    "bank": "Journal Bank",
+    "bytes": 72,
+    "sha256": "0f83639f932f4efa4de5cae7c2ef4483cc499c81be084527f733246367ed52af"
+  },
+  {
+    "name": "mission/phases.json",
+    "bank": "Physics Bank",
+    "bytes": 811,
+    "sha256": "65ced067daf263f21828897d8ceb58767cf057ca0b10ce1ea30342dc92b6fc96"
+  },
+  {
+    "name": "physics/constants.json",
+    "bank": "Physics Bank",
+    "bytes": 464,
+    "sha256": "cd5bbb117045fa785720fbe499c26326e28398b1c04182861edf40e5b79a5dd4"
+  },
+  {
+    "name": "program/mission.vm",
+    "bank": "Program Bank",
+    "bytes": 17440,
+    "sha256": "34a760d0000fea2919430f59d75b9600313e4a7a409dccc4f0314be8cc5e6ee0"
+  },
+  {
+    "name": "program/strings.json",
+    "bank": "Program Bank",
+    "bytes": 189,
+    "sha256": "9b56dcba49123b21b967ad9e1f3296098fc099f5275eb97cee42f9b58cb42ec7"
+  },
+  {
+    "name": "program/symbols.json",
+    "bank": "Program Bank",
+    "bytes": 558,
+    "sha256": "b0606264f0628b3daa84e3bee086ee372247fb498ca9f7f82f53cf5e49811529"
+  },
+  {
+    "name": "scene/showcase.json",
+    "bank": "Geometry Bank",
+    "bytes": 7958,
+    "sha256": "b27202f1aba5e1380b21a77c518924daff833d1ae570c20131c7a33b7dca29af"
+  },
+  {
+    "name": "state/initial.json",
+    "bank": "State Bank",
+    "bytes": 1704,
+    "sha256": "509e99dd70e8aa7ab5ad2b5062edcf011f882e530611b17bd619db4df679856c"
+  },
+  {
+    "name": "state/machine.json",
+    "bank": "State Bank",
+    "bytes": 1704,
+    "sha256": "509e99dd70e8aa7ab5ad2b5062edcf011f882e530611b17bd619db4df679856c"
+  },
+  {
+    "name": "terminal/config.json",
+    "bank": "VM Runtime Bank",
+    "bytes": 498,
+    "sha256": "5ba37ba0434861b6b38bc20ddfc190e0d2924c762ed2c2bc345533c4d57e3c78"
+  },
+  {
+    "name": "ui/hud.json",
+    "bank": "Geometry Bank",
+    "bytes": 1459,
+    "sha256": "6a40ff103551b391e3b4b5a935fef24240ce85570832d1f01df7026f47a14677"
+  },
+  {
+    "name": "vm/spec.json",
+    "bank": "VM Runtime Bank",
+    "bytes": 750,
+    "sha256": "df8867c65f626632098e865a0966aabdd2bab1a951e4c7e94dea7b41e6fa3273"
+  }
+]

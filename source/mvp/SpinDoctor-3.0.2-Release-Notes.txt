@@ -1,6 +1,6 @@
 SPINDOCTOR 3.0.2 - AUTOMATIC TXT AND PDF REPORTS
 
-Extract this package into its own folder under <WORK> and start BOOT.cmd.
+Extract this package into its own folder under D:\Codex and start BOOT.cmd.
 The terminal now automatically requests both a .txt and a .pdf download for
 every native command return, including help, status and rejected commands.
 Asynchronous jobs request an accepted report pair and a completed report pair.

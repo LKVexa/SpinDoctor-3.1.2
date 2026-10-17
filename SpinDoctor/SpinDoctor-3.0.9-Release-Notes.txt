@@ -1,0 +1,25 @@
+SPINDOCTOR 3.0.9 CANDIDATE
+
+PDF STATE FIGURES
+The Bloch sphere identifies the state source and qubit. A north-pole arrow
+means |0>, with vector (0,0,1). Applying RZ to |0> changes its phase and leaves
+that direction unchanged. A genuinely zero local Bloch vector is displayed
+at the sphere centre with an explicit mixed-state explanation. A nonzero
+vector aligned with the viewing direction is distinguished from a zero vector.
+
+Single-qubit reduced-density results expose their actual Bloch components and
+purity. Completed circuit results retain bounded premeasurement local-state
+figures, with explicit omissions when the reporting computation is too large.
+These figures describe the circuit state. The automatic q.verify gate compares
+the separate procedural model on CPU and GPU; its evidence keeps that scope.
+
+PRESET DEFAULTS
+Ordinary shot-based presets now start at 10,240 shots. The existing 100,000
+maximum remains available. Single-shot collapse keeps its one-shot semantics.
+All 241 preset identities and their categories remain present. Editable shot
+metadata follows the actual command operand and its permitted range.
+
+DELIVERY
+This is a separate candidate. Existing applications, checkpoints, downloaded
+receipts and input files are preserved. The large stress test remains skipped.
+See the included audit and validation summary for tested scope and limitations.

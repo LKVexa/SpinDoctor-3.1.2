@@ -1,19 +1,3 @@
-// SPDX-License-Identifier: GPL-3.0-or-later
-// SpinDoctor 3.1.2 - Quantum Virtual Terminal
-// Copyright (C) 2026 RUSSELL PHILIP SMITHSON <russellsmithson77@outlook.com>
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -60,12 +44,9 @@ namespace QuettaQuantum
                 if(Has("recover independent preserve-original preserve-global-phase up-to-global-phase",name)){bool valueBool=SpinDoctorCalculators.Boolean(value);if(Has("independent preserve-original preserve-global-phase",name)&&!valueBool)throw new ArgumentException(name+" must be true for this backend.");continue;}
                 if(Has("start addresses database-size marked logical-qubits physical-per-logical",name)){BigInteger n;if(value.Length>1024||!BigInteger.TryParse(value,NumberStyles.None,CultureInfo.InvariantCulture,out n)||n<(name=="start"?0:1))throw new ArgumentException("Invalid decimal count "+name+".");continue;}
                 if(Has("angles scales expectations",name)){double[] a=SpinDoctorCalculators.Angles(value);if(a.Length>64)throw new ArgumentException("Numeric list exceeds 64 entries.");continue;}
-                // Selected-state queries address the full native logical register. Other
-                // calculator namespaces retain their bounded auxiliary analysis formats.
-                int logicalLimit = ns == "q.query" ? TrancheRegister.MaximumLogicalQubits : 29;
-                if(name=="qubits"||name=="partition"||name=="targets"){SpinDoctorCalculators.Qubits(value,logicalLimit,name=="targets"?29:4);continue;}
-                if(name=="pauli"){SpinDoctorCalculators.ParsePauli(value,logicalLimit);continue;}
-                if(name=="generators"||name=="stabilizers"){string[] list=SpinDoctorCalculators.SplitList(value);if(list.Length<1||list.Length>64)throw new ArgumentException("Use 1..64 Pauli strings.");foreach(string p in list)SpinDoctorCalculators.ParsePauli(SpinDoctorCalculators.Unquote(p).TrimStart('+','-').Trim(),logicalLimit);continue;}
+                if(name=="qubits"||name=="partition"||name=="targets"){SpinDoctorCalculators.Qubits(value,29,name=="targets"?29:4);continue;}
+                if(name=="pauli"){SpinDoctorCalculators.ParsePauli(value,29);continue;}
+                if(name=="generators"||name=="stabilizers"){string[] list=SpinDoctorCalculators.SplitList(value);if(list.Length<1||list.Length>64)throw new ArgumentException("Use 1..64 Pauli strings.");foreach(string p in list)SpinDoctorCalculators.ParsePauli(SpinDoctorCalculators.Unquote(p).TrimStart('+','-').Trim(),29);continue;}
                 if(name=="block-sizes"){string[] blocks=SpinDoctorCalculators.SplitList(value);if(blocks.Length<1||blocks.Length>1024)throw new ArgumentException("Factor block list is bounded to 1..1024.");foreach(string b in blocks)SpinDoctorCalculators.Integer(b,1,1024);continue;}
                 if(Has("models families assumptions compare classes distinguish caveats standards set errors",name)){SpinDoctorCalculators.SplitList(value);continue;}
                 if(name=="coherence"){if(Complex.Abs(SpinDoctorCalculators.ComplexExpression(value))>.5+1e-10)throw new ArgumentException("Qubit coherence magnitude exceeds 1/2.");continue;}

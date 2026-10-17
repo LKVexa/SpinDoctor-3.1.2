@@ -50,7 +50,7 @@ RUN AND PRESERVATION
 Start SpinDoctor/BOOT.cmd in this release. BOOT.cmd verifies a TIFF or GIF, then
 materializes its contained program in SpinDoctor/workspace/projection/mvp.
 The original 3.0.3 directory, release ZIP, histories and state remain preserved.
-This audited release is separate under <WORK>. Audit test workspaces are not
+This audited release is separate under D:/Codex. Audit test workspaces are not
 included in the runnable application's live workspace. The readable embedded
 sources and regression harnesses are included with the release for review.
 

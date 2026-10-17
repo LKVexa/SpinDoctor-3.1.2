@@ -1,25 +1,8 @@
-// SPDX-License-Identifier: GPL-3.0-or-later
-// SpinDoctor 3.1.2 - Quantum Virtual Terminal
-// Copyright (C) 2026 RUSSELL PHILIP SMITHSON <russellsmithson77@outlook.com>
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Numerics;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -54,7 +37,7 @@ namespace QuettaQuantum
         {
             public string Format, Name;
             public int Qubits, Shots = 1;
-            public BigInteger InitialBasis;
+            public ulong InitialBasis;
             public string Basis = "z";
             public readonly Dictionary<string, string> Parameters = new Dictionary<string, string>(StringComparer.Ordinal);
             public readonly List<GatePlan> Gates = new List<GatePlan>();
@@ -377,8 +360,8 @@ namespace QuettaQuantum
             Dictionary<string, object> data = json.Deserialize<Dictionary<string, object>>(content); if (data == null) throw new ArgumentException("JSON circuit must be an object.");
             if(data.ContainsKey("commands")){foreach(string key in data.Keys)if(key!="commands"&&key!="schema"&&key!="description")throw new ArgumentException("Sequence JSON only accepts commands, schema and description.");List<string> commands=new List<string>();foreach(object value in Sequence(data["commands"])){if(!(value is string))throw new ArgumentException("Sequence commands must be strings.");commands.Add((string)value);}return Script(commands.ToArray(),"json-sequence");}
             foreach (string key in data.Keys) if (key != "name" && key != "qubits" && key != "initialBasis" && key != "parameters" && key != "gates" && key != "shots" && key != "basis" && key != "description" && key != "hints" && key != "schema") throw new ArgumentException("Unsupported JSON circuit field: " + key);
-            Plan plan = new Plan { Format = "json", Name = data.ContainsKey("name") ? CircuitName(Text(data["name"])) : DefaultName(entry), Qubits = Integer(Text(Required(data, "qubits")), 1, 298) };
-            if (data.ContainsKey("initialBasis")) plan.InitialBasis = BasisIndex(Text(data["initialBasis"]));
+            Plan plan = new Plan { Format = "json", Name = data.ContainsKey("name") ? CircuitName(Text(data["name"])) : DefaultName(entry), Qubits = Integer(Text(Required(data, "qubits")), 1, 29) };
+            if (data.ContainsKey("initialBasis")) plan.InitialBasis = Unsigned(Text(data["initialBasis"]));
             if (data.ContainsKey("shots")) plan.Shots = Integer(Text(data["shots"]), 1, 100000);
             if (data.ContainsKey("basis")) plan.Basis = Basis(Text(data["basis"]));
             if (data.ContainsKey("hints"))
@@ -432,13 +415,13 @@ namespace QuettaQuantum
                 if (Eq(words[0], "q.circuit"))
                 {
                     if (words.Length < 2) throw new ArgumentException("Incomplete q.circuit data line.");
-                    if (Eq(words[1], "new")) { if (words.Length != 4 || declared) throw new ArgumentException("Use exactly one q.circuit new NAME QUBITS declaration."); plan.Name = CircuitName(words[2]); plan.Qubits = Integer(words[3], 1, 298); declared = named = true; continue; }
-                    if (Eq(words[1], "input")) { if (words.Length != 3) throw new ArgumentException("Use q.circuit input BASIS_INDEX."); plan.InitialBasis = BasisIndex(words[2]); continue; }
+                    if (Eq(words[1], "new")) { if (words.Length != 4 || declared) throw new ArgumentException("Use exactly one q.circuit new NAME QUBITS declaration."); plan.Name = CircuitName(words[2]); plan.Qubits = Integer(words[3], 1, 29); declared = named = true; continue; }
+                    if (Eq(words[1], "input")) { if (words.Length != 3) throw new ArgumentException("Use q.circuit input BASIS_INDEX."); plan.InitialBasis = Unsigned(words[2]); continue; }
                     if (!Eq(words[1], "add")) throw new ArgumentException("Text attachments permit q.circuit new/input/add data only; run, delete, other terminal commands and shell statements are rejected."); start = 2;
                 }
-                else if (Eq(words[0], "qubits")) { if (words.Length != 2 || declared) throw new ArgumentException("Declare qubits exactly once."); plan.Qubits = Integer(words[1], 1, 298); declared = true; continue; }
+                else if (Eq(words[0], "qubits")) { if (words.Length != 2 || declared) throw new ArgumentException("Declare qubits exactly once."); plan.Qubits = Integer(words[1], 1, 29); declared = true; continue; }
                 else if (Eq(words[0], "name")) { if (words.Length != 2 || named) throw new ArgumentException("Declare a circuit name at most once."); plan.Name = CircuitName(words[1]); named = true; continue; }
-                else if (Eq(words[0], "input")) { if (words.Length != 2) throw new ArgumentException("Use input BASIS_INDEX."); plan.InitialBasis = BasisIndex(words[1]); continue; }
+                else if (Eq(words[0], "input")) { if (words.Length != 2) throw new ArgumentException("Use input BASIS_INDEX."); plan.InitialBasis = Unsigned(words[1]); continue; }
                 else if (Eq(words[0], "shots")) { if (words.Length != 2) throw new ArgumentException("Use shots N."); plan.Shots = Integer(words[1], 1, 100000); continue; }
                 else if (Eq(words[0], "basis")) { if (words.Length != 2) throw new ArgumentException("Use basis x|y|z."); plan.Basis = Basis(words[1]); continue; }
                 else if (Eq(words[0], "param") || Eq(words[0], "parameter"))
@@ -487,8 +470,8 @@ namespace QuettaQuantum
                 Match declaration = Regex.Match(statement, "^(qreg|creg)\\s+([A-Za-z_][A-Za-z0-9_]*)\\s*\\[\\s*([0-9]+)\\s*\\]$");
                 if (declaration.Success)
                 {
-                    if (gatesStarted) throw new ArgumentException("Registers must be declared before gates."); int width = Integer(declaration.Groups[3].Value, 1, 298);
-                    if (declaration.Groups[1].Value == "qreg") { if (quantum != null) throw new ArgumentException("Supported QASM2 subset has one qreg of1..298 qubits."); quantum = declaration.Groups[2].Value; plan.Qubits = width; }
+                    if (gatesStarted) throw new ArgumentException("Registers must be declared before gates."); int width = Integer(declaration.Groups[3].Value, 1, 29);
+                    if (declaration.Groups[1].Value == "qreg") { if (quantum != null) throw new ArgumentException("Supported QASM2 subset has one qreg of1..29 qubits."); quantum = declaration.Groups[2].Value; plan.Qubits = width; }
                     else { if (classical != null || quantum == null || width != plan.Qubits || declaration.Groups[2].Value == quantum) throw new ArgumentException("Supported creg must follow qreg and have the same width and a distinct name."); classical = declaration.Groups[2].Value; }
                     continue;
                 }
@@ -581,7 +564,7 @@ namespace QuettaQuantum
             foreach (string name in new string[] { "gate", "n", "targets", "angles" }) if (!columns.ContainsKey(name)) throw new ArgumentException("Gate-list CSV requires columns gate,n,targets,angles.");
             for (int i = 1; i < rows.Count; i++) if (rows[i].Length != rows[0].Length) throw new ArgumentException("Gate-list CSV row width differs from its header.");
             if (rows[1][columns["n"]].Trim().Length == 0) throw new ArgumentException("Declare the register size n in the first gate-list CSV row.");
-            Plan plan = new Plan { Format = "csv-gates", Name = DefaultName(entry), Shots = 1024, Qubits = Integer(rows[1][columns["n"]].Trim(), 1, 298) };
+            Plan plan = new Plan { Format = "csv-gates", Name = DefaultName(entry), Shots = 1024, Qubits = Integer(rows[1][columns["n"]].Trim(), 1, 29) };
             Dictionary<string, string> metadata = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
             for (int i = 1; i < rows.Count; i++)
             {
@@ -589,9 +572,9 @@ namespace QuettaQuantum
                 {
                     int position; if (!columns.TryGetValue(field, out position)) continue; string value = rows[i][position].Trim(); if (value.Length == 0) continue;
                     string canonical;
-                    if (field == "n") canonical = Integer(value, 1, 298).ToString(CultureInfo.InvariantCulture);
+                    if (field == "n") canonical = Integer(value, 1, 29).ToString(CultureInfo.InvariantCulture);
                     else if (field == "name") canonical = CircuitName(value);
-                    else if (field == "initialbasis") canonical = BasisIndex(value).ToString(CultureInfo.InvariantCulture);
+                    else if (field == "initialbasis") canonical = Unsigned(value).ToString(CultureInfo.InvariantCulture);
                     else if (field == "shots") canonical = Integer(value, 1, 100000).ToString(CultureInfo.InvariantCulture);
                     else canonical = Basis(value);
                     string previous; if (metadata.TryGetValue(field, out previous) && previous != canonical) throw new ArgumentException("Gate-list CSV circuit metadata must be consistent across rows: " + field + ".");
@@ -599,7 +582,7 @@ namespace QuettaQuantum
                 }
             }
             if (metadata.ContainsKey("name")) plan.Name = metadata["name"];
-            if (metadata.ContainsKey("initialbasis")) plan.InitialBasis = BasisIndex(metadata["initialbasis"]);
+            if (metadata.ContainsKey("initialbasis")) plan.InitialBasis = Unsigned(metadata["initialbasis"]);
             if (metadata.ContainsKey("shots")) plan.Shots = Integer(metadata["shots"], 1, 100000);
             if (metadata.ContainsKey("basis")) plan.Basis = Basis(metadata["basis"]);
             for (int i = 1; i < rows.Count; i++)
@@ -879,7 +862,7 @@ namespace QuettaQuantum
         }
         private static void ValidatePlan(Plan plan)
         {
-            if (plan.Qubits < 1 || plan.Qubits > 298 || plan.InitialBasis >= (BigInteger.One << plan.Qubits)) throw new ArgumentException("Circuit requires1..298 qubits and initialBasis below2^qubits.");
+            if (plan.Qubits < 1 || plan.Qubits > 29 || plan.InitialBasis >= (1UL << plan.Qubits)) throw new ArgumentException("Circuit requires1..29 qubits and initialBasis below2^qubits.");
             if (plan.Gates.Count > 8192) throw new ArgumentException("Circuit exceeds8192 instructions.");
         }
         private static Dictionary<string, object> GateSpec(string name) { foreach (Dictionary<string, object> gate in TrancheRegister.SupportedGates) if ((string)gate["name"] == name) return gate; throw new ArgumentException("Unsupported gate name: " + name); }
@@ -893,9 +876,9 @@ namespace QuettaQuantum
                 "csv", "A single command header accepts 1..128 documented q.commands, each 1..4096 characters. Quote cells containing commas; double literal quotes. For parameter sweeps, header names must be declared parameters in an explicit base circuit: 1..64 columns, 1..4096 rows, expressions up to 1024 characters, zero-based row indices. Generic tables and arbitrary algebra are not inferred as equations.",
                 "sequenceExample","{\"commands\":[\"q.math norm amplitudes=[1,0]\",\"q.status\"]}",
                 "dataCsv", "Measurement tables are inert data. Inspect with q.input table ID, then explicitly choose one target and 1..16 predictors with q.input fit. Select headers by name or zero-based column index. Up to 4096 rows; selected values must be invariant finite numbers with magnitude <=1e150. Missing/invalid selected cells are excluded with recorded row reasons. Units remain unknown unless supplied. Result is an empirical in-sample linear fit with native coefficients, diagnostics and residuals; no physical causality or validated forecasting is inferred.",
-                "gateCsv", "Header gate,n,targets,angles; optional name,initialBasis,shots,basis. Declare n=1..298 in the first gate row; circuit metadata may be blank later or repeat consistently. Targets and angles use comma-separated lists, optionally bracketed and CSV-quoted; target all is allowed only for local gates. Angles use supported safe expressions in radians. Gate order/control operands are preserved and validated. q.input import defines; q.input run or folder mode executes explicitly with declared shots/basis, default 1024 Z shots, maximum 100000 shots.",
+                "gateCsv", "Header gate,n,targets,angles; optional name,initialBasis,shots,basis. Declare n=1..29 in the first gate row; circuit metadata may be blank later or repeat consistently. Targets and angles use comma-separated lists, optionally bracketed and CSV-quoted; target all is allowed only for local gates. Angles use supported safe expressions in radians. Gate order/control operands are preserved and validated. q.input import defines; q.input run or folder mode executes explicitly with declared shots/basis, default 1024 Z shots, maximum 100000 shots.",
                 "pdfExport","Original PDF bytes are preserved and exported through the authenticated binary download; q.input show displays only the safely extracted program preview.",
-                "limits", D("fileBytes", MaximumBytes,"pdfBytes",4194304,"folderFileBytes",4194304,"sequenceCommands",128, "files", MaximumFiles, "totalBytes", MaximumTotalBytes, "qubits", 298, "circuitInstructions", 8192, "parameters", 64),
+                "limits", D("fileBytes", MaximumBytes,"pdfBytes",4194304,"folderFileBytes",4194304,"sequenceCommands",128, "files", MaximumFiles, "totalBytes", MaximumTotalBytes, "qubits", 29, "circuitInstructions", 8192, "parameters", 64),
                 "scope", "Upload, preview, evaluate and transient compilation read data only. Import atomically creates/selects a circuit. q.input run explicitly executes an attachment program or structured commands in order, waiting for native asynchronous calculations. Attachments never execute automatically.");
         }
 
@@ -962,7 +945,6 @@ namespace QuettaQuantum
         private static string Basis(string basis) { basis = basis.ToLowerInvariant(); if (basis != "x" && basis != "y" && basis != "z") throw new ArgumentException("Measurement basis must be x/y/z."); return basis; }
         private static bool Boolean(object value) { if (!(value is bool)) throw new ArgumentException("all must be a JSON boolean."); return (bool)value; }
         private static int Integer(string value, int min, int max) { int result; if (!Int32.TryParse(value, NumberStyles.None, CultureInfo.InvariantCulture, out result) || result < min || result > max) throw new ArgumentException("Integer is outside the supported range."); return result; }
-        private static BigInteger BasisIndex(string value) { BigInteger result; if (String.IsNullOrEmpty(value) || !Regex.IsMatch(value,@"^[0-9]+$") || !BigInteger.TryParse(value, NumberStyles.None, CultureInfo.InvariantCulture, out result) || result < BigInteger.Zero) throw new ArgumentException("Expected a nonnegative decimal basis index."); return result; }
         private static ulong Unsigned(string value) { ulong result; if (!UInt64.TryParse(value, NumberStyles.None, CultureInfo.InvariantCulture, out result)) throw new ArgumentException("Expected an unsigned decimal integer."); return result; }
         private static void Finite(double value) { if (Double.IsNaN(value) || Double.IsInfinity(value)) throw new ArgumentException("Equation result must be finite."); }
         private static string Text(object value) { if (value == null) throw new ArgumentException("Required value is null."); return Convert.ToString(value, CultureInfo.InvariantCulture); }

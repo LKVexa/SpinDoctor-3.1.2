@@ -1,0 +1,103 @@
+SPINDOCTOR 3.0.5 - FOLDER REPORTS AND HONEST STATUS
+Prepared 2026-10-10 (America/Los_Angeles)
+
+Start BOOT.cmd from the SpinDoctor folder in this release. The original 3.0.4
+application and its live workspace have been preserved. This is a separate build.
+
+WHY THE ATTACHED RUN FAILED
+The final downloaded TXT reports "Combined report exceeds 32 MiB; export each
+command separately." All 172 calculations had already completed. The last input
+contained 128 commands, and assembling their full reports exceeded the old
+in-memory combined-report limit. The preceding 23 files had completed and purged.
+The final file's reporting failed before its transient cleanup.
+
+The displayed 172 / 128 mixed the whole folder's completed count with the current
+file's command count. The limit is 128 commands PER FILE, not per folder.
+
+CHANGES
+1. Full per-file and whole-folder TXT reports stream through durable, checked
+   archives. A report larger than 32 MiB no longer aborts a successful calculation.
+   The HTTP download streams bytes; the browser does not parse the complete report
+   as a JavaScript string. Individual command TXT/JSON archives remain available.
+2. Folder progress uses its own identity and aggregate counts. Child file progress
+   appears separately. Totals grow as files are compiled and become final only when
+   the whole batch is known. Execution, report archiving and cleanup have separate
+   outcomes. Reporting/cleanup failures remain visible with recoverable command
+   reports, without falsely turning successful calculations into failed math.
+3. Partial progress survives cancellation, interruption and restart. Saved jobs,
+   archive identities, lengths and hashes are checked. Interrupted jobs are not
+   silently rerun. An uncertain asynchronous completion is labeled unknown.
+4. Input reads verify the actual opened local file, deny concurrent writers, refuse
+   linked paths and enforce the 4 MiB bound before allocating the input buffer.
+   Quoted folder paths retain consecutive spaces. Duplicate/ambiguous API report
+   query fields are rejected. Download and preview routes require authentication.
+5. The interface polls compact job previews, keeps bounded recent responses and
+   retrieves complete bodies from the native archive when requested. Failed
+   downloads can be retried. downloads=false suppresses automatic folder downloads.
+6. Missing numeric fields display "not returned"; literal zeros stay zeros. Missing
+   rule verdicts and completion states are not invented. Arithmetic counters are
+   explained. Large or abbreviated printouts are explicitly labeled previews.
+7. Optional Python loopback services return usable bounded error responses for
+   rejected POST bodies on Windows, with request deadlines and security headers.
+8. Runtime, metadata, readable source, checksums and both carrier payloads agree
+   on 3.0.5-hardened. External launcher shortcuts verify the carrier through BOOT.
+9. Reports now explain the command inputs, method/formula, returned results,
+   native validation fields, timing scope, zero values and actual/represented work
+   before the complete native data. Run/file reports separate execution, archive
+   and cleanup outcomes with source identity and recovery guidance. Missing
+   diagnostics and unknown native completion remain explicit.
+10. PDFs offer Summary, Detailed (default) and Complete presentation independent
+    of the on-screen explorer tab. Detailed includes readable explanations and
+    result fields; Complete adds recorded accepted/final payloads. Relevant
+    returned data receives probability/amplitude graphs, matrix figures, circuit
+    diagrams and coverage figures. A projected Bloch sphere has labeled axes,
+    basis poles, a spin arrow, component values and captions. Mixed vectors retain
+    their shorter length; missing vectors do not generate fictional arrows.
+
+WHY MANY VALUES ARE ZERO
+This TXT fixture pack mainly uses q.math and q.resource. These calculate formulas
+and resource estimates; they do not sample procedural CPU/GPU states, apply gates
+to the saved state family, or take measurements. actualCpuStates, actualGpuStates,
+measurementShots, representedGateApplications, verifiedSamples and measurementCounter
+therefore remain zero in this run. errorCount is a saved engine-error counter;
+the report-export failure is tracked separately by the folder orchestration.
+These zeros do not mean the formulas were skipped. Their actual result fields and
+elapsed times are the appropriate evidence. No fictitious work counts are added.
+
+A complex number is written as [real, imaginary]. [1, 0] means 1 + 0i, not an empty
+result. Orthogonal overlaps and some probabilities are zero by construction. A
+pure state's entropy can be zero. The downloaded records' 189 checked expected
+fields matched their fixtures. There were no expected-field mismatches.
+FP64 arithmetic can also round extremely small numerical results to zero.
+Reports distinguish returned precision from a mathematical claim of exact zero;
+the scale-safe normalizer can handle tiny nonzero inputs even when a separately
+computed squared norm underflows. Inspect the recorded inputs and tolerance.
+
+BOUNDS AND LIMITATIONS
+Folder import is nonrecursive: at most 128 supported files, 4 MiB per file,
+128 ordinary commands per compiled file. Nested test files are intentionally
+skipped. Large combined TXT reports stream; bounded in-memory JSON/string report
+APIs and individual command archives retain their safety limits. If a full JSON
+combination is too large, export individual command JSONs. PDF conversion remains
+bounded and separate from calculation: 512 pages, 4 MiB printable text and 32 MiB
+output bytes. Human interpretation is bounded to 8192 characters; full native
+TXT/JSON remains available. No downloaded PDF records were analyzed.
+
+purge=true releases completed transient coherent-output references after report
+capture. It preserves seeds, descriptors, saved user states, checkpoints, source
+inputs and history; it is not a guarantee of clearing every process allocation.
+The local native HTTP host serves requests serially. A slow large download can
+delay status/cancel requests until it finishes or its write times out. Close a
+stalled download and retry from its archive; no calculation needs to be repeated.
+
+SpinDoctor remains a classical FP64 simulator. Physical quantum operations are
+not performed. qc-198 / q.compile synthesize remains unavailable because there
+is no validated approximate Clifford+T synthesizer. GPU checks exercised real
+Intel OpenCL with small bounded workloads; they are not large-memory stress proof.
+
+VALIDATION AND TEST INPUTS
+The release's validation folder contains reproducible checks and evidence. The
+26 TXT test inputs are outside the app workspace: 24 top-level runnable files with
+172 commands, plus two nested files to verify nonrecursive selection. Select only
+the Test-Inputs folder, then confirm the folder command and press Run.
+See the release-root AUDIT-3.0.5.txt and START_HERE.txt for results and migration.

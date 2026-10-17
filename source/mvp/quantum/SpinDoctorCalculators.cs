@@ -1,19 +1,3 @@
-// SPDX-License-Identifier: GPL-3.0-or-later
-// SpinDoctor 3.1.2 - Quantum Virtual Terminal
-// Copyright (C) 2026 RUSSELL PHILIP SMITHSON <russellsmithson77@outlook.com>
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 // Bounded classical complex-FP64 calculators. These do not credit the procedural
 // family, execute hardware qubits, or change measurement seeds/counters.
 using System;
@@ -54,7 +38,7 @@ namespace QuettaQuantum
                 return r.ToArray();
             }
         }
-        private static void AddCapabilities(List<Dictionary<string,object>> list,string ns,string actions,string backend,string kind) {foreach(string a in actions.Split(' '))list.Add(D("command",ns+" "+a,"namespace",ns,"action",a,"installed",true,"backend",backend,"resultKind",kind,"limits",ns=="q.query"?"Prefix <=4096; full joint analysis <=16 qubits/65536 states; one-qubit reductions via exact native spin <=298, factor width <=59.":"Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.","validation","calculator-validation.json"));}
+        private static void AddCapabilities(List<Dictionary<string,object>> list,string ns,string actions,string backend,string kind) {foreach(string a in actions.Split(' '))list.Add(D("command",ns+" "+a,"namespace",ns,"action",a,"installed",true,"backend",backend,"resultKind",kind,"limits",ns=="q.query"?"Prefix <=4096; full joint analysis <=16 qubits/65536 states; one-qubit reductions via exact native spin <=29.":"Vectors <=4096, matrices <=16x16; resource counts are estimates, not allocations.","validation","calculator-validation.json"));}
         public static bool Supports(string ns,string action){foreach(Dictionary<string,object> d in Capabilities)if((string)d["command"]==ns.ToLowerInvariant()+" "+action.ToLowerInvariant())return true;return false;}
 
         // Reconstruct split terminal words, then parse quoted/bracketed fields.
@@ -133,7 +117,7 @@ namespace QuettaQuantum
         {
             name=(name??"").ToLowerInvariant();if(name=="id"||name=="identity")name="i";if(name=="u3")name="u";if(name=="cnot")name="cx";if(name=="toffoli")name="ccx";if(name=="fredkin")name="cswap";
             int ac=-1,targets=0;foreach(Dictionary<string,object> d in TrancheRegister.SupportedGates)if((string)d["name"]==name){ac=(int)d["angleCount"];targets=(int)d["targetCount"];}if(ac<0||angles==null||angles.Length!=ac)throw new ArgumentException("Unknown gate or wrong angle count.");foreach(double d in angles)if(Double.IsNaN(d)||Double.IsInfinity(d)||Math.Abs(d)>1e12)throw new ArgumentException("Gate angles must be finite, magnitude <=1e12 radians.");
-            if(targets==1)return LocalGate(name,angles);if(targets>4)throw new ArgumentException("Explicit gate matrices are bounded to four operands; mcx7 executes through the native controlled-X backend.");int dim=1<<targets;Complex[,] result=new Complex[dim,dim];
+            if(targets==1)return LocalGate(name,angles);int dim=1<<targets;Complex[,] result=new Complex[dim,dim];
             if(name=="swap"||name=="ccx"||name=="cswap"){for(int x=0;x<dim;x++){int y=x;if(name=="swap")y=((x&1)<<1)|((x&2)>>1);if(name=="ccx"&&(x&3)==3)y=x^4;if(name=="cswap"&&(x&1)==1)y=(x&1)|((x&2)<<1)|((x&4)>>1);result[y,x]=1;}return result;}
             if(name=="rxx"||name=="ryy"||name=="rzz"||name=="rzx"){string p=name=="rzx"?"Z0 X1":name=="rxx"?"X0 X1":name=="ryy"?"Y0 Y1":"Z0 Z1";Complex[,] pauli=PauliMatrix(p,2);double c=Math.Cos(angles[0]/2),s=Math.Sin(angles[0]/2);for(int i=0;i<dim;i++)for(int j=0;j<dim;j++)result[i,j]=(i==j?new Complex(c,0):Complex.Zero)-Complex.ImaginaryOne*s*pauli[i,j];return result;}
             string local=name.Substring(1);double[] localAngles=angles;if(name=="cu")localAngles=new double[]{angles[0],angles[1],angles[2]};Complex[,] u=LocalGate(local,localAngles);Complex global=name=="cu"?Complex.Exp(Complex.ImaginaryOne*angles[3]):Complex.One;for(int x=0;x<4;x++){if((x&1)==0)result[x,x]=1;else for(int y=0;y<2;y++)result[1+(y<<1),x]=global*u[y,x>>1];}return result;
@@ -147,7 +131,7 @@ namespace QuettaQuantum
         private static void PauliAction(Dictionary<int,char> p,int x,out int y,out Complex phase){y=x;phase=Complex.One;foreach(KeyValuePair<int,char> kv in p){bool one=(x&(1<<kv.Key))!=0;if(kv.Value=='X')y^=1<<kv.Key;else if(kv.Value=='Y'){y^=1<<kv.Key;phase*=one?-Complex.ImaginaryOne:Complex.ImaginaryOne;}else if(kv.Value=='Z'&&one)phase=-phase;}}
 
         public object Execute(string[] words){return Execute(words,0,null,null,null);}
-        public object Execute(string[] words,int selectedQubits,Func<BigInteger,double[]> amplitude,Func<int,double[]> spin,string descriptorHash)
+        public object Execute(string[] words,int selectedQubits,Func<ulong,double[]> amplitude,Func<int,double[]> spin,string descriptorHash)
         {
             if(words==null||words.Length<2)throw new ArgumentException("Calculator command requires an action.");string ns=words[0].ToLowerInvariant(),action=words[1].ToLowerInvariant();Dictionary<string,string> fields=ParseFields(words);Stopwatch clock=Stopwatch.StartNew();Dictionary<string,object> result;
             if(ns=="q.math")result=MathCommand(action,fields);else if(ns=="q.query")result=QueryCommand(action,fields,selectedQubits,amplitude,spin,descriptorHash);else if(ns=="q.resource")result=ResourceCommand(action,fields);else if(ns=="q.model")result=ModelCommand(action,fields);else if(ns=="q.lesson")result=LessonCommand(action,fields);else throw new ArgumentException("Unknown calculator namespace.");
@@ -174,13 +158,13 @@ namespace QuettaQuantum
         public static bool Boolean(string s){bool b;if(!System.Boolean.TryParse(s,out b))throw new ArgumentException("Expected true or false.");return b;}
         public static double[] Angles(string s){string[] a=SplitList(s);double[] r=new double[a.Length];for(int i=0;i<r.Length;i++)r[i]=Real(a[i]);return r;}
 
-        private Dictionary<string,object> QueryCommand(string action,Dictionary<string,string> f,int n,Func<BigInteger,double[]> get,Func<int,double[]> spin,string hash)
+        private Dictionary<string,object> QueryCommand(string action,Dictionary<string,string> f,int n,Func<ulong,double[]> get,Func<int,double[]> spin,string hash)
         {
-            if(n<1||n>TrancheRegister.MaximumLogicalQubits||get==null||spin==null)throw new InvalidOperationException("q.query requires the current completed circuit's coherent premeasurement output. Run q.circuit first.");
-            long queries=0;Func<BigInteger,Complex> amplitude=delegate(BigInteger id){double[] a=get(id);queries++;if(a==null||a.Length!=2)throw new InvalidOperationException("Selected-state amplitude callback returned invalid layout.");return new Complex(a[0],a[1]);};
+            if(n<1||n>29||get==null||spin==null)throw new InvalidOperationException("q.query requires the current completed circuit's coherent premeasurement output. Run q.circuit first.");
+            long queries=0;Func<ulong,Complex> amplitude=delegate(ulong id){double[] a=get(id);queries++;if(a==null||a.Length!=2)throw new InvalidOperationException("Selected-state amplitude callback returned invalid layout.");return new Complex(a[0],a[1]);};
             Func<int,double[]> spinQuery=delegate(int q){double[] s=spin(q);queries++;if(s==null||s.Length!=3)throw new InvalidOperationException("Selected-state spin callback returned invalid layout.");return s;};
-            Dictionary<string,object> result;Complex[] full=null;Func<Complex[]> load=delegate(){if(n>MaximumFullQueryQubits)throw new InvalidOperationException("This exact joint analysis is bounded to 16 qubits/65536 calculated amplitudes. Single-qubit reductions and bounded prefix dumps support 298 logical qubits with factors <=59.");if(full==null){full=new Complex[1<<n];for(int i=0;i<full.Length;i++)full[i]=amplitude(new BigInteger(i));RequirePure(full);}return full;};
-            if(action=="amplitudes"||action=="probabilities"){CheckFields(f,"max start");int max=Integer(Optional(f,"max","16"),1,MaximumOutputRows);BigInteger length=BigInteger.One<<n,start=Big(Optional(f,"start","0"),false);if(start>=length)throw new ArgumentException("start is outside selected register.");int take=(int)BigInteger.Min(new BigInteger(max),length-start);object[] rows=new object[take];double mass=0;for(int i=0;i<take;i++){BigInteger id=start+i;Complex a=amplitude(id);double p=a.Magnitude*a.Magnitude;mass+=p;Dictionary<string,object> row=D("basisIndex",id.ToString(Inv),"bitstring",Bits(id,n),"probability",p);if(action=="amplitudes"){row["amplitude"]=ComplexJson(a);row["phaseRadians"]=p==0?(object)null:Math.Atan2(a.Imaginary,a.Real);}rows[i]=row;}result=D("rows",rows,"totalStates",length.ToString(Inv),"returnedStates",take,"start",start.ToString(Inv),"complete",start==0&&take==length,"omittedStates",(length-take).ToString(Inv),"returnedProbabilityMass",mass,"renormalized",false);}
+            Dictionary<string,object> result;Complex[] full=null;Func<Complex[]> load=delegate(){if(n>MaximumFullQueryQubits)throw new InvalidOperationException("This exact joint analysis is bounded to 16 qubits/65536 calculated amplitudes. Single-qubit reductions and bounded prefix dumps support 29.");if(full==null){full=new Complex[1<<n];for(int i=0;i<full.Length;i++)full[i]=amplitude((ulong)i);RequirePure(full);}return full;};
+            if(action=="amplitudes"||action=="probabilities"){CheckFields(f,"max start");int max=Integer(Optional(f,"max","16"),1,MaximumOutputRows);ulong length=1UL<<n,start=(ulong)Big(Optional(f,"start","0"),false);if(start>=length)throw new ArgumentException("start is outside selected register.");int take=(int)Math.Min((ulong)max,length-start);object[] rows=new object[take];double mass=0;for(int i=0;i<take;i++){ulong id=start+(ulong)i;Complex a=amplitude(id);double p=a.Magnitude*a.Magnitude;mass+=p;Dictionary<string,object> row=D("basisIndex",id.ToString(Inv),"bitstring",Bits(id,n),"probability",p);if(action=="amplitudes"){row["amplitude"]=ComplexJson(a);row["phaseRadians"]=p==0?(object)null:Math.Atan2(a.Imaginary,a.Real);}rows[i]=row;}result=D("rows",rows,"totalStates",length.ToString(Inv),"returnedStates",take,"start",start.ToString(Inv),"complete",start==0&&(ulong)take==length,"omittedStates",(length-(ulong)take).ToString(Inv),"returnedProbabilityMass",mass,"renormalized",false);}
             else if(action=="expectation"){CheckFields(f,"pauli");Dictionary<int,char> p=ParsePauli(Required(f,"pauli"),n);Complex e=Expectation(load(),p);result=D("pauli",f["pauli"],"expectation",e.Real,"imaginaryResidual",e.Imaginary);}
             else if(action=="stabilizers"){CheckFields(f,"generators");string[] gens=SplitList(Required(f,"generators"));if(gens.Length<1||gens.Length>64)throw new ArgumentException("Use 1..64 stabilizer candidates.");Dictionary<int,char>[] p=new Dictionary<int,char>[gens.Length];object[] rows=new object[gens.Length];bool commutes=true,stabilized=true;Complex[] v=load();for(int i=0;i<gens.Length;i++){p[i]=ParsePauli(Unquote(gens[i]),n);Complex e=Expectation(v,p[i]);bool s=Math.Abs(e.Real-1)<=Tol&&Math.Abs(e.Imaginary)<=Tol;stabilized&=s;rows[i]=D("generator",Unquote(gens[i]),"expectation",e.Real,"stabilizes",s);for(int j=0;j<i;j++)commutes&=PaulisCommute(p[i],p[j]);}result=D("rows",rows,"mutuallyCommuting",commutes,"allStabilize",stabilized,"validStabilizers",commutes&&stabilized,"scope","Candidate checks on selected pure output; this is not a phase-aware tableau backend.");}
             else if(action=="fidelity"){CheckFields(f,"state convention");Choice(f,"convention","squared");Complex[] target=ParseComplexVector(Required(f,"state"));RequirePure(target);Complex[] v=load();Complex c=Overlap(v,target);result=D("fidelity",c.Magnitude*c.Magnitude,"convention","squared");}
@@ -190,7 +174,7 @@ namespace QuettaQuantum
             else throw new ArgumentException("Unsupported q.query action.");
             result["descriptorHash"]=hash;result["selectedQubits"]=n;result["actualStateQueries"]=queries;result["backend"]="selected-coherent-register / classical-FP64 analysis";result["resultKind"]="analysis";result["tolerance"]=Tol;return result;
         }
-        public static string Bits(BigInteger id,int n){char[] c=new char[n];for(int i=0;i<n;i++)c[n-1-i]=(id&(BigInteger.One<<i))!=0?'1':'0';return new string(c);}
+        public static string Bits(ulong id,int n){char[] c=new char[n];for(int i=0;i<n;i++)c[n-1-i]=(id&(1UL<<i))!=0?'1':'0';return new string(c);}
         public static int[] Qubits(string list,int n,int max){string[] s=SplitList(list);if(s.Length<1||s.Length>max)throw new ArgumentException("Qubit list must contain 1.."+max+" distinct operands.");int[] q=new int[s.Length];HashSet<int> seen=new HashSet<int>();for(int i=0;i<q.Length;i++){q[i]=Integer(s[i],0,n-1);if(!seen.Add(q[i]))throw new ArgumentException("Repeated qubit operand.");}return q;}
         private static Complex[,] DensityFromSpin(double[] s){double len=s[0]*s[0]+s[1]*s[1]+s[2]*s[2];if(len>1+Tol)throw new InvalidOperationException("Selected-state spin lies outside Bloch ball.");return new Complex[,]{{new Complex((1+s[2])/2,0),new Complex(s[0],-s[1])/2},{new Complex(s[0],s[1])/2,new Complex((1-s[2])/2,0)}};}
         public static Dictionary<string,object> BlochStateMetadata(double[] spin,int qubit)

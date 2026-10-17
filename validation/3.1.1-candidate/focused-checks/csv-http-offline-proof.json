@@ -1,4 +1,4 @@
-{
+﻿{
     "passed":  true,
     "scope":  "Production CSV/equation HTTP parsing/guards/dispatch exercised through a test-only duplex memory stream; no socket listeners, network, GPU, shots or stress workloads.",
     "checks":  59,

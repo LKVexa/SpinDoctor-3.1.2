@@ -9,28 +9,20 @@
   "phi": "2*pi*floor(id/M)/L",
   "familyStateKind": "Procedural independent pure single-qubit states with shared 2x2 unitary descriptor.",
   "selectedTranche": {
-    "maxQubits": 298,
+    "maxQubits": 29,
     "bitOrder": "little-endian",
     "firstAddress": "29*trancheIndex",
     "finalTranche": "min(29,N-firstAddress)",
     "backend": "coherent tensor-factor blocks; sparse or segmented dense FP64 complex amplitudes",
-    "scope": "One selected coherent register of up to 298 logical qubits. Tensor factors preserve local joint entanglement, with at most 59 qubits in any factor and an enforced memory budget. Procedural family tranches remain groups of at most 29 addresses. Global basis indices are exact BigInteger values; no full 2^298 state array is allocated.",
+    "scope": "Only one selected register is actually calculated. Joint gates preserve entanglement inside that register; no family-wide entanglement claim.",
     "defaultMemoryBudgetBytes": "536870912",
     "worstDense29StateBytes": "8589934592",
-    "checkpoint": "Compact binary up to 64MiB automatically; hash-bound state or deterministic journal replay.",
-    "maximumJointFactorQubits": 59
+    "checkpoint": "Compact binary up to 64MiB automatically; hash-bound state or deterministic journal replay."
   },
   "circuits": {
-    "maxQubits": 298,
+    "maxQubits": 29,
     "program": "Persistent named sequences of supported coherent gates with computational-basis input; Bell/GHZ/QFT presets.",
-    "execution": "Actual native classical FP64 gate arithmetic. Programs of 1..29 qubits retain independent-shot replay and projective measurement. Programs of 30..298 qubits support Z-basis sampling from one prepared coherent state: one joint Born draw per tensor factor preserves correlations within that factor. Preparation, gate execution, sampling work, partial cancellation, and consumed random draws are counted separately. No physical quantum hardware claim.",
-    "maximumJointFactorQubits": 59,
-    "globalIndexEncoding": "BigInteger, little-endian qubit numbering",
-    "gatesAdded": [
-      "mcx7: seven controls and one target"
-    ],
-    "wideMeasurementBasis": "z",
-    "wideSamplingMode": "prepared-factor-Born-Z"
+    "execution": "Actual native classical FP64 gate arithmetic. One extra premeasurement coherent execution is retained and separately counted; each requested shot independently replays the program and performs sequential collapsing Born measurements. Background progress/cancel, completed-shot histograms and native TXT/JSON reports retain partial work and consumed random counters. No physical quantum gate claim."
   },
   "presets": {
     "count": 241,
@@ -75,7 +67,7 @@
     "browserPrint": "A labeled selected-report layout replaces dashboard printing; browser snapshots and native archived PDF exports have distinct provenance."
   },
   "release": "3.1.2",
-  "measurementBackend": "Exact projective contraction and measured-qubit factor separation. GHZ29 X validated under512MiB; phase and remaining entanglement are preserved. General dense29 requirements remain8GiB plus working overhead. Registers above 29 logical qubits use non-collapsing joint-factor Born sampling in basis Z; no arbitrary 298-qubit dense simulation is claimed.",
+  "measurementBackend": "Exact projective contraction and measured-qubit factor separation. GHZ29 X validated under512MiB; phase and remaining entanglement are preserved. General dense29 requirements remain8GiB plus working overhead.",
   "verification": {
     "totalLimit": "Positive decimal requests contain at most 1024 digits. Distinct actual coverage is clamped to the finite model domain; CPU/GPU work streams in bounded batches.",
     "gpuBatchLimit": 16384,
@@ -85,19 +77,19 @@
   "seeds": "Mutable persistent seeds and counters are outside immutable carrier payloads; existing family seeds survive upgrade.",
   "sourceSha256": {
     "QuantumCore.cs": "ba80a655898fc0b2fc03dd1cfb271204eecd45ff8020a7d81beb428ccd58e9e2",
-    "SpinDoctorTranches.cs": "8a8da64e9e529cff90d875590bbc10fb7ec993724721d8c4fc210cc01b6adf19",
-    "SpinDoctorTrancheTerminal.cs": "a068385bd73b59891a5492ce68efef084dd64c8fb81f0ba8a0c8fb06905b78ad",
-    "SpinDoctorCircuits.cs": "9b754f04dfe3604180f7ab774c46acf5950773df4210d69c13c7063304419c9b",
-    "SpinDoctorInputs.cs": "b0b0fabef1d92d4c9608f4a28a6d99494c9f76dcf56f547cd9c2550b6628d63c",
-    "SpinDoctorReports.cs": "6c5a0f246c9e877466a922434580ae8667d248898032847e998fdf18143a79b0",
+    "SpinDoctorTranches.cs": "825a9c649a1d6fab6899f221c35503ff7eb9677234b7ae4cf8a08d1d6d8dd77d",
+    "SpinDoctorTrancheTerminal.cs": "546b2230a6bd36c4a8cba51d1a8e165a9d6bd7725ed93ae658e15fcc9a11b572",
+    "SpinDoctorCircuits.cs": "1f8e0342de07fd195192b8c3be539c13ea86b15d87f82c73c2ea4074237787e2",
+    "SpinDoctorInputs.cs": "c2500160747e2e7831fdfe28f1ca9bf0a7b12b814f67311bba20e7ab8e598649",
+    "SpinDoctorReports.cs": "770d7dda4077e7ced1a9a3126c6780beb09909bdff1876ebc7b2a92a3badabd6",
     "SpinDoctorPdfInputs.cs": "be5cbbd76eb1c1a2c2557530bbb6c9ebfd2e1ebfff2125777bef13ddfcf9428d",
-    "SpinDoctorCalculators.cs": "3041a375df8c75a904477fa7bdbc1f5712e77e02101eec0723fbbfd2f5b48140",
+    "SpinDoctorCalculators.cs": "819e517580fea6141a2c4338389cf0d4c46c67cf21d02ad503bcd3e68ff83a62",
     "SpinDoctorAdvanced.cs": "201cd68a7960227a3d78d7418f2a63994aac9179e2f759586313177e9ab94dd6",
-    "SpinDoctorSyntax.cs": "5b1372ea157f79ff3b26adb16ccb88def28d79d9e8bd06832431673aed9a1718",
-    "SpinDoctorSequences.cs": "907187e8da5b7c4a00d04535fc1387eb3d1d984847401d2db06efb36fe0d338c",
+    "SpinDoctorSyntax.cs": "df3827419226d62eca4e23f2fca0f1149a4f1d90e17e68feb06400abbd49be39",
+    "SpinDoctorSequences.cs": "0f1776823218ff66fee3d98506aa92d561a95bde25be91ac491acb450993d6fb",
     "SpinDoctorCommandReports.cs": "e1acb66520942b6a431ac2a03e499e724adc592b65dd87f49c3c425359e853fe",
-    "QuantumTerminal.cs": "48feae485ca282f11408ce2d5b922aa8e822cb394f81d2f38d692948d3b30946",
-    "QUANTUM_TERMINAL.html": "f8c76a594bd7de371eb8c06414189bcc83991c63e239c4baf32bf8dff0614a31",
+    "QuantumTerminal.cs": "172240606a85fc3d06704782f43ba8c32bda8d85e2458c83815cb6668416eb59",
+    "QUANTUM_TERMINAL.html": "ac8335cbcd8f4e2c8a93041ade875be1ccdf4104c0e4e2e9e29758df1b4b7c39",
     "RUN_QUANTUM_XPU.cmd": "67721ab3a2f89ad054a4ff8627625865cdd36112ce55e51fb78a917e749af208",
     "RUN_SPINDOCTOR.cmd": "f512a1c51ee1b52db635e86e5415f37bfb0e26fdf447c57f6e0428da1dac6461"
   },
@@ -110,8 +102,8 @@
     "directCircuitPreset": "Creates and queues native circuit execution by default; run=false defines only. Explicit shots/basis overrides take precedence. Final receipt waits for matching native completion.",
     "catalogSampling": "1,024 ordinary sampling shots; single collapsing measurement is exactly1; deterministic calculators and resource estimates do not draw shots.",
     "carrierFiles": [
-      "SpinDoctor-3.1.2.tiff",
-      "SpinDoctor-3.1.2.gif"
+      "SpinDoctor-3.1.1.tiff",
+      "SpinDoctor-3.1.1.gif"
     ]
   },
   "csvReports": {
@@ -151,11 +143,5 @@
     "source": "The same guarded, hash-checked native report references and selected archive stages as PDF/CSV.",
     "forms": "Editable plain equation text and conventional mathematical notation. PDF uses native vector mathematics with coefficients/variable mappings or declared gate operators, bounded local matrices and state/Born/Bloch equations.",
     "scope": "Report-layer representation of archived results and declared circuits; no inferred physical law, gate discovery, new simulation or huge full-register matrix. Local text edits do not mutate native sources, results or receipts."
-  },
-  "update": {
-    "id": "3.1.2-298-20261010",
-    "release": "3.1.2",
-    "scope": "298-qubit record encoding, native eleven-file folder execution, exact global indices, bounded coherent factors, checkpoint persistence, and clearer gate-index diagnostics.",
-    "compatibility": "Existing small-circuit replay, procedural family seeds, checkpoints, sources, archives, and history are preserved. Running native engines require a restart to load updated source."
   }
 }

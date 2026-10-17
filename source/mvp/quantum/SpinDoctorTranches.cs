@@ -1,24 +1,7 @@
-// SPDX-License-Identifier: GPL-3.0-or-later
-// SpinDoctor 3.1.2 - Quantum Virtual Terminal
-// Copyright (C) 2026 RUSSELL PHILIP SMITHSON <russellsmithson77@outlook.com>
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
-// Isolated preview: selected 1..298-qubit coherent registers. Product factors merge into genuine
+// Selected 1..29-qubit coherent registers. Product factors merge into genuine
 // entangled joint factors when a connecting gate is applied. Sparse amplitudes
 // are exact floating-point values: no threshold truncation or tensor-rank cutoff.
-// Global basis addresses use BigInteger. Each joint factor is limited to 59 bits
-// for the existing exact ulong local addressing and byte arithmetic.
+// Dense storage is segmented; 29 fully populated qubits require 8 GiB of state.
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -58,8 +41,6 @@ namespace QuettaQuantum
 
     public sealed class TrancheRegister : IDisposable
     {
-        public const int MaximumLogicalQubits = 298;
-        public const int MaximumFactorQubits = 59;
         private const int TileBits = 20, TileComplex = 1 << TileBits;
         private const ulong CompactCheckpointBytes = 64UL * 1024 * 1024;
         private readonly object sync = new object();
@@ -80,12 +61,7 @@ namespace QuettaQuantum
             public ulong Length { get { return 1UL << Bits.Length; } }
             public ulong DenseBytes { get { if (Dense == null) return 0; ulong n = 0; foreach (double[] a in Dense) if (a != null) n += (ulong)a.Length * 8; return n; } }
             public ulong EstimatedBytes { get { return Dense == null ? 4096UL + (ulong)Sparse.Count * 96 : 4096UL + (ulong)Dense.Length * 8 + DenseBytes; } }
-            public Factor(int[] bits)
-            {
-                if (bits == null || bits.Length < 1 || bits.Length > MaximumFactorQubits)
-                    throw new ArgumentOutOfRangeException("bits", "Each coherent joint factor supports 1..59 qubits in this isolated preview.");
-                Bits = bits; Sparse = new Dictionary<ulong, Complex>();
-            }
+            public Factor(int[] bits) { Bits = bits; Sparse = new Dictionary<ulong, Complex>(); }
             public Complex Get(ulong index)
             {
                 if (Dense == null) { Complex c; return Sparse.TryGetValue(index, out c) ? c : Complex.Zero; }
@@ -140,7 +116,7 @@ namespace QuettaQuantum
         public TrancheRegister(int qubits) : this(qubits, null) { }
         public TrancheRegister(int qubits, double[][] spinors)
         {
-            if (qubits < 1 || qubits > MaximumLogicalQubits) throw new ArgumentOutOfRangeException("qubits", "Selected registers support 1..298 logical qubits, with each coherent joint factor limited to 59 qubits.");
+            if (qubits < 1 || qubits > 29) throw new ArgumentOutOfRangeException("qubits", "Selected registers support 1..29 qubits.");
             if (spinors != null && spinors.Length != qubits) throw new ArgumentException("Supply one four-component spinor per qubit.");
             Qubits = qubits;
             for (int q = 0; q < qubits; ++q)
@@ -167,7 +143,6 @@ namespace QuettaQuantum
                 foreach (string n in new string[] { "cp","crx","cry","crz","rxx","ryy","rzz","rzx" }) list.Add(D("name",n,"angleCount",1,"targetCount",2,"local",false));
                 list.Add(D("name","cu","angleCount",4,"targetCount",2,"local",false));
                 foreach (string n in new string[] { "ccx","cswap" }) list.Add(D("name",n,"angleCount",0,"targetCount",3,"local",false));
-                list.Add(D("name","mcx7","angleCount",0,"targetCount",8,"local",false));
                 return list.ToArray();
             }
         }
@@ -232,7 +207,7 @@ namespace QuettaQuantum
                         else
                         {
                             int target=qubits[qubits.Length-1];int[] controls=new int[qubits.Length-1];Array.Copy(qubits,controls,controls.Length);
-                            string local=name=="ccx"||name=="mcx7"?"x":name.Substring(1);
+                            string local=name=="ccx"?"x":name.Substring(1);
                             double[] localAngles=angles;
                             if(name=="cu")localAngles=new double[]{angles[0],angles[1],angles[2]};
                             Complex[] g=LocalMatrix(local,localAngles);
@@ -265,8 +240,6 @@ namespace QuettaQuantum
         private Factor Merge(List<Factor> selected,Func<bool> cancel,Action<ulong,ulong> progress,ref BigInteger products,ref BigInteger writes)
         {
             List<int> bits=new List<int>();foreach(Factor f in selected)bits.AddRange(f.Bits);bits.Sort();
-            if(bits.Count>MaximumFactorQubits)
-                throw new InvalidOperationException("Gate would merge a coherent factor beyond the 59-qubit local addressing limit. The selected register is unchanged.");
             Factor merged=new Factor(bits.ToArray());merged.Set(0,Complex.One);
             ulong extra=merged.EstimatedBytes;
             foreach(Factor f in selected)
@@ -364,59 +337,12 @@ namespace QuettaQuantum
             Budget(WorkingBytes(working)+(ulong)pairs.Count*32);
         }
 
-        public double[] Amplitude(ulong basisIndex) { return Amplitude(new BigInteger(basisIndex)); }
-        public double[] Amplitude(BigInteger basisIndex)
+        public double[] Amplitude(ulong basisIndex)
         {
-            lock(sync){Alive();if(basisIndex.Sign<0||basisIndex>=(BigInteger.One<<Qubits))throw new ArgumentOutOfRangeException("basisIndex");Complex value=Complex.One;foreach(Factor f in factors){ulong index=0;for(int j=0;j<f.Bits.Length;++j)if((basisIndex&(BigInteger.One<<f.Bits[j]))!=BigInteger.Zero)index|=1UL<<j;value*=f.Get(index);}queryCount++;return new double[]{value.Real,value.Imaginary};}
+            lock(sync){Alive();if(basisIndex>=(1UL<<Qubits))throw new ArgumentOutOfRangeException("basisIndex");Complex value=Complex.One;foreach(Factor f in factors){ulong index=0;for(int j=0;j<f.Bits.Length;++j)if((basisIndex&(1UL<<f.Bits[j]))!=0)index|=1UL<<j;value*=f.Get(index);}queryCount++;return new double[]{value.Real,value.Imaginary};}
         }
-        public Dictionary<string,object> State(ulong basisIndex) { return State(new BigInteger(basisIndex)); }
-        public Dictionary<string,object> State(BigInteger basisIndex)
-        {double[] a=Amplitude(basisIndex);return D("basisIndex",basisIndex.ToString(CultureInfo.InvariantCulture),"amplitude",a,"probability",a[0]*a[0]+a[1]*a[1],"bitOrder","little-endian; qubit 0 is least significant");}
-        // Independent Born-Z draw from the retained product of coherent factors.
-        // Each factor is sampled jointly, preserving correlations inside it.
-        // Exactly one uniform is consumed per factor, including fixed factors.
-        // No factor amplitude or basis state is changed by this operation.
-        public BigInteger SampleZ(Func<double> uniform,Func<bool> cancel)
-        {
-            if(uniform==null)throw new ArgumentNullException("uniform");
-            lock(sync)
-            {
-                Alive();BigInteger basis=BigInteger.Zero;
-                foreach(Factor f in factors)
-                {
-                    Cancel(cancel);
-                    List<KeyValuePair<ulong,Complex>> entries=new List<KeyValuePair<ulong,Complex>>();
-                    foreach(KeyValuePair<ulong,Complex> e in f.Nonzero(cancel))
-                    {
-                        entries.Add(e);
-                        if((entries.Count&4095)==0){Budget(4096UL+(ulong)entries.Count*48);Cancel(cancel);}
-                    }
-                    Budget(4096UL+(ulong)entries.Count*48);
-                    entries.Sort(delegate(KeyValuePair<ulong,Complex> a,KeyValuePair<ulong,Complex> b){return a.Key.CompareTo(b.Key);});
-                    double norm=0;
-                    foreach(KeyValuePair<ulong,Complex> e in entries)
-                    {
-                        double p=e.Value.Real*e.Value.Real+e.Value.Imaginary*e.Value.Imaginary;
-                        if(!QuantumMath.IsFinite(p))throw new InvalidOperationException("Nonfinite coherent-factor probability.");
-                        norm+=p;
-                    }
-                    queryCount++;
-                    if(entries.Count==0||!QuantumMath.IsFinite(norm)||norm<=0||Math.Abs(norm-1)>2e-7)
-                        throw new InvalidOperationException("Born sampling requires a normalized nonempty coherent factor.");
-                    Cancel(cancel);double draw=uniform();
-                    if(!QuantumMath.IsFinite(draw)||draw<0||draw>=1)
-                        throw new ArgumentOutOfRangeException("uniform","Uniform draws must lie in [0,1).");
-                    double threshold=draw*norm,cumulative=0;ulong selected=entries[entries.Count-1].Key;
-                    foreach(KeyValuePair<ulong,Complex> e in entries)
-                    {
-                        cumulative+=e.Value.Real*e.Value.Real+e.Value.Imaginary*e.Value.Imaginary;
-                        if(threshold<cumulative){selected=e.Key;break;}
-                    }
-                    for(int j=0;j<f.Bits.Length;++j)if((selected&(1UL<<j))!=0)basis|=BigInteger.One<<f.Bits[j];
-                }
-                Cancel(cancel);measurementShots+=Qubits;return basis;
-            }
-        }
+        public Dictionary<string,object> State(ulong basisIndex)
+        {double[] a=Amplitude(basisIndex);return D("basisIndex",basisIndex.ToString(),"amplitude",a,"probability",a[0]*a[0]+a[1]*a[1],"bitOrder","little-endian; qubit 0 is least significant");}
         public double[] Spin(int qubit)
         { return Spin(qubit,null); }
         internal Dictionary<string,object> BoundedSpinSnapshot(int qubit,int maximumFactorEntries,Func<bool> cancel)
@@ -566,8 +492,7 @@ namespace QuettaQuantum
             {
                 Alive();List<object> fs=new List<object>();foreach(Factor f in factors)fs.Add(D("qubits",f.Bits,"basisStateCount",f.Length.ToString(),"storage",f.Dense==null?"sparse-joint":"segmented-FP64-joint","nonzeroAmplitudes",f.Dense==null?(object)f.Sparse.Count.ToString():"not scanned","estimatedBytes",f.EstimatedBytes.ToString()));
                 long privateBytes=ProcessMemorySampler.PrivateBytes();
-                BigInteger globalStates=BigInteger.One<<Qubits;
-                return D("qubits",Qubits,"maximumLogicalQubits",MaximumLogicalQubits,"maximumJointFactorQubits",MaximumFactorQubits,"basisStateCount",S(globalStates),"backend",factors.Count==Qubits?"factorized-product":"coherent-factor-blocks","factors",fs.ToArray(),"allocatedDenseStateBytes",DenseBytes().ToString(),"estimatedSparseStateBytes",SparseBytes().ToString(),"allocatedStateBytesEstimate",EstimatedBytes().ToString(),"memoryLimitBytes",memoryLimit.ToString(),"worstDenseStateBytes",S(globalStates*16),"worstTransactionalDenseGateBytes",S(globalStates*32),"logicalGateApplications",S(logicalGates),"actualAmplitudeWrites",S(amplitudeWrites),"actualTensorProducts",S(tensorProducts),"measurementShots",S(measurementShots),"queryCount",S(queryCount),"restoredAmplitudeLoads",RestoredAmplitudeLoads.ToString(),"canCompactCheckpoint",CanCompactCheckpoint,"processPrivateBytes",privateBytes.ToString(),"memoryAccountingScope","Dense tile bytes are exact; sparse dictionary storage is a conservative managed estimate. Process private bytes are measured for the complete host process (sampled at most every 250 ms; 3.0.3).","bitOrder","little-endian","scope","Isolated preview: one selected register of up to 298 logical qubits; each coherent factor is limited to 59 qubits. Factor blocks preserve genuine entanglement. Global dense-state byte counts are mathematical bounds, not allocations. No physical quantum gates are claimed.");
+                return D("qubits",Qubits,"basisStateCount",(1UL<<Qubits).ToString(),"backend",factors.Count==Qubits?"factorized-product":"coherent-factor-blocks","factors",fs.ToArray(),"allocatedDenseStateBytes",DenseBytes().ToString(),"estimatedSparseStateBytes",SparseBytes().ToString(),"allocatedStateBytesEstimate",EstimatedBytes().ToString(),"memoryLimitBytes",memoryLimit.ToString(),"worstDenseStateBytes",((1UL<<Qubits)*16).ToString(),"worstTransactionalDenseGateBytes",((1UL<<Qubits)*32).ToString(),"logicalGateApplications",S(logicalGates),"actualAmplitudeWrites",S(amplitudeWrites),"actualTensorProducts",S(tensorProducts),"measurementShots",S(measurementShots),"queryCount",S(queryCount),"restoredAmplitudeLoads",RestoredAmplitudeLoads.ToString(),"canCompactCheckpoint",CanCompactCheckpoint,"processPrivateBytes",privateBytes.ToString(),"memoryAccountingScope","Dense tile bytes are exact; sparse dictionary storage is a conservative managed estimate. Process private bytes are measured for the complete host process (sampled at most every 250 ms; 3.0.3).","bitOrder","little-endian","scope","One selected coherent register; factor blocks preserve genuine entanglement. No whole-domain entangling throughput or physical quantum gates are claimed.");
             }
         }
         public Dictionary<string,object> Export()
@@ -619,7 +544,7 @@ namespace QuettaQuantum
                     reader.ReadUInt64();result.SetMemoryLimit(memoryLimitBytes);result.logicalGates=ReadCounter(reader);result.amplitudeWrites=ReadCounter(reader);result.tensorProducts=ReadCounter(reader);result.measurementShots=ReadCounter(reader);result.queryCount=ReadCounter(reader);int count=reader.ReadInt32();if(count<1||count>result.Qubits)throw new InvalidDataException("Invalid factor count.");result.factors.Clear();HashSet<int> seen=new HashSet<int>();
                     for(int j=0;j<count;++j)
                     {
-                        int width=reader.ReadInt32();if(width<1||width>result.Qubits||width>MaximumFactorQubits)throw new InvalidDataException("Invalid factor width; each joint factor is limited to 59 qubits.");int[] bits=new int[width];for(int k=0;k<width;++k){bits[k]=reader.ReadInt32();result.CheckQubit(bits[k]);if(!seen.Add(bits[k]))throw new InvalidDataException("Repeated qubit in checkpoint.");}Factor f=new Factor(bits);bool dense=format=="SPINDOCTOR-TRANCHE-2"&&reader.ReadBoolean();ulong n=reader.ReadUInt64();if(n<1||n>f.Length||n>(ulong)Math.Max(0,(file.Length-file.Position-32)/24))throw new InvalidDataException("Invalid amplitude count.");if(dense||(BigInteger)n*96>(BigInteger)f.Length*16){ulong tiles=(f.Length+TileComplex-1)/TileComplex;if(tiles>Int32.MaxValue)throw new InvalidDataException("Dense checkpoint index exceeds the segmented array limit.");result.Budget(4096UL+tiles*8);f.Dense=new double[(int)tiles][];f.Sparse=null;}double norm=0;
+                        int width=reader.ReadInt32();if(width<1||width>result.Qubits)throw new InvalidDataException("Invalid factor width.");int[] bits=new int[width];for(int k=0;k<width;++k){bits[k]=reader.ReadInt32();result.CheckQubit(bits[k]);if(!seen.Add(bits[k]))throw new InvalidDataException("Repeated qubit in checkpoint.");}Factor f=new Factor(bits);bool dense=format=="SPINDOCTOR-TRANCHE-2"&&reader.ReadBoolean();ulong n=reader.ReadUInt64();if(n<1||n>f.Length)throw new InvalidDataException("Invalid amplitude count.");if(dense||n*96>f.Length*16){f.Dense=new double[checked((int)((f.Length+TileComplex-1)/TileComplex))][];f.Sparse=null;}double norm=0;
                         for(ulong k=0;k<n;++k){ulong index=reader.ReadUInt64();double re=reader.ReadDouble(),im=reader.ReadDouble();if(index>=f.Length||!QuantumMath.IsFinite(re)||!QuantumMath.IsFinite(im)||f.Get(index)!=Complex.Zero)throw new InvalidDataException("Invalid amplitude in checkpoint.");Complex value=new Complex(re,im);if(value==Complex.Zero)throw new InvalidDataException("Explicit zero in sparse checkpoint.");if(f.Dense!=null&&f.Dense[(int)(index>>TileBits)]==null)result.Budget(f.EstimatedBytes+Math.Min((ulong)TileComplex,f.Length-(index>>TileBits)*(ulong)TileComplex)*16);f.Set(index,value);result.RestoredAmplitudeLoads++;norm+=re*re+im*im;if((k&4095)==0)result.Budget(f.EstimatedBytes);}
                         if(Math.Abs(norm-1)>2e-7)throw new InvalidDataException("Checkpoint factor is not normalized.");result.Budget(f.EstimatedBytes);result.factors.Add(f);
                     }

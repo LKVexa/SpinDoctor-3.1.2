@@ -1,0 +1,29 @@
+SpinDoctor 3.0.8 candidate - complete folder PDF results
+
+Problem
+The 3.0.7 terminal and native child archives retained every q.math answer, but
+the completed folder PDF was built from parent orchestration metadata. Parent
+records/commands are empty by design; calculation results belong to the child
+jobs. The parent PDF therefore showed sampling and cleanup information without
+the run's actual command answers. Individual command PDFs contained their
+numbers, but the long verification sections made the distinction difficult to
+see.
+
+Update
+The native PDF pipeline resolves the recorded child results for an archived
+folder run, validates their identity and provenance, and includes the ordered
+command answers in the folder PDF. Reports lead with the numbers and figures,
+and distinguish run completion from report generation time. CPU/GPU sampled
+model evidence remains separate from calculator input states.
+
+Protection
+PDFs use recorded native responses rather than the latest live model or browser
+preview. Pending required verification still withholds success receipts. Missing
+or inconsistent required archives produce an explicit error rather than a
+complete-looking report with missing answers. Original archives stay unchanged.
+
+Verification
+See the candidate's validation folder for exact assertions, source hashes and
+scope. The supplied corrected PDF replays this user's already completed native
+run through the updated exporter in an isolated copy. Stress testing remains
+skipped at the user's request. The sampling ceiling and batch limit are unchanged.

@@ -56,19 +56,19 @@
                                           "test":  "csv_gate_regressions",
                                           "exit":  0,
                                           "seconds":  3.6,
-                                          "tail":  "PASS 49 CSV gate-list parse/import/run/provenance/native Bloch assertions. <WORK>\\spindoctor312\\suite312\\csv_gate_regressions\\run\\a9a745ff15d7466498338e07ba2ac939"
+                                          "tail":  "PASS 49 CSV gate-list parse/import/run/provenance/native Bloch assertions. D:\\AGENT_WORK\\spindoctor312\\suite312\\csv_gate_regressions\\run\\a9a745ff15d7466498338e07ba2ac939"
                                       },
                                       {
                                           "test":  "csv_input_regressions",
                                           "exit":  0,
                                           "seconds":  1.7,
-                                          "tail":  "PASS 124 CSV input/table/empirical-fit/native archive assertions. <WORK>\\spindoctor312\\suite312\\csv_input_regressions\\run\\5bac89d33e15459d80414e83bff6e2a7"
+                                          "tail":  "PASS 124 CSV input/table/empirical-fit/native archive assertions. D:\\AGENT_WORK\\spindoctor312\\suite312\\csv_input_regressions\\run\\5bac89d33e15459d80414e83bff6e2a7"
                                       },
                                       {
                                           "test":  "csv_workflow_example",
                                           "exit":  0,
                                           "seconds":  3.3,
-                                          "tail":  "PASS 58 combined native CSV workflow/example/export assertions. <WORK>\\spindoctor312\\suite312\\csv_workflow_example\\run"
+                                          "tail":  "PASS 58 combined native CSV workflow/example/export assertions. D:\\AGENT_WORK\\spindoctor312\\suite312\\csv_workflow_example\\run"
                                       },
                                       {
                                           "test":  "csv_http_offline",
@@ -98,13 +98,13 @@
                                           "test":  "native_spin_preview_regressions",
                                           "exit":  0,
                                           "seconds":  2.4,
-                                          "tail":  "PASS 277 native spin-preview assertions; five 1/2-qubit runs,20 actual shots,24 draws; 44 separate actual GPU/model comparisons. <WORK>\\spindoctor312\\suite312\\native_spin_preview_regressions\\run"
+                                          "tail":  "PASS 277 native spin-preview assertions; five 1/2-qubit runs,20 actual shots,24 draws; 44 separate actual GPU/model comparisons. D:\\AGENT_WORK\\spindoctor312\\suite312\\native_spin_preview_regressions\\run"
                                       },
                                       {
                                           "test":  "native_report_example",
                                           "exit":  0,
                                           "seconds":  1.9,
-                                          "tail":  "PASS native archive-resolved PDF example; GPU Intel(R) Graphics;140 real compared addresses;32 preview rows; actual calculator +Z/-Z/+X; no measurement shots. <WORK>\\spindoctor312\\suite312\\native_report_example\\run"
+                                          "tail":  "PASS native archive-resolved PDF example; GPU Intel(R) Graphics;140 real compared addresses;32 preview rows; actual calculator +Z/-Z/+X; no measurement shots. D:\\AGENT_WORK\\spindoctor312\\suite312\\native_report_example\\run"
                                       },
                                       {
                                           "test":  "transport_tests",
@@ -171,19 +171,19 @@
                                              "test":  "csv_gate_regressions",
                                              "exit":  0,
                                              "seconds":  2.9,
-                                             "tail":  "PASS 49 CSV gate-list parse/import/run/provenance/native Bloch assertions. <WORK>\\spindoctor312\\suite312_sealed\\csv_gate_regressions\\run\\ded51900e33842d5bda1b42207c59cd7"
+                                             "tail":  "PASS 49 CSV gate-list parse/import/run/provenance/native Bloch assertions. D:\\AGENT_WORK\\spindoctor312\\suite312_sealed\\csv_gate_regressions\\run\\ded51900e33842d5bda1b42207c59cd7"
                                          },
                                          {
                                              "test":  "csv_input_regressions",
                                              "exit":  0,
                                              "seconds":  1.9,
-                                             "tail":  "PASS 124 CSV input/table/empirical-fit/native archive assertions. <WORK>\\spindoctor312\\suite312_sealed\\csv_input_regressions\\run\\4dec8b85bdab48878cd512a985e32755"
+                                             "tail":  "PASS 124 CSV input/table/empirical-fit/native archive assertions. D:\\AGENT_WORK\\spindoctor312\\suite312_sealed\\csv_input_regressions\\run\\4dec8b85bdab48878cd512a985e32755"
                                          },
                                          {
                                              "test":  "csv_workflow_example",
                                              "exit":  0,
                                              "seconds":  3.7,
-                                             "tail":  "PASS 58 combined native CSV workflow/example/export assertions. <WORK>\\spindoctor312\\suite312_sealed\\csv_workflow_example\\run"
+                                             "tail":  "PASS 58 combined native CSV workflow/example/export assertions. D:\\AGENT_WORK\\spindoctor312\\suite312_sealed\\csv_workflow_example\\run"
                                          },
                                          {
                                              "test":  "csv_http_offline",
@@ -213,13 +213,13 @@
                                              "test":  "native_spin_preview_regressions",
                                              "exit":  0,
                                              "seconds":  2.8,
-                                             "tail":  "PASS 277 native spin-preview assertions; five 1/2-qubit runs,20 actual shots,24 draws; 44 separate actual GPU/model comparisons. <WORK>\\spindoctor312\\suite312_sealed\\native_spin_preview_regressions\\run"
+                                             "tail":  "PASS 277 native spin-preview assertions; five 1/2-qubit runs,20 actual shots,24 draws; 44 separate actual GPU/model comparisons. D:\\AGENT_WORK\\spindoctor312\\suite312_sealed\\native_spin_preview_regressions\\run"
                                          },
                                          {
                                              "test":  "native_report_example",
                                              "exit":  0,
                                              "seconds":  1.9,
-                                             "tail":  "PASS native archive-resolved PDF example; GPU Intel(R) Graphics;140 real compared addresses;32 preview rows; actual calculator +Z/-Z/+X; no measurement shots. <WORK>\\spindoctor312\\suite312_sealed\\native_report_example\\run"
+                                             "tail":  "PASS native archive-resolved PDF example; GPU Intel(R) Graphics;140 real compared addresses;32 preview rows; actual calculator +Z/-Z/+X; no measurement shots. D:\\AGENT_WORK\\spindoctor312\\suite312_sealed\\native_report_example\\run"
                                          },
                                          {
                                              "test":  "transport_tests",

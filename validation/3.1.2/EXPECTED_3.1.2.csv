@@ -1,4 +1,4 @@
-folder,file,expected_job,expected_file,expected_message,reason
+﻿folder,file,expected_job,expected_file,expected_message,reason
 01_smoke,a_bell.txt,completed,completed,,valid txt-sequence
 01_smoke,b_math.csv,completed,completed,,valid csv-sequence
 01_smoke,c_ghz.json,completed,completed,,valid json circuit

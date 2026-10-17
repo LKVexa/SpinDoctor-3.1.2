@@ -1,0 +1,117 @@
+QuettaFLOP XOR XPU: black/white pairs and shared epochs
+
+Black encodes the bit 0 and white encodes the bit 1. The operation is XOR:
+0 XOR 0 = 0 (black); 0 XOR 1 = 1 (white);
+1 XOR 0 = 1 (white); 1 XOR 1 = 0 (black).
+There is no averaging, color blending, or gray XOR answer. The viewer may use
+other colors for labels and controls; the encoded operand and result pixels
+have only the black and white values.
+
+The RAM reservoir is physically allocated and initialized once. Its initialized
+base bits supply the domain. A shared epoch descriptor defines logical values
+over those base bits. Advancing that descriptor does not overwrite every RAM
+bit and does not start one operating-system thread per stored bit.
+
+For a base bit r and a seeded, address-dependent binary mask M(e,i), define
+A = r XOR M(e,i), B = M(e,i) XOR M(e+1,i), and C = A XOR B.
+The XOR identity gives C = r XOR M(e+1,i). Thus the next logical state has
+an exact addressable definition. The mask is generated reproducibly from its
+seed, epoch and address. The viewer retains the recorded seed across new runs,
+reset and page load. Its explicit New seed control chooses a new seed; replay
+uses the recorded seed. The native command line can draw its first seed from
+the operating-system random source when no seed is provided, and records it.
+The seed stays fixed throughout epochs, pause/resume and sampling of that
+session. This is a pseudo-random field, not independent
+physical random entropy stored separately for every logical pixel. Operand
+construction and state decoding are helper calculations; the displayed virtual
+workload counts the primary A XOR B operation once for each domain bit.
+
+Only selected positions are read and evaluated by the CPU and real OpenCL
+GPU. Their actual A, B and C values are compared with a separate reference.
+The GPU must complete its command and result readback before its sample work
+is acknowledged. A submitted command or a scheduled timer is pending work.
+Unavailable or failed GPU execution is an explicit error, never a CPU-only
+measurement presented as CPU-plus-GPU execution.
+
+Each completed epoch represents one virtual bitwise XOR operation per
+initialized base bit. This quantity describes the shared-epoch logical model.
+It is not a claim that those XORs were individually executed. Actual sampled
+primary XOR expressions, mask/hash/decode helpers, initialization writes and
+per-epoch RAM writes have separate accounting. XOR is binary arithmetic
+(addition modulo 2), not a floating-point operation; this mode claims no FLOP/s.
+
+Virtual XOR/s = initialized domain bits times completed epochs divided by
+the measured real elapsed seconds of the declared run window. The configured
+2 ms or 10 ms interval is a target, never the rate denominator. Completion
+requires the configured CPU/GPU sample work, result readback and validation.
+The rate window includes sample handling and epoch bookkeeping. Initialization
+is a separate boundary and an end-to-end figure should include it explicitly.
+Cadence and latency report their own measured intervals. A requested 500 Hz
+clock is not evidence that a sustained run completed 500 epochs per second.
+
+For 93,698,129,920 domain bits, 500 completed epochs in one measured second
+would represent 46,849,064,960,000 virtual bitwise XOR operations/s. This is
+a formula example, not a benchmark result. Reports and the viewer must use
+the actual initialized domain size, completed epoch count and measured time.
+The former approximately 200-billion-bits/s physical-fill metric measures a
+different kind of work and cannot be relabeled as virtual XOR execution.
+
+Sampling establishes the observed positions. It does not certify every
+unobserved physical RAM bit or prove that the full virtual domain was executed.
+The full-domain identity is algebraic; the sampled CPU/GPU calculations check
+the implementation at requested addresses. Sample selection, repeated bytes
+and caches affect actual reads. Source-expression counters are not hardware
+instruction counts or measured DRAM bus traffic.
+
+The memory planner uses observed available physical RAM, deducts an OS reserve
+and modeled application/driver/scratch overhead, and constrains GPU staging
+buffers by their actual device limits. Integrated graphics shares system RAM;
+its reported global-memory size is not added as a separate physical pool.
+Owned buffer bytes and observed process/OS memory values are separate facts.
+OpenCL CL_MEM_ALLOC_HOST_PTR requests host-accessible storage, but does not
+prove zero-copy implementation or guaranteed physical-page residency.
+Khronos reference:
+https://registry.khronos.org/OpenCL/specs/unified/refpages/man/html/clCreateBuffer.html
+
+The packaged launcher runs a contained authenticated loopback service. A
+standalone HTML opened without that service is a report viewer and cannot
+perform native CPU/GPU execution. The service exposes only contained actions
+and packaged assets. Release frees the owned reservoir and GPU resources.
+Prior bulk-fill, full-traversal, finite-execution and symbolic-reference modes
+retain their own distinct accounting; their work is not added to this mode.
+
+Included measured full-RAM experiment
+
+The recorded experiment initialized 13,525,057,536 reservoir bytes, defining
+108,200,460,288 base-bit addresses. Initialization took 2,464.5876 ms. The
+uncapped benchmark then acknowledged 6,391 shared epochs in 2.000186600 real
+seconds: 3,195.2019 epochs/s and 345,722,314,957,963.56 virtual XOR/s (about
+345.722 trillion). Its exact virtual total was 691,509,141,700,608 XORs.
+
+The measured epoch window explicitly calculated 409,024 selected primary XORs:
+204,512 on the CPU and 204,512 on the real Intel Graphics OpenCL GPU, using
+64 selected pairs per epoch. Mask/hash/representation source expressions have
+their own counters. These 409,024 sampled XORs are actual expressions; the
+691-trillion domain quantity remains shared-epoch represented work.
+Epoch RAM writes were zero after the one physical base initialization.
+
+Observed issue-to-issue intervals had a mean of 0.3129612 ms and a maximum
+of 2.7974 ms. All 6,390 observed intervals were below 10 ms; 6,389 were below
+2 ms and one missed 2 ms. The first epoch has no preceding cadence interval.
+Sample/commit latency is a separate distribution: 6,390 of 6,391 completed
+epochs were below 2 ms, with one maximum of 2.7654 ms. This was a measured
+two-second run, not a guarantee that every future epoch will meet a deadline.
+
+After that benchmark, 416 fresh positions at both sides of native fill-chunk
+and CPU-thread boundaries were queried. They added 416 actual primary XORs
+but no epochs or virtual credit, and did not change the measured window or
+recorded seed (4159186445). Independent scalar parsing checked those 416
+positions plus all 64 retained final-epoch random pairs. Every checked mask,
+operand and black/white XOR result matched the separate modular reference.
+These selected checks do not certify all unobserved bits.
+
+The complete setup, epoch run and boundary-query host interval was 4,694.3441
+ms. Peak process working set was 13,729,538,048 bytes, an OS observation and
+not guaranteed per-page residency. The owned reservoir and GPU buffers were
+released after the experiment. The included execution and validation JSON
+files preserve the measured boundaries, source hashes and separate counters.
